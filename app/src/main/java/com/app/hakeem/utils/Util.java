@@ -1,10 +1,19 @@
 package com.app.hakeem.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.app.hakeem.R;
 
 import java.util.Calendar;
 import java.util.regex.Matcher;
@@ -67,5 +76,6 @@ public class Util {
             imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
 
     }
+
 
 }

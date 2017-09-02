@@ -6,4 +6,5 @@ package com.app.hakeem.utils;
 
 public interface C {
 
+    int SPLASH_DELAY = 3000;
 }
