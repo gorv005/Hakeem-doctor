@@ -12,16 +12,19 @@
 
         <activity
             android:name=".ActivityContainer"
+            android:theme="@style/AppTheme.NoActionBar"
+
             android:label="@string/title_activity_container"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ActivityMain"
+            android:theme="@style/AppTheme.NoActionBar"
+
             android:screenOrientation="portrait">
 
         </activity>
