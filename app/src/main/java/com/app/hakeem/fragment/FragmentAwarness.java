@@ -12,10 +12,10 @@ import com.app.hakeem.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentWelcome extends Fragment {
+public class FragmentAwarness extends Fragment {
 
 
-    public FragmentWelcome() {
+    public FragmentAwarness() {
 
     }
 

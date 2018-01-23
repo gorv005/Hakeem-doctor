@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.Util;
