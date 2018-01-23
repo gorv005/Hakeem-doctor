@@ -10,4 +10,9 @@ public interface C {
     String TAG_FRAGMENT_SPLASH ="fragment_splash" ;
     String BUNDLE = "bundle";
     String FRAGMENT_ACTION ="action" ;
+    long SPLASH_LOADER_TIME = 2500;
+    String STATUS_SUCCESS = "HK001";
+
+    String STATUS_NOT_KNOWN ="HK002" ;
+    String STATUS_FAIL = "HK002" ;
 }

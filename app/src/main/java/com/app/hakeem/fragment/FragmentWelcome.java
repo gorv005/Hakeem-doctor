@@ -16,7 +16,7 @@ public class FragmentWelcome extends Fragment {
 
 
     public FragmentWelcome() {
-        // Required empty public constructor
+
     }
 
 
@@ -26,5 +26,8 @@ public class FragmentWelcome extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_welcome, container, false);
     }
+
+
+
 
 }
