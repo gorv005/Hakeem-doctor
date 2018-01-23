@@ -1,15 +1,14 @@
 package com.app.hakeem;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.app.Activity;
 
-public class ActivityMain extends Activity {
+public class ActivityContainer extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
+        setContentView(R.layout.activity_container);
     }
+
 }
