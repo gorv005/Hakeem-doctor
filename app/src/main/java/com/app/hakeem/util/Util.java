@@ -508,8 +508,6 @@ public class Util {
     }
 
 
-
-
     public static String getNationality(String nationality) {
         String strNationality = "";
         switch (nationality) {
@@ -643,10 +641,18 @@ public class Util {
     }
 
 
-
     public static ArrayList<SideMenuItem> getSideMenuList(boolean isLogin) {
         ArrayList<SideMenuItem> sideMenuItems = new ArrayList<SideMenuItem>();
-//        sideMenuItems.add(new SideMenuItem(R.string.flight_status, R.drawable.status));
+        if (!isLogin)
+            sideMenuItems.add(new SideMenuItem(R.string.login, R.drawable.icon_settting));
+        else {
+            sideMenuItems.add(new SideMenuItem(R.string.queue, R.drawable.queue));
+            sideMenuItems.add(new SideMenuItem(R.string.emr_and_tracker, R.drawable.menu_general));
+            sideMenuItems.add(new SideMenuItem(R.string.profile, R.drawable.icon_profile));
+            sideMenuItems.add(new SideMenuItem(R.string.awareness, R.drawable.menu_general));
+            sideMenuItems.add(new SideMenuItem(R.string.setting, R.drawable.icon_settting));
+            sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));
+        }
 //        if (isLogin) {
 //            sideMenuItems.add(new SideMenuItem(R.string.my_bookings, R.drawable.booking));
 //            sideMenuItems.add(new SideMenuItem(R.string.my_account, R.drawable.account));
@@ -659,8 +665,6 @@ public class Util {
 //            sideMenuItems.add(new SideMenuItem(R.string.logout, R.drawable.logout));
         return sideMenuItems;
     }
-
-
 
 
     public static SpannableString setSomeColorRed2(String s) {
@@ -729,8 +733,6 @@ public class Util {
     }
 
 
-
-
     public static boolean isDatesequal(String departDate, String returnDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
         Date date1 = null;
@@ -779,6 +781,7 @@ public class Util {
         }
         return false;
     }
+
     public static boolean isDateSmallThanCurrent(String departDate, String returnDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
         Date date1 = null;
@@ -807,6 +810,7 @@ public class Util {
         }
         return false;
     }
+
     public static String getCurrentDate() {
         String formattedDate = null;
         try {
@@ -825,7 +829,7 @@ public class Util {
     }
 
 
-    public static Map<String,String> getHeader(Activity activity) {
+    public static Map<String, String> getHeader(Activity activity) {
         HashMap<String, String> headers = new HashMap<String, String>();
         String authToken = SharedPreference.getInstance(activity).getString(C.AUTH_TOKEN);
         headers.put("authtoken", authToken);

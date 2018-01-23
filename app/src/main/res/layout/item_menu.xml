@@ -38,8 +38,8 @@
             android:layout_toLeftOf="@id/ivArrow"
             android:layout_toRightOf="@id/ivIcon"
             android:text="@string/app_name"
-            android:textColor="@color/yellow"
-            android:textSize="15sp" />
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
     </RelativeLayout>
 

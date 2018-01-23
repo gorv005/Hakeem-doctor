@@ -7,9 +7,7 @@
         android:right="10dp"
         android:top="15dp"></padding>
     <solid android:color="@color/white"></solid>
-    <stroke
-        android:width="0.5dp"
-        android:color="@color/gray1"></stroke>
+
     <corners android:radius="5dp"
         ></corners>
 </shape>
