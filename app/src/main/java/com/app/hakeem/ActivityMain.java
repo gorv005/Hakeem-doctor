@@ -9,16 +9,26 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.android.volley.VolleyError;
+import com.app.hakeem.adapter.AdapterPosts;
 import com.app.hakeem.adapter.AdapterSideMenu;
+import com.app.hakeem.interfaces.IResult;
+import com.app.hakeem.pojo.ResponsePost;
 import com.app.hakeem.pojo.SideMenuItem;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
+import com.app.hakeem.webservices.VolleyService;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,10 +38,13 @@ public class ActivityMain extends AppCompatActivity
 
     @BindView(R.id.lvMenuItem)
     ListView listView;
+    @BindView(R.id.lvPosts)
+    ListView lvPosts;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     private AdapterSideMenu adapterSideMenu;
+    private AdapterPosts adapterPosts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +98,48 @@ public class ActivityMain extends AppCompatActivity
     }
 
     private void getAllPosts() {
+
+        Gson gson = new Gson();
+        String json = gson.toJson("");
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(this);
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                //   progressDialog.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                     ResponsePost responsePost = gson.fromJson(response.toString(), ResponsePost.class);
+                    if (responsePost.getStatusCode().equals(C.STATUS_SUCCESS)) {
+
+                        adapterPosts =new AdapterPosts(ActivityMain.this,responsePost.getPosts());
+                        lvPosts.setAdapter(adapterPosts);
+
+                    } else {
+
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, VolleyError error) {
+
+            }
+        }, "posts", C.API_POSTS, Util.getHeader(this), obj);
+
 
 
 

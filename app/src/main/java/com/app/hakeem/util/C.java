@@ -19,5 +19,13 @@ public interface C {
     String STATUS_NOT_KNOWN ="HK002" ;
     String STATUS_FAIL = "HK002" ;
     String IS_LOGIN = "is_login";
+    String AUTH_TOKEN = "authToken";
+
+    String PHOTO = "photo";
+    String TEXT = "text";
+    String VIDEO = "text";
+
     int API_TIME_OUT = 2500 ;
+    String BASE_URL = "http://www.dataheadstudio.com/test/api";
+    String API_POSTS = BASE_URL +"/posts" ;
 }

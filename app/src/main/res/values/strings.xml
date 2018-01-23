@@ -21,4 +21,5 @@
 
     <string name="action_settings">Settings</string>
     <string name="login">Login</string>
+    <string name="docotr_name">Doctor name</string>
 </resources>
