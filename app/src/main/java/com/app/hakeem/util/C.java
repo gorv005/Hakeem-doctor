@@ -23,9 +23,11 @@ public interface C {
 
     String PHOTO = "photo";
     String TEXT = "text";
-    String VIDEO = "text";
+    String VIDEO = "video";
 
-    int API_TIME_OUT = 2500 ;
+    int API_TIME_OUT = 12000 ;
     String BASE_URL = "http://www.dataheadstudio.com/test/api";
     String API_POSTS = BASE_URL +"/posts" ;
+
+
 }

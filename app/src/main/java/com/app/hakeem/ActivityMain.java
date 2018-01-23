@@ -99,8 +99,9 @@ public class ActivityMain extends AppCompatActivity
 
     private void getAllPosts() {
 
-        Gson gson = new Gson();
-        String json = gson.toJson("");
+        String json = "{\"patient_id\" = \"14\" }";
+
+//        String json = gson.toJson("");
         JSONObject obj = null;
         try {
             obj = new JSONObject(json);
@@ -136,6 +137,8 @@ public class ActivityMain extends AppCompatActivity
 
             @Override
             public void notifyError(String requestType, VolleyError error) {
+
+                Log.e("Response :", error.toString());
 
             }
         }, "posts", C.API_POSTS, Util.getHeader(this), obj);

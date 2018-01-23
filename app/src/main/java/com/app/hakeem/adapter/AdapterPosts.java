@@ -24,12 +24,13 @@ public class AdapterPosts extends BaseAdapter {
     private final LayoutInflater mInflater;
     private Activity activity;
     private ArrayList<Post> Posts;
-ImageLoader imageLoader;
+    ImageLoader imageLoader;
+
     public AdapterPosts(Activity activity, ArrayList<Post> Posts) {
         this.activity = activity;
         this.Posts = Posts;
         mInflater = LayoutInflater.from(activity);
-        imageLoader =new ImageLoader(activity);
+        imageLoader = new ImageLoader(activity);
 
     }
 
@@ -51,48 +52,62 @@ ImageLoader imageLoader;
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        ViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(
                     R.layout.item_post, parent, false);
+            viewHolder = new ViewHolder();
+
+            viewHolder.tvDoctorName = (TextView) convertView.findViewById(R.id.tvDoctorName);
+            viewHolder.ivDoctor = (ImageView) convertView.findViewById(R.id.ivDoctor);
+            viewHolder.ivSpecialityIcon = (ImageView) convertView.findViewById(R.id.ivSpeciality);
+            viewHolder.tvMsg = (TextView) convertView.findViewById(R.id.tvMsg);
+            viewHolder.ivMsg = (ImageView) convertView.findViewById(R.id.ivMsgImg);
+            viewHolder.tvLiked = (TextView) convertView.findViewById(R.id.tvLike);
+            viewHolder.tvShare = (TextView) convertView.findViewById(R.id.tvShare);
+            viewHolder.tvComment = (TextView) convertView.findViewById(R.id.tvComment);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        TextView tvDoctorName = (TextView)convertView.findViewById(R.id.tvDoctorName);
-        ImageView ivDoctor = (ImageView) convertView.findViewById(R.id.ivDoctor);
-        ImageView ivSpecialityIcon = (ImageView) convertView.findViewById(R.id.ivSpeciality);
-        TextView tvMsg = (TextView)convertView.findViewById(R.id.tvMsg);
-        ImageView ivMsg = (ImageView) convertView.findViewById(R.id.ivMsgImg);
-        TextView tvLiked = (TextView)convertView.findViewById(R.id.tvLike);
-        TextView tvShare = (TextView)convertView.findViewById(R.id.tvShare);
-        TextView tvComment = (TextView)convertView.findViewById(R.id.tvComment);
 
+        Post post = getItem(position);
+        viewHolder.tvDoctorName.setText(post.getPostBy());
+        if (C.PHOTO.equals(post.getType())) {
+            viewHolder.tvMsg.setVisibility(View.GONE);
+            viewHolder.ivMsg.setVisibility(View.VISIBLE);
+            imageLoader.DisplayImage(post.getUrl(), viewHolder.ivMsg);
 
-        Post post =getItem(position);
-        tvDoctorName.setText(post.getPostBy());
-        if(C.PHOTO.equals(post.getType())) {
-            tvMsg.setVisibility(View.GONE);
-            ivMsg.setVisibility(View.VISIBLE);
-            imageLoader.DisplayImage(post.getUrl(),ivMsg);
-
-        }
-        else if(C.VIDEO.equals(post.getType()))
-        {
-            tvMsg.setVisibility(View.GONE);
-            ivMsg.setVisibility(View.VISIBLE);
-            imageLoader.DisplayImage(post.getUrl(),ivMsg);
-        }
-        else if(C.TEXT.equals(post.getType()))
-        {
-
-            ivMsg.setVisibility(View.GONE);
-            tvMsg.setVisibility(View.VISIBLE);
-            tvMsg.setText(post.getContent());
+        } else if (C.VIDEO.equals(post.getType())) {
+            viewHolder.tvMsg.setVisibility(View.GONE);
+            viewHolder.ivMsg.setVisibility(View.VISIBLE);
+            imageLoader.DisplayImage(post.getUrl(), viewHolder.ivMsg);
+        } else if (C.TEXT.equals(post.getType())) {
+            viewHolder.ivMsg.setVisibility(View.GONE);
+            viewHolder.tvMsg.setVisibility(View.VISIBLE);
+            viewHolder.tvMsg.setText(post.getContent());
         }
 
-        imageLoader.DisplayImage(post.getIconUrl(),ivSpecialityIcon);
-        imageLoader.DisplayImage(post.getIconUrl(),ivDoctor);
-        tvLiked.setText(post.getTotalLikes());
-        tvComment.setText(post.getTotalLikes());
-        tvShare.setText("5");
+        imageLoader.DisplayImage(post.getIconUrl(), viewHolder.ivSpecialityIcon);
+        imageLoader.DisplayImage(post.getUserPic(), viewHolder.ivDoctor);
+        viewHolder.tvLiked.setText(post.getTotalLikes() + "");
+        viewHolder.tvComment.setText(post.getTotalLikes() + "");
+        viewHolder.tvShare.setText("5");
         return convertView;
+    }
+
+
+    class ViewHolder {
+
+        TextView tvDoctorName;
+        ImageView ivDoctor;
+        ImageView ivSpecialityIcon;
+        TextView tvMsg;
+        ImageView ivMsg;
+        TextView tvLiked;
+        TextView tvShare;
+        TextView tvComment;
+
     }
 }
