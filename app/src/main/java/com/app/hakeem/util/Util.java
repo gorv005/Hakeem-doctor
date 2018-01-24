@@ -35,6 +35,8 @@ import android.widget.TextView;
 import com.app.hakeem.R;
 import com.app.hakeem.pojo.SideMenuItem;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.GeneralSecurityException;
 import java.sql.Time;
 import java.text.DecimalFormat;
@@ -435,7 +437,7 @@ public class Util {
 
     public static String getDateFromString(String date) {
 
-        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = newDateFormat.format(date);
         return strDate;
     }
@@ -822,12 +824,30 @@ public class Util {
         return headers;
     }
 
-    public static Map<String, String> getHeader() {
-        HashMap<String, String> headers = new HashMap<String, String>();
-//        String authToken = SharedPreference.getInstance(activity).getString(C.AUTH_TOKEN);
-//        headers.put("authtoken", authToken);
-        headers.put("Accept", "application/json");
-        headers.put("Content-Type", "application/json");
-        return headers;
+//    public static Map<String, String> getHeader() {
+//        HashMap<String, String> headers = new HashMap<String, String>();
+////        String authToken = SharedPreference.getInstance(activity).getString(C.AUTH_TOKEN);
+////        headers.put("authtoken", authToken);
+//        headers.put("Accept", "application/json");
+//        headers.put("Content-Type", "application/json");
+//        return headers;
+//    }
+
+
+    public static String loadCityJson(Activity activity) {
+        String json = null;
+        try {
+            InputStream is = activity.getAssets().open("cities-en.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
+
 }

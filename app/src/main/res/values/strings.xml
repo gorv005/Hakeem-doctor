@@ -75,5 +75,20 @@
     <string name="bithdate">Birthday</string>
     <string name="done">Done</string>
     <string name="gender">Gender</string>
+    <string name="first_name_required">We need a First Name</string>
+    <string name="first_name_should_be_more_then_3_character">First Name should be 3-20 alphabets only, no special characters</string>
+    <string name="name_could_not_starts_with_dot">Name cannot start with a dot</string>
+    <string name="email_is_required">We need an Email ID</string>
+    <string name="please_enter_valid_email">Oops! It seems your email id did not match with our records.</string>
+    <string name="mobile_no_is_required">Incorrect Phone Number. The correct phone number may only include 14 digits</string>
+    <string name="please_enter_valid_mobile_number">Please enter valid mobile number</string>
+    <string name="number_strts_with_zero">Mobile Number should be 10 digits, not starting with \'0\'</string>
+    <string name="password_should_be_8_12_characters_with_at_least_1_nummeric">Password must contain at least 8-16 characters, including UPPER/LOWERCASE, special symbols and numbers</string>
+    <string name="password_required">Incorrect Password. The correct password must have a minimum of 8 characters; with at least One Character in upper case and at least One special character or Number</string>
+    <string name="select_city">Select city</string>
+    <string name="please_enter_relationship">Please enter relationship</string>
+    <string name="please_enter_date_of_birth">Please enter Date of Birth</string>
+    <string name="please_enter_city">Please select city</string>
+    <string name="please_add_atleast_one_depandent">Please add atleast one dependent</string>
 
 </resources>

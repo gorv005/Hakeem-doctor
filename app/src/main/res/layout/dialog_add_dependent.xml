@@ -29,8 +29,8 @@
             android:textColorHint="@color/white_off"
             android:textSize="14sp" />
 
-        <Button
-            android:id="@+id/btnRelationship"
+        <TextView
+            android:id="@+id/tvRelationship"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
@@ -40,6 +40,7 @@
             android:drawablePadding="20dp"
             android:background="@drawable/rounded_red_blue_corner"
             android:hint="@string/relationship"
+            android:text="Parents"
             android:textColor="@color/white"
             android:textColorHint="@color/white_off"
             android:textSize="14sp" />
@@ -63,17 +64,16 @@
                 android:gravity="center">
 
                 <RadioButton
-                    android:id="@+id/rbOneWay"
+                    android:id="@+id/rbMale"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="5dp"
-                    android:background="@drawable/button_deselect_blue"
+                    android:background="@drawable/button_select_blue"
                     android:button="@null"
                     android:buttonTint="@color/gray4"
-                    android:checked="true"
                     android:gravity="center"
                     android:text="@string/male"
-                    android:textColor="@color/color_selector_blue"
+                    android:textColor="@color/white"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -84,7 +84,7 @@
                 android:gravity="center">
 
                 <RadioButton
-                    android:id="@+id/rbTwoWay"
+                    android:id="@+id/rbFemale"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
@@ -97,8 +97,8 @@
                     android:textSize="15sp" />
             </LinearLayout>
         </LinearLayout>
-        <Button
-            android:id="@+id/btnBirthdate"
+        <TextView
+            android:id="@+id/tvBirthDay"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"

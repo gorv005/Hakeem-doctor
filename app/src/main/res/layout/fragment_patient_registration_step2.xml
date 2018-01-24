@@ -40,25 +40,27 @@
                 android:textColor="@color/green"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/etBirthDate"
+            <TextView
+                android:id="@+id/tvBirthDay"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:gravity="left|center_vertical"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_red_blue_corner"
                 android:drawableLeft="@drawable/icon_calendar"
                 android:drawablePadding="20dp"
-                android:hint="@string/name"
+                android:hint="@string/bithdate"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white_off"
                 android:textSize="14sp" />
 
 
-            <EditText
-                android:id="@+id/etCity"
+            <TextView
+                android:id="@+id/tvCity"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:gravity="left|center_vertical"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_red_blue_corner"

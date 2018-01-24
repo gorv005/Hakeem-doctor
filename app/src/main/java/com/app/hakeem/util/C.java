@@ -17,27 +17,30 @@ public interface C {
     int FRAGMENT_REGISTRATION_TYPE = 5;
 
     String TAG_FRAGMENT_LOGIN = "fragment_login";
+    String TAG_FRAGMENT_REGISTER_P_1 = "TAG_FRAGMENT_REGISTER_P_1";
+    String TAG_FRAGMENT_REGISTER_P_2 = "TAG_FRAGMENT_REGISTER_P_2";
     String TAG_FRAGMENT_SPLASH ="fragment_splash" ;
-    String BUNDLE = "bundle";
 
+    String BUNDLE = "bundle";
     String LOGIN_USER = "login_user";
     String FRAGMENT_ACTION ="action" ;
     long SPLASH_LOADER_TIME = 2500;
     String STATUS_SUCCESS = "HK001";
-    String STATUS_NOT_KNOWN ="HK002" ;
 
+    String STATUS_NOT_KNOWN ="HK002" ;
     String STATUS_FAIL = "HK002" ;
     String IS_LOGIN = "is_login";
-    String AUTH_TOKEN = "authToken";
 
+    String AUTH_TOKEN = "authToken";
     String PHOTO = "photo";
     String TEXT = "text";
+
+
     String VIDEO = "video";
-
-
     int API_TIME_OUT = 12000 ;
     String BASE_URL = "http://www.dataheadstudio.com/test/api";
     String API_POSTS = BASE_URL +"/posts" ;
     String API_LOGIN = BASE_URL+"/login";
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
+    String USER = "user" ;
 }

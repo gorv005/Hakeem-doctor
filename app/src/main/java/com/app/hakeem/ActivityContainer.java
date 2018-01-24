@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep1;
 import com.app.hakeem.fragment.FragmentLogin;
+import com.app.hakeem.fragment.FragmentPatientRegistrationStep1;
+import com.app.hakeem.fragment.FragmentPatientRegistrationStep2;
 import com.app.hakeem.fragment.FragmentRegisterType;
 import com.app.hakeem.fragment.FragmentSplash;
 import com.app.hakeem.util.C;
@@ -75,9 +77,22 @@ public class ActivityContainer extends AppCompatActivity {
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_TYPE);
                 break;
 
+            case C.FRAGMENT_PATIENT_REGISTRATION_STEP1:
+                getSupportActionBar().hide();
+                fragment = new FragmentPatientRegistrationStep1();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_P_1);
+                break;
+
+            case C.FRAGMENT_PATIENT_REGISTRATION_STEP2:
+                getSupportActionBar().hide();
+                fragment = new FragmentPatientRegistrationStep2();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_P_2);
+                break;
+
         }
         fragment.setArguments(bundle);
-
         fragmentTransaction.commit();
         getSupportFragmentManager().executePendingTransactions();
 
