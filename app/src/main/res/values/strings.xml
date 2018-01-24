@@ -66,5 +66,10 @@
     <string name="iban">IBAN</string>
     <string name="confirm_iban">Confirm IBAN</string>
     <string name="photoUpload">Photo upload</string>
+    <string name="name">Name</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="city">City</string>
+    <string name="add_dependents">Add Dependents</string>
+    <string name="complete_registration">Complete Registration</string>
 
 </resources>
