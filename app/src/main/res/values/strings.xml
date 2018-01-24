@@ -34,5 +34,7 @@
     <string name="password">Password</string>
     <string name="need_help">Need Help</string>
     <string name="create_account">Create Account</string>
+    <string name="enter_valid_mail">Enter valid mail id</string>
+    <string name="enter_password">Enter password</string>
 
 </resources>

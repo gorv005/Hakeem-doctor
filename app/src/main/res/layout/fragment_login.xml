@@ -40,6 +40,7 @@
             android:drawableLeft="@drawable/icon_username"
             android:drawablePadding="20dp"
             android:hint="@string/username"
+            android:inputType="textEmailAddress"
             android:minWidth="200dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white_off" />
@@ -55,8 +56,8 @@
             android:background="@drawable/rounded_red_blue_corner"
             android:drawableLeft="@drawable/icon_assword"
             android:drawablePadding="20dp"
-            android:inputType="textPassword"
             android:hint="@string/password"
+            android:inputType="textPassword"
             android:minWidth="200dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white_off" />
@@ -67,11 +68,12 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_white"
+            android:background="@drawable/bg_button"
             android:minWidth="150dp"
-            android:textAllCaps="false"
+
             android:text="@string/login"
-            android:textColor="@color/green" />
+            android:textAllCaps="false"
+            android:textColor="@color/color_selector" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -87,11 +89,11 @@
                 android:layout_height="45dp"
                 android:layout_alignParentLeft="true"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/rounded_white"
+                android:background="@drawable/bg_button"
                 android:minWidth="130dp"
                 android:text="@string/create_account"
                 android:textAllCaps="false"
-                android:textColor="@color/green"
+                android:textColor="@color/color_selector"
                 android:textSize="14sp" />
 
             <Button
@@ -100,11 +102,11 @@
                 android:layout_height="45dp"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
-                android:background="@drawable/rounded_white"
+                android:background="@drawable/bg_button"
                 android:minWidth="130dp"
                 android:text="@string/need_help"
                 android:textAllCaps="false"
-                android:textColor="@color/green"
+                android:textColor="@color/color_selector"
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
