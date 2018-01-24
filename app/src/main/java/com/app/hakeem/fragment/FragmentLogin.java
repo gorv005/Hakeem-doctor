@@ -93,7 +93,6 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btnCreateAccount:
                 ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_REGISTRATION_TYPE,null);
-                getActivity().finish();
                 break;
 
         }
