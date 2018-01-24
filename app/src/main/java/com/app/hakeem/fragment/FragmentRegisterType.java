@@ -44,18 +44,18 @@ public class FragmentRegisterType extends Fragment implements View.OnClickListen
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        btnDoctor.setOnClickListener(this);
+        btnPatient.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnDoctor:
-                ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_DOCTOR_REGISTRATION,null);
-                getActivity().finish();
+                ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_DOCTOR_REGISTRATION_STEP1,null);
                 break;
             case R.id.btnPatient:
-                ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_PATIENT_REGISTRATION,null);
-                getActivity().finish();
+                ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_PATIENT_REGISTRATION_STEP1,null);
                 break;
         }
     }
