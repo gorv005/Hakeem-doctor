@@ -685,23 +685,7 @@ public class Util {
     }
 
 
-    public static Map<String, String> getHeader(String headerAuth) {
-        HashMap<String, String> headers = new HashMap<String, String>();
-        String plainCreds = headerAuth;
-        byte[] plainCredsBytes = plainCreds.getBytes();
-        byte[] base64CredsBytes = Base64.encode(plainCredsBytes, Base64.NO_WRAP);
-        String base64Creds = new String(base64CredsBytes);
-        headers.put("Authorization", "Basic " + base64Creds);
-        headers.put("Accept", "application/json");
-        headers.put("Content-Type", "application/json");
-        long timestamp = System.currentTimeMillis();
-//        String signature = getSignature(methodName, operation, String.valueOf(timestamp));
-//        headers.put("timestamp", timestamp + "");
-//        headers.put("signature", signature);
-
-        return headers;
-    }
-
+//
 
     private static String calculateHMAC(String data) {
         try {

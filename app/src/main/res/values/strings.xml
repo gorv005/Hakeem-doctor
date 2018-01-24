@@ -29,5 +29,6 @@
     <string name="emr_and_tracker">EMR and Tracker</string>
     <string name="notification">Notification</string>
     <string name="tatab_app">TatabApp</string>
+    <string name="register">Register</string>
 
 </resources>
