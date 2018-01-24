@@ -26,50 +26,85 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <EditText
+            android:id="@+id/etUserName"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:textColor="@color/white"
-            android:hint="@string/username"
-            android:drawableLeft="@drawable/icon_username"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="50dp"
-            android:drawablePadding="20dp"
-            android:textColorHint="@color/white_off"
-            android:layout_marginRight="50dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:background="@drawable/rounded_red_blue_corner"
-            android:minWidth="200dp" />
+            android:drawableLeft="@drawable/icon_username"
+            android:drawablePadding="20dp"
+            android:hint="@string/username"
+            android:minWidth="200dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off" />
 
         <EditText
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:textColor="@color/white"
-            android:drawableLeft="@drawable/icon_assword"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_red_blue_corner"
+            android:drawableLeft="@drawable/icon_assword"
             android:drawablePadding="20dp"
             android:hint="@string/password"
-            android:textColorHint="@color/white_off"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/rounded_red_blue_corner"
-            android:minWidth="200dp" />
+            android:minWidth="200dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off" />
 
         <Button
             android:id="@+id/btnRegister"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
-            android:minWidth="150dp"
-            android:textColor="@color/blue"
-            android:text="@string/register"
-            android:background="@drawable/rounded_white"
             android:layout_height="40dp"
-            />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_white"
+            android:minWidth="150dp"
+            android:text="@string/register"
+            android:textColor="@color/green" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCreateAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_white"
+                android:minWidth="150dp"
+                android:text="@string/create_account"
+                android:textAllCaps="false"
+                android:textColor="@color/green"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnNeedHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:background="@drawable/rounded_white"
+                android:minWidth="150dp"
+                android:text="@string/need_help"
+                android:textAllCaps="false"
+                android:textColor="@color/green"
+                android:textSize="14sp" />
+        </RelativeLayout>
     </LinearLayout>
 
 
