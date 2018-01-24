@@ -34,9 +34,18 @@
     <string name="password">Password</string>
     <string name="need_help">Need Help</string>
     <string name="create_account">Create Account</string>
+    <string name="create_a_doctor_account">Create a doctor account</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="mobile">Mobile</string>
+    <string name="email">Email</string>
+    <string name="continue_tv">continue</string>
+    <string name="terms_and_condition">Terms and Conditions</string>
     <string name="enter_valid_mail">Enter valid mail id</string>
     <string name="enter_password">Enter password</string>
     <string name="doctor">Doctor</string>
     <string name="patient">Patient</string>
+    <string name="personal_info">Personal information</string>
+    <string name="nationalaty">Nationalaty</string>
 
 </resources>
