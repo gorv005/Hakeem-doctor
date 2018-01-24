@@ -51,5 +51,20 @@
     <string name="home_location">Home Location</string>
     <string name="workplace">Workplace</string>
     <string name="residance">Residance</string>
+    <string name="cv">cv</string>
+    <string name="speciality">Speciality</string>
+    <string name="current_grade">Current Grade</string>
+    <string name="subspecility">SubSpeciality</string>
+    <string name="classification">Clasification</string>
+    <string name="add_experience">Add Experiance</string>
+    <string name="since">Since</string>
+    <string name="to">To</string>
+    <string name="hospital_name">Hospital Name</string>
+    <string name="working_since">Working Since</string>
+    <string name="confirm_add">Confirm Add</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="iban">IBAN</string>
+    <string name="confirm_iban">Confirm IBAN</string>
+    <string name="photoUpload">Photo upload</string>
 
 </resources>

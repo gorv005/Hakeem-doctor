@@ -23,5 +23,6 @@
     <color name="yellow">#F7A51E</color>
     <color name="red_text">#d22424</color>
     <color name="green">#8CBD47</color>
+    <color name="border_color">#D3D3D3</color>
 
 </resources>
