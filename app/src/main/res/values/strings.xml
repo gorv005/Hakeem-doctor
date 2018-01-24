@@ -47,5 +47,9 @@
     <string name="patient">Patient</string>
     <string name="personal_info">Personal information</string>
     <string name="nationalaty">Nationalaty</string>
+    <string name="id_card_passport">ID Card/Passport</string>
+    <string name="home_location">Home Location</string>
+    <string name="workplace">Workplace</string>
+    <string name="residance">Residance</string>
 
 </resources>
