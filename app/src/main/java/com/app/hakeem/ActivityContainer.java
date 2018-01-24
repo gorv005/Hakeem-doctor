@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.app.hakeem.fragment.FragmentLogin;
+import com.app.hakeem.fragment.FragmentRegisterType;
 import com.app.hakeem.fragment.FragmentSplash;
 import com.app.hakeem.util.C;
 
@@ -51,6 +52,13 @@ public class ActivityContainer extends AppCompatActivity {
                 fragment = new FragmentLogin();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_LOGIN);
+                break;
+
+            case C.FRAGMENT_REGISTRATION_TYPE:
+                getSupportActionBar().hide();
+                fragment = new FragmentRegisterType();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_TYPE);
                 break;
 
         }
