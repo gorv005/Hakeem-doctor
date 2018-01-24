@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.app.hakeem.pojo.User;
 import com.google.gson.Gson;
 
 /**
@@ -83,9 +84,17 @@ public class SharedPreference {
     }
 
 
-    public void setUserRecordId(String key, int recordId) {
+    public User getUser(String key) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String data = prefs.getString(key, null);
         Gson gson = new Gson();
-        String json = gson.toJson(recordId);
+        return gson.fromJson(data, User.class);
+
+    }
+
+    public void setUser(String key, User user) {
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().putString(key, json).apply();
 

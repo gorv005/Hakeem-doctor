@@ -1,5 +1,6 @@
 package com.app.hakeem;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -45,6 +46,7 @@ public class ActivityMain extends AppCompatActivity
 
     private AdapterSideMenu adapterSideMenu;
     private AdapterPosts adapterPosts;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +109,9 @@ public class ActivityMain extends AppCompatActivity
 
     private void getAllPosts() {
 
+        dialog =Util.getProgressDialog(this,R.string.please_wait);
+        dialog.setCancelable(false);
+        dialog.show();
         String json = "{\"patient_id\" = \"14\" }";
 
 //        String json = gson.toJson("");
@@ -122,7 +127,7 @@ public class ActivityMain extends AppCompatActivity
             @Override
             public void notifySuccess(String requestType, JSONObject response) {
                 Log.e("Response :", response.toString());
-                //   progressDialog.dismiss();
+                   dialog.dismiss();
 
                 try {
                     Gson gson = new Gson();

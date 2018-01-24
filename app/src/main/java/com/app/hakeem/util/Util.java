@@ -701,14 +701,14 @@ public class Util {
     }
 
 
-    public static Dialog getProgressDialog(Context context, String msg) {
+    public static Dialog getProgressDialog(Context context, int msg) {
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setContentView(R.layout.progress_dialog);
         TextView text = (TextView) dialog.findViewById(R.id.tvMsg);
-        text.setText(msg);
+        text.setText(context.getResources().getString(msg));
         ImageView image = (ImageView) dialog.findViewById(R.id.ivLoader);
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.rotation);
         image.setAnimation(animation);
@@ -817,6 +817,15 @@ public class Util {
         HashMap<String, String> headers = new HashMap<String, String>();
         String authToken = SharedPreference.getInstance(activity).getString(C.AUTH_TOKEN);
         headers.put("authtoken", authToken);
+        headers.put("Accept", "application/json");
+        headers.put("Content-Type", "application/json");
+        return headers;
+    }
+
+    public static Map<String, String> getHeader() {
+        HashMap<String, String> headers = new HashMap<String, String>();
+//        String authToken = SharedPreference.getInstance(activity).getString(C.AUTH_TOKEN);
+//        headers.put("authtoken", authToken);
         headers.put("Accept", "application/json");
         headers.put("Content-Type", "application/json");
         return headers;
