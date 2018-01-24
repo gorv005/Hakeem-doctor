@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
+import com.app.hakeem.fragment.FragmentDoctorRegistrationStep1;
 import com.app.hakeem.fragment.FragmentLogin;
 import com.app.hakeem.fragment.FragmentRegisterType;
 import com.app.hakeem.fragment.FragmentSplash;
@@ -57,6 +59,18 @@ public class ActivityContainer extends AppCompatActivity {
             case C.FRAGMENT_REGISTRATION_TYPE:
                 getSupportActionBar().hide();
                 fragment = new FragmentRegisterType();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_TYPE);
+                break;
+            case C.FRAGMENT_DOCTOR_REGISTRATION_STEP1:
+                getSupportActionBar().hide();
+                fragment = new FragmentDoctorRegistrationStep1();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_TYPE);
+                break;
+            case C.FRAGMENT_DOCTOR_REGISTRATION_STEP2:
+                getSupportActionBar().hide();
+                fragment = new FragmentDocterRegistrationStep2();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_TYPE);
                 break;
