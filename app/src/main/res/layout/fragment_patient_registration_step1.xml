@@ -40,6 +40,7 @@
                 android:textColor="@color/green"
                 android:textSize="16sp" />
 
+
             <EditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
