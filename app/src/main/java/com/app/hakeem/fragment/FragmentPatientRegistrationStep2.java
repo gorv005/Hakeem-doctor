@@ -1,14 +1,17 @@
 package com.app.hakeem.fragment;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -29,6 +32,7 @@ import com.app.hakeem.util.Util;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -55,6 +59,9 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
     @BindView(R.id.btnCompleteRegistration)
     Button btnCompleteRegistration;
+
+    @BindView(R.id.lvDependent)
+    ListView lvDependent;
 
 
     RequestPatientRegistration requestPatientRegistration;
@@ -100,6 +107,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
         btnAddDependent.setOnClickListener(this);
         tvTermsAndCondition.setOnClickListener(this);
         tvBirthDay.setOnClickListener(this);
+        tvCity.setOnClickListener(this);
     }
 
     @Override
@@ -150,6 +158,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 tvCity.setText(adapter.getItem(position).getName());
+                dialog.dismiss();
             }
         });
         lvCities.setAdapter(adapter);
@@ -185,8 +194,8 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
     private void updateLabel() {
 
-        String myFormat = "dd/mm/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        String myFormat = "dd/MMM/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
         if (isDependent) {
 
             tvDOB.setText(sdf.format(myCalendar.getTime()));
@@ -205,14 +214,30 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
     private void openPopUpToAddChild() {
 
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.dialog_add_dependent);
-        etName = (EditText) dialog.findViewById(R.id.etName);
-        tvRelationship = (TextView) dialog.findViewById(R.id.tvRelationship);
-        rbMale = (RadioButton) dialog.findViewById(R.id.rbMale);
-        rbFemale = (RadioButton) dialog.findViewById(R.id.rbFemale);
-        tvDOB = (TextView) dialog.findViewById(R.id.tvBirthDay);
-        btnDone = (Button) dialog.findViewById(R.id.btnDone);
+
+        final LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_add_dependent, null);
+        final AlertDialog dialog = new AlertDialog.Builder(getActivity()).create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setView(deleteDialogView);
+
+        ArrayList<Child> children = new ArrayList<>();
+        if (adapterDependent == null) {
+            adapterDependent = new AdapterDependent(getActivity(), children);
+
+        }
+        lvDependent.setAdapter(adapterDependent);
+
+        etName = (EditText) deleteDialogView.findViewById(R.id.etName);
+        tvRelationship = (TextView) deleteDialogView.findViewById(R.id.tvRelationship);
+        rbMale = (RadioButton) deleteDialogView.findViewById(R.id.rbMale);
+        rbFemale = (RadioButton) deleteDialogView.findViewById(R.id.rbFemale);
+        tvDOB = (TextView) deleteDialogView.findViewById(R.id.tvBirthDay);
+        btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
+
 
         rbMale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -251,6 +276,8 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
                     child.setGender(rbMale.isChecked() ? "M" : "F");
                     child.setRelationship(tvRelationship.getText().toString());
                     adapterDependent.addItem(child);
+                    Util.setListViewHeightBasedOnChildren(lvDependent);
+                    dialog.dismiss();
                 }
             }
         });

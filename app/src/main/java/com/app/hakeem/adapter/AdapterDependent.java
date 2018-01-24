@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.hakeem.R;
@@ -53,15 +54,23 @@ public class AdapterDependent extends BaseAdapter {
                     R.layout.header_item_dependent, parent, false);
         }
 
+
+        LinearLayout llMain = (LinearLayout) convertView.findViewById(R.id.linearLayout);
         TextView tvSrNo = (TextView)convertView.findViewById(R.id.tvSrNo);
         TextView tvName = (TextView)convertView.findViewById(R.id.tvName);
         TextView tvGender = (TextView)convertView.findViewById(R.id.tvGender);
         TextView tvBirthDay = (TextView)convertView.findViewById(R.id.tvBirthDay);
 
-        tvSrNo.setText(position+"");
+        llMain.setBackgroundColor(activity.getResources().getColor(R.color.white));
+
+        tvSrNo.setText((position+1)+"");
+        tvSrNo.setTextColor(activity.getResources().getColor(R.color.blue));
         tvName.setText(getItem(position).getName());
-        tvGender.setText(getItem(position).getGender());
+        tvName.setTextColor(activity.getResources().getColor(R.color.blue));
+        tvGender.setText(getItem(position).getGender().equals("F")?R.string.female:R.string.male);
+        tvGender.setTextColor(activity.getResources().getColor(R.color.blue));
         tvBirthDay.setText(getItem(position).getDob());
+        tvBirthDay.setTextColor(activity.getResources().getColor(R.color.blue));
 
         return convertView;
     }

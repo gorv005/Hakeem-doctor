@@ -46,6 +46,7 @@
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
+                android:inputType="textCapWords"
                 android:background="@drawable/rounded_red_blue_corner"
                 android:drawableLeft="@drawable/icon_name"
                 android:drawablePadding="20dp"
