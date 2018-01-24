@@ -33,9 +33,12 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:textColor="@color/white"
+            android:hint="@string/username"
             android:drawableLeft="@drawable/icon_username"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="50dp"
+            android:drawablePadding="20dp"
+            android:textColorHint="@color/white_off"
             android:layout_marginRight="50dp"
             android:background="@drawable/rounded_red_blue_corner"
             android:minWidth="200dp" />
@@ -48,6 +51,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="20dp"
+            android:drawablePadding="20dp"
+            android:hint="@string/password"
+            android:textColorHint="@color/white_off"
             android:layout_marginRight="50dp"
             android:background="@drawable/rounded_red_blue_corner"
             android:minWidth="200dp" />
