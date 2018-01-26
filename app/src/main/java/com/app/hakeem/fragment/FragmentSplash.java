@@ -1,86 +1,88 @@
 package com.app.hakeem.fragment;
 
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.graphics.drawable.ColorDrawable;
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
-import com.app.hakeem.utils.C;
+import com.app.hakeem.util.C;
+import com.app.hakeem.util.Util;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class FragmentSplash extends Fragment {
-
+    Handler handler = new Handler();
 
     public FragmentSplash() {
+
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_splash, container, false);
-
     }
-
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        Handler handler=new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }, C.SPLASH_DELAY);
+    public void onResume() {
+        super.onResume();
+        if (Util.isNetworkConnectivity(getActivity())) {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (isStoragePermissionGranted()) {
+                        getActivity().finish();
+                        Intent intent = new Intent(getActivity(), ActivityMain.class);
+                        startActivity(intent);
+                    } else {
+                        requestPermissionForStorage();
+                    }
+                }
+            }, C.SPLASH_LOADER_TIME);
+        } else {
+            Toast.makeText(getActivity(), "Please connect to internet", Toast.LENGTH_LONG).show();
+        }
     }
 
 
+    private void requestPermissionForStorage() {
 
-    public static void showPopUP( Activity activity) {
+        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+    }
+
+
+    public  boolean isStoragePermissionGranted() {
         try {
-            LayoutInflater factory = LayoutInflater.from(activity);
-            final View deleteDialogView = factory.inflate(
-                    R.layout.pop_up_lang, null);
-            final AlertDialog deleteDialog = new AlertDialog.Builder(activity).create();
-            deleteDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            deleteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-            deleteDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            deleteDialog.setView(deleteDialogView);
 
-            deleteDialogView.findViewById(R.id.btnEnglish).setOnClickListener(new View.OnClickListener() {
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (getActivity().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED) {
 
-                @Override
-                public void onClick(View v) {
+                    return true;
+                } else {
 
-                    deleteDialog.dismiss();
+
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                    return false;
                 }
-            });
-            deleteDialogView.findViewById(R.id.btnArabic).setOnClickListener(new View.OnClickListener() {
+            } else { //permission is automatically granted on sdk<23 upon installation
 
-                @Override
-                public void onClick(View v) {
+                return true;
+            }
 
-                    deleteDialog.dismiss();
-                }
-            });
-            deleteDialog.show();
-            deleteDialog.setCancelable(false);
-        } catch (Exception e) {
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
+        return true;
     }
 }

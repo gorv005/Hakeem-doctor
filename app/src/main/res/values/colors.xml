@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0EAAD6</color>
-    <color name="colorPrimaryDark">#0EAAD6</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorLightGrey">#EEEEEE</color>
-    <color name="colorGrey">#D8D8D8</color>
-    <color name="colorGreyText">#A8A8A8</color>
-    <color name="colorDarkGrey">#5A5A5A</color>
-    <color name="colorGreen">#8CBD46</color>
-    <color name="colorWhite">#FFFFFF</color>
-    <color name="colorSkyBlue">#C7F2FC</color>
-    <color name="colorLightGreen">#00A99D</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_transpernt">#99FFFFFF</color>
+    <color name="white_off">#F1F1F1</color>
+    <color name="black">#111111</color>
+
+    <color name="blue">#0AABD3</color>
+
+    <color name="gray1">#bfbfbf</color>
+    <color name="gray2">#d9d9d9</color>
+    <color name="gray3">#7f7f7f</color>
+    <color name="gray4">#4d4d4d</color>
+    <color name="temp">#d1d1d1</color>
+    <!--<color name="grey1">#bfbfbf</color>-->
+    <!--<color name="grey2">#d9d9d9</color>-->
+    <!--<color name="grey3">#7f7f7f</color>-->
 
 
+    <color name="yellow">#F7A51E</color>
+    <color name="red_text">#d22424</color>
+    <color name="green">#8CBD47</color>
+    <color name="border_color">#D3D3D3</color>
 
 </resources>

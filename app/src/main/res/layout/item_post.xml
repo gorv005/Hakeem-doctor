@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginLeft="10dp"
+            android:minHeight="100dp">
+
+            <RelativeLayout
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+
+                android:layout_gravity="right|center_vertical"
+                android:gravity="left">
+
+                <ImageView
+                    android:id="@+id/ivDoctor"
+                    android:layout_width="96dp"
+                    android:background="@color/white"
+                    android:layout_height="96dp" />
+
+                <ImageView
+                    android:id="@+id/ivSpeciality"
+                    android:background="@color/white"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:gravity="right"
+            android:minHeight="100dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDoctorName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/docotr_name"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/blue"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray4"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/ivMsgImg"
+                    android:maxHeight="130dp"
+                    android:minHeight="100dp"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray3"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tvLike"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:drawablePadding="10dp"
+                android:text="12"
+                android:gravity="center"
+                android:layout_marginRight="80dp"
+                android:drawableRight="@drawable/like"
+                android:textColor="@color/gray4" />
+            <TextView
+                android:id="@+id/tvComment"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/comment"
+                android:text="12"
+                android:textColor="@color/gray3" />
+
+            <TextView
+                android:id="@+id/tvShare"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="12"
+                android:gravity="center"
+                android:layout_marginLeft="80dp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/share"
+                android:textColor="@color/gray4" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray3" />
+    </LinearLayout>
+
+</LinearLayout>

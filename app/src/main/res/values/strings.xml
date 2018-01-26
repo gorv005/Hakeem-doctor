@@ -1,26 +1,94 @@
 <resources>
-    <string name="app_name">Hakeem</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="choose_language">Choose Language</string>
-    <string name="you_can_always_change">You can always change language from the app settings.</string>
-    <string name="english">English</string>
-    <string name="arabic">عربى</string>
+    <string name="app_name">MedPlanner</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="already_member">Already a member?</string>
-    <string name="sign_in_your_account">Sign in your account</string>
-    <string name="email_address">Email Address</string>
-    <string name="password">Password</string>
-    <string name="login">Login</string>
-    <string name="skip_this">Skip this</string>
-    <string name="forgot_password">Forgot Password?</string>
-    <string name="create_an_account">Create an Account</string>
-    <string name="cancel">Cancel</string>
-    <string name="disclaimer">Disclaimer</string>
-    <string name="guidelines">Guidelines</string>
-    <string name="privacy_policy">Privacy Policy</string>
+    <string name="loading">Please wait...</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="success">Success</string>
+    <string name="oops">Oops!</string>
+    <string name="title_activity_main">ActivityMain</string>
 
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="login">Login</string>
+    <string name="docotr_name">Doctor name</string>
+    <string name="profile">Profile</string>
+    <string name="awareness">Awareness</string>
+    <string name="setting">Setting</string>
+    <string name="dependent">Dependent</string>
+    <string name="queue">Queue</string>
+    <string name="emr_and_tracker">EMR and Tracker</string>
+    <string name="notification">Notification</string>
+    <string name="tatab_app">TatabApp</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="need_help">Need Help</string>
+    <string name="create_account">Create Account</string>
+    <string name="create_a_doctor_account">Create a doctor account</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="mobile">Mobile</string>
+    <string name="email">Email</string>
+    <string name="continue_tv">continue</string>
+    <string name="terms_and_condition">Terms and Conditions</string>
+    <string name="enter_valid_mail">Enter valid mail id</string>
+    <string name="enter_password">Enter password</string>
+    <string name="doctor">Doctor</string>
+    <string name="patient">Patient</string>
+    <string name="personal_info">Personal information</string>
+    <string name="nationalaty">Nationalaty</string>
+    <string name="id_card_passport">ID Card/Passport</string>
+    <string name="home_location">Home Location</string>
+    <string name="workplace">Workplace</string>
+    <string name="residance">Residance</string>
+    <string name="cv">cv</string>
+    <string name="speciality">Speciality</string>
+    <string name="current_grade">Current Grade</string>
+    <string name="subspecility">SubSpeciality</string>
+    <string name="classification">Clasification</string>
+    <string name="add_experience">Add Experiance</string>
+    <string name="since">Since</string>
+    <string name="to">To</string>
+    <string name="hospital_name">Hospital Name</string>
+    <string name="working_since">Working Since</string>
+    <string name="confirm_add">Confirm Add</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="iban">IBAN</string>
+    <string name="confirm_iban">Confirm IBAN</string>
+    <string name="photoUpload">Photo upload</string>
+    <string name="name">Name</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="city">City</string>
+    <string name="add_dependents">Add Dependents</string>
+    <string name="complete_registration">Complete Registration</string>
+    <string name="relationship">Relationship</string>
+    <string name="bithdate">Birthday</string>
+    <string name="done">Done</string>
+    <string name="gender">Gender</string>
+    <string name="first_name_required">We need a First Name</string>
+    <string name="first_name_should_be_more_then_3_character">First Name should be 3-20 alphabets only, no special characters</string>
+    <string name="name_could_not_starts_with_dot">Name cannot start with a dot</string>
+    <string name="email_is_required">We need an Email ID</string>
+    <string name="please_enter_valid_email">Oops! It seems your email id did not match with our records.</string>
+    <string name="mobile_no_is_required">Incorrect Phone Number. The correct phone number may only include 14 digits</string>
+    <string name="please_enter_valid_mobile_number">Please enter valid mobile number</string>
+    <string name="number_strts_with_zero">Mobile Number should be 10 digits, not starting with \'0\'</string>
+    <string name="password_should_be_8_12_characters_with_at_least_1_nummeric">Password must contain at least 8-16 characters, including UPPER/LOWERCASE, special symbols and numbers</string>
+    <string name="password_required">Incorrect Password. The correct password must have a minimum of 8 characters; with at least One Character in upper case and at least One special character or Number</string>
+    <string name="select_city">Select city</string>
+    <string name="please_enter_relationship">Please enter relationship</string>
+    <string name="please_enter_date_of_birth">Please enter Date of Birth</string>
+    <string name="please_enter_city">Please select city</string>
+    <string name="please_add_atleast_one_depandent">Please add atleast one dependent</string>
 
 </resources>
