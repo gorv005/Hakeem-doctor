@@ -261,6 +261,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
             etClassification.setError(getActivity().getResources().getString(R.string.please_enter_city));
             etClassification.requestFocus();
             return false;
+
         }
 
 
