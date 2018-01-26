@@ -90,5 +90,14 @@
     <string name="please_enter_date_of_birth">Please enter Date of Birth</string>
     <string name="please_enter_city">Please select city</string>
     <string name="please_add_atleast_one_depandent">Please add atleast one dependent</string>
+    <string name="family_and_community">Family and Community</string>
+    <string name="psychological">Psychological</string>
+    <string name="adbominal">Adbominal</string>
+    <string name="obgyne">Obgyne</string>
+    <string name="pediatrics">Pediatrics</string>
+    <string name="specialist">Specialist</string>
+    <string name="counseltant">Counseltant</string>
+    <string name="select_from_gallary">Select photo from gallery</string>
+    <string name="select_from_camera">Capture photo from camera</string>
 
 </resources>

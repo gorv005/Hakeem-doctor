@@ -50,7 +50,16 @@
                 android:textSize="14sp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white_off" />
-
+            <Spinner
+                android:id="@+id/spinnerSpeciality"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_gravity="start"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:gravity="start"
+                android:paddingLeft="40dp"
+                android:visibility="invisible" />
 
             <EditText
                 android:layout_marginTop="10dp"
@@ -66,6 +75,16 @@
                 android:textSize="14sp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white_off" />
+            <Spinner
+                android:id="@+id/spinnerCurrentGrade"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_gravity="start"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:gravity="start"
+                android:paddingLeft="40dp"
+                android:visibility="invisible" />
             <EditText
                 android:layout_marginTop="10dp"
                 android:id="@+id/etSubSpeciality"
@@ -106,78 +125,24 @@
                 android:layout_height="40dp"
                 />
 
-            <RelativeLayout
-                android:layout_marginTop="10dp"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
-                <LinearLayout
-
-                    android:orientation="horizontal"
+                <include
+                    layout="@layout/header_item_dependent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/linearLayout"
-                    android:layout_weight="3"
-                    android:background="@color/blue">
+                    android:layout_height="match_parent" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/workplace"
-                        android:layout_gravity="center"
-                        android:gravity="left"
-                        android:paddingLeft="20dp"
-                        android:textColor="@color/white"
-                        android:textIsSelectable="false"
-
-                        android:textSize="14sp" />
-
-                    <View
-                        android:background="@color/border_color"
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent" />
+                <ListView
+                    android:id="@+id/lvExperiance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></ListView>
 
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/since"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-
-                    <View
-                        android:background="@color/border_color"
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent" />
-
-
-                    <TextView
-
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:fontFamily="serif"
-                        android:gravity="center"
-                        android:singleLine="true"
-                        android:text="@string/to"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <ListView
-                android:background="@color/white"
-                android:id="@+id/lvExperiences"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"></ListView>
+            </LinearLayout>
             <Button
                 android:id="@+id/btnContinue"
                 android:layout_marginTop="20dp"

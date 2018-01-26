@@ -1,5 +1,7 @@
 package com.app.hakeem.util;
 
+import android.os.Environment;
+
 /**
  * Created by aditya.singh on 1/23/2018.
  */
@@ -43,4 +45,7 @@ public interface C {
     String API_LOGIN = BASE_URL+"/login";
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
     String USER = "user" ;
+    String DATE_FORMAT = "dd/MMM/yyyy";
+     String IMAGE_PATH = Environment
+            .getExternalStorageDirectory().getPath() + "/Hakeem";
 }
