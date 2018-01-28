@@ -66,7 +66,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
     private int GALLERY = 1, CAMERA = 2;
     String action="";
     private Uri fileUri;
-
+    Uri contentURI;
     DoctorRegistration doctorRegistration;
 
 
@@ -96,7 +96,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
             @Override
             public void onClick(View v) {
                 if(isAllValid()){
-
+               //    imageUpload(Util.getPath(contentURI,getActivity()),Util.getHeader(getActivity()));
                 }
             }
         });
@@ -123,7 +123,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
             etConfirmIban.requestFocus();
             return false;
         }
-        else if (isImageSelected) {
+        else if (!isImageSelected) {
             btnPhotoUpload.setError(getActivity().getResources().getString(R.string.please_enter_city));
             btnPhotoUpload.requestFocus();
             return false;
@@ -236,7 +236,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
         }
         if (requestCode == GALLERY) {
             if (data != null) {
-                Uri contentURI = data.getData();
+                 contentURI = data.getData();
                 try {
                     isImageSelected=true;
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), contentURI);
@@ -269,6 +269,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                 bitmap=  rotateImageIfRequired(bitmap,fileUri.getPath());
                 isImageSelected=true;
                 ivProfileImage.setImageBitmap(bitmap);
+                contentURI=fileUri;
                /* String profileImage = Utils.getBase64Image(bitmap);
                 if (C.isloggedIn) {
                     profile.setProfilePic(profileImage);
@@ -309,4 +310,43 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
         img.recycle();
         return rotatedImg;
     }
+
+
+
+   /* private void imageUpload(final String imagePath,final Map<String, String> headers) {
+
+        SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, API_UPLOAD_PIC,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response", response);
+                        try {
+                            JSONObject jObj = new JSONObject(response);
+                            String message = jObj.getString("message");
+
+                            Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+
+                        } catch (JSONException e) {
+                            // JSON error
+                            e.printStackTrace();
+                            Toast.makeText(getActivity(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return headers;
+            }
+        };
+
+        smr.addFile("photo", imagePath);
+        MyApplication.getInstance().addToRequestQueue(smr);
+
+    }*/
+
 }

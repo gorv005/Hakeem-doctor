@@ -27,7 +27,6 @@ import com.app.hakeem.adapter.AdapterDoctorExperience;
 import com.app.hakeem.pojo.DoctorRegistration;
 import com.app.hakeem.pojo.Experience;
 import com.app.hakeem.util.C;
-import com.app.hakeem.util.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -80,9 +79,22 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
     Button btnConfirmExperiance;
     Calendar myCalendar = Calendar.getInstance();
     boolean isWorkingSince=false;
-    AdapterDoctorExperience adapterDoctorExperience;
+    AdapterDoctorExperience adapterDoctorExperience=null;
+
 
     String[] speciality = new String[]{
+            "Family and Community",
+            "Psychological",
+            "Adbominal",
+            "Obgyne",
+            "Pediatrics"
+    };
+    String[] currentGrade = new String[]{
+            "Specialist",
+            "Consultant"
+
+    };
+    /*String[] speciality = new String[]{
             getString(R.string.family_and_community),
             getString(R.string.psychological),
             getString(R.string.adbominal),
@@ -93,7 +105,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
             getString(R.string.specialist),
             getString(R.string.counseltant)
 
-    };
+    };*/
     DoctorRegistration doctorRegistration;
 
     public FragmentDoctorRegistrationStep3() {
@@ -201,7 +213,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
             }
         };
         spinnerArrayAdapterCurrentGrade.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerSpeciality.setAdapter(spinnerArrayAdapterCurrentGrade);
+        spinnerCurrentGrade.setAdapter(spinnerArrayAdapterCurrentGrade);
     }
 
     View.OnClickListener mBtnContinueClickListner=new View.OnClickListener() {
@@ -310,7 +322,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
                     experience.setWorkedSince(etWorkingSince.getText().toString());
                     experience.setResignedSince(etResignedSince.getText().toString());
                     adapterDoctorExperience.addItem(experience);
-                    Util.setListViewHeightBasedOnChildren(lvExperience);
+                    //Util.setListViewHeightBasedOnChildren(lvExperience);
                     dialog.dismiss();
                 }
             }
@@ -337,7 +349,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
     }
     private void openCalender() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() );
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() );
         datePickerDialog.show();
 
 
