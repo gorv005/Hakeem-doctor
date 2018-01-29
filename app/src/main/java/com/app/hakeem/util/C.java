@@ -1,5 +1,7 @@
 package com.app.hakeem.util;
 
+import android.os.Environment;
+
 /**
  * Created by aditya.singh on 1/23/2018.
  */
@@ -41,6 +43,13 @@ public interface C {
     String BASE_URL = "http://www.dataheadstudio.com/test/api";
     String API_POSTS = BASE_URL +"/posts" ;
     String API_LOGIN = BASE_URL+"/login";
+    String API_UPLOAD_PIC = BASE_URL+"/upload";
+
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
     String USER = "user" ;
+    String DATE_FORMAT = "dd/MMM/yyyy";
+     String IMAGE_PATH = Environment
+            .getExternalStorageDirectory().getPath() + "/Hakeem";
+    String TAG_FRAGMENT_REGISTER_TYPE_R_3 = "TAG_FRAGMENT_REGISTER_TYPE_R_3";
+    String TAG_FRAGMENT_REGISTER_TYPE_R_4 = "TAG_FRAGMENT_REGISTER_TYPE_R_4";
 }

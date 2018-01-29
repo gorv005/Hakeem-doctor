@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep1;
+import com.app.hakeem.fragment.FragmentDoctorRegistrationStep3;
+import com.app.hakeem.fragment.FragmentDoctorRegistrationStep4;
 import com.app.hakeem.fragment.FragmentLogin;
 import com.app.hakeem.fragment.FragmentPatientRegistrationStep1;
 import com.app.hakeem.fragment.FragmentPatientRegistrationStep2;
@@ -89,6 +91,18 @@ public class ActivityContainer extends AppCompatActivity {
                 fragment = new FragmentPatientRegistrationStep2();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_P_2);
+                break;
+            case C.FRAGMENT_DOCTOR_REGISTRATION_STEP3:
+                getSupportActionBar().hide();
+                fragment = new FragmentDoctorRegistrationStep3();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_TYPE_R_3);
+                break;
+            case C.FRAGMENT_DOCTOR_REGISTRATION_STEP4:
+                getSupportActionBar().hide();
+                fragment = new FragmentDoctorRegistrationStep4();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_TYPE_R_4);
                 break;
 
         }
