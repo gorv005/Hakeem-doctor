@@ -118,6 +118,8 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
                 isDependent = false;
                 openCalender();
                 break;
+
+
             case R.id.tvCity:
                 openCitySelector();
                 break;
@@ -264,6 +266,12 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
             }
         });
 
+        tvRelationship.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRelationshipPopUp();
+            }
+        });
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -338,5 +346,9 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
 
         return true;
+    }
+
+    void openRelationshipPopUp() {
+
     }
 }
