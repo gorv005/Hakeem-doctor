@@ -21,11 +21,11 @@
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:inputType="textCapWords"
             android:background="@drawable/rounded_red_blue_corner"
             android:drawableLeft="@drawable/icon_name"
             android:drawablePadding="20dp"
             android:hint="@string/name"
+            android:inputType="textCapWords"
             android:textColor="@color/white"
             android:textColorHint="@color/white_off"
             android:textSize="14sp" />
@@ -36,15 +36,27 @@
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:gravity="left|center_vertical"
-            android:drawableLeft="@drawable/icon_name"
-            android:drawablePadding="20dp"
             android:background="@drawable/rounded_red_blue_corner"
+            android:drawablePadding="20dp"
+            android:drawableRight="@drawable/icon_drop_down"
+            android:gravity="left|center_vertical"
             android:hint="@string/relationship"
+            android:paddingLeft="58dp"
             android:text="Parents"
             android:textColor="@color/white"
             android:textColorHint="@color/white_off"
             android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spinnerRelationship"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="start"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:gravity="start"
+            android:paddingLeft="40dp"
+            android:visibility="invisible" />
 
         <LinearLayout
             android:id="@+id/llFlightDiraction"
@@ -72,9 +84,9 @@
                     android:background="@drawable/button_select_blue"
                     android:button="@null"
                     android:buttonTint="@color/gray4"
+                    android:checked="true"
                     android:gravity="center"
                     android:text="@string/male"
-                    android:checked="true"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -99,20 +111,22 @@
                     android:textSize="15sp" />
             </LinearLayout>
         </LinearLayout>
+
         <TextView
             android:id="@+id/tvBirthDay"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:gravity="left|center_vertical"
+            android:background="@drawable/rounded_red_blue_corner"
             android:drawableLeft="@drawable/icon_calendar"
             android:drawablePadding="20dp"
-            android:background="@drawable/rounded_red_blue_corner"
+            android:gravity="left|center_vertical"
             android:hint="@string/bithdate"
             android:textColor="@color/white"
             android:textColorHint="@color/white_off"
             android:textSize="14sp" />
+
         <Button
             android:id="@+id/btnDone"
             android:layout_width="match_parent"

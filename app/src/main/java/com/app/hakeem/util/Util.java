@@ -48,6 +48,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -231,6 +232,7 @@ public class Util {
         Log.e("Daay  ", calendar.getTimeInMillis() + "");
         return calendar.getTimeInMillis();
     }
+
     public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
                                    boolean filter) {
 
@@ -245,6 +247,7 @@ public class Util {
         //  Bitmap newBitmap=   Bitmap.createScaledBitmap(realImage,(int)(realImage.getWidth()*0.9), (int)(realImage.getHeight()*0.9), true);
         return newBitmap;
     }
+
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
@@ -868,8 +871,8 @@ public class Util {
         return json;
     }
 
-    public static String getPath(Uri contentUri,Context context) {
-        String[] proj = { MediaStore.Images.Media.DATA };
+    public static String getPath(Uri contentUri, Context context) {
+        String[] proj = {MediaStore.Images.Media.DATA};
         CursorLoader loader = new CursorLoader(context, contentUri, proj, null, null, null);
         Cursor cursor = loader.loadInBackground();
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
@@ -879,4 +882,34 @@ public class Util {
         return result;
     }
 
+    public static ArrayList<String> getRelationList() {
+
+        String[] speciality = new String[]{
+                "Father",
+                "Mother",
+                "Brother",
+                "Sister",
+                "Uncle",
+                "Aunty",
+                "Nephew",
+                "Niece",
+                "Nephew",
+                "Grandfather",
+                "Grandmother",
+                "Great Grandmother",
+                "Great Grandfather",
+                "UnDaughter-in-lawcle",
+                "Son-in-law",
+                "Brother-in-law",
+                "Sister-in-law",
+                "Father-in-law",
+                "Mother-in-law",
+                "SON"
+        };
+
+
+        final ArrayList<String> specialityList = new ArrayList<>(Arrays.asList(speciality));
+
+        return specialityList;
+    }
 }
