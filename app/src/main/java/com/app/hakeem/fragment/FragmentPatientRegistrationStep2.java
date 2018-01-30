@@ -4,6 +4,7 @@ package com.app.hakeem.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,12 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.app.hakeem.R;
@@ -77,6 +80,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
     private RadioButton rbFemale;
     private TextView tvDOB;
     private Button btnDone;
+    private Spinner spinnerRelationship;
 
 
     public FragmentPatientRegistrationStep2() {
@@ -144,7 +148,6 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
         final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.pop_up_city_list);
         dialog.setTitle(R.string.select_city);
-
 
         if (adapter == null) {
             String city = Util.loadCityJson(getActivity());
@@ -239,6 +242,47 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
         rbFemale = (RadioButton) deleteDialogView.findViewById(R.id.rbFemale);
         tvDOB = (TextView) deleteDialogView.findViewById(R.id.tvBirthDay);
         btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
+        spinnerRelationship = (Spinner) deleteDialogView.findViewById(R.id.spinnerRelationship);
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                getActivity(), R.layout.spinner_item_new, Util.getRelationList()) {
+            @Override
+            public boolean isEnabled(int position) {
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRelationship.setAdapter(spinnerArrayAdapter);
+        spinnerRelationship.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                tvRelationship.setText(Util.getRelationList().get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         rbMale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -269,7 +313,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
         tvRelationship.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openRelationshipPopUp();
+                spinnerRelationship.performClick();
             }
         });
         btnDone.setOnClickListener(new View.OnClickListener() {

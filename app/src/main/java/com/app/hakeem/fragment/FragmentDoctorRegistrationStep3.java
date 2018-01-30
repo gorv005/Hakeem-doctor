@@ -94,18 +94,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
             "Consultant"
 
     };
-    /*String[] speciality = new String[]{
-            getString(R.string.family_and_community),
-            getString(R.string.psychological),
-            getString(R.string.adbominal),
-            getString(R.string.obgyne),
-            getString(R.string.pediatrics)
-    };
-    String[] currentGrade = new String[]{
-            getString(R.string.specialist),
-            getString(R.string.counseltant)
 
-    };*/
     DoctorRegistration doctorRegistration;
 
     public FragmentDoctorRegistrationStep3() {
