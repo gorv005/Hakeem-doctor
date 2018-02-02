@@ -20,15 +20,18 @@ public class Child {
     private String name;
     @SerializedName("relationship")
     @Expose
-    private String relationship;
+    private String relationshipID;
+
+    @SerializedName("relation")
+    @Expose
+    private GeneralPojoKeyValue relation;
+
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public Child() {
     }
-
 
 
     public String getDob() {
@@ -55,11 +58,20 @@ public class Child {
         this.name = name;
     }
 
-    public String getRelationship() {
-        return relationship;
+    public String getRelationshipID() {
+        return relation.getKey();
     }
 
-    public void setRelationship(String relationship) {
-        this.relationship = relationship;
+    public void setRelationshipID(String relationshipID) {
+        this.relationshipID = relationshipID;
+    }
+
+    public GeneralPojoKeyValue getRelation() {
+        return relation;
+    }
+
+    public void setRelation(GeneralPojoKeyValue relation) {
+        setRelationshipID(relation.getKey());
+        this.relation = relation;
     }
 }
