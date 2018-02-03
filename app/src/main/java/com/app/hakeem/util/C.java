@@ -26,7 +26,7 @@ public interface C {
     String BUNDLE = "bundle";
     String LOGIN_USER = "login_user";
     String FRAGMENT_ACTION ="action" ;
-    long SPLASH_LOADER_TIME = 2500;
+    long SPLASH_LOADER_TIME = 100;
     String STATUS_SUCCESS = "HK001";
 
     String STATUS_NOT_KNOWN ="HK002" ;

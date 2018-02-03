@@ -458,9 +458,15 @@ public class Util {
 
     public static String getDateFromString(String date) {
 
-        SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate = newDateFormat.format(date);
-        return strDate;
+        try {
+            SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MMM/yyyy");
+            String strDate = newDateFormat.format(date);
+            return strDate;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return date;
     }
 
     public static String getDurationBetweenTimes(String departureTime, String arrivalTime) {
