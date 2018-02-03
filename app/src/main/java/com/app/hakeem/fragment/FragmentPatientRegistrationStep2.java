@@ -242,6 +242,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
             e.printStackTrace();
         }
 
+
         VolleyService volleyService = new VolleyService(getActivity());
         volleyService.postDataVolley(new IResult() {
             @Override
