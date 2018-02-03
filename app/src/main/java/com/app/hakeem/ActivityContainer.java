@@ -19,7 +19,7 @@ import com.app.hakeem.fragment.FragmentRegisterType;
 import com.app.hakeem.fragment.FragmentSplash;
 import com.app.hakeem.util.C;
 
-public class ActivityContainer extends AppCompatActivity {
+public class  ActivityContainer extends AppCompatActivity {
 
     private Fragment fragment;
     private TextView tvTitle;

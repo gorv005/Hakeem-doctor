@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.app.hakeem.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -76,6 +78,10 @@ public class Util {
             imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
 
     }
-
+    public static String getProperDate(Date date) {
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        String strDate = newDateFormat.format(date);
+        return strDate;
+    }
 
 }
