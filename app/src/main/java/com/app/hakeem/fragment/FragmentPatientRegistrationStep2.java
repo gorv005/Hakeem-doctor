@@ -24,15 +24,23 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterCityList;
 import com.app.hakeem.adapter.AdapterDependent;
+import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.Child;
 import com.app.hakeem.pojo.CityList;
+import com.app.hakeem.pojo.GeneralPojoKeyValue;
 import com.app.hakeem.pojo.RequestPatientRegistration;
+import com.app.hakeem.pojo.Response;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.Util;
+import com.app.hakeem.webservices.VolleyService;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,7 +79,6 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
     AdapterDependent adapterDependent;
 
-    Calendar myCalendar = Calendar.getInstance();
     private AdapterCityList adapter;
     private boolean isDependent = false;
     private EditText etName;
@@ -81,6 +88,8 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
     private TextView tvDOB;
     private Button btnDone;
     private Spinner spinnerRelationship;
+    private Dialog progressDialog;
+    private GeneralPojoKeyValue generalPojoKeyValue;
 
 
     public FragmentPatientRegistrationStep2() {
@@ -133,8 +142,9 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
             case R.id.btnCompleteRegistration:
                 if (isAllValid()) {
                     requestPatientRegistration.setDob(Util.getDateFromString(tvBirthDay.getText().toString()));
-                    requestPatientRegistration.setCity(tvCity.getText().toString());
+                    requestPatientRegistration.setCountryCode(tvCity.getText().toString());
                     requestPatientRegistration.setChildren(adapterDependent.getAllItem());
+                    requestPatientRegistration.setUserGroup(C.USER_PATIENT);
                     doPatientRegister(requestPatientRegistration);
                 }
                 break;
@@ -173,21 +183,21 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
     }
 
     private void openCalender() {
+        Calendar myCalendar = Calendar.getInstance();
+        myCalendar.setTimeInMillis(System.currentTimeMillis());
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(System.currentTimeMillis());
-        c.set(Calendar.YEAR,c.get(Calendar.YEAR)-18);
 
-
-        if (isDependent)
-            datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
+        if (isDependent) {
+            myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 17);
+            datePickerDialog.getDatePicker().setMinDate(myCalendar.getTimeInMillis());
+        }
         else {
+            myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 18);
 
-            datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
+            datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
         }
         datePickerDialog.show();
-
-
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -195,15 +205,17 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
+            Calendar myCalendar = Calendar.getInstance();
+
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateLabel();
+            updateLabel(myCalendar);
         }
 
     };
 
-    private void updateLabel() {
+    private void updateLabel(Calendar myCalendar) {
 
         String myFormat = "dd/MMM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
@@ -218,8 +230,45 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
     private void doPatientRegister(RequestPatientRegistration requestPatientRegistration) {
 
+        progressDialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        progressDialog.show();
 
-        //Todo API Hit
+        final Gson gson = new Gson();
+        String json = gson.toJson(requestPatientRegistration);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                progressDialog.dismiss();
+
+                Response responseServer = gson.fromJson(response.toString(), Response.class);
+
+
+                if (responseServer.equals(C.STATUS_SUCCESS)) {
+
+                    Util.showToast(getActivity(), responseServer.getMessage(), false);
+                } else {
+                    Util.showToast(getActivity(), responseServer.getMessage(), false);
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, VolleyError error) {
+                progressDialog.dismiss();
+                Util.showToast(getActivity(), R.string.network_error, false);
+
+            }
+        }, "callback", C.API_REGISTER_PATIENT, Util.getHeader(getActivity()), obj);
+
 
     }
 
@@ -249,7 +298,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
         tvDOB = (TextView) deleteDialogView.findViewById(R.id.tvBirthDay);
         btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
         spinnerRelationship = (Spinner) deleteDialogView.findViewById(R.id.spinnerRelationship);
-        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<GeneralPojoKeyValue> spinnerAcadQualsArrayAdapter = new ArrayAdapter<GeneralPojoKeyValue>(
                 getActivity(), R.layout.spinner_item_new, Util.getRelationList()) {
             @Override
             public boolean isEnabled(int position) {
@@ -276,12 +325,15 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
                 return view;
             }
         };
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerRelationship.setAdapter(spinnerArrayAdapter);
+        spinnerAcadQualsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRelationship.setAdapter(spinnerAcadQualsArrayAdapter);
+        spinnerRelationship.setAdapter(spinnerAcadQualsArrayAdapter);
         spinnerRelationship.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                tvRelationship.setText(Util.getRelationList().get(position));
+                 generalPojoKeyValue =Util.getRelationList().get(position);
+                tvRelationship.setText(generalPojoKeyValue.getValue());
+
             }
 
             @Override
@@ -330,9 +382,9 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
                     Child child = new Child();
                     child.setName(etName.getText().toString());
-                    child.setDob(tvDOB.getText().toString());
+                    child.setDob(Util.getDateFromString(tvDOB.getText().toString()));
                     child.setGender(rbMale.isChecked() ? "M" : "F");
-                    child.setRelationship(tvRelationship.getText().toString());
+                    child.setRelation(generalPojoKeyValue);
                     adapterDependent.addItem(child);
                     Util.setListViewHeightBasedOnChildren(lvDependent);
                     dialog.dismiss();
@@ -398,7 +450,5 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
         return true;
     }
 
-    void openRelationshipPopUp() {
 
-    }
 }

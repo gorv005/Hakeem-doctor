@@ -38,6 +38,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.app.hakeem.R;
+import com.app.hakeem.pojo.GeneralPojoKeyValue;
 import com.app.hakeem.pojo.SideMenuItem;
 
 import java.io.IOException;
@@ -48,11 +49,12 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
@@ -459,11 +461,11 @@ public class Util {
     public static String getDateFromString(String date) {
 
         try {
-            SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MMM/yyyy");
-            String strDate = newDateFormat.format(date);
-            return strDate;
-        }catch (Exception e)
-        {
+            Date start = new SimpleDateFormat("dd/MMM/yyyy").parse(date);
+            SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            date = newDateFormat.format(start);
+            return date;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return date;
@@ -888,34 +890,37 @@ public class Util {
         return result;
     }
 
-    public static ArrayList<String> getRelationList() {
-
-        String[] speciality = new String[]{
-                "Father",
-                "Mother",
-                "Brother",
-                "Sister",
-                "Uncle",
-                "Aunty",
-                "Nephew",
-                "Niece",
-                "Nephew",
-                "Grandfather",
-                "Grandmother",
-                "Great Grandmother",
-                "Great Grandfather",
-                "UnDaughter-in-lawcle",
-                "Son-in-law",
-                "Brother-in-law",
-                "Sister-in-law",
-                "Father-in-law",
-                "Mother-in-law",
-                "SON"
-        };
+    public static List<GeneralPojoKeyValue> getRelationList() {
 
 
-        final ArrayList<String> specialityList = new ArrayList<>(Arrays.asList(speciality));
 
-        return specialityList;
+
+        final List<GeneralPojoKeyValue> acadQualArr = new ArrayList<GeneralPojoKeyValue>();
+        LinkedHashMap<String, String> hashMap;
+
+        hashMap = new LinkedHashMap<String, String>();
+        hashMap.put("1", "Father");
+        hashMap.put("2", "Mother");
+        hashMap.put("3", "Brother");
+        hashMap.put("4", "Sister");
+        hashMap.put("5", "Uncle");
+        hashMap.put("6", "Aunty");
+        hashMap.put("7", "Nephew");
+        hashMap.put("8", "Grandfather");
+        hashMap.put("9", "GrandMother");
+
+
+        int i = 0;
+        for (HashMap.Entry<String, String> entry : hashMap.entrySet()) {
+            GeneralPojoKeyValue acad = new GeneralPojoKeyValue();
+            acad.setKey(entry.getKey());
+            acad.setValue(entry.getValue());
+            acadQualArr.add(i, acad);
+            i++;
+        }
+
+
+
+        return acadQualArr;
     }
 }
