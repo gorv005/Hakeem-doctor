@@ -100,5 +100,6 @@
     <string name="select_from_gallary">Select photo from gallery</string>
     <string name="select_from_camera">Capture photo from camera</string>
     <string name="network_error">Network error. Please try after some time.</string>
+    <string name="please_connect_to_the_internet">Please connet to the internet first.</string>
 
 </resources>

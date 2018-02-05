@@ -16,6 +16,11 @@ public class Response {
     @Expose
     private String message;
 
+    @SerializedName("patient")
+    @Expose
+    private Patient patient;
+
+
     public Response() {
     }
 
@@ -33,5 +38,13 @@ public class Response {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

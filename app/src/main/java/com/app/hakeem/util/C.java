@@ -17,6 +17,8 @@ public interface C {
     int FRAGMENT_PATIENT_REGISTRATION_STEP1 = 41;
     int FRAGMENT_PATIENT_REGISTRATION_STEP2 = 42;
     int FRAGMENT_REGISTRATION_TYPE = 5;
+    int FRAGMENT_DEPENDENT = 6;
+
 
     String TAG_FRAGMENT_LOGIN = "fragment_login";
     String TAG_FRAGMENT_REGISTER_P_1 = "TAG_FRAGMENT_REGISTER_P_1";
@@ -45,6 +47,8 @@ public interface C {
     String API_LOGIN = BASE_URL + "/login";
     String API_UPLOAD_PIC = BASE_URL + "/upload";
     String API_REGISTER_PATIENT = BASE_URL + "/registerpatient";
+    String API_REGISTER_FETCH_PATIENT = BASE_URL + "/fetchpatient";
+
 
 
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
@@ -54,7 +58,11 @@ public interface C {
             .getExternalStorageDirectory().getPath() + "/Hakeem";
     String TAG_FRAGMENT_REGISTER_TYPE_R_3 = "TAG_FRAGMENT_REGISTER_TYPE_R_3";
     String TAG_FRAGMENT_REGISTER_TYPE_R_4 = "TAG_FRAGMENT_REGISTER_TYPE_R_4";
+    String TAG_FRAGMENT_DEPENDENT = "tag_fragment_dependent";
+
     String USER_PATIENT = "3";
     String USER_DOCTOR = "2";
     String USER_ADMIN = "1";
+    String DOCTOR = "Doctor";
+    String PATIENT = "Patient";
 }
