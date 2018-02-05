@@ -7,8 +7,10 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +34,12 @@ import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.Child;
 import com.app.hakeem.pojo.CityList;
 import com.app.hakeem.pojo.GeneralPojoKeyValue;
+import com.app.hakeem.pojo.LoginCredential;
 import com.app.hakeem.pojo.RequestPatientRegistration;
 import com.app.hakeem.pojo.Response;
+import com.app.hakeem.pojo.ResponseLogin;
 import com.app.hakeem.util.C;
+import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
 import com.app.hakeem.webservices.VolleyService;
 import com.google.gson.Gson;
@@ -90,6 +95,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
     private Spinner spinnerRelationship;
     private Dialog progressDialog;
     private GeneralPojoKeyValue generalPojoKeyValue;
+    private Dialog dialog;
 
 
     public FragmentPatientRegistrationStep2() {
@@ -228,7 +234,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
     }
 
-    private void doPatientRegister(RequestPatientRegistration requestPatientRegistration) {
+    private void doPatientRegister(final RequestPatientRegistration requestPatientRegistration) {
 
         progressDialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
         progressDialog.show();
@@ -252,9 +258,19 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
                 Response responseServer = gson.fromJson(response.toString(), Response.class);
 
 
-                if (responseServer.equals(C.STATUS_SUCCESS)) {
+                if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
                     Util.showToast(getActivity(), responseServer.getMessage(), false);
+
+                    Handler handler =new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            doLogin(requestPatientRegistration.getEmail(),requestPatientRegistration.getPassword());
+
+                        }
+                    },2000);
+
                 } else {
                     Util.showToast(getActivity(), responseServer.getMessage(), false);
                 }
@@ -449,6 +465,68 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
         return true;
     }
+
+
+
+
+    private void doLogin(String email, String password) {
+
+        dialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        dialog.setCancelable(false);
+        dialog.show();
+        LoginCredential loginCredential = new LoginCredential();
+        loginCredential.setEmail(email);
+        loginCredential.setPassword(password);
+        Gson gson = new Gson();
+        String json = gson.toJson(loginCredential);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialog.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    ResponseLogin responseLogin = gson.fromJson(response.toString(), ResponseLogin.class);
+                    if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
+
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
+                        SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
+                        SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER,responseLogin.getUser());
+
+                        getActivity().finish();
+
+                    } else {
+
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, VolleyError error) {
+
+                Log.e("Response :", error.toString());
+
+            }
+        }, "login", C.API_LOGIN, Util.getHeader(getActivity()), obj);
+
+
+    }
+
 
 
 }

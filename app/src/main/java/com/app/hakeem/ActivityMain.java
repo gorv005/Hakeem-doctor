@@ -107,6 +107,13 @@ public class ActivityMain extends AppCompatActivity
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN)));
+        listView.setAdapter(adapterSideMenu);    }
+
     private void getAllPosts() {
 
         dialog =Util.getProgressDialog(this,R.string.please_wait);
@@ -152,6 +159,7 @@ public class ActivityMain extends AppCompatActivity
             public void notifyError(String requestType, VolleyError error) {
 
                 Log.e("Response :", error.toString());
+                dialog.dismiss();
 
             }
         }, "posts", C.API_POSTS, Util.getHeader(this), obj);

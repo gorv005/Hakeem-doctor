@@ -18,7 +18,7 @@ public class Child {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("relationship")
+    @SerializedName("relationship_id")
     @Expose
     private String relationshipID;
 
