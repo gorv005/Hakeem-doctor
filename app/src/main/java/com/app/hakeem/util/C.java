@@ -47,6 +47,7 @@ public interface C {
     String API_REGISTER_PATIENT = BASE_URL + "/registerpatient";
 
 
+
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
     String USER = "user";
     String DATE_FORMAT = "dd/MMM/yyyy";
