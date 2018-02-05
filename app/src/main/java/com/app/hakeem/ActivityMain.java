@@ -127,11 +127,11 @@ public class ActivityMain extends AppCompatActivity
             @Override
             public void notifySuccess(String requestType, JSONObject response) {
                 Log.e("Response :", response.toString());
-                   dialog.dismiss();
+                dialog.dismiss();
 
                 try {
                     Gson gson = new Gson();
-                     ResponsePost responsePost = gson.fromJson(response.toString(), ResponsePost.class);
+                    ResponsePost responsePost = gson.fromJson(response.toString(), ResponsePost.class);
                     if (responsePost.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
                         adapterPosts =new AdapterPosts(ActivityMain.this,responsePost.getPosts());
