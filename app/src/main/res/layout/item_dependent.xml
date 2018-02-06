@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:descendantFocusability="blocksDescendants"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -19,17 +20,24 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:minWidth="80dp"
-            android:tint="@color/blue"
-            android:src="@drawable/icon_profile" />
+            android:src="@drawable/icon_profile"
+            android:tint="@color/blue" />
 
-        <ImageView
-            android:id="@+id/ivArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_gravity="right"
-            android:layout_margin="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/blue"
+            android:text="X"
+
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:tint="@color/blue" />
 
         <TextView

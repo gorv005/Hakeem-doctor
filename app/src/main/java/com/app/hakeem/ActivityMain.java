@@ -96,6 +96,12 @@ public class ActivityMain extends AppCompatActivity
                     startActivity(intent);
 
                 }
+                else  if (sideMenuItem.getNameResourse() == R.string.emr_and_tracker) {
+                    Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_EMR_AND_TRACKER);
+                    startActivity(intent);
+
+                }
 
 
             }

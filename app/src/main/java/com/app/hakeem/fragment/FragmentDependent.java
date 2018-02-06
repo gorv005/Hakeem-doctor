@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterPatientList;
+import com.app.hakeem.interfaces.DependentDelete;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.Child;
 import com.app.hakeem.pojo.GeneralPojoKeyValue;
@@ -52,7 +53,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentDependent extends Fragment {
+public class FragmentDependent extends Fragment implements DependentDelete {
 
     @BindView(R.id.lvDependent)
     ListView lvDependent;
@@ -65,6 +66,8 @@ public class FragmentDependent extends Fragment {
     private Button btnDone;
     private Spinner spinnerRelationship;
     private Child child;
+    private View header;
+
 
     public FragmentDependent() {
         // Required empty public constructor
@@ -83,6 +86,7 @@ public class FragmentDependent extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+
         if (Util.isNetworkConnectivity(getActivity())) {
             getDependentList();
         } else {
@@ -93,6 +97,7 @@ public class FragmentDependent extends Fragment {
 
     private void getDependentList() {
 
+        lvDependent.removeHeaderView(header);
         progressDialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
         progressDialog.show();
 
@@ -116,11 +121,13 @@ public class FragmentDependent extends Fragment {
                 Response responseServer = gson.fromJson(response.toString(), Response.class);
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
-                    View header = getActivity().getLayoutInflater().inflate(R.layout.item_dependent, null);
+                    lvDependent.removeHeaderView(header);
+                    header = getActivity().getLayoutInflater().inflate(R.layout.item_dependent, null);
+                    header.findViewById(R.id.btnDelete).setVisibility(View.GONE);
                     TextView tvName = (TextView) header.findViewById(R.id.tvName);
                     tvName.setText(responseServer.getPatient().getName());
                     lvDependent.addHeaderView(header);
-                    AdapterPatientList adapterPatientList = new AdapterPatientList(getActivity(), responseServer.getPatient().getChildrens());
+                    AdapterPatientList adapterPatientList = new AdapterPatientList(FragmentDependent.this,getActivity(), responseServer.getPatient().getChildrens());
                     lvDependent.setAdapter(adapterPatientList);
 
                 } else {
@@ -245,8 +252,10 @@ public class FragmentDependent extends Fragment {
                     child.setName(etName.getText().toString());
                     child.setDob(Util.getDateFromString(tvDOB.getText().toString()));
                     child.setGender(rbMale.isChecked() ? "M" : "F");
-                    Util.setListViewHeightBasedOnChildren(lvDependent);
+                    child.setParantId(SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
+
                     dialog.dismiss();
+                    addDependent(child);
                 }
             }
         });
@@ -351,9 +360,11 @@ public class FragmentDependent extends Fragment {
                 Response responseServer = gson.fromJson(response.toString(), Response.class);
 
 
-                if (responseServer.equals(C.STATUS_SUCCESS)) {
+                if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
                     Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    getDependentList();
+
                 } else {
                     Util.showToast(getActivity(), responseServer.getMessage(), false);
                 }
@@ -366,10 +377,14 @@ public class FragmentDependent extends Fragment {
                 Util.showToast(getActivity(), R.string.network_error, false);
 
             }
-        }, "callback", C.API_REGISTER_PATIENT, Util.getHeader(getActivity()), obj);
+        }, "callback", C.API_ADD_DPENDENT, Util.getHeader(getActivity()), obj);
 
 
     }
 
 
+    @Override
+    public void notifyDependentDeleted() {
+        getDependentList();
+    }
 }

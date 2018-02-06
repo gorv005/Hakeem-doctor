@@ -434,8 +434,6 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
             Util.showToast(getActivity(), R.string.please_add_atleast_one_depandent, false);
             return false;
         }
-
-
         return true;
     }
 

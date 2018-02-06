@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,14 +16,16 @@ import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep1;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep3;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep4;
+import com.app.hakeem.fragment.FragmentEmrAndHealthTracker;
 import com.app.hakeem.fragment.FragmentLogin;
+import com.app.hakeem.fragment.FragmentPatientListForEmrAndHealthTracker;
 import com.app.hakeem.fragment.FragmentPatientRegistrationStep1;
 import com.app.hakeem.fragment.FragmentPatientRegistrationStep2;
 import com.app.hakeem.fragment.FragmentRegisterType;
 import com.app.hakeem.fragment.FragmentSplash;
 import com.app.hakeem.util.C;
 
-public class  ActivityContainer extends AppCompatActivity {
+public class ActivityContainer extends AppCompatActivity {
 
     private Fragment fragment;
     private TextView tvTitle;
@@ -45,9 +48,8 @@ public class  ActivityContainer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(fragment instanceof FragmentDependent)
-                {
-                    ((FragmentDependent)fragment).openPopUpToAddChild();
+                if (fragment instanceof FragmentDependent) {
+                    ((FragmentDependent) fragment).openPopUpToAddChild();
                 }
 
             }
@@ -123,9 +125,30 @@ public class  ActivityContainer extends AppCompatActivity {
             case C.FRAGMENT_DEPENDENT:
                 getSupportActionBar().show();
                 tvTitle.setText(R.string.dependent);
+                btnAddDependent.setVisibility(View.VISIBLE);
                 fragment = new FragmentDependent();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DEPENDENT);
+                break;
+            case C.FRAGMENT_PATIENT_EMR_AND_TRACKER:
+                getSupportActionBar().show();
+                tvTitle.setText(R.string.patient);
+                btnAddDependent.setVisibility(View.GONE);
+                fragment = new FragmentPatientListForEmrAndHealthTracker();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_EMR_AND_TRACKER);
+
+                break;
+            case C.FRAGMENT_EMR_AND_TRACKER:
+
+
+                getSupportActionBar().show();
+                tvTitle.setText(R.string.emr);
+                btnAddDependent.setVisibility(View.GONE);
+                fragment = new FragmentEmrAndHealthTracker();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_PATIENT_EMR_AND_TRACKER);
+
                 break;
         }
         fragment.setArguments(bundle);
@@ -177,5 +200,11 @@ public class  ActivityContainer extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            onBackPressed();
+        return super.onOptionsItemSelected(item);
 
+    }
 }

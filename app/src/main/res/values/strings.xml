@@ -101,5 +101,15 @@
     <string name="select_from_camera">Capture photo from camera</string>
     <string name="network_error">Network error. Please try after some time.</string>
     <string name="please_connect_to_the_internet">Please connet to the internet first.</string>
+    <string name="health_tracker">Health Tracker</string>
+    <string name="emr">EMR</string>
+    <string name="birthdate">BirthDate</string>
+    <string name="weight">weight</string>
+    <string name="height">Height</string>
+    <string name="chornic">Chronic</string>
+    <string name="weight_report">Weight Report</string>
+    <string name="fever_report">Fever Report</string>
+    <string name="blood_pressor_report">Blood Pressure Report</string>
+    <string name="blood_suger_report">Blood Sugar Report</string>
 
 </resources>
