@@ -79,7 +79,7 @@
     <string name="first_name_should_be_more_then_3_character">First Name should be 3-20 alphabets only, no special characters</string>
     <string name="name_could_not_starts_with_dot">Name cannot start with a dot</string>
     <string name="email_is_required">We need an Email ID</string>
-    <string name="please_enter_valid_email">Oops! It seems your email id did not match with our records.</string>
+    <string name="please_enter_valid_email">Oops! It seems your email is not match with email format.</string>
     <string name="mobile_no_is_required">Incorrect Phone Number. The correct phone number may only include 14 digits</string>
     <string name="please_enter_valid_mobile_number">Please enter valid mobile number</string>
     <string name="number_strts_with_zero">Mobile Number should be 10 digits, not starting with \'0\'</string>
@@ -99,5 +99,17 @@
     <string name="counseltant">Counseltant</string>
     <string name="select_from_gallary">Select photo from gallery</string>
     <string name="select_from_camera">Capture photo from camera</string>
+    <string name="network_error">Network error. Please try after some time.</string>
+    <string name="please_connect_to_the_internet">Please connet to the internet first.</string>
+    <string name="health_tracker">Health Tracker</string>
+    <string name="emr">EMR</string>
+    <string name="birthdate">BirthDate</string>
+    <string name="weight">weight</string>
+    <string name="height">Height</string>
+    <string name="chornic">Chronic</string>
+    <string name="weight_report">Weight Report</string>
+    <string name="fever_report">Fever Report</string>
+    <string name="blood_pressor_report">Blood Pressure Report</string>
+    <string name="blood_suger_report">Blood Sugar Report</string>
 
 </resources>

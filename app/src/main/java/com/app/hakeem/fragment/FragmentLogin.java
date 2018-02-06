@@ -130,6 +130,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
                         SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
                         SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER,responseLogin.getUser());
+                        Util.showToast(getActivity(),responseLogin.getMessage(),true);
 
                     } else {
 

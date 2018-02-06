@@ -9,6 +9,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class Child {
 
+    @SerializedName("id")
+    @Expose
+    private String childId;
+
+    @SerializedName("user_id")
+    @Expose
+    private String parantId;
     @SerializedName("dob")
     @Expose
     private String dob;
@@ -18,17 +25,24 @@ public class Child {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("relationship")
+    @SerializedName("relationship_id")
     @Expose
-    private String relationship;
+    private String relationshipID;
+
+    @SerializedName("relation")
+    @Expose
+    private String relation;
+
+    @SerializedName("relationPojo")
+    @Expose
+    private GeneralPojoKeyValue relationPojo;
+
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public Child() {
     }
-
 
 
     public String getDob() {
@@ -55,11 +69,36 @@ public class Child {
         this.name = name;
     }
 
-    public String getRelationship() {
-        return relationship;
+    public String getRelationshipID() {
+        return relationPojo.getKey();
     }
 
-    public void setRelationship(String relationship) {
-        this.relationship = relationship;
+    public void setRelationshipID(String relationshipID) {
+        this.relationshipID = relationshipID;
+    }
+
+    public GeneralPojoKeyValue getRelationPojo() {
+        return relationPojo;
+    }
+
+    public void setRelationPojo(GeneralPojoKeyValue relationPojo) {
+        setRelationshipID(relationPojo.getKey());
+        this.relationPojo = relationPojo;
+    }
+
+    public String getParantId() {
+        return parantId;
+    }
+
+    public void setParantId(String parantId) {
+        this.parantId = parantId;
+    }
+
+    public String getChildId() {
+        return childId;
+    }
+
+    public void setChildId(String childId) {
+        this.childId = childId;
     }
 }

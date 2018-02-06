@@ -112,7 +112,7 @@ public class FragmentPatientRegistrationStep1 extends Fragment {
             etName.setText("Aditya");
             etPassword.setText("Admin@123");
             etMobile.setText("967348934789");
-            etEmail.setText("ady@yopmail.com");
+            etEmail.setText("x@yopmail.com");
 
 
         }
