@@ -73,7 +73,7 @@ public class ActivityMain extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN)));
+        adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN),""));
         listView.setAdapter(adapterSideMenu);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -88,28 +88,41 @@ public class ActivityMain extends AppCompatActivity
                     Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
                     intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_LOGIN);
                     startActivity(intent);
-//                    Intent intent = new Intent(ActivityHome.this, ActivityFragmentContainer.class);
-//                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_MY_BOOKINGS);
-//                    startActivity(intent);
-                    //Util.showToast(ActivityHome.this, R.string.under_construction, false);
 
                 }
+                else  if (sideMenuItem.getNameResourse() == R.string.dependent) {
+                    Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DEPENDENT);
+                    startActivity(intent);
+
+                }
+
 
             }
         });
 
 
-        if(Util.isNetworkConnectivity(this))
-        {
+        if (Util.isNetworkConnectivity(this)) {
             getAllPosts();
         }
 
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN))
+            adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN), SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserType()));
+        else
+            adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN), ""));
+        listView.setAdapter(adapterSideMenu);
+    }
+
     private void getAllPosts() {
 
-        dialog =Util.getProgressDialog(this,R.string.please_wait);
+        dialog = Util.getProgressDialog(this, R.string.please_wait);
         dialog.setCancelable(false);
         dialog.show();
         String json = "{\"patient_id\" = \"14\" }";
@@ -134,7 +147,7 @@ public class ActivityMain extends AppCompatActivity
                     ResponsePost responsePost = gson.fromJson(response.toString(), ResponsePost.class);
                     if (responsePost.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
-                        adapterPosts =new AdapterPosts(ActivityMain.this,responsePost.getPosts());
+                        adapterPosts = new AdapterPosts(ActivityMain.this, responsePost.getPosts());
                         lvPosts.setAdapter(adapterPosts);
 
                     } else {
@@ -152,12 +165,10 @@ public class ActivityMain extends AppCompatActivity
             public void notifyError(String requestType, VolleyError error) {
 
                 Log.e("Response :", error.toString());
+                dialog.dismiss();
 
             }
         }, "posts", C.API_POSTS, Util.getHeader(this), obj);
-
-
-
 
 
     }

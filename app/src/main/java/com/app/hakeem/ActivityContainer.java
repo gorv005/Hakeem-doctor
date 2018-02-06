@@ -6,8 +6,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.app.hakeem.fragment.FragmentDependent;
 import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep1;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep3;
@@ -25,6 +28,7 @@ public class  ActivityContainer extends AppCompatActivity {
     private TextView tvTitle;
     private Bundle bundle;
     private int fragmentAction;
+    private Button btnAddDependent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,18 @@ public class  ActivityContainer extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tvTitle = (TextView) findViewById(R.id.tvTitle);
+        btnAddDependent = (Button) findViewById(R.id.btnAddDependents);
+        btnAddDependent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(fragment instanceof FragmentDependent)
+                {
+                    ((FragmentDependent)fragment).openPopUpToAddChild();
+                }
+
+            }
+        });
         bundle = getIntent().getBundleExtra(C.BUNDLE);
         fragmentAction = getIntent().getIntExtra(C.FRAGMENT_ACTION, C.FRAGMENT_SPLASH);
         fragmnetLoader(fragmentAction, bundle);
@@ -104,7 +120,13 @@ public class  ActivityContainer extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_TYPE_R_4);
                 break;
-
+            case C.FRAGMENT_DEPENDENT:
+                getSupportActionBar().show();
+                tvTitle.setText(R.string.dependent);
+                fragment = new FragmentDependent();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DEPENDENT);
+                break;
         }
         fragment.setArguments(bundle);
         fragmentTransaction.commit();

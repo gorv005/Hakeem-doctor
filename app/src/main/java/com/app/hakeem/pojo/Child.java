@@ -24,7 +24,11 @@ public class Child {
 
     @SerializedName("relation")
     @Expose
-    private GeneralPojoKeyValue relation;
+    private String relation;
+
+    @SerializedName("relationPojo")
+    @Expose
+    private GeneralPojoKeyValue relationPojo;
 
 
     /**
@@ -59,19 +63,19 @@ public class Child {
     }
 
     public String getRelationshipID() {
-        return relation.getKey();
+        return relationPojo.getKey();
     }
 
     public void setRelationshipID(String relationshipID) {
         this.relationshipID = relationshipID;
     }
 
-    public GeneralPojoKeyValue getRelation() {
-        return relation;
+    public GeneralPojoKeyValue getRelationPojo() {
+        return relationPojo;
     }
 
-    public void setRelation(GeneralPojoKeyValue relation) {
-        setRelationshipID(relation.getKey());
-        this.relation = relation;
+    public void setRelationPojo(GeneralPojoKeyValue relationPojo) {
+        setRelationshipID(relationPojo.getKey());
+        this.relationPojo = relationPojo;
     }
 }
