@@ -164,7 +164,7 @@ public class FragmentEmrAndHealthTracker extends Fragment {
 
         }
         fragment.setArguments(bundle);
-        fragmentTransaction.commit();
+        fragmentTransaction.commitNow();
         getChildFragmentManager().executePendingTransactions();
 
 

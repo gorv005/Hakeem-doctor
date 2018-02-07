@@ -68,16 +68,15 @@
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_button"
+            android:background="@drawable/bg_button_noborder"
             android:minWidth="150dp"
-
             android:text="@string/login"
             android:textAllCaps="false"
             android:textColor="@color/color_selector" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
@@ -89,7 +88,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_button_noborder"
                 android:minWidth="130dp"
                 android:text="@string/create_account"
                 android:textAllCaps="false"
@@ -102,7 +101,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/bg_button_noborder"
                 android:minWidth="130dp"
                 android:text="@string/need_help"
                 android:textAllCaps="false"
