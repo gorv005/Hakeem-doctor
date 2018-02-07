@@ -1,4 +1,4 @@
-package com.app.hakeem;
+package com.app.hakeem.fragment;
 
 
 import android.os.Bundle;
@@ -7,14 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.app.hakeem.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentDoctorRegistrationStep4 extends Fragment {
+public class FragmentHealthTracker extends Fragment {
 
 
-    public FragmentDoctorRegistrationStep4() {
+    public FragmentHealthTracker() {
         // Required empty public constructor
     }
 
@@ -23,7 +24,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_doctor_registration_step4, container, false);
+        return inflater.inflate(R.layout.fragment_healthtracker, container, false);
     }
 
 }

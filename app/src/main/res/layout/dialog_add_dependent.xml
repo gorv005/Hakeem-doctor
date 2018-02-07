@@ -1,0 +1,144 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.app.hakeem.fragment.FragmentDoctorRegistrationStep1">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_red_blue_corner"
+            android:drawableLeft="@drawable/icon_name"
+            android:drawablePadding="20dp"
+            android:hint="@string/name"
+            android:inputType="textCapWords"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvRelationship"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_red_blue_corner"
+            android:drawablePadding="20dp"
+            android:drawableRight="@drawable/icon_drop_down"
+            android:gravity="left|center_vertical"
+            android:hint="@string/relationship"
+            android:paddingLeft="58dp"
+            android:text="Parents"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spinnerRelationship"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="start"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:gravity="start"
+            android:paddingLeft="40dp"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:id="@+id/llFlightDiraction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:minHeight="50dp"
+            android:weightSum="1">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center">
+
+                <RadioButton
+                    android:id="@+id/rbMale"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/button_select_blue"
+                    android:button="@null"
+                    android:buttonTint="@color/gray4"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="@string/male"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center">
+
+                <RadioButton
+                    android:id="@+id/rbFemale"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/button_deselect_blue"
+                    android:button="@null"
+                    android:buttonTint="@color/gray1"
+                    android:gravity="center"
+                    android:text="@string/female"
+                    android:textColor="@color/color_selector_blue"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvBirthDay"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_red_blue_corner"
+            android:drawableLeft="@drawable/icon_calendar"
+            android:drawablePadding="20dp"
+            android:gravity="left|center_vertical"
+            android:hint="@string/bithdate"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnDone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_button"
+            android:minWidth="150dp"
+            android:text="@string/done"
+            android:textAlignment="center"
+            android:textColor="@color/color_selector"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</RelativeLayout>

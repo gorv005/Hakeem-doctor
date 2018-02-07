@@ -6,13 +6,18 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
@@ -33,8 +38,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.app.hakeem.R;
+import com.app.hakeem.pojo.GeneralPojoKeyValue;
 import com.app.hakeem.pojo.SideMenuItem;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.GeneralSecurityException;
 import java.sql.Time;
 import java.text.DecimalFormat;
@@ -45,6 +53,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
@@ -223,6 +233,21 @@ public class Util {
 
         Log.e("Daay  ", calendar.getTimeInMillis() + "");
         return calendar.getTimeInMillis();
+    }
+
+    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
+                                   boolean filter) {
+
+        float ratio = Math.min(
+                (float) maxImageSize / realImage.getWidth(),
+                (float) maxImageSize / realImage.getHeight());
+        int width = Math.round((float) ratio * realImage.getWidth());
+        int height = Math.round((float) ratio * realImage.getHeight());
+
+        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+                height, filter);
+        //  Bitmap newBitmap=   Bitmap.createScaledBitmap(realImage,(int)(realImage.getWidth()*0.9), (int)(realImage.getHeight()*0.9), true);
+        return newBitmap;
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
@@ -435,9 +460,15 @@ public class Util {
 
     public static String getDateFromString(String date) {
 
-        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-        String strDate = newDateFormat.format(date);
-        return strDate;
+        try {
+            Date start = new SimpleDateFormat("dd/MMM/yyyy").parse(date);
+            SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            date = newDateFormat.format(start);
+            return date;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
     public static String getDurationBetweenTimes(String departureTime, String arrivalTime) {
@@ -641,18 +672,26 @@ public class Util {
     }
 
 
-    public static ArrayList<SideMenuItem> getSideMenuList(boolean isLogin) {
+    public static ArrayList<SideMenuItem> getSideMenuList(boolean isLogin, String userType) {
         ArrayList<SideMenuItem> sideMenuItems = new ArrayList<SideMenuItem>();
-        if (!isLogin)
-            sideMenuItems.add(new SideMenuItem(R.string.login, R.drawable.icon_settting));
-        else {
+
+         if (isLogin && userType.equals(C.DOCTOR)) {
             sideMenuItems.add(new SideMenuItem(R.string.queue, R.drawable.queue));
             sideMenuItems.add(new SideMenuItem(R.string.emr_and_tracker, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.profile, R.drawable.icon_profile));
             sideMenuItems.add(new SideMenuItem(R.string.awareness, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.setting, R.drawable.icon_settting));
             sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));
+        } else if (isLogin && userType.equals(C.PATIENT)) {
+            sideMenuItems.add(new SideMenuItem(R.string.dependent, R.drawable.menu_children));
+            sideMenuItems.add(new SideMenuItem(R.string.emr_and_tracker, R.drawable.menu_general));
+            sideMenuItems.add(new SideMenuItem(R.string.profile, R.drawable.icon_profile));
+            sideMenuItems.add(new SideMenuItem(R.string.awareness, R.drawable.menu_general));
+            sideMenuItems.add(new SideMenuItem(R.string.setting, R.drawable.icon_settting));
+            sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));
         }
+        else
+             sideMenuItems.add(new SideMenuItem(R.string.login, R.drawable.icon_settting));
 //        if (isLogin) {
 //            sideMenuItems.add(new SideMenuItem(R.string.my_bookings, R.drawable.booking));
 //            sideMenuItems.add(new SideMenuItem(R.string.my_account, R.drawable.account));
@@ -822,12 +861,74 @@ public class Util {
         return headers;
     }
 
-    public static Map<String, String> getHeader() {
-        HashMap<String, String> headers = new HashMap<String, String>();
-//        String authToken = SharedPreference.getInstance(activity).getString(C.AUTH_TOKEN);
-//        headers.put("authtoken", authToken);
-        headers.put("Accept", "application/json");
-        headers.put("Content-Type", "application/json");
-        return headers;
+//    public static Map<String, String> getHeader() {
+//        HashMap<String, String> headers = new HashMap<String, String>();
+////        String authToken = SharedPreference.getInstance(activity).getString(C.AUTH_TOKEN);
+////        headers.put("authtoken", authToken);
+//        headers.put("Accept", "application/json");
+//        headers.put("Content-Type", "application/json");
+//        return headers;
+//    }
+
+
+    public static String loadCityJson(Activity activity) {
+        String json = null;
+        try {
+            InputStream is = activity.getAssets().open("cities-en.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
+    public static String getPath(Uri contentUri, Context context) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader loader = new CursorLoader(context, contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
+        cursor.close();
+        return result;
+    }
+
+    public static List<GeneralPojoKeyValue> getRelationList() {
+
+
+
+
+        final List<GeneralPojoKeyValue> acadQualArr = new ArrayList<GeneralPojoKeyValue>();
+        LinkedHashMap<String, String> hashMap;
+
+        hashMap = new LinkedHashMap<String, String>();
+        hashMap.put("1", "Father");
+        hashMap.put("2", "Mother");
+        hashMap.put("3", "Brother");
+        hashMap.put("4", "Sister");
+        hashMap.put("5", "Uncle");
+        hashMap.put("6", "Aunty");
+        hashMap.put("7", "Nephew");
+        hashMap.put("8", "Grandfather");
+        hashMap.put("9", "GrandMother");
+
+
+        int i = 0;
+        for (HashMap.Entry<String, String> entry : hashMap.entrySet()) {
+            GeneralPojoKeyValue acad = new GeneralPojoKeyValue();
+            acad.setKey(entry.getKey());
+            acad.setValue(entry.getValue());
+            acadQualArr.add(i, acad);
+            i++;
+        }
+
+
+
+        return acadQualArr;
     }
 }

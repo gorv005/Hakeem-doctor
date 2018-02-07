@@ -1,0 +1,137 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pattern"
+    tools:context="com.app.hakeem.fragment.FragmentDoctorRegistrationStep1">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/ivStepIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/step_p_2" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivStepIndicator"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_white"
+                android:minWidth="150dp"
+                android:text="@string/personal_details"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/green"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvBirthDay"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="left|center_vertical"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_red_blue_corner"
+                android:drawableLeft="@drawable/icon_calendar"
+                android:drawablePadding="20dp"
+                android:hint="@string/bithdate"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white_off"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:id="@+id/tvCity"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="left|center_vertical"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_red_blue_corner"
+                android:drawableLeft="@drawable/icon_name"
+                android:drawablePadding="20dp"
+                android:hint="@string/city"
+                android:inputType="number"
+                android:maxLength="14"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white_off"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnAddDependents"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_button"
+                android:minWidth="150dp"
+                android:text="@string/add_dependents"
+                android:textAlignment="center"
+                android:textColor="@color/color_selector"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/header_item_dependent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ListView
+                    android:id="@+id/lvDependent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></ListView>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnCompleteRegistration"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_button"
+                android:minWidth="150dp"
+                android:text="@string/complete_registration"
+                android:textAlignment="center"
+                android:textColor="@color/color_selector"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTerm_and_condition"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_white"
+                android:minWidth="150dp"
+                android:text="@string/terms_and_condition"
+                android:textAlignment="center"
+                android:textColor="@color/color_selector"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
