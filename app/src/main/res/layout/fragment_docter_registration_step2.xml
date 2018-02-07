@@ -7,129 +7,144 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:src="@drawable/step_2" />
 
     <ScrollView
-        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
         <LinearLayout
-            android:layout_marginTop="60dp"
-            android:paddingRight="50dp"
-            android:paddingLeft="50dp"
-            android:layout_centerInParent="true"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="60dp"
+            android:orientation="vertical"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp">
+
             <TextView
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:minWidth="150dp"
-                android:textColor="@color/green"
-                android:textAllCaps="true"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:text="@string/personal_info"
-                android:background="@drawable/rounded_white"
                 android:layout_height="40dp"
-                />
-            <EditText
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_white"
+                android:minWidth="150dp"
+                android:text="@string/personal_info"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/green"
+                android:textSize="16sp" />
+
+            <EditText
                 android:id="@+id/etNationalaty"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_red_blue_corner"
                 android:drawableLeft="@drawable/icon_name"
                 android:drawablePadding="20dp"
                 android:hint="@string/nationalaty"
-                android:textSize="14sp"
+
+                android:singleLine="true"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white_off" />
+                android:textColorHint="@color/white_off"
+                android:textSize="14sp" />
 
 
             <EditText
-                android:layout_marginTop="20dp"
                 android:id="@+id/etResidance"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+
                 android:background="@drawable/rounded_red_blue_corner"
                 android:drawableLeft="@drawable/icon_name"
                 android:drawablePadding="20dp"
                 android:hint="@string/residance"
-                android:textSize="14sp"
+                android:singleLine="true"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white_off" />
+                android:textColorHint="@color/white_off"
+                android:textSize="14sp" />
+
             <EditText
-                android:layout_marginTop="20dp"
                 android:id="@+id/etWorkPlace"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_red_blue_corner"
                 android:drawableLeft="@drawable/icon_name"
                 android:drawablePadding="20dp"
                 android:hint="@string/workplace"
-                android:textSize="14sp"
+                android:singleLine="true"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white_off" />
+                android:textColorHint="@color/white_off"
+                android:textSize="14sp" />
+
             <EditText
-                android:layout_marginTop="20dp"
                 android:id="@+id/etHomeLocation"
+
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_red_blue_corner"
                 android:drawableLeft="@drawable/icon_map_location"
                 android:drawablePadding="20dp"
                 android:hint="@string/home_location"
-                android:textSize="14sp"
+                android:singleLine="true"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white_off" />
+                android:textColorHint="@color/white_off"
+                android:textSize="14sp" />
+
             <EditText
-                android:layout_marginTop="20dp"
                 android:id="@+id/etIdCard"
+
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_red_blue_corner"
                 android:drawableLeft="@drawable/icon_username"
                 android:drawablePadding="20dp"
                 android:hint="@string/id_card_passport"
-                android:textSize="14sp"
+                android:singleLine="true"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white_off" />
+                android:textColorHint="@color/white_off"
+                android:textSize="14sp" />
+
             <Button
                 android:id="@+id/btnContinue"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:minWidth="150dp"
-                android:textColor="@color/color_selector"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:text="@string/continue_tv"
-                android:background="@drawable/bg_button"
                 android:layout_height="40dp"
-                />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_button"
+                android:minWidth="150dp"
+                android:text="@string/continue_tv"
+                android:textAlignment="center"
+                android:textColor="@color/color_selector"
+                android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/tvTerm_and_condition"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
-                android:minWidth="150dp"
-                android:textColor="@color/color_selector"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:text="@string/terms_and_condition"
-                android:background="@drawable/rounded_white"
                 android:layout_height="40dp"
-                />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_white"
+                android:minWidth="150dp"
+                android:text="@string/terms_and_condition"
+                android:textAlignment="center"
+                android:textColor="@color/color_selector"
+                android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

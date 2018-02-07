@@ -4,6 +4,7 @@ package com.app.hakeem.fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,11 +37,16 @@ import com.android.volley.Response;
 
 
 import com.app.hakeem.R;
+import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.DoctorRegistration;
+import com.app.hakeem.pojo.LoginCredential;
+import com.app.hakeem.pojo.ResponseLogin;
 import com.app.hakeem.pojo.UploadFileRes;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.MultipartUtility;
+import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
+import com.app.hakeem.webservices.VolleyService;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -86,6 +92,8 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
     String action="";
     private Uri fileUri;
     Uri contentURI;
+    private Dialog dialog;
+
     DoctorRegistration doctorRegistration;
     private ProgressDialog mProgressDialog;
 
@@ -118,7 +126,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
             @Override
             public void onClick(View v) {
                 if(isAllValid()){
-            //       imageUpload(Util.getPath(contentURI,getActivity()),Util.getHeaderForImage(getActivity()));
+                    doctorRegistration.setIban(etIban.getText().toString());
                   new  UploadFileFroURL(getActivity()).execute(Util.getPath(contentURI,getActivity()));
                 }
             }
@@ -142,6 +150,11 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
             etIban.requestFocus();
             return false;
         } else if (etConfirmIban.getText().toString().length() == 0) {
+            etConfirmIban.setError(getActivity().getResources().getString(R.string.please_enter_city));
+            etConfirmIban.requestFocus();
+            return false;
+        }
+        else if (!etConfirmIban.getText().toString().equals(etIban.getText().toString())) {
             etConfirmIban.setError(getActivity().getResources().getString(R.string.please_enter_city));
             etConfirmIban.requestFocus();
             return false;
@@ -418,7 +431,8 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
             Gson gson = new Gson(); // Or use new GsonBuilder().create();
             UploadFileRes fileRes = gson.fromJson(result, UploadFileRes.class);
             if(fileRes.getStatusCode().equals(C.STATUS_SUCCESS)){
-                fileRes.getUrls().getPhoto();
+               doctorRegistration.setPhoto(fileRes.getUrls().getPhoto());
+                doDoctorReg(doctorRegistration);
             }
         }
 
@@ -428,6 +442,61 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
             String newFileName = "LR" + System.currentTimeMillis() + num + "." + fileName;
             return newFileName;
         }
+
+
+    }
+
+    private void doDoctorReg(DoctorRegistration doctorRegistration) {
+
+        dialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(doctorRegistration);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialog.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    ResponseLogin responseLogin = gson.fromJson(response.toString(), ResponseLogin.class);
+                    if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
+
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
+                        SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
+                        SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER,responseLogin.getUser());
+                        Util.showToast(getActivity(),responseLogin.getMessage(),true);
+
+                    } else {
+
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+
+            }
+        }, "login", C.API_LOGIN, Util.getHeader(getActivity()), obj);
 
 
     }
