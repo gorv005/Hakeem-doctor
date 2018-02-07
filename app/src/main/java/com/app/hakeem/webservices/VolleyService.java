@@ -7,6 +7,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
+
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -45,7 +46,7 @@ public class VolleyService {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if (mResultCallback != null)
-                        mResultCallback.notifyError(requestType, error);
+                        mResultCallback.notifyError(requestType, error.toString());
                 }
             }) {
                 @Override
@@ -63,7 +64,7 @@ public class VolleyService {
 
         } catch (Exception e) {
             if (mResultCallback != null)
-                mResultCallback.notifyError(requestType, new VolleyError(e));
+                mResultCallback.notifyError(requestType, e.toString());
         }
     }
 

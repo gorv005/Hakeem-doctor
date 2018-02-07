@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.android.volley.VolleyError;
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterPatientListEMRandTracker;
@@ -125,7 +124,7 @@ public class FragmentPatientListForEmrAndHealthTracker extends Fragment {
             }
 
             @Override
-            public void notifyError(String requestType, VolleyError error) {
+            public void notifyError(String requestType, String error) {
                 Log.e("Response", error.toString());
                 progressDialog.dismiss();
                 Util.showToast(getActivity(), R.string.network_error, false);

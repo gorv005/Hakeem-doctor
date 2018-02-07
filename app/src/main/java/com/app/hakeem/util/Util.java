@@ -861,6 +861,14 @@ public class Util {
         return headers;
     }
 
+    public static Map<String, String> getHeaderForImage(Activity activity) {
+        HashMap<String, String> headers = new HashMap<String, String>();
+        String authToken = SharedPreference.getInstance(activity).getString(C.AUTH_TOKEN);
+        headers.put("authtoken", authToken);
+        headers.put("Accept", "application/json");
+        headers.put("Content-Type", "multipart/form-data");
+        return headers;
+    }
 //    public static Map<String, String> getHeader() {
 //        HashMap<String, String> headers = new HashMap<String, String>();
 ////        String authToken = SharedPreference.getInstance(activity).getString(C.AUTH_TOKEN);
