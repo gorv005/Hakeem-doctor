@@ -2,7 +2,10 @@ package com.app.hakeem.fragment;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,24 +26,45 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+
 
 import com.app.hakeem.R;
+import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.DoctorRegistration;
+import com.app.hakeem.pojo.LoginCredential;
+import com.app.hakeem.pojo.ResponseLogin;
+import com.app.hakeem.pojo.UploadFileRes;
 import com.app.hakeem.util.C;
+import com.app.hakeem.util.MultipartUtility;
+import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
+import com.app.hakeem.webservices.VolleyService;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.app.Activity.RESULT_CANCELED;
+import static com.app.hakeem.util.C.API_UPLOAD_PIC;
 
 
 /**
@@ -67,7 +92,10 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
     String action="";
     private Uri fileUri;
     Uri contentURI;
+    private Dialog dialog;
+
     DoctorRegistration doctorRegistration;
+    private ProgressDialog mProgressDialog;
 
 
     public FragmentDoctorRegistrationStep4() {
@@ -78,7 +106,9 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-        doctorRegistration = (DoctorRegistration) bundle.getSerializable(C.USER);
+        if(bundle!=null) {
+            doctorRegistration = (DoctorRegistration) bundle.getSerializable(C.USER);
+        }
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,7 +126,8 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
             @Override
             public void onClick(View v) {
                 if(isAllValid()){
-               //    imageUpload(Util.getPath(contentURI,getActivity()),Util.getHeader(getActivity()));
+                    doctorRegistration.setIban(etIban.getText().toString());
+                  new  UploadFileFroURL(getActivity()).execute(Util.getPath(contentURI,getActivity()));
                 }
             }
         });
@@ -119,6 +150,11 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
             etIban.requestFocus();
             return false;
         } else if (etConfirmIban.getText().toString().length() == 0) {
+            etConfirmIban.setError(getActivity().getResources().getString(R.string.please_enter_city));
+            etConfirmIban.requestFocus();
+            return false;
+        }
+        else if (!etConfirmIban.getText().toString().equals(etIban.getText().toString())) {
             etConfirmIban.setError(getActivity().getResources().getString(R.string.please_enter_city));
             etConfirmIban.requestFocus();
             return false;
@@ -313,40 +349,156 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
 
 
 
-   /* private void imageUpload(final String imagePath,final Map<String, String> headers) {
+    public class UploadFileFroURL extends AsyncTask<String, Integer, String> {
 
-        SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, API_UPLOAD_PIC,
-                new Response.Listener<String>() {
+        private String upLoadServerUri = "http://www.dataheadstudio.com/test/api/upload";
+        private File sourceFile;
+        private int serverResonseCode;
+        private Activity activity;
+
+
+        public UploadFileFroURL(Activity activity) {
+            // TODO Auto-generated constructor stub
+            this.activity = activity;
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(activity);
+            mProgressDialog.setTitle("Upload");
+            mProgressDialog.setMessage("Uploading, Please Wait!");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setMax(100);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... content) {
+
+//               String response = uploadFile(content[0]);
+            String response = upload(content[0]);
+            return response;
+        }
+
+        String upload(String sourceFileUri) {
+            sourceFile = new File(sourceFileUri);
+            String requestURL = "http://www.dataheadstudio.com/test/api/upload";
+
+            try {
+                MultipartUtility multipart = new MultipartUtility(new MultipartUtility.ProgressListener() {
                     @Override
-                    public void onResponse(String response) {
-                        Log.d("Response", response);
-                        try {
-                            JSONObject jObj = new JSONObject(response);
-                            String message = jObj.getString("message");
+                    public void transferred(int num) {
+                        publishProgress(num);
 
-                            Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
-
-                        } catch (JSONException e) {
-                            // JSON error
-                            e.printStackTrace();
-                            Toast.makeText(getActivity(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                return headers;
-            }
-        };
+                }, requestURL, "profileUserAuthKey", "uploadprofileimage", getActivity());
 
-        smr.addFile("photo", imagePath);
-        MyApplication.getInstance().addToRequestQueue(smr);
 
-    }*/
+//                multipart.addFormField(C.ACTION, "uploadprofileimage");
+//                multipart.addFormField("profileUserAuthKey", SharedPreference.getInstance(getActivity()).getString(C.AUTH_KEY_PROFILE));
+                String fileName = renameFile(MimeTypeMap.getFileExtensionFromUrl(sourceFileUri));
+                multipart.addFilePart("photo", sourceFile, fileName);
+//                multipart.addFilePart("document", sourceFile, fileName);
+                List<String> response = multipart.finish();
+
+                System.out.println("SERVER REPLIED:");
+
+                for (String line : response) {
+                    System.out.println("DEBUG==" + line);
+                }
+
+                return response.get(0);
+            } catch (IOException ex) {
+                System.err.println(ex);
+            }
+            return null;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+
+            mProgressDialog.setProgress(progress[0]);
+        }
+
+
+        protected void onPostExecute(String result) {
+            mProgressDialog.dismiss();
+            Log.e("Response :", result);
+//            Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+            Gson gson = new Gson(); // Or use new GsonBuilder().create();
+            UploadFileRes fileRes = gson.fromJson(result, UploadFileRes.class);
+            if(fileRes.getStatusCode().equals(C.STATUS_SUCCESS)){
+               doctorRegistration.setPhoto(fileRes.getUrls().getPhoto());
+                doDoctorReg(doctorRegistration);
+            }
+        }
+
+        private String renameFile(String fileName) {
+            Random random = new Random();
+            int num = 1000 + random.nextInt(9999);
+            String newFileName = "LR" + System.currentTimeMillis() + num + "." + fileName;
+            return newFileName;
+        }
+
+
+    }
+
+    private void doDoctorReg(DoctorRegistration doctorRegistration) {
+
+        dialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(doctorRegistration);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialog.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    ResponseLogin responseLogin = gson.fromJson(response.toString(), ResponseLogin.class);
+                    if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
+
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
+                        SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
+                        SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER,responseLogin.getUser());
+                        Util.showToast(getActivity(),responseLogin.getMessage(),true);
+
+                    } else {
+
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+
+            }
+        }, "login", C.API_LOGIN, Util.getHeader(getActivity()), obj);
+
+
+    }
 
 }

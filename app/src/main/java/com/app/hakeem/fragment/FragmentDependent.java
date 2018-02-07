@@ -25,7 +25,6 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterPatientList;
 import com.app.hakeem.interfaces.DependentDelete;
@@ -136,7 +135,7 @@ public class FragmentDependent extends Fragment implements DependentDelete {
             }
 
             @Override
-            public void notifyError(String requestType, VolleyError error) {
+            public void notifyError(String requestType, String error) {
                 Log.e("Response", error.toString());
                 progressDialog.dismiss();
                 Util.showToast(getActivity(), R.string.network_error, false);
@@ -372,7 +371,7 @@ public class FragmentDependent extends Fragment implements DependentDelete {
             }
 
             @Override
-            public void notifyError(String requestType, VolleyError error) {
+            public void notifyError(String requestType, String error) {
                 progressDialog.dismiss();
                 Util.showToast(getActivity(), R.string.network_error, false);
 

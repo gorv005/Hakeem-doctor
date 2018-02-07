@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.DependentDelete;
 import com.app.hakeem.interfaces.IResult;
@@ -140,7 +139,7 @@ public class AdapterPatientList extends BaseAdapter {
             }
 
             @Override
-            public void notifyError(String requestType, VolleyError error) {
+            public void notifyError(String requestType, String error) {
                 progressDialog.dismiss();
                 Util.showToast(activity, R.string.network_error, false);
 

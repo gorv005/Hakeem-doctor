@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.android.volley.VolleyError;
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.BuildConfig;
 import com.app.hakeem.R;
@@ -145,7 +144,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
             }
 
             @Override
-            public void notifyError(String requestType, VolleyError error) {
+            public void notifyError(String requestType, String error) {
 
                 Log.e("Response :", error.toString());
 

@@ -26,7 +26,6 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterCityList;
 import com.app.hakeem.adapter.AdapterDependent;
@@ -278,7 +277,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
             }
 
             @Override
-            public void notifyError(String requestType, VolleyError error) {
+            public void notifyError(String requestType, String error) {
                 progressDialog.dismiss();
                 Util.showToast(getActivity(), R.string.network_error, false);
 
@@ -515,7 +514,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
             }
 
             @Override
-            public void notifyError(String requestType, VolleyError error) {
+            public void notifyError(String requestType, String error) {
 
                 Log.e("Response :", error.toString());
 

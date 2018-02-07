@@ -7,22 +7,31 @@ import android.preference.PreferenceManager;
 import com.app.hakeem.pojo.User;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
+
 /**
  * Created by aditya.singh on 3/1/2017.
  */
-public class SharedPreference {
+public class SharedPreference implements Serializable {
 
     private Context context;
-    private static SharedPreference savePreferenceAndData;
+    private static volatile SharedPreference savePreferenceAndData;
 
     public static SharedPreference getInstance(Context context) {
         if (savePreferenceAndData == null) {
-            savePreferenceAndData = new SharedPreference(context);
+            synchronized (SharedPreference.class) {
+                if (savePreferenceAndData == null)
+                    savePreferenceAndData = new SharedPreference(context);
+            }
         }
         return savePreferenceAndData;
     }
 
     public SharedPreference(Context context) {
+
+        if (savePreferenceAndData != null) {
+            throw new RuntimeException("Only one can instance create.");
+        }
         this.context = context;
 
     }

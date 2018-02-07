@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.android.volley.VolleyError;
 import com.app.hakeem.adapter.AdapterPosts;
 import com.app.hakeem.adapter.AdapterSideMenu;
 import com.app.hakeem.interfaces.IResult;
@@ -168,7 +167,7 @@ public class ActivityMain extends AppCompatActivity
             }
 
             @Override
-            public void notifyError(String requestType, VolleyError error) {
+            public void notifyError(String requestType, String error) {
 
                 Log.e("Response :", error.toString());
                 dialog.dismiss();
