@@ -84,26 +84,26 @@ public class FragmentDocterRegistrationStep2 extends Fragment {
     public boolean isAllValid() {
 
         if (etNationalaty.getText().toString().length() == 0) {
-            etNationalaty.setError(getActivity().getResources().getString(R.string.first_name_required));
+            etNationalaty.setError(getActivity().getResources().getString(R.string.nationility_required));
             etNationalaty.requestFocus();
             return false;
         }  else if (etResidance.getText().toString().length() == 0) {
-            etResidance.setError(getActivity().getResources().getString(R.string.first_name_required));
+            etResidance.setError(getActivity().getResources().getString(R.string.residance_required));
             etResidance.requestFocus();
             return false;
         }
         else if (etWorkPlace.getText().toString().length() == 0) {
-            etWorkPlace.setError(getActivity().getResources().getString(R.string.first_name_required));
+            etWorkPlace.setError(getActivity().getResources().getString(R.string.workPlace_required));
             etWorkPlace.requestFocus();
             return false;
         }
         else if (etHomeLocation.getText().toString().length() == 0) {
-            etHomeLocation.setError(getActivity().getResources().getString(R.string.first_name_required));
+            etHomeLocation.setError(getActivity().getResources().getString(R.string.homeLocation_required));
             etHomeLocation.requestFocus();
             return false;
         }
         else if (etIdCard.getText().toString().length() == 0) {
-            etIdCard.setError(getActivity().getResources().getString(R.string.first_name_required));
+            etIdCard.setError(getActivity().getResources().getString(R.string.idcard_required));
             etIdCard.requestFocus();
             return false;
         }

@@ -52,7 +52,7 @@ public class FragmentRegisterType extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnDoctor:
-                ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_DOCTOR_REGISTRATION_STEP1,null);
+                ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_DOCTOR_REGISTRATION_STEP3,null);
                 break;
             case R.id.btnPatient:
                 ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_PATIENT_REGISTRATION_STEP1,null);

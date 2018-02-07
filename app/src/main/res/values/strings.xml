@@ -46,17 +46,17 @@
     <string name="doctor">Doctor</string>
     <string name="patient">Patient</string>
     <string name="personal_info">Personal information</string>
-    <string name="nationalaty">Nationalaty</string>
+    <string name="nationalaty">Nationality</string>
     <string name="id_card_passport">ID Card/Passport</string>
     <string name="home_location">Home Location</string>
     <string name="workplace">Workplace</string>
-    <string name="residance">Residance</string>
+    <string name="residance">Residence</string>
     <string name="cv">cv</string>
     <string name="speciality">Speciality</string>
     <string name="current_grade">Current Grade</string>
     <string name="subspecility">SubSpeciality</string>
-    <string name="classification">Clasification</string>
-    <string name="add_experience">Add Experiance</string>
+    <string name="classification">Classification</string>
+    <string name="add_experience">Add Experience</string>
     <string name="since">Since</string>
     <string name="to">To</string>
     <string name="hospital_name">Hospital Name</string>
@@ -111,5 +111,20 @@
     <string name="fever_report">Fever Report</string>
     <string name="blood_pressor_report">Blood Pressure Report</string>
     <string name="blood_suger_report">Blood Sugar Report</string>
+    <string name="name_required">We need a Name</string>
+    <string name="nationility_required">We need a Nationality</string>
+    <string name="residance_required">We need a Residence</string>
+    <string name="workPlace_required">We need a WorkPlace</string>
+    <string name="homeLocation_required">We need a HomeLocation</string>
+    <string name="idcard_required">We need a IdCard</string>
+    <string name="speciality_required">We need a Speciality</string>
+    <string name="currentGrade_required">We need a Current Grade</string>
+    <string name="subSpeciality_required">We need a Sub Speciality</string>
+    <string name="classification_required">We need a Classification</string>
+    <string name="Iban_required">We need a Iban</string>
+    <string name="iban_mismatch">Iban Mismatch</string>
+    <string name="select_image">Please select a image</string>
+
+    <string name="name_should_be_more_then_3_character">Name should be 3-30 alphabets only, no special characters</string>
 
 </resources>

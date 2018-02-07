@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight=".25"
-                android:gravity="right"
+                android:gravity="center"
                 android:textColor="@color/white"
                 android:textIsSelectable="false"
                 android:textSize="14sp" />

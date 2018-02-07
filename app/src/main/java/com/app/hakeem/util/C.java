@@ -60,6 +60,8 @@ public interface C {
     String BASE_URL = "http://www.dataheadstudio.com/test/api";
     String API_POSTS = BASE_URL + "/posts";
     String API_LOGIN = BASE_URL + "/login";
+    String API_DOC_REG = BASE_URL + "/registerdoctor";
+
     String API_UPLOAD_PIC = BASE_URL + "/upload";
     String API_REGISTER_PATIENT = BASE_URL + "/registerpatient";
     String API_REGISTER_FETCH_PATIENT = BASE_URL + "/fetchpatient";

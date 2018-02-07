@@ -27,6 +27,7 @@ import com.app.hakeem.adapter.AdapterDoctorExperience;
 import com.app.hakeem.pojo.DoctorRegistration;
 import com.app.hakeem.pojo.Experience;
 import com.app.hakeem.util.C;
+import com.app.hakeem.util.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -83,6 +84,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
 
 
     String[] speciality = new String[]{
+            "Speciality",
             "Family and Community",
             "Psychological",
             "Adbominal",
@@ -90,6 +92,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
             "Pediatrics"
     };
     String[] currentGrade = new String[]{
+            "Current Grade",
             "Specialist",
             "Consultant"
 
@@ -105,7 +108,9 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-        doctorRegistration = (DoctorRegistration) bundle.getSerializable(C.USER);
+        if (bundle != null) {
+            doctorRegistration = (DoctorRegistration) bundle.getSerializable(C.USER);
+        }
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -246,23 +251,22 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
     };
     public boolean isAllValid() {
         if (etSpeciality.getText().toString().length() == 0) {
-            etSpeciality.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
+            etSpeciality.setError(getActivity().getResources().getString(R.string.speciality_required));
             etSpeciality.requestFocus();
             return false;
         } else if (etCurrentGrade.getText().toString().length() == 0) {
-            etCurrentGrade.setError(getActivity().getResources().getString(R.string.please_enter_city));
+            etCurrentGrade.setError(getActivity().getResources().getString(R.string.currentGrade_required));
             etCurrentGrade.requestFocus();
             return false;
         } else if (etSubSpeciality.getText().toString().length() == 0) {
-            etSubSpeciality.setError(getActivity().getResources().getString(R.string.please_enter_city));
+            etSubSpeciality.setError(getActivity().getResources().getString(R.string.subSpeciality_required));
             etSubSpeciality.requestFocus();
             return false;
         }
         else if (etClassification.getText().toString().length() == 0) {
-            etClassification.setError(getActivity().getResources().getString(R.string.please_enter_city));
+            etClassification.setError(getActivity().getResources().getString(R.string.classification_required));
             etClassification.requestFocus();
             return false;
-
         }
 
 
@@ -288,9 +292,10 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setView(deleteDialogView);
 
-        ArrayList<Experience> experiences = new ArrayList<>();
+        final ArrayList<Experience> experiences = new ArrayList<>();
         if (adapterDoctorExperience == null) {
             adapterDoctorExperience = new AdapterDoctorExperience(getActivity(), experiences);
+            lvExperience.setAdapter(adapterDoctorExperience);
         }
 
         etHospitalName = (EditText) deleteDialogView.findViewById(R.id.etHospitalName);
@@ -310,8 +315,9 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
                     experience.setHospitalName(etHospitalName.getText().toString());
                     experience.setWorkedSince(etWorkingSince.getText().toString());
                     experience.setResignedSince(etResignedSince.getText().toString());
+                   // experiences.add(experience);
                     adapterDoctorExperience.addItem(experience);
-                    //Util.setListViewHeightBasedOnChildren(lvExperience);
+                   Util.setListViewHeightBasedOnChildren(lvExperience);
                     dialog.dismiss();
                 }
             }

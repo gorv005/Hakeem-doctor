@@ -107,11 +107,11 @@ public class FragmentDoctorRegistrationStep1 extends Fragment {
     public boolean isAllValid() {
 
         if (etUserName.getText().toString().length() == 0) {
-            etUserName.setError(getActivity().getResources().getString(R.string.first_name_required));
+            etUserName.setError(getActivity().getResources().getString(R.string.name_required));
             etUserName.requestFocus();
             return false;
         } else if (etUserName.getText().toString().trim().length() < 3) {
-            etUserName.setError(getActivity().getResources().getString(R.string.first_name_should_be_more_then_3_character));
+            etUserName.setError(getActivity().getResources().getString(R.string.name_should_be_more_then_3_character));
             etUserName.requestFocus();
             return false;
         } else if (etUserName.getText().toString().trim().startsWith(".")) {

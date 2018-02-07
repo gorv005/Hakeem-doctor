@@ -32,10 +32,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-
-
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.DoctorRegistration;
@@ -57,14 +53,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.app.Activity.RESULT_CANCELED;
-import static com.app.hakeem.util.C.API_UPLOAD_PIC;
 
 
 /**
@@ -146,21 +140,21 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
 
     public boolean isAllValid() {
         if (etIban.getText().toString().length() == 0) {
-            etIban.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
+            etIban.setError(getActivity().getResources().getString(R.string.Iban_required));
             etIban.requestFocus();
             return false;
         } else if (etConfirmIban.getText().toString().length() == 0) {
-            etConfirmIban.setError(getActivity().getResources().getString(R.string.please_enter_city));
+            etConfirmIban.setError(getActivity().getResources().getString(R.string.Iban_required));
             etConfirmIban.requestFocus();
             return false;
         }
         else if (!etConfirmIban.getText().toString().equals(etIban.getText().toString())) {
-            etConfirmIban.setError(getActivity().getResources().getString(R.string.please_enter_city));
+            etConfirmIban.setError(getActivity().getResources().getString(R.string.iban_mismatch));
             etConfirmIban.requestFocus();
             return false;
         }
         else if (!isImageSelected) {
-            btnPhotoUpload.setError(getActivity().getResources().getString(R.string.please_enter_city));
+            btnPhotoUpload.setError(getActivity().getResources().getString(R.string.select_image));
             btnPhotoUpload.requestFocus();
             return false;
         }
@@ -446,7 +440,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
 
     }
 
-    private void doDoctorReg(DoctorRegistration doctorRegistration) {
+    private void doDoctorReg(final DoctorRegistration doctorRegistration) {
 
         dialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
         dialog.setCancelable(false);
@@ -473,10 +467,64 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                     ResponseLogin responseLogin = gson.fromJson(response.toString(), ResponseLogin.class);
                     if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
+                        doLogin(doctorRegistration.getEmail(),doctorRegistration.getPassword());
+                        Toast.makeText(getActivity(),responseLogin.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                    else {
+
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+                dialog.dismiss();
+                Log.e("Response :", error.toString());
+
+            }
+        }, "login", C.API_DOC_REG, Util.getHeader(getActivity()), obj);
+
+
+    }
+    private void doLogin(String email, String password) {
+
+        dialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        dialog.setCancelable(false);
+        dialog.show();
+        LoginCredential loginCredential = new LoginCredential();
+        loginCredential.setEmail(email);
+        loginCredential.setPassword(password);
+        Gson gson = new Gson();
+        String json = gson.toJson(loginCredential);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialog.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    ResponseLogin responseLogin = gson.fromJson(response.toString(), ResponseLogin.class);
+                    if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
+
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
                         SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
                         SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER,responseLogin.getUser());
-                        Util.showToast(getActivity(),responseLogin.getMessage(),true);
+
+                        getActivity().finish();
 
                     } else {
 
@@ -492,6 +540,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
 
             @Override
             public void notifyError(String requestType, String error) {
+                dialog.dismiss();
 
                 Log.e("Response :", error.toString());
 
