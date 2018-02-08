@@ -36,6 +36,12 @@ public class User {
     @SerializedName("user_type")
     @Expose
     private String userType;
+    @SerializedName("user_pic")
+    @Expose
+    private String userPic;
+    @SerializedName("specialist")
+    @Expose
+    private String specialist;
 
     /**
      * No args constructor for use in serialization
@@ -141,4 +147,19 @@ public class User {
         this.userType = userType;
     }
 
+    public String getUserPic() {
+        return userPic;
+    }
+
+    public void setUserPic(String userPic) {
+        this.userPic = userPic;
+    }
+
+    public String getSpecialist() {
+        return specialist;
+    }
+
+    public void setSpecialist(String specialist) {
+        this.specialist = specialist;
+    }
 }

@@ -127,5 +127,9 @@
 
     <string name="name_should_be_more_then_3_character">Name should be 3-30 alphabets only, no special characters</string>
     <string name="require_add_experience">Please add an experience</string>
+    <string name="logout">Logout</string>
+    <string name="manage_queue">Manage Queue</string>
+    <string name="manage_awareness_content">Manage Awareness Content</string>
+    <string name="case_history">Case History</string>
 
 </resources>

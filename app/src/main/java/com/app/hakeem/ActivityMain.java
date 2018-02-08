@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.app.hakeem.adapter.AdapterPosts;
 import com.app.hakeem.adapter.AdapterSideMenu;
@@ -42,7 +43,8 @@ public class ActivityMain extends AppCompatActivity
     ListView lvPosts;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
     private AdapterSideMenu adapterSideMenu;
     private AdapterPosts adapterPosts;
     private Dialog dialog;
@@ -52,7 +54,7 @@ public class ActivityMain extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        tvTitle.setText(R.string.awareness);
         setSupportActionBar(toolbar);
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

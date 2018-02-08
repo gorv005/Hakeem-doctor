@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pattern"
+    tools:context="com.app.hakeem.fragment.FragmentDoctorProfile">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnCreateAccount"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:paddingLeft="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_button_noborder"
+            android:text="@string/manage_queue"
+            android:drawableTint="@color/green"
+            android:drawableLeft="@drawable/queue"
+
+            android:textAllCaps="false"
+            android:textColor="@color/color_selector"
+            android:textSize="14sp" />
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/btnNeedHelp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/mng_awareness"
+            android:background="@drawable/bg_button"
+
+            android:text="@string/manage_awareness_content"
+            android:textAllCaps="false"
+            android:paddingLeft="20dp"
+            android:textColor="@color/color_selector"
+            android:textSize="14sp" />
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/btnNeedHelp1"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/requests_history"
+            android:background="@drawable/bg_button"
+            android:text="@string/case_history"
+            android:textAllCaps="false"
+            android:paddingLeft="20dp"
+            android:textColor="@color/color_selector"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+</RelativeLayout>
