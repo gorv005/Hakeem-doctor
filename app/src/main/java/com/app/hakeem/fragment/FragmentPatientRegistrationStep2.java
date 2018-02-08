@@ -342,7 +342,6 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
         };
         spinnerAcadQualsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRelationship.setAdapter(spinnerAcadQualsArrayAdapter);
-        spinnerRelationship.setAdapter(spinnerAcadQualsArrayAdapter);
         spinnerRelationship.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

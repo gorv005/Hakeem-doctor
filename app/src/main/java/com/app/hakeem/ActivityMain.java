@@ -14,7 +14,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.hakeem.adapter.AdapterPosts;
@@ -45,6 +47,14 @@ public class ActivityMain extends AppCompatActivity
     Toolbar toolbar;
     @BindView(R.id.tvTitle)
     TextView tvTitle;
+    @BindView(R.id.rlBottam)
+    RelativeLayout rlBottam;
+    @BindView(R.id.tvEmail)
+    TextView tvEmail;
+    @BindView(R.id.ivProfileImage)
+    ImageView ivProfileImage;
+
+
     private AdapterSideMenu adapterSideMenu;
     private AdapterPosts adapterPosts;
     private Dialog dialog;
@@ -74,7 +84,7 @@ public class ActivityMain extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN),""));
+        adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN), ""));
         listView.setAdapter(adapterSideMenu);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -90,14 +100,12 @@ public class ActivityMain extends AppCompatActivity
                     intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_LOGIN);
                     startActivity(intent);
 
-                }
-                else  if (sideMenuItem.getNameResourse() == R.string.dependent) {
+                } else if (sideMenuItem.getNameResourse() == R.string.dependent) {
                     Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
                     intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DEPENDENT);
                     startActivity(intent);
 
-                }
-                else  if (sideMenuItem.getNameResourse() == R.string.emr_and_tracker) {
+                } else if (sideMenuItem.getNameResourse() == R.string.emr_and_tracker) {
                     Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
                     intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_EMR_AND_TRACKER);
                     startActivity(intent);
@@ -113,6 +121,13 @@ public class ActivityMain extends AppCompatActivity
             getAllPosts();
         }
 
+        rlBottam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreference.getInstance(ActivityMain.this).setBoolean(C.IS_LOGIN,false);
+                onResume();
+            }
+        });
 
     }
 
@@ -120,10 +135,15 @@ public class ActivityMain extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        if (SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN))
+        if (SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN)) {
+
+            rlBottam.setVisibility(View.VISIBLE);
+            tvEmail.setText(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getEmail());
             adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN), SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserType()));
-        else
+        } else {
+            rlBottam.setVisibility(View.GONE);
             adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN), ""));
+        }
         listView.setAdapter(adapterSideMenu);
     }
 

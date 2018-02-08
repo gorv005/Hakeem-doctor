@@ -90,4 +90,6 @@ public interface C {
     String GENDER = "gender";
 
     String DOB = "dob";
+
+    String FONT = "Mont.otf";
 }

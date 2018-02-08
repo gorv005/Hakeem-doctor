@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.app.hakeem.ActivityContainer;
-import com.app.hakeem.BuildConfig;
 import com.app.hakeem.R;
 import com.app.hakeem.pojo.RequestPatientRegistration;
 import com.app.hakeem.util.C;
@@ -107,15 +106,15 @@ public class FragmentPatientRegistrationStep1 extends Fragment {
             }
         });
 
-        if(BuildConfig.DEBUG)
-        {
-            etName.setText("Aditya");
-            etPassword.setText("Admin@123");
-            etMobile.setText("967348934789");
-            etEmail.setText("x@yopmail.com");
-
-
-        }
+//        if(BuildConfig.DEBUG)
+//        {
+//            etName.setText("Aditya");
+//            etPassword.setText("Admin@123");
+//            etMobile.setText("967348934789");
+//            etEmail.setText("x@yopmail.com");
+//
+//
+//        }
 
     }
 
