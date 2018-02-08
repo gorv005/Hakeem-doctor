@@ -126,5 +126,6 @@
     <string name="select_image">Please select a image</string>
 
     <string name="name_should_be_more_then_3_character">Name should be 3-30 alphabets only, no special characters</string>
+    <string name="require_add_experience">Please add an experience</string>
 
 </resources>

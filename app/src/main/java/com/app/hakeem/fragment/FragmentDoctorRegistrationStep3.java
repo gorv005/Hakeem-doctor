@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
@@ -99,7 +100,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
     };
 
     DoctorRegistration doctorRegistration;
-
+    boolean isExpAdd=false;
     public FragmentDoctorRegistrationStep3() {
         // Required empty public constructor
     }
@@ -218,7 +219,10 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
                 doctorRegistration.setCurrentGrade(etCurrentGrade.getText().toString());
                 doctorRegistration.setSubSpecialist(etSubSpeciality.getText().toString());
                 doctorRegistration.setClassification(etClassification.getText().toString());
-                doctorRegistration.setExperience(adapterDoctorExperience.getAllItem());
+                if(adapterDoctorExperience!=null) {
+                    doctorRegistration.setExperience(adapterDoctorExperience.getAllItem());
+                }
+
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(C.USER, doctorRegistration);
                 ((ActivityContainer) (getActivity())).fragmnetLoader(C.FRAGMENT_DOCTOR_REGISTRATION_STEP4, bundle);
@@ -268,7 +272,10 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
             etClassification.requestFocus();
             return false;
         }
-
+        else if (adapterDoctorExperience!=null && isExpAdd) {
+            Toast.makeText(getActivity(),getString(R.string.require_add_experience),Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         return true;
     }
@@ -313,10 +320,11 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
                 if (isAllVaildDetailOfExp()) {
                     Experience experience=new Experience();
                     experience.setHospitalName(etHospitalName.getText().toString());
-                    experience.setWorkedSince(etWorkingSince.getText().toString());
-                    experience.setResignedSince(etResignedSince.getText().toString());
+                    experience.setWorkedSince(Util.getDateFromString(etWorkingSince.getText().toString()));
+                    experience.setResignedSince(Util.getDateFromString(etResignedSince.getText().toString()));
                    // experiences.add(experience);
                     adapterDoctorExperience.addItem(experience);
+                    isExpAdd=true;
                    Util.setListViewHeightBasedOnChildren(lvExperience);
                     dialog.dismiss();
                 }

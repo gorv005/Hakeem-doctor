@@ -69,7 +69,7 @@ public class FragmentDocterRegistrationStep2 extends Fragment {
                     doctorRegistration.setResidence(etResidance.getText().toString());
                     doctorRegistration.setWorkplace(etWorkPlace.getText().toString());
                     doctorRegistration.setHomeLocation(etHomeLocation.getText().toString());
-                    doctorRegistration.setDocument(etIdCard.getText().toString());
+                    doctorRegistration.setPassport(etIdCard.getText().toString());
 
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(C.USER, doctorRegistration);

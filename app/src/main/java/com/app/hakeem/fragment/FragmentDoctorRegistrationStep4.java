@@ -87,7 +87,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
     private Uri fileUri;
     Uri contentURI;
     private Dialog dialog;
-
+    String filePath;
     DoctorRegistration doctorRegistration;
     private ProgressDialog mProgressDialog;
 
@@ -121,7 +121,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
             public void onClick(View v) {
                 if(isAllValid()){
                     doctorRegistration.setIban(etIban.getText().toString());
-                  new  UploadFileFroURL(getActivity()).execute(Util.getPath(contentURI,getActivity()));
+                  new  UploadFileFroURL(getActivity()).execute(filePath);
                 }
             }
         });
@@ -273,6 +273,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                     //   String path = saveImage(bitmap);
                     bitmap= Util.scaleDown(bitmap, 500, true);
                     ivProfileImage.setImageBitmap(bitmap);
+                    filePath= Util.getPath(contentURI,getActivity());
                  /*   String profileImage= Utils.getBase64Image(bitmap);
                     if(C.isloggedIn) {
                         profile.setProfilePic(profileImage);
@@ -300,6 +301,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                 isImageSelected=true;
                 ivProfileImage.setImageBitmap(bitmap);
                 contentURI=fileUri;
+                filePath=fileUri.getPath();
                /* String profileImage = Utils.getBase64Image(bitmap);
                 if (C.isloggedIn) {
                     profile.setProfilePic(profileImage);
@@ -426,6 +428,9 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
             UploadFileRes fileRes = gson.fromJson(result, UploadFileRes.class);
             if(fileRes.getStatusCode().equals(C.STATUS_SUCCESS)){
                doctorRegistration.setPhoto(fileRes.getUrls().getPhoto());
+                doctorRegistration.setDocument(fileRes.getUrls().getPhoto());
+
+                doctorRegistration.setUserGroup("2");
                 doDoctorReg(doctorRegistration);
             }
         }
@@ -504,6 +509,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
         JSONObject obj = null;
         try {
             obj = new JSONObject(json);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

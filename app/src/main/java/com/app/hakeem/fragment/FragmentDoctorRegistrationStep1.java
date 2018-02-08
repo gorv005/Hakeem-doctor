@@ -64,6 +64,7 @@ public class FragmentDoctorRegistrationStep1 extends Fragment {
                 if (isAllValid()) {
                     DoctorRegistration doctorRegistration=new DoctorRegistration();
                     doctorRegistration.setFirstName(etUserName.getText().toString());
+                    doctorRegistration.setLastName("");
                     doctorRegistration.setGender(rbMale.isChecked() ? "M" : "F");
                     doctorRegistration.setMobileNumber(etMobile.getText().toString());
                     doctorRegistration.setEmail(etEmail.getText().toString());
