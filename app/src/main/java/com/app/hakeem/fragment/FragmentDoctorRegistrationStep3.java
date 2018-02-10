@@ -272,7 +272,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
             etClassification.requestFocus();
             return false;
         }
-        else if (adapterDoctorExperience!=null && isExpAdd) {
+        else if (adapterDoctorExperience!=null && !isExpAdd) {
             Toast.makeText(getActivity(),getString(R.string.require_add_experience),Toast.LENGTH_LONG).show();
             return false;
         }

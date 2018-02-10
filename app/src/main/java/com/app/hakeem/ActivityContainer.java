@@ -13,9 +13,11 @@ import android.widget.TextView;
 
 import com.app.hakeem.fragment.FragmentDependent;
 import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
+import com.app.hakeem.fragment.FragmentDoctorProfile;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep1;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep3;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep4;
+import com.app.hakeem.fragment.FragmentDoctorsPatientList;
 import com.app.hakeem.fragment.FragmentEmrAndHealthTracker;
 import com.app.hakeem.fragment.FragmentLogin;
 import com.app.hakeem.fragment.FragmentPatientListForEmrAndHealthTracker;
@@ -28,7 +30,7 @@ import com.app.hakeem.util.C;
 public class ActivityContainer extends AppCompatActivity {
 
     private Fragment fragment;
-    private TextView tvTitle;
+    public static TextView tvTitle;
     private Bundle bundle;
     private int fragmentAction;
     private Button btnAddDependent;
@@ -148,6 +150,26 @@ public class ActivityContainer extends AppCompatActivity {
                 fragment = new FragmentEmrAndHealthTracker();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_PATIENT_EMR_AND_TRACKER);
+
+                break;
+            case C.FRAGMENT_DOCTOR_PROFILE:
+
+
+                getSupportActionBar().show();
+                btnAddDependent.setVisibility(View.GONE);
+                fragment = new FragmentDoctorProfile();
+                fragmentTransaction.replace(R.id.container, fragment);
+               // fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE);
+
+                break;
+            case C.FRAGMENT_DOCTOR_PATIENT_LIST:
+
+
+                getSupportActionBar().show();
+                btnAddDependent.setVisibility(View.GONE);
+                fragment = new FragmentDoctorsPatientList();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PATIENT_LIST);
 
                 break;
         }

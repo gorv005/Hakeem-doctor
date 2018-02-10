@@ -131,5 +131,7 @@
     <string name="manage_queue">Manage Queue</string>
     <string name="manage_awareness_content">Manage Awareness Content</string>
     <string name="case_history">Case History</string>
+    <string name="choose_patient">Choose Patient</string>
+    <string name="doc_profile">Doctor Profile</string>
 
 </resources>

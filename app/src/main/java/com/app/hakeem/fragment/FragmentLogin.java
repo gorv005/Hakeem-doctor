@@ -67,7 +67,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
         if(BuildConfig.DEBUG)
         {
-            etUserName.setText("shagun@gmail.com");
+            etUserName.setText("qwerty@yopmailcom");
             etPassword.setText("Admin@123");
         }
 
