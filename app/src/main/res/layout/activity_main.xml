@@ -71,17 +71,18 @@
                         android:textSize="14sp" />
 
                 </LinearLayout>
-
-
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/ivProfileImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:minHeight="50dp"
-                    android:minWidth="50dp"
-                    android:src="@drawable/icon_profile" />
+                    android:layout_centerVertical="true"                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/profile"
+                    app:civ_border_width="0.5dp"
+                    app:civ_border_color="@color/white"/>
+
+
 
             </RelativeLayout>
 

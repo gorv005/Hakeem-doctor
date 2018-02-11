@@ -1,5 +1,7 @@
 package com.app.hakeem;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -39,10 +41,13 @@ public class ActivityContainer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
+        final Drawable upArrow = getResources().getDrawable(R.drawable.back);
+        upArrow.setColorFilter(getResources().getColor(R.color.blue), PorterDuff.Mode.SRC_ATOP);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         btnAddDependent = (Button) findViewById(R.id.btnAddDependents);
@@ -159,7 +164,7 @@ public class ActivityContainer extends AppCompatActivity {
                 btnAddDependent.setVisibility(View.GONE);
                 fragment = new FragmentDoctorProfile();
                 fragmentTransaction.replace(R.id.container, fragment);
-               // fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE);
 
                 break;
             case C.FRAGMENT_DOCTOR_PATIENT_LIST:

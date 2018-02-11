@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
@@ -255,25 +254,35 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
     };
     public boolean isAllValid() {
         if (etSpeciality.getText().toString().length() == 0) {
-            etSpeciality.setError(getActivity().getResources().getString(R.string.speciality_required));
+         //   etSpeciality.setError(getActivity().getResources().getString(R.string.speciality_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.speciality_required),getString(R.string.ok),R.drawable.warning);
+
             etSpeciality.requestFocus();
             return false;
         } else if (etCurrentGrade.getText().toString().length() == 0) {
-            etCurrentGrade.setError(getActivity().getResources().getString(R.string.currentGrade_required));
+          //  etCurrentGrade.setError(getActivity().getResources().getString(R.string.currentGrade_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.currentGrade_required),getString(R.string.ok),R.drawable.warning);
+
             etCurrentGrade.requestFocus();
             return false;
         } else if (etSubSpeciality.getText().toString().length() == 0) {
-            etSubSpeciality.setError(getActivity().getResources().getString(R.string.subSpeciality_required));
+         //   etSubSpeciality.setError(getActivity().getResources().getString(R.string.subSpeciality_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.subSpeciality_required),getString(R.string.ok),R.drawable.warning);
+
             etSubSpeciality.requestFocus();
             return false;
         }
         else if (etClassification.getText().toString().length() == 0) {
-            etClassification.setError(getActivity().getResources().getString(R.string.classification_required));
+          //  etClassification.setError(getActivity().getResources().getString(R.string.classification_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.classification_required),getString(R.string.ok),R.drawable.warning);
+
             etClassification.requestFocus();
             return false;
         }
         else if (adapterDoctorExperience!=null && !isExpAdd) {
-            Toast.makeText(getActivity(),getString(R.string.require_add_experience),Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(),getString(R.string.require_add_experience),Toast.LENGTH_LONG).show();
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.require_add_experience),getString(R.string.ok),R.drawable.warning);
+
             return false;
         }
 
@@ -386,17 +395,23 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
 
     public boolean isAllVaildDetailOfExp() {
         if (etHospitalName.getText().toString().length() == 0) {
-            etHospitalName.setError(getActivity().getResources().getString(R.string.first_name_required));
+            //etHospitalName.setError(getActivity().getResources().getString(R.string.first_name_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.first_name_required),getString(R.string.ok),R.drawable.warning);
+
             etHospitalName.requestFocus();
             return false;
         }
        else if (etWorkingSince.getText().toString().length() == 0) {
-            etWorkingSince.setError(getActivity().getResources().getString(R.string.first_name_required));
+           // etWorkingSince.setError(getActivity().getResources().getString(R.string.first_name_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.first_name_required),getString(R.string.ok),R.drawable.warning);
+
             etWorkingSince.requestFocus();
             return false;
         }
         else if (etResignedSince.getText().toString().length() == 0) {
-            etResignedSince.setError(getActivity().getResources().getString(R.string.first_name_required));
+          //  etResignedSince.setError(getActivity().getResources().getString(R.string.first_name_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.first_name_required),getString(R.string.ok),R.drawable.warning);
+
             etResignedSince.requestFocus();
             return false;
         }

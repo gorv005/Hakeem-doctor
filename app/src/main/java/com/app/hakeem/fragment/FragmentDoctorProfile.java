@@ -71,7 +71,7 @@ public class FragmentDoctorProfile extends Fragment {
 
             imageLoader.DisplayImage(user.getUserPic(),imgProfile);
         }
-        btnManageQueue.setOnClickListener(mBtnCaseHostoryClickListner);
+        btnCaseHistory.setOnClickListener(mBtnCaseHostoryClickListner);
     }
 
     @Override

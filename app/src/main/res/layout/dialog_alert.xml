@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/rl"
+    android:background="@android:color/transparent"
+    android:layout_height="match_parent"
+    >
+
+
+
+        <LinearLayout
+            android:padding="10dp"
+            android:id="@+id/linearLayout1"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="57dp"
+            android:background="@color/white"
+            android:orientation="vertical" >
+            <TextView
+
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:lines="1"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginTop="55dp"
+                android:text="adff"
+                android:textAlignment="center"
+                android:textColor="@color/blue"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tvMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="adff"
+                android:textAlignment="center"
+                android:textColor="@color/blue"
+                android:textSize="16sp" />
+            <Button
+                android:id="@+id/btnDone"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:textColor="@color/color_selector"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:text="@string/confirm_add"
+                android:background="@drawable/bg_button"
+                android:layout_height="60dp"
+                />
+        </LinearLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ivAlertImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:civ_border_width="5dp"
+            app:civ_border_color="@color/white"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/logo" />
+
+
+    </RelativeLayout>
+
+
+
+
+
+

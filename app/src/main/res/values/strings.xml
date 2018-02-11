@@ -133,5 +133,7 @@
     <string name="case_history">Case History</string>
     <string name="choose_patient">Choose Patient</string>
     <string name="doc_profile">Doctor Profile</string>
+    <string name="error">Error</string>
+    <string name="ok">Ok</string>
 
 </resources>

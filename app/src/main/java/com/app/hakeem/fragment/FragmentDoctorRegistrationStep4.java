@@ -140,21 +140,29 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
 
     public boolean isAllValid() {
         if (etIban.getText().toString().length() == 0) {
-            etIban.setError(getActivity().getResources().getString(R.string.Iban_required));
+         //   etIban.setError(getActivity().getResources().getString(R.string.Iban_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.Iban_required),getString(R.string.ok),R.drawable.warning);
+
             etIban.requestFocus();
             return false;
         } else if (etConfirmIban.getText().toString().length() == 0) {
-            etConfirmIban.setError(getActivity().getResources().getString(R.string.Iban_required));
+         //   etConfirmIban.setError(getActivity().getResources().getString(R.string.Iban_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.Iban_required),getString(R.string.ok),R.drawable.warning);
+
             etConfirmIban.requestFocus();
             return false;
         }
         else if (!etConfirmIban.getText().toString().equals(etIban.getText().toString())) {
-            etConfirmIban.setError(getActivity().getResources().getString(R.string.iban_mismatch));
+        //    etConfirmIban.setError(getActivity().getResources().getString(R.string.iban_mismatch));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.iban_mismatch),getString(R.string.ok),R.drawable.warning);
+
             etConfirmIban.requestFocus();
             return false;
         }
         else if (!isImageSelected) {
-            btnPhotoUpload.setError(getActivity().getResources().getString(R.string.select_image));
+         //   btnPhotoUpload.setError(getActivity().getResources().getString(R.string.select_image));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.select_image),getString(R.string.ok),R.drawable.warning);
+
             btnPhotoUpload.requestFocus();
             return false;
         }

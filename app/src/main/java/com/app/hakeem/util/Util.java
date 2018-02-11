@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -31,6 +32,7 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -942,4 +944,89 @@ public class Util {
 
         return acadQualArr;
     }
+
+    public static void showAlert(Context context,String title,String msg,String btnText,int img) {
+
+
+        final LayoutInflater factory = LayoutInflater.from(context);
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_alert, null);
+        final Dialog  dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+     //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(deleteDialogView);
+
+
+
+        TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
+        tvMsg.setText(msg);
+
+        TextView tvTitle = (TextView) deleteDialogView.findViewById(R.id.tvTitle);
+        tvTitle.setText(title);
+        ImageView ivAlertImage = (ImageView) deleteDialogView.findViewById(R.id.ivAlertImage);
+        ivAlertImage.setImageResource(img);
+        Button btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
+        btnDone.setText(btnText);
+
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                    dialog.dismiss();
+
+            }
+        });
+
+
+        dialog.show();
+
+
+    }
+    public static void showAlertForToast(final Activity context, String title, String msg, String btnText, int img, final boolean finishActivity) {
+
+
+        final LayoutInflater factory = LayoutInflater.from(context);
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_alert, null);
+        final Dialog  dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(deleteDialogView);
+
+
+
+        TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
+        tvMsg.setText(msg);
+
+        TextView tvTitle = (TextView) deleteDialogView.findViewById(R.id.tvTitle);
+        tvTitle.setText(title);
+        ImageView ivAlertImage = (ImageView) deleteDialogView.findViewById(R.id.ivAlertImage);
+        ivAlertImage.setImageResource(img);
+        Button btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
+        btnDone.setText(btnText);
+
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.dismiss();
+                if(finishActivity){
+                     context.finish();
+                }
+
+            }
+        });
+
+
+        dialog.show();
+
+
+    }
+
 }

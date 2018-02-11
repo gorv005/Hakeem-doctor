@@ -25,6 +25,7 @@ import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.ResponsePost;
 import com.app.hakeem.pojo.SideMenuItem;
 import com.app.hakeem.util.C;
+import com.app.hakeem.util.ImageLoader;
 import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
 import com.app.hakeem.webservices.VolleyService;
@@ -53,12 +54,16 @@ public class ActivityMain extends AppCompatActivity
     TextView tvEmail;
     @BindView(R.id.ivProfileImage)
     ImageView ivProfileImage;
-
-
+    @BindView(R.id.imgProfile)
+    ImageView imgProfile;
+    @BindView(R.id.imgEdit)
+    ImageView imgEdit;
+    @BindView(R.id.imgSearch)
+    ImageView imgSearch;
     private AdapterSideMenu adapterSideMenu;
     private AdapterPosts adapterPosts;
     private Dialog dialog;
-
+    ImageLoader imageLoader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +71,7 @@ public class ActivityMain extends AppCompatActivity
         ButterKnife.bind(this);
         tvTitle.setText(R.string.awareness);
         setSupportActionBar(toolbar);
-
+        imageLoader=new ImageLoader(this);
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -139,6 +144,26 @@ public class ActivityMain extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        if(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN)){
+            if(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)){
+                imgEdit.setVisibility(View.VISIBLE);
+                imgProfile.setVisibility(View.VISIBLE);
+                imageLoader.DisplayImage(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserPic(),imgProfile);
+                imageLoader.DisplayImage(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserPic(),ivProfileImage);
+
+            }
+            else {
+                imgEdit.setVisibility(View.GONE);
+                imgProfile.setVisibility(View.GONE);
+                imgProfile.setImageResource(R.drawable.profile);
+            }
+        }
+        else {
+            imgEdit.setVisibility(View.GONE);
+            imgProfile.setVisibility(View.GONE);
+            imgProfile.setImageResource(R.drawable.profile);
+
+        }
         if (SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN)) {
 
             rlBottam.setVisibility(View.VISIBLE);

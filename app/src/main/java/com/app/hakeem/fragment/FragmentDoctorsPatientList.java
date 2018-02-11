@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterDoctorPatientsList;
 import com.app.hakeem.interfaces.IResult;
@@ -60,10 +61,17 @@ public class FragmentDoctorsPatientList extends Fragment {
         if (Util.isNetworkConnectivity(getActivity())) {
             getPatientList();
         } else {
-            Util.showToast(getActivity(), R.string.please_connect_to_the_internet, true);
+        //    Util.showToast(getActivity(), R.string.please_connect_to_the_internet, true);
+            Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.please_connect_to_the_internet),getString(R.string.ok),R.drawable.warning,true);
+
         }
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActivityContainer.tvTitle.setText(R.string.choose_patient);
 
+    }
 
     private void getPatientList() {
 
@@ -71,7 +79,7 @@ public class FragmentDoctorsPatientList extends Fragment {
         progressDialog.show();
 
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("user_id", SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
+        hashMap.put("doctor_id", SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
         final Gson gson = new Gson();
         String json = gson.toJson(hashMap);
         JSONObject obj = null;
@@ -95,7 +103,9 @@ public class FragmentDoctorsPatientList extends Fragment {
                     lvPatient.setAdapter(adapterPatientList);
 
                 } else {
-                    Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    //Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+
                 }
             }
 
@@ -103,7 +113,9 @@ public class FragmentDoctorsPatientList extends Fragment {
             public void notifyError(String requestType, String error) {
                 Log.e("Response", error.toString());
                 progressDialog.dismiss();
-                Util.showToast(getActivity(), R.string.network_error, false);
+               // Util.showToast(getActivity(), R.string.network_error, false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
+
             }
         }, "callback", C.API_REGISTER_FETCH_DOCTOR_PATIENTS, Util.getHeader(getActivity()), obj);
 
