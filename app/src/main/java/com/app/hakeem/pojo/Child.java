@@ -36,8 +36,12 @@ public class Child {
     @SerializedName("relationPojo")
     @Expose
     private GeneralPojoKeyValue relationPojo;
-
-
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("country_code")
+    @Expose
+    private String countryCode;
     /**
      * No args constructor for use in serialization
      */
@@ -100,5 +104,29 @@ public class Child {
 
     public void setChildId(String childId) {
         this.childId = childId;
+    }
+
+    public String getRelation() {
+        return relation;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 }

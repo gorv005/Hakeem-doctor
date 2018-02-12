@@ -135,5 +135,7 @@
     <string name="doc_profile">Doctor Profile</string>
     <string name="error">Error</string>
     <string name="ok">Ok</string>
+    <string name="choose_dependent">Choose Dependant</string>
+    <string name="main_profile">Main Profile</string>
 
 </resources>

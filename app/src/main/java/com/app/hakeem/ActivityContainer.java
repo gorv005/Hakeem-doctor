@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.app.hakeem.fragment.FragmentDependent;
 import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
+import com.app.hakeem.fragment.FragmentDoctorPatientDependents;
 import com.app.hakeem.fragment.FragmentDoctorProfile;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep1;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep3;
@@ -175,6 +176,14 @@ public class ActivityContainer extends AppCompatActivity {
                 fragment = new FragmentDoctorsPatientList();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PATIENT_LIST);
+
+                break;
+            case C.FRAGMENT_DOCTOR_PATIENT_DEPENDENT_LIST:
+                getSupportActionBar().show();
+                btnAddDependent.setVisibility(View.GONE);
+                fragment = new FragmentDoctorPatientDependents();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PATIENT_DEPENDENT_LIST);
 
                 break;
         }

@@ -1,19 +1,36 @@
 package com.app.hakeem;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.ColorDrawable;
+import android.media.ExifInterface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -33,6 +50,11 @@ import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,6 +86,13 @@ public class ActivityMain extends AppCompatActivity
     private AdapterPosts adapterPosts;
     private Dialog dialog;
     ImageLoader imageLoader;
+    private int GALLERY = 1, CAMERA = 2;
+    private Uri fileUri;
+    Uri contentURI;
+    boolean isImageSelected=false;
+    String filePath;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +120,7 @@ public class ActivityMain extends AppCompatActivity
 
         adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN), ""));
         listView.setAdapter(adapterSideMenu);
+        imgEdit.setOnClickListener(mShowPostDialogListner);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
@@ -140,6 +170,12 @@ public class ActivityMain extends AppCompatActivity
 
     }
 
+    View.OnClickListener mShowPostDialogListner=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            showSendPostDialog(ActivityMain.this);
+        }
+    };
 
     @Override
     protected void onResume() {
@@ -238,5 +274,195 @@ public class ActivityMain extends AppCompatActivity
     @Override
     public void onClick(View v) {
 
+    }
+
+
+    public  void showSendPostDialog(final Activity context) {
+
+
+        final LayoutInflater factory = LayoutInflater.from(context);
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_add_post, null);
+        final Dialog  dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(deleteDialogView);
+
+
+        EditText etPost = (EditText) deleteDialogView.findViewById(R.id.etPost);
+        final TextView tvPostTextLength = (TextView) deleteDialogView.findViewById(R.id.tvPostTextLength);
+
+        ImageView ivAttachDoc = (ImageView) deleteDialogView.findViewById(R.id.ivAttachDoc);
+        ImageView ivCamera = (ImageView) deleteDialogView.findViewById(R.id.ivCamera);
+        ImageView ivSendTweet = (ImageView) deleteDialogView.findViewById(R.id.ivSendTweet);
+        etPost.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int l=250-s.toString().length();
+                tvPostTextLength.setText(""+l);
+            }
+        });
+        ivCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takePhotoFromCamera();
+            }
+        });
+
+        ivAttachDoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosePhotoFromGallary();
+            }
+        });
+        ivSendTweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.dismiss();
+
+
+            }
+        });
+
+
+        dialog.show();
+
+
+    }
+
+    public void choosePhotoFromGallary() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(galleryIntent, GALLERY);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == GALLERY) {
+            if (data != null) {
+                contentURI = data.getData();
+                try {
+                    isImageSelected=true;
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), contentURI);
+                    //   String path = saveImage(bitmap);
+                    bitmap= Util.scaleDown(bitmap, 500, true);
+                    ivProfileImage.setImageBitmap(bitmap);
+                    filePath= Util.getPath(contentURI,this);
+                 /*   String profileImage= Utils.getBase64Image(bitmap);
+                    if(C.isloggedIn) {
+                        profile.setProfilePic(profileImage);
+                        profile.setProfilePicname(Utils.getCurrentTimeStamp()+".jpg");
+                    }
+                    else {
+                        profileDetail.setPicture(profileImage);
+                        profileDetail.setPicturename(Utils.getCurrentTimeStamp()+".jpg");
+                    }*/
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+            }
+
+        } else if (requestCode == CAMERA) {
+            try {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                // downsizing image as it throws OutOfMemory Exception for larger
+                // images
+                options.inSampleSize = 8;
+                Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
+                        options);
+                bitmap = rotateImageIfRequired(bitmap, fileUri.getPath());
+                isImageSelected = true;
+                ivProfileImage.setImageBitmap(bitmap);
+                contentURI = fileUri;
+                filePath = fileUri.getPath();
+               /* String profileImage = Utils.getBase64Image(bitmap);
+                if (C.isloggedIn) {
+                    profile.setProfilePic(profileImage);
+                    profile.setProfilePicname(Utils.getCurrentTimeStamp() + ".jpg");
+                } else {
+                    profileDetail.setPicture(profileImage);
+                    profileDetail.setPicturename(Utils.getCurrentTimeStamp() + ".jpg");
+                }*/
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void takePhotoFromCamera() {
+        try {
+            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            //  fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+            File file = createImageFile();
+            boolean isDirectoryCreated = file.getParentFile().mkdirs();
+            Log.e("DEBUG", "openCamera: isDirectoryCreated: " + isDirectoryCreated);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Uri tempFileUri = FileProvider.getUriForFile(this,
+                        "com.app.hakeem", // As defined in Manifest
+                        file);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri);
+            } else {
+                Uri tempFileUri = Uri.fromFile(file);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri);
+            }
+            // intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+            startActivityForResult(intent, CAMERA);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private File createImageFile() {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new
+                Date());
+        File file = new File(C.IMAGE_PATH, "IMG_" + timeStamp +
+                ".jpg");
+        fileUri = Uri.fromFile(file);
+        return file;
+    }
+
+    public static Bitmap rotateImageIfRequired(Bitmap img, String selectedImage) throws IOException {
+
+        ExifInterface ei = new ExifInterface(selectedImage);
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+        }
+    }
+
+    public static Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+        return rotatedImg;
     }
 }
