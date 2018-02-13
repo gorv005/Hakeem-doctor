@@ -481,7 +481,8 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                     if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
                         doLogin(doctorRegistration.getEmail(),doctorRegistration.getPassword());
-                        Toast.makeText(getActivity(),responseLogin.getMessage(),Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getActivity(),responseLogin.getMessage(),Toast.LENGTH_LONG).show();
+
                     }
                     else {
 

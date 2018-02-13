@@ -92,7 +92,11 @@ public class AdapterPosts extends BaseAdapter {
         imageLoader.DisplayImage(post.getIconUrl(), viewHolder.ivSpecialityIcon);
         imageLoader.DisplayImage(post.getUserPic(), viewHolder.ivDoctor);
         viewHolder.tvLiked.setText(post.getTotalLikes() + "");
-        viewHolder.tvComment.setText(post.getTotalLikes() + "");
+        if(post.getIsLiked()==1) {
+            viewHolder.tvLiked.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.liked, 0);
+        }
+
+        viewHolder.tvComment.setText(post.getTotal_comments() + "");
         viewHolder.tvShare.setText("5");
         return convertView;
     }

@@ -137,5 +137,6 @@
     <string name="ok">Ok</string>
     <string name="choose_dependent">Choose Dependant</string>
     <string name="main_profile">Main Profile</string>
+    <string name="post_should_not_be_empty">Post should not be empty</string>
 
 </resources>

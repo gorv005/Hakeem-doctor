@@ -7,7 +7,9 @@ package com.app.hakeem.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Post {
+import java.io.Serializable;
+
+public class Post implements Serializable{
 
     @SerializedName("tags")
     @Expose
@@ -42,6 +44,9 @@ public class Post {
     @SerializedName("post_id")
     @Expose
     private Integer postId;
+    @SerializedName("total_comments")
+    @Expose
+    private Integer total_comments;
     @SerializedName("is_liked")
     @Expose
     private Integer isLiked;
@@ -180,4 +185,11 @@ public class Post {
         this.isLiked = isLiked;
     }
 
+    public Integer getTotal_comments() {
+        return total_comments;
+    }
+
+    public void setTotal_comments(Integer total_comments) {
+        this.total_comments = total_comments;
+    }
 }

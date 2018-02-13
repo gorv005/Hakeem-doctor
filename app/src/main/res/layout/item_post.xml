@@ -29,7 +29,7 @@
                 <ImageView
                     android:id="@+id/ivDoctor"
                     android:layout_width="96dp"
-                    android:background="@color/white"
+                    android:background="@drawable/image_round_back"
                     android:layout_height="96dp" />
 
                 <ImageView

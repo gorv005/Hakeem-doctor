@@ -2,6 +2,7 @@ package com.app.hakeem;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -28,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,11 +41,16 @@ import android.widget.TextView;
 
 import com.app.hakeem.adapter.AdapterPosts;
 import com.app.hakeem.adapter.AdapterSideMenu;
+import com.app.hakeem.fragment.FragmentDoctorRegistrationStep4;
 import com.app.hakeem.interfaces.IResult;
+import com.app.hakeem.pojo.AddPost;
+import com.app.hakeem.pojo.Response;
 import com.app.hakeem.pojo.ResponsePost;
 import com.app.hakeem.pojo.SideMenuItem;
+import com.app.hakeem.pojo.UploadFileRes;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
+import com.app.hakeem.util.MultipartUtility;
 import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
 import com.app.hakeem.webservices.VolleyService;
@@ -55,6 +63,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,15 +94,15 @@ public class ActivityMain extends AppCompatActivity
     ImageView imgSearch;
     private AdapterSideMenu adapterSideMenu;
     private AdapterPosts adapterPosts;
-    private Dialog dialog;
+    private Dialog dialog,dialogShowAddPostPopUp;
     ImageLoader imageLoader;
     private int GALLERY = 1, CAMERA = 2;
     private Uri fileUri;
     Uri contentURI;
     boolean isImageSelected=false;
-    String filePath;
-
-
+    String filePath,imgPostUrl=null;
+    private ProgressDialog mProgressDialog;
+    ImageView imgPost,imgDelete;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -211,6 +221,61 @@ public class ActivityMain extends AppCompatActivity
         }
         listView.setAdapter(adapterSideMenu);
     }
+    private void AddPost(AddPost post) {
+
+        dialog = Util.getProgressDialog(this, R.string.please_wait);
+        dialog.setCancelable(false);
+        dialog.show();
+        Gson gson = new Gson();
+        String json = gson.toJson(post);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(this);
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialog.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    Response responsePost = gson.fromJson(response.toString(), Response.class);
+                    if (responsePost.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                        if(dialogShowAddPostPopUp!=null && dialogShowAddPostPopUp.isShowing()){
+                            dialogShowAddPostPopUp.dismiss();
+                        }
+                       getAllPosts();
+
+                    } else {
+                        Util.showAlert(ActivityMain.this,getString(R.string.error),responsePost.getMessage(),getString(R.string.ok),R.drawable.warning);
+
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+                dialog.dismiss();
+                if(dialogShowAddPostPopUp!=null && dialogShowAddPostPopUp.isShowing()){
+                    dialogShowAddPostPopUp.dismiss();
+                }
+            }
+        }, "posts", C.API_ADD_POSTS, Util.getHeader(this), obj);
+
+
+    }
 
     private void getAllPosts() {
 
@@ -279,19 +344,21 @@ public class ActivityMain extends AppCompatActivity
 
     public  void showSendPostDialog(final Activity context) {
 
-
+        isImageSelected=false;
         final LayoutInflater factory = LayoutInflater.from(context);
         final View deleteDialogView = factory.inflate(
                 R.layout.dialog_add_post, null);
-        final Dialog  dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogShowAddPostPopUp = new Dialog(context);
+        dialogShowAddPostPopUp.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogShowAddPostPopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setContentView(deleteDialogView);
+        dialogShowAddPostPopUp.setContentView(deleteDialogView);
 
 
-        EditText etPost = (EditText) deleteDialogView.findViewById(R.id.etPost);
+        final EditText etPost = (EditText) deleteDialogView.findViewById(R.id.etPost);
         final TextView tvPostTextLength = (TextView) deleteDialogView.findViewById(R.id.tvPostTextLength);
+        imgPost = (ImageView) deleteDialogView.findViewById(R.id.img_photo);
+        imgDelete = (ImageView) deleteDialogView.findViewById(R.id.btn_close);
 
         ImageView ivAttachDoc = (ImageView) deleteDialogView.findViewById(R.id.ivAttachDoc);
         ImageView ivCamera = (ImageView) deleteDialogView.findViewById(R.id.ivCamera);
@@ -326,19 +393,51 @@ public class ActivityMain extends AppCompatActivity
                 choosePhotoFromGallary();
             }
         });
+        imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isImageSelected=false;
+                imgPost.setVisibility(View.GONE);
+                imgDelete.setVisibility(View.GONE);
+            }
+        });
         ivSendTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                dialog.dismiss();
+
+                AddPost addPost=new AddPost();
+                 addPost.setUserId(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserId());
+              //  addPost.setAwarenessId(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getSpecialist());
+                addPost.setAwarenessId("1");
+                addPost.setTags("morning,evening");
+
+                if(isImageSelected){
+                    addPost.setType(C.PHOTO);
+                    addPost.setContent("");
+
+                    new UploadFileFroURL(ActivityMain.this,addPost).execute(filePath);
+                }
+              else  if(etPost.getText().toString().trim().length()>0 ){
+                    addPost.setType(C.TEXT);
+                    addPost.setContent(etPost.getText().toString().trim());
+                    addPost.setUrl("");
+
+                    AddPost(addPost);
+                }
+                else {
+                    Util.showAlert(ActivityMain.this,getString(R.string.error),getString(R.string.post_should_not_be_empty),getString(R.string.ok),R.drawable.warning);
+
+                }
+
 
 
             }
         });
 
 
-        dialog.show();
+        dialogShowAddPostPopUp.show();
 
 
     }
@@ -364,7 +463,9 @@ public class ActivityMain extends AppCompatActivity
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), contentURI);
                     //   String path = saveImage(bitmap);
                     bitmap= Util.scaleDown(bitmap, 500, true);
-                    ivProfileImage.setImageBitmap(bitmap);
+                    imgPost.setVisibility(View.VISIBLE);
+                    imgDelete.setVisibility(View.VISIBLE);
+                    imgPost.setImageBitmap(bitmap);
                     filePath= Util.getPath(contentURI,this);
                  /*   String profileImage= Utils.getBase64Image(bitmap);
                     if(C.isloggedIn) {
@@ -391,7 +492,9 @@ public class ActivityMain extends AppCompatActivity
                         options);
                 bitmap = rotateImageIfRequired(bitmap, fileUri.getPath());
                 isImageSelected = true;
-                ivProfileImage.setImageBitmap(bitmap);
+                imgPost.setVisibility(View.VISIBLE);
+                imgDelete.setVisibility(View.VISIBLE);
+                imgPost.setImageBitmap(bitmap);
                 contentURI = fileUri;
                 filePath = fileUri.getPath();
                /* String profileImage = Utils.getBase64Image(bitmap);
@@ -465,4 +568,103 @@ public class ActivityMain extends AppCompatActivity
         img.recycle();
         return rotatedImg;
     }
+
+    public class UploadFileFroURL extends AsyncTask<String, Integer, String> {
+
+        private String upLoadServerUri = "http://www.dataheadstudio.com/test/api/upload";
+        private File sourceFile;
+        private int serverResonseCode;
+        private Activity activity;
+
+        AddPost addPost;
+        public UploadFileFroURL(Activity activity,AddPost post) {
+            // TODO Auto-generated constructor stub
+            this.activity = activity;
+            addPost=post;
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(activity);
+            mProgressDialog.setTitle("Upload");
+            mProgressDialog.setMessage("Uploading, Please Wait!");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setMax(100);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... content) {
+
+//               String response = uploadFile(content[0]);
+            String response = upload(content[0]);
+            return response;
+        }
+
+        String upload(String sourceFileUri) {
+            sourceFile = new File(sourceFileUri);
+            String requestURL = "http://www.dataheadstudio.com/test/api/upload";
+
+            try {
+                MultipartUtility multipart = new MultipartUtility(new MultipartUtility.ProgressListener() {
+                    @Override
+                    public void transferred(int num) {
+                        publishProgress(num);
+
+                    }
+                }, requestURL, "profileUserAuthKey", "uploadprofileimage",ActivityMain.this);
+
+
+//                multipart.addFormField(C.ACTION, "uploadprofileimage");
+//                multipart.addFormField("profileUserAuthKey", SharedPreference.getInstance(getActivity()).getString(C.AUTH_KEY_PROFILE));
+                String fileName = renameFile(MimeTypeMap.getFileExtensionFromUrl(sourceFileUri));
+                multipart.addFilePart("photo", sourceFile, fileName);
+//                multipart.addFilePart("document", sourceFile, fileName);
+                List<String> response = multipart.finish();
+
+                System.out.println("SERVER REPLIED:");
+
+                for (String line : response) {
+                    System.out.println("DEBUG==" + line);
+                }
+
+                return response.get(0);
+            } catch (IOException ex) {
+                System.err.println(ex);
+            }
+            return null;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+
+            mProgressDialog.setProgress(progress[0]);
+        }
+
+
+        protected void onPostExecute(String result) {
+            mProgressDialog.dismiss();
+            Log.e("Response :", result);
+//            Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+            Gson gson = new Gson(); // Or use new GsonBuilder().create();
+            UploadFileRes fileRes = gson.fromJson(result, UploadFileRes.class);
+            if(fileRes.getStatusCode().equals(C.STATUS_SUCCESS)){
+                addPost.setUrl(fileRes.getUrls().getPhoto());
+               AddPost(addPost);
+            }
+        }
+
+        private String renameFile(String fileName) {
+            Random random = new Random();
+            int num = 1000 + random.nextInt(9999);
+            String newFileName = "LR" + System.currentTimeMillis() + num + "." + fileName;
+            return newFileName;
+        }
+
+
+    }
+
 }

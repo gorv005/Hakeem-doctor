@@ -214,7 +214,11 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
         @Override
         public void onClick(View v) {
             if(isAllValid()){
-                doctorRegistration.setSpecialist(etSpeciality.getText().toString());
+                for(int i=0;i<speciality.length;i++) {
+                    if(etSpeciality.getText().toString().equals(speciality[i])) {
+                        doctorRegistration.setSpecialist(""+i);
+                    }
+                }
                 doctorRegistration.setCurrentGrade(etCurrentGrade.getText().toString());
                 doctorRegistration.setSubSpecialist(etSubSpeciality.getText().toString());
                 doctorRegistration.setClassification(etClassification.getText().toString());
