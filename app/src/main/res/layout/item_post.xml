@@ -26,14 +26,30 @@
                 android:layout_gravity="right|center_vertical"
                 android:gravity="left">
 
-                <ImageView
+                <com.joooonho.SelectableRoundedImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/ivDoctor"
                     android:layout_width="96dp"
-                    android:background="@drawable/image_round_back"
+                    android:scaleType="centerCrop"
+                    app:sriv_left_top_corner_radius="10dip"
+                    app:sriv_right_top_corner_radius="10dip"
+                    app:sriv_left_bottom_corner_radius="10dip"
+                    app:sriv_right_bottom_corner_radius="10dip"
+                    app:sriv_border_width="1dip"
+                    app:sriv_border_color="@color/green"
+                    app:sriv_oval="false"
                     android:layout_height="96dp" />
 
-                <ImageView
-                    android:id="@+id/ivSpeciality"
+                <com.joooonho.SelectableRoundedImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"                    android:id="@+id/ivSpeciality"
+                    app:sriv_left_top_corner_radius="5dip"
+                    app:sriv_right_top_corner_radius="5dip"
+                    app:sriv_left_bottom_corner_radius="5dip"
+                    app:sriv_right_bottom_corner_radius="5dip"
+                    app:sriv_border_width="0.5dip"
+                    app:sriv_border_color="@color/green"
+                    app:sriv_oval="false"
+                    android:scaleType="fitCenter"
                     android:background="@color/white"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
