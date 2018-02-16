@@ -41,7 +41,8 @@
                     android:layout_height="96dp" />
 
                 <com.joooonho.SelectableRoundedImageView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"                    android:id="@+id/ivSpeciality"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ivSpeciality"
                     app:sriv_left_top_corner_radius="5dip"
                     app:sriv_right_top_corner_radius="5dip"
                     app:sriv_left_bottom_corner_radius="5dip"
@@ -53,8 +54,8 @@
                     android:background="@color/white"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_alignParentBottom="true" />
-            </RelativeLayout>
+                     />
+            </RelativeLayout>a
 
         </LinearLayout>
 

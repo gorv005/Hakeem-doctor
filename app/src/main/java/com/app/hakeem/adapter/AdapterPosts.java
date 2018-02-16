@@ -1,9 +1,12 @@
 package com.app.hakeem.adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,7 +53,7 @@ public class AdapterPosts extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder viewHolder;
         if (convertView == null) {
@@ -91,6 +94,18 @@ public class AdapterPosts extends BaseAdapter {
 
         imageLoader.DisplayImage(post.getIconUrl(), viewHolder.ivSpecialityIcon);
         imageLoader.DisplayImage(post.getUserPic(), viewHolder.ivDoctor);
+        viewHolder.ivDoctor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDailogForImage(getItem(position).getUserPic());
+            }
+        });
+        viewHolder.ivMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDailogForImage(getItem(position).getUrl());
+            }
+        });
         viewHolder.tvLiked.setText(post.getTotalLikes() + "");
         if(post.getIsLiked()==1) {
             viewHolder.tvLiked.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.liked, 0);
@@ -114,4 +129,33 @@ public class AdapterPosts extends BaseAdapter {
         TextView tvComment;
 
     }
+
+    void getDailogForImage(String url) {
+        try {
+
+
+            final Dialog dialog = new Dialog(activity);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            //tell the Dialog to use the dialog.xml as it's layout description
+            dialog.setContentView(R.layout.image_zoom_layout);
+            // dialog.setTitle("Android Custom Dialog Box");
+            dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(true);
+;
+            ImageView imageView = (ImageView) dialog.findViewById(R.id.imageViewZoom);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            imageLoader.DisplayImage(url,imageView);
+            dialog.show();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
