@@ -35,13 +35,14 @@
                 android:gravity="center">
 
                 <Button
+                    style="?android:attr/borderlessButtonStyle"
                     android:id="@+id/btnWeightReport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/diagnose"
+                    android:drawableTop="@drawable/icon_weight_report"
                     android:gravity="center"
                     android:text="@string/weight_report"
                     android:textColor="@color/blue"
@@ -55,13 +56,15 @@
                 android:gravity="center">
 
                 <Button
+                    style="?android:attr/borderlessButtonStyle"
+
                     android:id="@+id/btnFeverReport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/diagnose"
+                    android:drawableTop="@drawable/icon_thermometer"
                     android:gravity="center"
                     android:text="@string/fever_report"
                     android:textColor="@color/blue"
@@ -84,13 +87,15 @@
                 android:gravity="center">
 
                 <Button
+                    style="?android:attr/borderlessButtonStyle"
+
                     android:id="@+id/btnBloodPressure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/diagnose"
+                    android:drawableTop="@drawable/icon_blood_pressure"
                     android:gravity="center"
                     android:text="@string/blood_pressor_report"
                     android:textColor="@color/blue"
@@ -104,13 +109,15 @@
                 android:gravity="center">
 
                 <Button
+                    style="?android:attr/borderlessButtonStyle"
+
                     android:id="@+id/btnBloodSugar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/diagnose"
+                    android:drawableTop="@drawable/icon_blood_sugar"
                     android:gravity="center"
                     android:text="@string/blood_suger_report"
                     android:textColor="@color/blue"

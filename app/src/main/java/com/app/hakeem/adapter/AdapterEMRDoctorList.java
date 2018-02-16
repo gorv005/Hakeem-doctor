@@ -3,6 +3,7 @@ package com.app.hakeem.adapter;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,12 +68,15 @@ public class AdapterEMRDoctorList extends BaseAdapter {
             viewHolder.ivDetails = (ImageView) convertView.findViewById(R.id.ivDetails);
             viewHolder.ivPrescription = (ImageView) convertView.findViewById(R.id.ivPrescription);
             viewHolder.ivFollowUp = (ImageView) convertView.findViewById(R.id.ivFollowUp);
+            viewHolder.rl = (View) convertView.findViewById(R.id.rl);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-
+        if(position%2==1){
+            viewHolder.rl.setBackgroundColor(ContextCompat.getColor(activity, R.color.cream));
+        }
         viewHolder.tvDocName.setText(activity.getString(R.string.dr)+" "+EMRDoctorDataList.get(position).getFirstName()+" "+EMRDoctorDataList.get(position).getLastName());
         viewHolder.tvDocSpec.setText(EMRDoctorDataList.get(position).getSubSpecialist());
         viewHolder.tvDate.setText(EMRDoctorDataList.get(position).getCreatedAt().split(" ")[0]);
@@ -91,6 +95,7 @@ public class AdapterEMRDoctorList extends BaseAdapter {
         ImageView ivDetails;
         ImageView ivPrescription;
         ImageView ivFollowUp;
+        View rl;
 
 
     }
