@@ -74,6 +74,7 @@ public interface C {
     String API_REGISTER_PATIENT = BASE_URL + "/registerpatient";
     String API_REGISTER_FETCH_PATIENT = BASE_URL + "/fetchpatient";
     String API_REGISTER_FETCH_DOCTOR_PATIENTS = BASE_URL + "/patients";
+    String API_GET_CHAT_GROUP = BASE_URL + "/getchatgroup";
 
     String API_ADD_DPENDENT = BASE_URL + "/dependentadd";
 
@@ -102,4 +103,5 @@ public interface C {
 
     String FONT = "Mont.otf";
 
+    String PATIENT_ID ="patientId" ;
 }

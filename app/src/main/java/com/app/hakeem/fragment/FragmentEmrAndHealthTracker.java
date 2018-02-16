@@ -42,10 +42,23 @@ public class FragmentEmrAndHealthTracker extends Fragment {
     RadioButton rbHeathTracker;
     private Fragment fragment;
     private int fragmentAction;
-    private String dependentId;
-
+    String dependentId;
     public FragmentEmrAndHealthTracker() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+       /* Bundle bundle = getArguments();
+        if (bundle != null) {
+            name =  bundle.getString(C.NAME);
+            dob =  bundle.getString(C.DOB);
+            gender =  bundle.getString(C.GENDER);
+            dependentId =  bundle.getString(C.DEPENDENT_ID);
+            patientId =  bundle.getInt(C.PATIENT_ID);
+
+        }*/
     }
 
     @Override
@@ -63,6 +76,7 @@ public class FragmentEmrAndHealthTracker extends Fragment {
         rbEmr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 rbHeathTracker.setChecked(false);
                 rbHeathTracker.setTextColor(getActivity().getResources().getColor(R.color.blue));
                 rbHeathTracker.setBackgroundResource(R.drawable.button_deselect_blue);
@@ -105,7 +119,6 @@ public class FragmentEmrAndHealthTracker extends Fragment {
         fragmentAction = getArguments().getInt(C.FRAGMENT_ACTION, C.FRAGMENT_EMR);
         fragmnetLoader(fragmentAction, bundle);
 
-        dependentId = bundle.getString(C.DEPENDENT_ID);
         tvName.setText(bundle.getString(C.NAME));
         tvGender.setText(bundle.getString(C.GENDER));
         tvDOB.setText(bundle.getString(C.DOB));

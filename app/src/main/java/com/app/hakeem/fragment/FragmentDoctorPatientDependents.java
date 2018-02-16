@@ -15,17 +15,12 @@ import android.widget.ListView;
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterDoctorPatientsDependentList;
-import com.app.hakeem.adapter.AdapterDoctorPatientsList;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.Child;
 import com.app.hakeem.pojo.DependentList;
 import com.app.hakeem.pojo.DoctorPatientList;
-import com.app.hakeem.pojo.DoctorRegistration;
-import com.app.hakeem.pojo.DoctorsPatient;
 import com.app.hakeem.pojo.Patient;
-import com.app.hakeem.pojo.Response;
 import com.app.hakeem.util.C;
-import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
 import com.app.hakeem.webservices.VolleyService;
 import com.google.gson.Gson;
@@ -90,6 +85,8 @@ public class FragmentDoctorPatientDependents extends Fragment {
                 bundle.putString(C.DOB, childLis.get(position).getDob());
                 bundle.putString(C.GENDER, childLis.get(position).getGender());
                 bundle.putString(C.DEPENDENT_ID, childLis.get(position).getChildId());
+                bundle.putString(C.PATIENT_ID, ""+doctorPatientList.getPatientId());
+
                 ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_EMR_AND_TRACKER, bundle);
             }
         });

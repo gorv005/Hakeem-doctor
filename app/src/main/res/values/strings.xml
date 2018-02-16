@@ -138,5 +138,11 @@
     <string name="choose_dependent">Choose Dependant</string>
     <string name="main_profile">Main Profile</string>
     <string name="post_should_not_be_empty">Post should not be empty</string>
+    <string name="date">Date</string>
+    <string name="details">Details</string>
+    <string name="prescription">Prescription</string>
+    <string name="follow_up">Follow Up</string>
+    <string name="no_data">No Data</string>
+    <string name="dr">Dr.</string>
 
 </resources>
