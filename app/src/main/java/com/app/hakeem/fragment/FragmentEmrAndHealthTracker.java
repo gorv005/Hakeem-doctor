@@ -102,7 +102,6 @@ public class FragmentEmrAndHealthTracker extends Fragment {
                 Bundle bundle = getArguments();
                 fragmentAction = getArguments().getInt(C.FRAGMENT_ACTION, C.FRAGMENT_TRACKER);
                 fragmnetLoader(fragmentAction, bundle);
-                fragmnetLoader(fragmentAction, bundle);
 
             }
         });
@@ -149,30 +148,30 @@ public class FragmentEmrAndHealthTracker extends Fragment {
             case C.FRAGMENT_TRACKER_WEIGHT_REPORT:
 
 //                tvTitle.setText(R.string.emr);
-                fragment = new FragmentHealthTracker();
+                fragment = new FragmentHTWeightReport();
                 fragmentTransaction.replace(R.id.container, fragment);
-                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_EMR_AND_TRACKER);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_TRACKER_WEIGHT_REPORT);
                 break;
             case C.FRAGMENT_TRACKER_FEVER_REPORT:
 
 //                tvTitle.setText(R.string.emr);
-                fragment = new FragmentHealthTracker();
+                fragment = new FragmentHTFeverReport();
                 fragmentTransaction.replace(R.id.container, fragment);
-                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_EMR_AND_TRACKER);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_TRACKER_FEVER_REPORT);
                 break;
             case C.FRAGMENT_TRACKER_BLOOD_PRESSURE_REPORT:
 
 //                tvTitle.setText(R.string.emr);
-                fragment = new FragmentHealthTracker();
+                fragment = new FragmentHTBloodPressureReport();
                 fragmentTransaction.replace(R.id.container, fragment);
-                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_EMR_AND_TRACKER);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_TRACKER_BLOOD_PRESSURE_REPORT);
                 break;
             case C.FRAGMENT_TRACKER_BLOOD_SUGAR_REPORT:
 
 //                tvTitle.setText(R.string.emr);
-                fragment = new FragmentHealthTracker();
+                fragment = new FragmentHTBloodSugerReport();
                 fragmentTransaction.replace(R.id.container, fragment);
-                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_EMR_AND_TRACKER);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_TRACKER_BLOOD_SUGAR_REPORT);
                 break;
 
         }

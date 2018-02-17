@@ -36,6 +36,11 @@ public interface C {
     String TAG_FRAGMENT_SPLASH = "fragment_splash";
     String TAG_FRAGMENT_PATIENT_EMR_AND_TRACKER = "FRAGMENT_PATIENT_EMR_AND_TRACKER ";
     String TAG_FRAGMENT_EMR_AND_TRACKER = "EMR_AND_TRACKER ";
+    String TAG_FRAGMENT_TRACKER_FEVER_REPORT = "TAG_FRAGMENT_TRACKER_FEVER_REPORT ";
+    String TAG_FRAGMENT_TRACKER_WEIGHT_REPORT = "TAG_FRAGMENT_TRACKER_WEIGHT_REPORT ";
+    String TAG_FRAGMENT_TRACKER_BLOOD_PRESSURE_REPORT = "TAG_FRAGMENT_TRACKER_BLOOD_PRESSURE_REPORT ";
+    String TAG_FRAGMENT_TRACKER_BLOOD_SUGAR_REPORT = "TAG_FRAGMENT_TRACKER_BLOOD_SUGAR_REPORT ";
+
     String TAG_FRAGMENT_EMR = "EMR ";
     String TAG_FRAGMENT_TRACKER = "TRACKER ";
     String TAG_FRAGMENT_TRACKER_WEIGHT = "TAG_FRAGMENT_TRACKER_WEIGHT ";
@@ -75,6 +80,10 @@ public interface C {
     String API_REGISTER_FETCH_PATIENT = BASE_URL + "/fetchpatient";
     String API_REGISTER_FETCH_DOCTOR_PATIENTS = BASE_URL + "/patients";
     String API_GET_CHAT_GROUP = BASE_URL + "/getchatgroup";
+    String API_GET_FEVER_REPORT = BASE_URL + "/getreportfever";
+    String API_GET_WEIGHT_REPORT = BASE_URL + "/getreportweight";
+    String API_GET_BLOOD_PRESSURE_REPORT = BASE_URL + "/getbloodpressure";
+    String API_GET_BLOOD_SUGER_REPORT = BASE_URL + "/getbloodsugar";
 
     String API_ADD_DPENDENT = BASE_URL + "/dependentadd";
 
@@ -82,6 +91,9 @@ public interface C {
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
     String USER = "user";
     String DATE_FORMAT = "dd/MMM/yyyy";
+
+    String DATE_FORMAT_FOR_REPORT = "yyyy-MM-dd";
+
     String IMAGE_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/Hakeem";
 

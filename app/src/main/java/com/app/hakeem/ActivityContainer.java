@@ -30,6 +30,8 @@ import com.app.hakeem.fragment.FragmentRegisterType;
 import com.app.hakeem.fragment.FragmentSplash;
 import com.app.hakeem.util.C;
 
+import java.util.List;
+
 public class ActivityContainer extends AppCompatActivity {
 
     private Fragment fragment;
@@ -195,6 +197,22 @@ public class ActivityContainer extends AppCompatActivity {
     }
 
 
+    public void callFragment(int frag,Bundle bundle){
+       fragment=getVisibleFragment();
+       if(fragment!=null && fragment instanceof FragmentEmrAndHealthTracker){
+           ((FragmentEmrAndHealthTracker) fragment).fragmnetLoader(frag,bundle);
+       }
+    }
+
+    private Fragment getVisibleFragment() {
+        FragmentManager fragmentManager = ActivityContainer.this.getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment != null && fragment.isVisible())
+                return fragment;
+        }
+        return null;
+    }
     @Override
     public void onBackPressed() {
 

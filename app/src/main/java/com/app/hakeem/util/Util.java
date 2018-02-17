@@ -846,7 +846,7 @@ public class Util {
             Calendar c = Calendar.getInstance();
             //  System.out.println("Current time => " + c.getTime());
 
-            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+            SimpleDateFormat df = new SimpleDateFormat(C.DATE_FORMAT_FOR_REPORT);
             formattedDate = df.format(c.getTime());
             return formattedDate;
         } catch (Exception e) {
@@ -855,6 +855,22 @@ public class Util {
         return formattedDate;
     }
 
+    public static String get2MonthNextDate(String date) {
+        try {
+            Date start = new SimpleDateFormat(C.DATE_FORMAT_FOR_REPORT, Locale.ENGLISH)
+                    .parse(date);
+            Calendar c = Calendar.getInstance();
+            c.setTime(start);
+            c.add(Calendar.MONTH, -2);
+            start = c.getTime();
+            SimpleDateFormat newDateFormat = new SimpleDateFormat(C.DATE_FORMAT_FOR_REPORT);
+            date = newDateFormat.format(start);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
 
     public static Map<String, String> getHeader(Activity activity) {
         HashMap<String, String> headers = new HashMap<String, String>();

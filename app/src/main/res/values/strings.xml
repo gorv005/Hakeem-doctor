@@ -144,5 +144,13 @@
     <string name="follow_up">Follow Up</string>
     <string name="no_data">No Data</string>
     <string name="dr">Dr.</string>
+    <string name="temp_report">Temperature Report</string>
+    <string name="from">From</string>
+    <string name="alert">Alert</string>
+    <string name="temprature">Temprature</string>
+    <string name="refresh_graph">Refresh Graph</string>
+    <string name="hr">HR</string>
+    <string name="dia">DIA</string>
+    <string name="sys">SYS</string>
 
 </resources>
