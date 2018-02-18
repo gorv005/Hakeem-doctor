@@ -147,7 +147,13 @@ public class FragmentHTBloodPressureReport extends Fragment {
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("patient_id", patientId);
-        hashMap.put("dependent_id", dependentId);
+        if(patientId.equals(dependentId)){
+            hashMap.put("dependent_id", "");
+        }
+        else {
+            hashMap.put("dependent_id", dependentId);
+
+        }
         hashMap.put("from", etFrom.getText().toString());
         hashMap.put("to", etTo.getText().toString());
 

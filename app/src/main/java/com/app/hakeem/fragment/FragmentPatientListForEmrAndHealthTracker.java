@@ -121,7 +121,7 @@ public class FragmentPatientListForEmrAndHealthTracker extends Fragment {
                     child.setName(responseServer.getPatient().getName());
                     child.setDob(responseServer.getPatient().getDob());
                     child.setGender(responseServer.getPatient().getGender());
-                    child.setParantId(responseServer.getPatient().getId()+"");
+                    child.setChildId(responseServer.getPatient().getId()+"");
                     responseServer.getPatient().getChildrens().add(0,child);
                     adapterPatientList = new AdapterPatientListEMRandTracker(getActivity(), responseServer.getPatient().getChildrens());
                     lvDependent.setAdapter(adapterPatientList);

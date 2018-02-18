@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.util.C;
 
@@ -76,6 +77,7 @@ public class FragmentEmrAndHealthTracker extends Fragment {
         rbEmr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ActivityContainer.tvTitle.setText(R.string.emr);
 
                 rbHeathTracker.setChecked(false);
                 rbHeathTracker.setTextColor(getActivity().getResources().getColor(R.color.blue));
@@ -93,6 +95,8 @@ public class FragmentEmrAndHealthTracker extends Fragment {
         rbHeathTracker.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ActivityContainer.tvTitle.setText(R.string.health_tracker);
+
                 rbEmr.setChecked(false);
                 rbEmr.setBackgroundResource(R.drawable.button_deselect_blue);
                 rbEmr.setTextColor(getActivity().getResources().getColor(R.color.blue));

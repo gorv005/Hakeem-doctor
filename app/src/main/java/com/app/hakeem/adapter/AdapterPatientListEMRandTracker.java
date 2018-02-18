@@ -55,14 +55,18 @@ public class AdapterPatientListEMRandTracker extends BaseAdapter {
 
 
         TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
-
-        tvName.setText(getItem(position).getName());
+        if(position==0){
+            tvName.setText(activity.getString(R.string.main_profile));
+        }
+        else {
+            tvName.setText(getItem(position).getName());
+        }
         tvName.setTextColor(activity.getResources().getColor(R.color.blue));
 
         Button btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
         btnDelete.setEnabled(false);
         btnDelete.setText("");
-        btnDelete.setBackgroundResource(R.drawable.liked);
+        btnDelete.setBackgroundResource(R.drawable.forward);
 
         return convertView;
     }

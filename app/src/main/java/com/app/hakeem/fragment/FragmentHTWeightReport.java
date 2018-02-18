@@ -145,8 +145,14 @@ public class FragmentHTWeightReport extends Fragment {
         progressDialog.show();
 
         HashMap<String, String> hashMap = new HashMap<>();
+        if(patientId.equals(dependentId)){
+            hashMap.put("dependent_id", "");
+        }
+        else {
+            hashMap.put("dependent_id", dependentId);
+
+        }
         hashMap.put("patient_id", patientId);
-        hashMap.put("dependent_id", dependentId);
         hashMap.put("from", etFrom.getText().toString());
         hashMap.put("to", etTo.getText().toString());
 
