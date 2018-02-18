@@ -130,7 +130,9 @@ public class FragmentDependent extends Fragment implements DependentDelete {
                     lvDependent.setAdapter(adapterPatientList);
 
                 } else {
-                    Util.showToast(getActivity(), responseServer.getMessage(), false);
+                //    Util. showToast(getActivity(), responseServer.getMessage(), false);
+                    Util.showAlertForToast(getActivity(),responseServer.getMessage(),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+
                 }
             }
 
@@ -361,11 +363,15 @@ public class FragmentDependent extends Fragment implements DependentDelete {
 
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
-                    Util.showToast(getActivity(), responseServer.getMessage(), false);
+                   // Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    Util.showAlertForToast(getActivity(),responseServer.getMessage(),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+
                     getDependentList();
 
                 } else {
-                    Util.showToast(getActivity(), responseServer.getMessage(), false);
+                  //  Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    Util.showAlertForToast(getActivity(),responseServer.getMessage(),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+
                 }
 
             }

@@ -1,8 +1,10 @@
 package com.app.hakeem.fragment;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -76,7 +79,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
     EditText etWorkingSince;
 
     EditText etResignedSince;
-
+    int pos;
     Button btnConfirmExperiance;
     Calendar myCalendar = Calendar.getInstance();
     boolean isWorkingSince=false;
@@ -208,6 +211,68 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
         };
         spinnerArrayAdapterCurrentGrade.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCurrentGrade.setAdapter(spinnerArrayAdapterCurrentGrade);
+        lvExperience.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                pos=position;
+                showAlertForConfirm(getActivity(),getString(R.string.delete),getString(R.string.delete_sure),getString(R.string.yes),getString(R.string.no),R.drawable.warning,false);
+
+                return false;
+            }
+        });
+    }
+    public  void showAlertForConfirm(final Activity context, String title, String msg, String btnText1, String btnText2, int img, final boolean finishActivity) {
+
+
+        final LayoutInflater factory = LayoutInflater.from(context);
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_alert_with_two_button, null);
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(deleteDialogView);
+
+
+
+        TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
+        tvMsg.setText(msg);
+
+        TextView tvTitle = (TextView) deleteDialogView.findViewById(R.id.tvTitle);
+        tvTitle.setText(title);
+        ImageView ivAlertImage = (ImageView) deleteDialogView.findViewById(R.id.ivAlertImage);
+        ivAlertImage.setImageResource(img);
+        Button btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
+        btnDone.setText(btnText1);
+        Button btnCancel = (Button) deleteDialogView.findViewById(R.id.btnCancel);
+        btnCancel.setText(btnText2);
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.dismiss();
+                adapterDoctorExperience.getAllItem().remove(pos);
+                adapterDoctorExperience.notifyDataSetChanged();
+
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.dismiss();
+
+
+            }
+        });
+
+        dialog.show();
+
+
     }
 
     View.OnClickListener mBtnContinueClickListner=new View.OnClickListener() {
@@ -283,7 +348,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
             etClassification.requestFocus();
             return false;
         }
-        else if (adapterDoctorExperience!=null && !isExpAdd) {
+        else if (adapterDoctorExperience!=null && adapterDoctorExperience.getAllItem()!=null &&adapterDoctorExperience.getAllItem().size()==0) {
             //Toast.makeText(getActivity(),getString(R.string.require_add_experience),Toast.LENGTH_LONG).show();
             Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.require_add_experience),getString(R.string.ok),R.drawable.warning);
 

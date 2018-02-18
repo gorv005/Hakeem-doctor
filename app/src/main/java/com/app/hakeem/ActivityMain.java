@@ -32,8 +32,10 @@ import android.view.View;
 import android.view.Window;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -90,6 +92,12 @@ public class ActivityMain extends AppCompatActivity
     ImageView imgEdit;
     @BindView(R.id.imgSearch)
     ImageView imgSearch;
+    @BindView(R.id.llHealthTracker)
+    LinearLayout llHealthTracker;
+    @BindView(R.id.llMedicalReport)
+    LinearLayout llMedicalReport;
+    @BindView(R.id.llAwareness)
+    LinearLayout llAwareness;
     private AdapterSideMenu adapterSideMenu;
     private AdapterPosts adapterPosts;
     private Dialog dialog,dialogShowAddPostPopUp;
@@ -185,10 +193,103 @@ public class ActivityMain extends AppCompatActivity
         rlBottam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreference.getInstance(ActivityMain.this).setBoolean(C.IS_LOGIN,false);
-                onResume();
+                showAlertForConfirm(ActivityMain.this,getString(R.string.logout),getString(R.string.logout_sure),getString(R.string.yes),getString(R.string.no),R.drawable.warning,false);
+                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                }
             }
         });
+    llAwareness.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    });
+        llHealthTracker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
+                if(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.PATIENT)) {
+
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_EMR_AND_TRACKER);
+                }
+                else {
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PATIENT_LIST);
+
+                }
+                startActivity(intent);
+            }
+        });
+        llMedicalReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
+                if(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.PATIENT)) {
+
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_EMR_AND_TRACKER);
+                }
+                else {
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PATIENT_LIST);
+
+                }
+                startActivity(intent);
+            }
+        });
+    }
+    public   void logout(){
+        SharedPreference.getInstance(ActivityMain.this).setBoolean(C.IS_LOGIN,false);
+        onResume();
+    }
+    public  void showAlertForConfirm(final Activity context, String title, String msg, String btnText1,String btnText2, int img, final boolean finishActivity) {
+
+
+        final LayoutInflater factory = LayoutInflater.from(context);
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_alert_with_two_button, null);
+        final Dialog  dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(deleteDialogView);
+
+
+
+        TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
+        tvMsg.setText(msg);
+
+        TextView tvTitle = (TextView) deleteDialogView.findViewById(R.id.tvTitle);
+        tvTitle.setText(title);
+        ImageView ivAlertImage = (ImageView) deleteDialogView.findViewById(R.id.ivAlertImage);
+        ivAlertImage.setImageResource(img);
+        Button btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
+        btnDone.setText(btnText1);
+        Button btnCancel = (Button) deleteDialogView.findViewById(R.id.btnCancel);
+        btnCancel.setText(btnText2);
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.dismiss();
+                logout();
+
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.dismiss();
+
+
+            }
+        });
+
+        dialog.show();
+
 
     }
 

@@ -90,6 +90,7 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/bg_button_noborder"
                 android:minWidth="130dp"
+                android:layout_marginLeft="20dp"
                 android:text="@string/create_account"
                 android:textAllCaps="false"
                 android:textColor="@color/color_selector"
@@ -104,6 +105,7 @@
                 android:background="@drawable/bg_button_noborder"
                 android:minWidth="130dp"
                 android:text="@string/need_help"
+                android:layout_marginRight="20dp"
                 android:textAllCaps="false"
                 android:textColor="@color/color_selector"
                 android:textSize="14sp" />

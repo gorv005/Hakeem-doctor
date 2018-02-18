@@ -30,7 +30,6 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
@@ -485,7 +484,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
 
                     }
                     else {
-
+                        Util.showAlert(getActivity(),getString(R.string.alert),responseLogin.getMessage(),getString(R.string.ok),R.drawable.warning);
                     }
 
                 } catch (Exception e) {

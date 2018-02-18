@@ -130,20 +130,20 @@ public class FragmentDoctorRegistrationStep1 extends Fragment {
 
             etMobile.requestFocus();
             return false;
-        } else if (etMobile.getText().length() < 10) {
+        } else if (etMobile.getText().length() < 8) {
 
          //   etMobile.setError(getActivity().getResources().getString(R.string.please_enter_valid_mobile_number));
             Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_valid_mobile_number),getString(R.string.ok),R.drawable.warning);
 
             etMobile.requestFocus();
             return false;
-        } else if (etMobile.getText().toString().startsWith("0")) {
+        }/* else if (etMobile.getText().toString().startsWith("0")) {
          //   etMobile.setError(getActivity().getResources().getString(R.string.number_strts_with_zero));
             Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.number_strts_with_zero),getString(R.string.ok),R.drawable.warning);
 
             etMobile.requestFocus();
             return false;
-        } else if (etEmail.getText().toString().length() == 0) {
+        }*/ else if (etEmail.getText().toString().length() == 0) {
           //  etEmail.setError(getActivity().getResources().getString(R.string.email_is_required));
             Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.email_is_required),getString(R.string.ok),R.drawable.warning);
 

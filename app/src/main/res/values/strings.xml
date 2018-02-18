@@ -158,6 +158,14 @@
     <string name="medical_consultation">Medical Consultation</string>
     <string name="manage_dependents">Manage Dependents</string>
     <string name="electronic_medical_report">Electronic Medical Records</string>
+    <string name="medical_report">Medical Records</string>
+
     <string name="patient_profile">Patient Profile</string>
+    <string name="cancel">Cancel</string>
+    <string name="logout_sure">Are you sure you want to Logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete">Delete</string>
+    <string name="delete_sure">Are you sure you want to delete it?</string>
 
 </resources>

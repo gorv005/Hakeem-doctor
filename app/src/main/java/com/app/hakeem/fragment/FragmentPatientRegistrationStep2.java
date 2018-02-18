@@ -259,7 +259,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
-                    Util.showToast(getActivity(), responseServer.getMessage(), false);
+                  //  Util.showToast(getActivity(), responseServer.getMessage(), false);
 
                     Handler handler =new Handler();
                     handler.postDelayed(new Runnable() {
@@ -271,7 +271,9 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
                     },2000);
 
                 } else {
-                    Util.showToast(getActivity(), responseServer.getMessage(), false);
+                   // Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+
                 }
 
             }
@@ -421,15 +423,21 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
     public boolean isAllValid() {
         if (tvDOB.getText().toString().length() == 0) {
-            tvDOB.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
+        //    tvDOB.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_date_of_birth),getString(R.string.ok),R.drawable.warning);
+
             tvDOB.requestFocus();
             return false;
         } else if (tvCity.getText().toString().length() == 0) {
-            tvCity.setError(getActivity().getResources().getString(R.string.please_enter_city));
+          //  tvCity.setError(getActivity().getResources().getString(R.string.please_enter_city));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_city),getString(R.string.ok),R.drawable.warning);
+
             tvCity.requestFocus();
             return false;
         } else if (adapterDependent.getAllItem().size() == 0) {
-            Util.showToast(getActivity(), R.string.please_add_atleast_one_depandent, false);
+          //  Util.showToast(getActivity(), R.string.please_add_atleast_one_depandent, false);
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_add_atleast_one_depandent),getString(R.string.ok),R.drawable.warning);
+
             return false;
         }
         return true;
@@ -437,23 +445,33 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
     public boolean isAllVaildDetailOfDependent() {
         if (etName.getText().toString().length() == 0) {
-            etName.setError(getActivity().getResources().getString(R.string.first_name_required));
+         //   etName.setError(getActivity().getResources().getString(R.string.first_name_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.first_name_required),getString(R.string.ok),R.drawable.warning);
+
             etName.requestFocus();
             return false;
         } else if (etName.getText().toString().trim().length() < 3) {
-            etName.setError(getActivity().getResources().getString(R.string.first_name_should_be_more_then_3_character));
+          //  etName.setError(getActivity().getResources().getString(R.string.first_name_should_be_more_then_3_character));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.first_name_should_be_more_then_3_character),getString(R.string.ok),R.drawable.warning);
+
             etName.requestFocus();
             return false;
         } else if (etName.getText().toString().trim().startsWith(".")) {
-            etName.setError(getActivity().getResources().getString(R.string.name_could_not_starts_with_dot));
+          //  etName.setError(getActivity().getResources().getString(R.string.name_could_not_starts_with_dot));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.name_could_not_starts_with_dot),getString(R.string.ok),R.drawable.warning);
+
             etName.requestFocus();
             return false;
         } else if (tvRelationship.getText().toString().length() == 0) {
-            tvRelationship.setError(getActivity().getResources().getString(R.string.please_enter_relationship));
+         //   tvRelationship.setError(getActivity().getResources().getString(R.string.please_enter_relationship));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_relationship),getString(R.string.ok),R.drawable.warning);
+
             tvRelationship.requestFocus();
             return false;
         } else if (tvDOB.getText().toString().length() == 0) {
-            tvDOB.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
+          //  tvDOB.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_date_of_birth),getString(R.string.ok),R.drawable.warning);
+
             tvDOB.requestFocus();
             return false;
         }

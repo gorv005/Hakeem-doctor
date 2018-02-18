@@ -123,44 +123,64 @@ public class FragmentPatientRegistrationStep1 extends Fragment {
     public boolean isAllValid() {
 
         if (etName.getText().toString().length() == 0) {
-            etName.setError(getActivity().getResources().getString(R.string.first_name_required));
+          //  etName.setError(getActivity().getResources().getString(R.string.first_name_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.first_name_required),getString(R.string.ok),R.drawable.warning);
+
             etName.requestFocus();
             return false;
         } else if (etName.getText().toString().trim().length() < 3) {
-            etName.setError(getActivity().getResources().getString(R.string.first_name_should_be_more_then_3_character));
+         //   etName.setError(getActivity().getResources().getString(R.string.first_name_should_be_more_then_3_character));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.first_name_should_be_more_then_3_character),getString(R.string.ok),R.drawable.warning);
+
             etName.requestFocus();
             return false;
         } else if (etName.getText().toString().trim().startsWith(".")) {
-            etName.setError(getActivity().getResources().getString(R.string.name_could_not_starts_with_dot));
+         //   etName.setError(getActivity().getResources().getString(R.string.name_could_not_starts_with_dot));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.name_could_not_starts_with_dot),getString(R.string.ok),R.drawable.warning);
+
             etName.requestFocus();
             return false;
         } else if (etMobile.getText().toString().length() == 0) {
-            etMobile.setError(getActivity().getResources().getString(R.string.mobile_no_is_required));
-            etMobile.requestFocus();
-            return false;
-        } else if (etMobile.getText().length() < 10) {
+            //etMobile.setError(getActivity().getResources().getString(R.string.mobile_no_is_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.mobile_no_is_required),getString(R.string.ok),R.drawable.warning);
 
-            etMobile.setError(getActivity().getResources().getString(R.string.please_enter_valid_mobile_number));
             etMobile.requestFocus();
             return false;
-        } else if (etMobile.getText().toString().startsWith("0")) {
-            etMobile.setError(getActivity().getResources().getString(R.string.number_strts_with_zero));
+        } else if (etMobile.getText().length() < 8) {
+
+          //  etMobile.setError(getActivity().getResources().getString(R.string.please_enter_valid_mobile_number));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_valid_mobile_number),getString(R.string.ok),R.drawable.warning);
+
             etMobile.requestFocus();
             return false;
-        } else if (etEmail.getText().toString().length() == 0) {
-            etEmail.setError(getActivity().getResources().getString(R.string.email_is_required));
+        } /*else if (etMobile.getText().toString().startsWith("0")) {
+          //  etMobile.setError(getActivity().getResources().getString(R.string.number_strts_with_zero));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.number_strts_with_zero),getString(R.string.ok),R.drawable.warning);
+
+            etMobile.requestFocus();
+            return false;
+        }*/ else if (etEmail.getText().toString().length() == 0) {
+         //   etEmail.setError(getActivity().getResources().getString(R.string.email_is_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.email_is_required),getString(R.string.ok),R.drawable.warning);
+
             etEmail.requestFocus();
             return false;
         } else if (!Util.isValidMail(etEmail.getText().toString())) {
-            etEmail.setError(getActivity().getResources().getString(R.string.please_enter_valid_email));
+         //   etEmail.setError(getActivity().getResources().getString(R.string.please_enter_valid_email));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_valid_email),getString(R.string.ok),R.drawable.warning);
+
             etEmail.requestFocus();
             return false;
         } else if (etPassword.getText().toString().length() == 0) {//||etConfirmPassword.getText().toString().length() == 0
-            etPassword.setError(getActivity().getResources().getString(R.string.password_required));
+         //   etPassword.setError(getActivity().getResources().getString(R.string.password_required));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.password_required),getString(R.string.ok),R.drawable.warning);
+
             etPassword.requestFocus();
             return false;
         } else if (!Util.isValidPassword(etPassword.getText().toString())) {
-            etPassword.setError(getActivity().getResources().getString(R.string.password_should_be_8_12_characters_with_at_least_1_nummeric));
+         //   etPassword.setError(getActivity().getResources().getString(R.string.password_should_be_8_12_characters_with_at_least_1_nummeric));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.password_should_be_8_12_characters_with_at_least_1_nummeric),getString(R.string.ok),R.drawable.warning);
+
             etPassword.requestFocus();
             return false;
         }

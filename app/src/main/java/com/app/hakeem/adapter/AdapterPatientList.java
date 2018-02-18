@@ -129,11 +129,15 @@ public class AdapterPatientList extends BaseAdapter {
 
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
-                    Util.showToast(activity, responseServer.getMessage(), false);
+                 //   Util.showToast(activity, , false);
+                    Util.showAlertForToast(activity,responseServer.getMessage(),responseServer.getMessage(),activity.getString(R.string.ok),R.drawable.warning,false);
+
                     dependentDelete.notifyDependentDeleted();
 
                 } else {
-                    Util.showToast(activity, responseServer.getMessage(), false);
+              //      Util.showToast(activity, responseServer.getMessage(), false);
+                    Util.showAlertForToast(activity,responseServer.getMessage(),responseServer.getMessage(),activity.getString(R.string.ok),R.drawable.warning,false);
+
                 }
 
             }
