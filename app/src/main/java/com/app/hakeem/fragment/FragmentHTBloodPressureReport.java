@@ -14,12 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.HTBloodPressureReportData;
 import com.app.hakeem.pojo.HTBloodPressureReportList;
 import com.app.hakeem.util.C;
+import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
 import com.app.hakeem.webservices.VolleyService;
 import com.github.mikephil.charting.charts.LineChart;
@@ -58,6 +60,8 @@ public class FragmentHTBloodPressureReport extends Fragment {
     EditText etFrom;
     @BindView(R.id.etTo)
     EditText etTo;
+    @BindView(R.id.ivAddBloodPressure)
+    ImageView ivAddBloodPressure;
     @BindView(R.id.btnRefresh)
     Button btnRefresh;
     private boolean isFrom=false;
@@ -104,6 +108,9 @@ public class FragmentHTBloodPressureReport extends Fragment {
                 openCalender();
             }
         });
+        if(SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+                ivAddBloodPressure.setVisibility(View.GONE);
+        }
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

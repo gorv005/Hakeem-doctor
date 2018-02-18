@@ -14,12 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.HTWeightReportData;
 import com.app.hakeem.pojo.HTWeightReportList;
 import com.app.hakeem.util.C;
+import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
 import com.app.hakeem.webservices.VolleyService;
 import com.github.mikephil.charting.charts.LineChart;
@@ -60,6 +62,8 @@ public class FragmentHTWeightReport extends Fragment {
     EditText etTo;
     @BindView(R.id.btnRefresh)
     Button btnRefresh;
+    @BindView(R.id.ivAddWight)
+    ImageView ivAddWight;
     private boolean isFrom=false;
     public FragmentHTWeightReport() {
         // Required empty public constructor
@@ -103,6 +107,9 @@ public class FragmentHTWeightReport extends Fragment {
                 openCalender();
             }
         });
+        if(SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+            ivAddWight.setVisibility(View.GONE);
+        }
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

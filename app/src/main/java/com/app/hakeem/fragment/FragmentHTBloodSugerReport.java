@@ -14,12 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.HTBloodSugerReportData;
 import com.app.hakeem.pojo.HTBloodSugerReportList;
 import com.app.hakeem.util.C;
+import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
 import com.app.hakeem.webservices.VolleyService;
 import com.github.mikephil.charting.charts.LineChart;
@@ -60,6 +62,8 @@ public class FragmentHTBloodSugerReport extends Fragment {
     EditText etTo;
     @BindView(R.id.btnRefresh)
     Button btnRefresh;
+    @BindView(R.id.ivAddBloodSuger)
+    ImageView ivAddBloodSuger;
     private boolean isFrom=false;
     public FragmentHTBloodSugerReport() {
         // Required empty public constructor
@@ -104,6 +108,9 @@ public class FragmentHTBloodSugerReport extends Fragment {
                 openCalender();
             }
         });
+        if(SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+            ivAddBloodSuger.setVisibility(View.GONE);
+        }
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
