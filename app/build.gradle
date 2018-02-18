@@ -42,4 +42,8 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.joooonho:selectableroundedimageview:1.0.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile 'org.igniterealtime.smack:smack-android:4.1.4'
+    compile 'org.igniterealtime.smack:smack-tcp:4.1.4'
+    compile 'org.igniterealtime.smack:smack-im:4.1.4'
+    compile 'org.igniterealtime.smack:smack-extensions:4.1.4'
 }
