@@ -77,7 +77,6 @@ public class FragmentEmrAndHealthTracker extends Fragment {
         rbEmr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ActivityContainer.tvTitle.setText(R.string.emr);
 
                 rbHeathTracker.setChecked(false);
                 rbHeathTracker.setTextColor(getActivity().getResources().getColor(R.color.blue));
@@ -95,7 +94,6 @@ public class FragmentEmrAndHealthTracker extends Fragment {
         rbHeathTracker.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ActivityContainer.tvTitle.setText(R.string.health_tracker);
 
                 rbEmr.setChecked(false);
                 rbEmr.setBackgroundResource(R.drawable.button_deselect_blue);
@@ -136,13 +134,14 @@ public class FragmentEmrAndHealthTracker extends Fragment {
         switch (fragmentType) {
 
             case C.FRAGMENT_EMR:
-
+                ActivityContainer.tvTitle.setText(R.string.emr);
 //                tvTitle.setText(R.string.emr);
                 fragment = new FragmentEMR();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_EMR_AND_TRACKER);
                 break;
             case C.FRAGMENT_TRACKER:
+                ActivityContainer.tvTitle.setText(R.string.health_tracker);
 
 //                tvTitle.setText(R.string.emr);
                 fragment = new FragmentHealthTracker();

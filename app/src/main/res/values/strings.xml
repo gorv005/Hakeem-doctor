@@ -155,5 +155,9 @@
     <string name="pre">pre</string>
     <string name="post">post</string>
     <string name="sleep">sleep</string>
+    <string name="medical_consultation">Medical Consultation</string>
+    <string name="manage_dependents">Manage Dependents</string>
+    <string name="electronic_medical_report">Electronic Medical Records</string>
+    <string name="patient_profile">Patient Profile</string>
 
 </resources>

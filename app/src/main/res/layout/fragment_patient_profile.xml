@@ -1,13 +1,116 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.hakeem.fragment.FragmentPatientProfile">
+    android:background="@drawable/pattern"
+    tools:context="com.app.hakeem.fragment.FragmentDoctorProfile">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
-</FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/imgProfile"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/doctor"
+                app:civ_border_width="0.5dp"
+                app:civ_border_color="@color/white"/>
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/imgProfile"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/green"
+                    android:textSize="18sp" />
+                <TextView
+                    android:layout_alignBottom="@id/tvDocName"
+                    android:layout_toRightOf="@id/imgProfile"
+                    android:id="@+id/tvDocProf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:singleLine="true"
+                    android:lines="1"
+                    android:layout_marginTop="5dp"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <Button
+            android:layout_marginTop="50dp"
+            android:id="@+id/btnMedicalCons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:paddingLeft="20dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_button"
+            android:text="@string/medical_consultation"
+            android:drawableTint="@color/green"
+            android:drawableLeft="@drawable/medical_consultation"
+            android:textAllCaps="false"
+            android:textColor="@color/color_selector"
+            android:textSize="14sp" />
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/btnManageDependents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/section_children"
+            android:background="@drawable/bg_button"
+
+            android:text="@string/manage_dependents"
+            android:textAllCaps="false"
+            android:paddingLeft="20dp"
+            android:textColor="@color/color_selector"
+            android:textSize="14sp" />
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/btnElecMediRecords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/emr"
+            android:background="@drawable/bg_button"
+            android:text="@string/electronic_medical_report"
+            android:textAllCaps="false"
+            android:paddingLeft="20dp"
+            android:textColor="@color/color_selector"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

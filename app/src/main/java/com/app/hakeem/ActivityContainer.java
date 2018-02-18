@@ -24,6 +24,7 @@ import com.app.hakeem.fragment.FragmentDoctorsPatientList;
 import com.app.hakeem.fragment.FragmentEmrAndHealthTracker;
 import com.app.hakeem.fragment.FragmentLogin;
 import com.app.hakeem.fragment.FragmentPatientListForEmrAndHealthTracker;
+import com.app.hakeem.fragment.FragmentPatientProfile;
 import com.app.hakeem.fragment.FragmentPatientRegistrationStep1;
 import com.app.hakeem.fragment.FragmentPatientRegistrationStep2;
 import com.app.hakeem.fragment.FragmentRegisterType;
@@ -166,6 +167,15 @@ public class ActivityContainer extends AppCompatActivity {
                 getSupportActionBar().show();
                 btnAddDependent.setVisibility(View.GONE);
                 fragment = new FragmentDoctorProfile();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE);
+
+                break;
+            case C.FRAGMENT_PATIENT_PROFILE:
+
+                getSupportActionBar().show();
+                btnAddDependent.setVisibility(View.GONE);
+                fragment = new FragmentPatientProfile();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE);
 

@@ -166,7 +166,7 @@ public class ActivityMain extends AppCompatActivity
                         intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PROFILE);
                     }
                     else {
-                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PROFILE);
+                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_PROFILE);
                     }
                     startActivity(intent);
                 }
