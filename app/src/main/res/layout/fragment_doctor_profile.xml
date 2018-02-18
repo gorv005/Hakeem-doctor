@@ -25,7 +25,7 @@
                 android:id="@+id/imgProfile"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/profile"
+                android:src="@drawable/doctor"
                 app:civ_border_width="0.5dp"
                 app:civ_border_color="@color/white"/>
             <LinearLayout
@@ -90,7 +90,6 @@
             android:layout_gravity="center"
             android:drawableLeft="@drawable/mng_awareness"
             android:background="@drawable/bg_button"
-
             android:text="@string/manage_awareness_content"
             android:textAllCaps="false"
             android:paddingLeft="20dp"

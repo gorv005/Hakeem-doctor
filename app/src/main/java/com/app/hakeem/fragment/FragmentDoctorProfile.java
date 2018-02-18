@@ -1,6 +1,8 @@
 package com.app.hakeem.fragment;
 
 
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -71,6 +73,12 @@ public class FragmentDoctorProfile extends Fragment {
 
             imageLoader.DisplayImage(user.getUserPic(),imgProfile);
         }
+
+        Drawable drawable = getResources().getDrawable(R.drawable.mng_awareness);
+        drawable.setBounds(0, 0, (int)(drawable.getIntrinsicWidth()*0.6),
+                (int)(drawable.getIntrinsicHeight()*0.6));
+        ScaleDrawable sd = new ScaleDrawable(drawable, 0, 98, 98);
+        btnManageAwarenessQueue.setCompoundDrawables(sd.getDrawable(), null, null, null);
         btnCaseHistory.setOnClickListener(mBtnCaseHostoryClickListner);
         btnManageAwarenessQueue.setOnClickListener(mbtnManageAwarenessQueueClickListner);
       //  btnManageQueue.setOnClickListener(mBtnCaseHostoryClickListner);
