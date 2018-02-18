@@ -70,6 +70,7 @@ public class FragmentPatientListForEmrAndHealthTracker extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
                 Bundle bundle = new Bundle();
                 bundle.putString(C.NAME, adapterPatientList.getItem(position).getName());
                 bundle.putString(C.DOB, adapterPatientList.getItem(position).getDob());
