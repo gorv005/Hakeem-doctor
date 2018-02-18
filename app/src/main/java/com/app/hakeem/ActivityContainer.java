@@ -1,5 +1,6 @@
 package com.app.hakeem;
 
+import android.annotation.SuppressLint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.app.hakeem.fragment.FragmentConsultationType;
 import com.app.hakeem.fragment.FragmentDependent;
 import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
 import com.app.hakeem.fragment.FragmentDoctorPatientDependents;
@@ -35,8 +37,8 @@ import java.util.List;
 
 public class ActivityContainer extends AppCompatActivity {
 
-    private Fragment fragment;
     public static TextView tvTitle;
+    private Fragment fragment;
     private Bundle bundle;
     private int fragmentAction;
     private Button btnAddDependent;
@@ -198,6 +200,14 @@ public class ActivityContainer extends AppCompatActivity {
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PATIENT_DEPENDENT_LIST);
 
                 break;
+            case C.FRAGMENT_CONSULTATION_TYPE:
+                getSupportActionBar().show();
+                btnAddDependent.setVisibility(View.GONE);
+                fragment = new FragmentConsultationType();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_CONSULTATION_TYPE);
+
+                break;
         }
         fragment.setArguments(bundle);
         fragmentTransaction.commit();
@@ -207,22 +217,23 @@ public class ActivityContainer extends AppCompatActivity {
     }
 
 
-    public void callFragment(int frag,Bundle bundle){
-       fragment=getVisibleFragment();
-       if(fragment!=null && fragment instanceof FragmentEmrAndHealthTracker){
-           ((FragmentEmrAndHealthTracker) fragment).fragmnetLoader(frag,bundle);
-       }
+    public void callFragment(int frag, Bundle bundle) {
+        fragment = getVisibleFragment();
+        if (fragment != null && fragment instanceof FragmentEmrAndHealthTracker) {
+            ((FragmentEmrAndHealthTracker) fragment).fragmnetLoader(frag, bundle);
+        }
     }
 
     private Fragment getVisibleFragment() {
         FragmentManager fragmentManager = ActivityContainer.this.getSupportFragmentManager();
-        List<Fragment> fragments = fragmentManager.getFragments();
+        @SuppressLint("RestrictedApi") List<Fragment> fragments = fragmentManager.getFragments();
         for (Fragment fragment : fragments) {
             if (fragment != null && fragment.isVisible())
                 return fragment;
         }
         return null;
     }
+
     @Override
     public void onBackPressed() {
 

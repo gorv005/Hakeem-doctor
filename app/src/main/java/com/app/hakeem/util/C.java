@@ -28,9 +28,10 @@ public interface C {
     int FRAGMENT_PATIENT_EMR_AND_TRACKER = 8;
     int FRAGMENT_DOCTOR_PROFILE = 43;
     int FRAGMENT_DOCTOR_PATIENT_LIST = 44;
-    int FRAGMENT_DOCTOR_PATIENT_DEPENDENT_LIST =45 ;
-    int FRAGMENT_PATIENT_PROFILE = 46;
+    int FRAGMENT_DOCTOR_PATIENT_DEPENDENT_LIST = 45;
+    int FRAGMENT_CONSULTATION_TYPE = 9;
 
+    int FRAGMENT_PATIENT_PROFILE = 46;
     String TAG_FRAGMENT_LOGIN = "fragment_login";
     String TAG_FRAGMENT_REGISTER_P_1 = "TAG_FRAGMENT_REGISTER_P_1";
     String TAG_FRAGMENT_REGISTER_P_2 = "TAG_FRAGMENT_REGISTER_P_2";
@@ -40,44 +41,46 @@ public interface C {
     String TAG_FRAGMENT_TRACKER_FEVER_REPORT = "TAG_FRAGMENT_TRACKER_FEVER_REPORT ";
     String TAG_FRAGMENT_TRACKER_WEIGHT_REPORT = "TAG_FRAGMENT_TRACKER_WEIGHT_REPORT ";
     String TAG_FRAGMENT_TRACKER_BLOOD_PRESSURE_REPORT = "TAG_FRAGMENT_TRACKER_BLOOD_PRESSURE_REPORT ";
+
     String TAG_FRAGMENT_TRACKER_BLOOD_SUGAR_REPORT = "TAG_FRAGMENT_TRACKER_BLOOD_SUGAR_REPORT ";
+    String TAG_FRAGMENT_CONSULTATION_TYPE = "EMR ";
 
     String TAG_FRAGMENT_EMR = "EMR ";
     String TAG_FRAGMENT_TRACKER = "TRACKER ";
     String TAG_FRAGMENT_TRACKER_WEIGHT = "TAG_FRAGMENT_TRACKER_WEIGHT ";
     String TAG_FRAGMENT_TRACKER_FEVER = "TAG_FRAGMENT_TRACKER_FEVER ";
     String TAG_FRAGMENT_TRACKER_BLOOD_PRESSURE = "TAG_FRAGMENT_TRACKER_BLOOD_PRESSURE ";
-    String TAG_FRAGMENT_DOCTOR_PROFILE ="TAG_FRAGMENT_DOCTOR_PROFILE" ;
-    String TAG_FRAGMENT_PATIENT_PROFILE ="TAG_FRAGMENT_PATIENT_PROFILE" ;
+    String TAG_FRAGMENT_DOCTOR_PROFILE = "TAG_FRAGMENT_DOCTOR_PROFILE";
 
-    String TAG_FRAGMENT_DOCTOR_PATIENT_LIST ="TAG_FRAGMENT_DOCTOR_PATIENT_LIST" ;
-    String TAG_FRAGMENT_DOCTOR_PATIENT_DEPENDENT_LIST ="TAG_FRAGMENT_DOCTOR_PATIENT_DEPENDENT_LIST" ;
+    String TAG_FRAGMENT_PATIENT_PROFILE = "TAG_FRAGMENT_PATIENT_PROFILE";
+    String TAG_FRAGMENT_DOCTOR_PATIENT_LIST = "TAG_FRAGMENT_DOCTOR_PATIENT_LIST";
 
+    String TAG_FRAGMENT_DOCTOR_PATIENT_DEPENDENT_LIST = "TAG_FRAGMENT_DOCTOR_PATIENT_DEPENDENT_LIST";
     String TAG_FRAGMENT_TRACKER_BLOOD_SUGAR = "TAG_FRAGMENT_TRACKER_BLOOD_SUGAR";
     String BUNDLE = "bundle";
     String LOGIN_USER = "login_user";
     String FRAGMENT_ACTION = "action";
-    long SPLASH_LOADER_TIME = 100;
 
+    long SPLASH_LOADER_TIME = 100;
     String STATUS_SUCCESS = "HK001";
     String STATUS_NOT_KNOWN = "HK002";
-    String STATUS_FAIL = "HK002";
 
+    String STATUS_FAIL = "HK002";
     String IS_LOGIN = "is_login";
     String AUTH_TOKEN = "authToken";
+
+
     String PHOTO = "photo";
-
-
     String TEXT = "text";
     String VIDEO = "video";
     int API_TIME_OUT = 12000;
     String BASE_URL = "http://www.dataheadstudio.com/test/api";
     String API_POSTS = BASE_URL + "/posts";
+
     String API_ADD_POSTS = BASE_URL + "/addpost";
-
     String API_LOGIN = BASE_URL + "/login";
-    String API_DOC_REG = BASE_URL + "/registerdoctor";
 
+    String API_DOC_REG = BASE_URL + "/registerdoctor";
     String API_UPLOAD_PIC = BASE_URL + "/upload";
     String API_REGISTER_PATIENT = BASE_URL + "/registerpatient";
     String API_REGISTER_FETCH_PATIENT = BASE_URL + "/fetchpatient";
@@ -86,39 +89,42 @@ public interface C {
     String API_GET_FEVER_REPORT = BASE_URL + "/getreportfever";
     String API_GET_WEIGHT_REPORT = BASE_URL + "/getreportweight";
     String API_GET_BLOOD_PRESSURE_REPORT = BASE_URL + "/getbloodpressure";
+
     String API_GET_BLOOD_SUGER_REPORT = BASE_URL + "/getbloodsugar";
-
     String API_ADD_DPENDENT = BASE_URL + "/dependentadd";
-
+    String API_AWARENESS = BASE_URL + "/awareness";
     String API_DELETE_DPENDENT = BASE_URL + "/dependentdelete";
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
     String USER = "user";
+
     String DATE_FORMAT = "dd/MMM/yyyy";
 
     String DATE_FORMAT_FOR_REPORT = "yyyy-MM-dd";
 
     String IMAGE_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/Hakeem";
-
     String TAG_FRAGMENT_REGISTER_TYPE_R_3 = "TAG_FRAGMENT_REGISTER_TYPE_R_3";
     String TAG_FRAGMENT_REGISTER_TYPE_R_4 = "TAG_FRAGMENT_REGISTER_TYPE_R_4";
     String TAG_FRAGMENT_DEPENDENT = "tag_fragment_dependent";
     String USER_PATIENT = "3";
     String USER_DOCTOR = "2";
     String USER_ADMIN = "1";
+
+
     String DOCTOR = "Doctor";
-
-
     String PATIENT = "Patient";
     String DEPENDENT_ID = "dependent_id";
     String NAME = "name";
+
     String GENDER = "gender";
 
     String DOB = "dob";
 
     String FONT = "Mont.otf";
+    String PATIENT_ID = "patientId";
+    String PRE_MEAL = "Pre-meal";
+    String POST_SLEEP = "Post-sleep";
 
-    String PATIENT_ID ="patientId" ;
-    String PRE_MEAL ="Pre-meal" ;
-    String POST_SLEEP ="Post-sleep" ;
+
+    String AWARENESS_LIST = "awarenesslist";
 }

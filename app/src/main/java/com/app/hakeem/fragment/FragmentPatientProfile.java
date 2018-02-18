@@ -66,8 +66,8 @@ public class FragmentPatientProfile extends Fragment {
 
            // imageLoader.DisplayImage(user.getUserPic(),imgProfile);
         }
+           btnMedicalCons.setOnClickListener(mbtnMedicalConsQueueClickListner);
         btnElecMediRecords.setOnClickListener(mbtnElecMediRecordsClickListner);
-     //   btnMedicalCons.setOnClickListener(mbtnMedicalConsQueueClickListner);
         btnManageDependents.setOnClickListener(mbtnManageDependentsClickListner);
 
     }
@@ -82,7 +82,7 @@ public class FragmentPatientProfile extends Fragment {
     View.OnClickListener mbtnMedicalConsQueueClickListner=new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_DEPENDENT,null);
+            ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_CONSULTATION_TYPE,null);
         }
     };
     View.OnClickListener mbtnManageDependentsClickListner=new View.OnClickListener() {
