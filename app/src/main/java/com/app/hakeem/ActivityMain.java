@@ -32,7 +32,6 @@ import android.view.View;
 import android.view.Window;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -41,7 +40,6 @@ import android.widget.TextView;
 
 import com.app.hakeem.adapter.AdapterPosts;
 import com.app.hakeem.adapter.AdapterSideMenu;
-import com.app.hakeem.fragment.FragmentDoctorRegistrationStep4;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.AddPost;
 import com.app.hakeem.pojo.Response;
@@ -152,14 +150,28 @@ public class ActivityMain extends AppCompatActivity
 
                 } else if (sideMenuItem.getNameResourse() == R.string.emr_and_tracker) {
                     Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
-                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_EMR_AND_TRACKER);
+                    if(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PATIENT_LIST);
+                    }
+                    else {
+                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_EMR_AND_TRACKER);
+
+                    }
                     startActivity(intent);
 
                 }
                 else if (sideMenuItem.getNameResourse() == R.string.profile) {
                     Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
-                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PROFILE);
+                    if(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PROFILE);
+                    }
+                    else {
+                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PROFILE);
+                    }
                     startActivity(intent);
+                }
+                else if (sideMenuItem.getNameResourse() == R.string.awareness) {
+
                 }
 
             }

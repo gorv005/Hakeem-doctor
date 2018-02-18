@@ -116,4 +116,6 @@ public interface C {
     String FONT = "Mont.otf";
 
     String PATIENT_ID ="patientId" ;
+    String PRE_MEAL ="Pre-meal" ;
+    String POST_SLEEP ="Post-sleep" ;
 }

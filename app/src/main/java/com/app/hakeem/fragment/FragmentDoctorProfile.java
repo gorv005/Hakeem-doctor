@@ -72,6 +72,9 @@ public class FragmentDoctorProfile extends Fragment {
             imageLoader.DisplayImage(user.getUserPic(),imgProfile);
         }
         btnCaseHistory.setOnClickListener(mBtnCaseHostoryClickListner);
+        btnManageAwarenessQueue.setOnClickListener(mbtnManageAwarenessQueueClickListner);
+      //  btnManageQueue.setOnClickListener(mBtnCaseHostoryClickListner);
+
     }
 
     @Override
@@ -85,6 +88,12 @@ public class FragmentDoctorProfile extends Fragment {
         @Override
         public void onClick(View v) {
             ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_DOCTOR_PATIENT_LIST,null);
+        }
+    };
+    View.OnClickListener mbtnManageAwarenessQueueClickListner=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getActivity().finish();
         }
     };
 }

@@ -50,6 +50,7 @@
                     app:sriv_border_width="0.5dip"
                     app:sriv_border_color="@color/green"
                     app:sriv_oval="false"
+                    android:layout_alignParentBottom="true"
                     android:scaleType="fitCenter"
                     android:background="@color/white"
                     android:layout_width="30dp"

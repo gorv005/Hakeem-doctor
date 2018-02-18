@@ -133,6 +133,7 @@ public class FragmentHTBloodSugerReport extends Fragment {
         YAxis leftAxis = mChart.getAxisLeft();
         //  leftAxis.setTypeface(tf);
         leftAxis.setAxisMaximum(max);
+        leftAxis.setLabelCount(6);
 
         leftAxis.setAxisMinimum(min);
         mChart.getAxisRight().setEnabled(false);
@@ -190,34 +191,46 @@ public class FragmentHTBloodSugerReport extends Fragment {
                 Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
 
             }
-        }, "callback", C.API_GET_BLOOD_PRESSURE_REPORT, Util.getHeader(getActivity()), obj);
+        }, "callback", C.API_GET_BLOOD_SUGER_REPORT, Util.getHeader(getActivity()), obj);
 
 
     }
     protected LineData generateLineData(List<HTBloodSugerReportData> htFeverReportData) {
-        List<Entry> entriesSys = new ArrayList<Entry>();
-        List<Entry> entriesDia = new ArrayList<Entry>();
-        List<Entry> entriesHt = new ArrayList<Entry>();
+        List<Entry> entriesPre = new ArrayList<Entry>();
+        List<Entry> entriesPost = new ArrayList<Entry>();
+        List<Entry> entriesSleep = new ArrayList<Entry>();
 
         ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
-        if(htFeverReportData.size()==1){
 
-            entriesSys.add(new Entry(Float.parseFloat("0"), 0));
-            entriesDia.add(new Entry(Float.parseFloat("0"),0));
-            entriesHt.add(new Entry(Float.parseFloat("0"),0));
+            entriesPre.add(new Entry(Float.parseFloat("0"), 0));
+            entriesPost.add(new Entry(Float.parseFloat("0"),0));
+            entriesSleep.add(new Entry(Float.parseFloat("0"),0));
 
-        }
+
         for(int i=0;i<htFeverReportData.size();i++) {
-            entriesSys.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getReading())));
-            entriesDia.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getReading())));
-            entriesHt.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getReading())));
-
+            if(htFeverReportData.get(i).getTiming().equals(C.PRE_MEAL)) {
+                String a[]=htFeverReportData.get(i).getReading().split("-");
+                float m = (Float.parseFloat(a[0])+Float.parseFloat(a[1]))/2;
+                entriesPre.add(new Entry(Float.parseFloat("" + i + 1),m));
+            }
+            else  if(htFeverReportData.get(i).getTiming().equals(C.POST_SLEEP)) {
+                String a[]=htFeverReportData.get(i).getReading().split("-");
+                float m = (Float.parseFloat(a[0])+Float.parseFloat(a[1]))/2;
+                entriesPost.add(new Entry(Float.parseFloat("" + i + 1), m));
+            }
+            else {
+                String a[]=htFeverReportData.get(i).getReading().split("-");
+                float m = (Float.parseFloat(a[0])+Float.parseFloat(a[1]))/2;
+                entriesSleep.add(new Entry(Float.parseFloat("" + i + 1), m));
+            }
         }
 
-        LineDataSet ds1 = new LineDataSet(entriesSys, getString(R.string.hr));
-        LineDataSet ds2 = new LineDataSet(entriesDia, getString(R.string.dia));
-        LineDataSet ds3 = new LineDataSet(entriesHt, getString(R.string.sys));
 
+
+        LineDataSet ds1 = new LineDataSet(entriesPre, getString(R.string.pre));
+        LineDataSet ds2 = new LineDataSet(entriesPost, getString(R.string.post));
+        LineDataSet ds3 = new LineDataSet(entriesSleep, getString(R.string.sleep));
+        Log.e("DEBUG","dkkd");
         ds1.setLineWidth(2f);
         ds2.setLineWidth(2f);
         ds3.setLineWidth(2f);
@@ -286,52 +299,32 @@ public class FragmentHTBloodSugerReport extends Fragment {
 
 
     public  float getMax(List<HTBloodSugerReportData> inputArray){
-        float maxValue = Float.parseFloat(inputArray.get(0).getReading());
+        String a[]=inputArray.get(0).getReading().split("-");
+        float maxValue = (Float.parseFloat(a[0])+Float.parseFloat(a[1]))/2;
         for(int i=1;i<inputArray.size();i++){
-            if(Float.parseFloat(inputArray.get(i).getReading()) > maxValue){
-                maxValue = Float.parseFloat(inputArray.get(i).getReading());
+            String a1[]=inputArray.get(i).getReading().split("-");
+            float m = (Float.parseFloat(a1[0])+Float.parseFloat(a1[1]))/2;
+            if(m > maxValue){
+                maxValue = m;
             }
         }
-
-        float maxValue1 = Float.parseFloat(inputArray.get(0).getReading());
-        for(int i=1;i<inputArray.size();i++){
-            if(Float.parseFloat(inputArray.get(i).getReading()) > maxValue1){
-                maxValue1 = Float.parseFloat(inputArray.get(i).getReading());
-            }
-        }
-
-        if(maxValue>maxValue1){
-            return maxValue+1;
-        }
-        else {
-            return maxValue1+1;
-
-        }
+        float mm=maxValue/6;
+        return maxValue+mm;
     }
-    public  float getMin(List<HTBloodSugerReportData> inputArray){
-        float minValue = Float.parseFloat(inputArray.get(0).getReading());
-        for(int i=1;i<inputArray.size();i++){
-            if(Float.parseFloat(inputArray.get(i).getReading()) < minValue){
-                minValue = Float.parseFloat(inputArray.get(i).getReading());
-            }
-        }
 
-        float minValue1 = Float.parseFloat(inputArray.get(0).getReading());
+    public  float getMin(List<HTBloodSugerReportData> inputArray){
+      /*  String a[]=inputArray.get(0).getReading().split("-");
+        float minValue = (Float.parseFloat(a[0])+Float.parseFloat(a[1]))/2;
         for(int i=1;i<inputArray.size();i++){
-            if(Float.parseFloat(inputArray.get(i).getReading()) < minValue1){
-                minValue1 = Float.parseFloat(inputArray.get(i).getReading());
+            String a1[]=inputArray.get(i).getReading().split("-");
+            float m = (Float.parseFloat(a1[0])+Float.parseFloat(a1[1]))/2;
+            if(m < minValue){
+                minValue = m;
             }
         }
         if(inputArray.size()==1){
             return 0;
-        }
-        if(minValue<minValue1){
-            return minValue-1;
-        }
-        else {
-            return minValue1-1;
-
-        }
-
+        }*/
+        return 0;
     }
 }

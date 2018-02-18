@@ -134,6 +134,8 @@ public class FragmentHTFeverReport extends Fragment {
         //  leftAxis.setTypeface(tf);
         leftAxis.setAxisMaximum(max);
         leftAxis.setAxisMinimum(min);
+        leftAxis.setLabelCount(6);
+
         mChart.getAxisRight().setEnabled(false);
         XAxis xAxis = mChart.getXAxis();
         xAxis.setEnabled(false);
@@ -272,7 +274,9 @@ public class FragmentHTFeverReport extends Fragment {
                 maxValue = Float.parseFloat(inputArray.get(i).getTemperature());
             }
         }
-        return maxValue+1;
+        float mm=maxValue/6;
+        return maxValue+mm;
+
     }
     public  float getMin(List<HTFeverReportData> inputArray){
         float minValue = Float.parseFloat(inputArray.get(0).getTemperature());

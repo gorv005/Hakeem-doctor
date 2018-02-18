@@ -152,5 +152,8 @@
     <string name="hr">HR</string>
     <string name="dia">DIA</string>
     <string name="sys">SYS</string>
+    <string name="pre">pre</string>
+    <string name="post">post</string>
+    <string name="sleep">sleep</string>
 
 </resources>

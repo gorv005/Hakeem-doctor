@@ -132,7 +132,7 @@ public class FragmentHTWeightReport extends Fragment {
         YAxis leftAxis = mChart.getAxisLeft();
         //  leftAxis.setTypeface(tf);
         leftAxis.setAxisMaximum(max);
-       // leftAxis.setLabelCount(4);
+        leftAxis.setLabelCount(6);
 
         leftAxis.setAxisMinimum(min);
         mChart.getAxisRight().setEnabled(false);
@@ -288,11 +288,12 @@ public class FragmentHTWeightReport extends Fragment {
         }
 
         if(maxValue>maxValue1){
-            return maxValue+1;
+            float mm=maxValue/6;
+            return maxValue+mm;
         }
         else {
-            return maxValue1+1;
-
+            float mm=maxValue1/6;
+            return maxValue1+mm;
         }
     }
     public  float getMin(List<HTWeightReportData> inputArray){

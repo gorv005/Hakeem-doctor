@@ -32,11 +32,11 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:layout_above="@id/rlBottam"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:background="@color/white" />
+                android:background="@color/light_blue" />
 
             <RelativeLayout
                 android:id="@+id/rlBottam"

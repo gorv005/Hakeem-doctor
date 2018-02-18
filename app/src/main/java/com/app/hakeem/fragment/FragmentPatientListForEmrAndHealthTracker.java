@@ -54,7 +54,12 @@ public class FragmentPatientListForEmrAndHealthTracker extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_patient_list_for_emr_and_health_tracker, container, false);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActivityContainer.tvTitle.setText(R.string.choose_dependent);
 
+    }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -70,6 +75,8 @@ public class FragmentPatientListForEmrAndHealthTracker extends Fragment {
                 bundle.putString(C.DOB, adapterPatientList.getItem(position).getDob());
                 bundle.putString(C.GENDER, adapterPatientList.getItem(position).getGender());
                 bundle.putString(C.DEPENDENT_ID, adapterPatientList.getItem(position).getChildId());
+                bundle.putString(C.PATIENT_ID, adapterPatientList.getItem(position).getChildId());
+
                 ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_EMR_AND_TRACKER, bundle);
 
             }

@@ -14,7 +14,7 @@ public class HTBloodPressureReportData {
     @SerializedName("sys")
     @Expose
     private String sys;
-    @SerializedName("dia")
+    @SerializedName("dis")
     @Expose
     private String dia;
     @SerializedName("heart_rate")

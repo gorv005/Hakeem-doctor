@@ -133,6 +133,7 @@ public class FragmentHTBloodPressureReport extends Fragment {
         YAxis leftAxis = mChart.getAxisLeft();
         //  leftAxis.setTypeface(tf);
         leftAxis.setAxisMaximum(max);
+        leftAxis.setLabelCount(6);
 
         leftAxis.setAxisMinimum(min);
         mChart.getAxisRight().setEnabled(false);
@@ -209,15 +210,15 @@ String mAction="";
 
         }
         for(int i=0;i<htFeverReportData.size();i++) {
-            entriesSys.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getSys())));
-            entriesDia.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getDia())));
             entriesHt.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getHeartRate())));
+            entriesDia.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getDia())));
+            entriesSys.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getSys())));
 
         }
 
-        LineDataSet ds1 = new LineDataSet(entriesSys, getString(R.string.hr));
+        LineDataSet ds1 = new LineDataSet(entriesHt, getString(R.string.hr));
         LineDataSet ds2 = new LineDataSet(entriesDia, getString(R.string.dia));
-        LineDataSet ds3 = new LineDataSet(entriesHt, getString(R.string.sys));
+        LineDataSet ds3 = new LineDataSet(entriesSys, getString(R.string.sys));
 
         ds1.setLineWidth(2f);
         ds2.setLineWidth(2f);
@@ -287,33 +288,52 @@ String mAction="";
 
 
     public  float getMax(List<HTBloodPressureReportData> inputArray){
-        float maxValue = Float.parseFloat(inputArray.get(0).getDia());
+        float maxValue = Float.parseFloat(inputArray.get(0).getHeartRate());
         for(int i=1;i<inputArray.size();i++){
-            if(Float.parseFloat(inputArray.get(i).getDia()) > maxValue){
-                maxValue = Float.parseFloat(inputArray.get(i).getDia());
+            if(Float.parseFloat(inputArray.get(i).getHeartRate()) > maxValue){
+                maxValue = Float.parseFloat(inputArray.get(i).getHeartRate());
             }
         }
 
-        float maxValue1 = Float.parseFloat(inputArray.get(0).getSys());
+        float maxValue1 = Float.parseFloat(inputArray.get(0).getDia());
         for(int i=1;i<inputArray.size();i++){
-            if(Float.parseFloat(inputArray.get(i).getSys()) > maxValue1){
-                maxValue1 = Float.parseFloat(inputArray.get(i).getSys());
+            if(Float.parseFloat(inputArray.get(i).getDia()) > maxValue1){
+                maxValue1 = Float.parseFloat(inputArray.get(i).getDia());
             }
         }
 
+        float maxValue2 = Float.parseFloat(inputArray.get(0).getSys());
+        for(int i=1;i<inputArray.size();i++){
+            if(Float.parseFloat(inputArray.get(i).getSys()) > maxValue2){
+                maxValue2 = Float.parseFloat(inputArray.get(i).getSys());
+            }
+        }
+
+        float max;
         if(maxValue>maxValue1){
-            return maxValue+1;
+            max= maxValue;
         }
         else {
-            return maxValue1+1;
+            max= maxValue1;
+
+        }
+        if(max>maxValue2){
+            float mm=max/6;
+            return max+mm;
+        }
+        else {
+            float mm=maxValue2/6;
+            return maxValue2+mm;
 
         }
     }
+
+
     public  float getMin(List<HTBloodPressureReportData> inputArray){
-        float minValue = Float.parseFloat(inputArray.get(0).getDia());
+        float minValue = Float.parseFloat(inputArray.get(0).getHeartRate());
         for(int i=1;i<inputArray.size();i++){
-            if(Float.parseFloat(inputArray.get(i).getDia()) < minValue){
-                minValue = Float.parseFloat(inputArray.get(i).getDia());
+            if(Float.parseFloat(inputArray.get(i).getHeartRate()) < minValue){
+                minValue = Float.parseFloat(inputArray.get(i).getHeartRate());
             }
         }
 
@@ -323,16 +343,29 @@ String mAction="";
                 minValue1 = Float.parseFloat(inputArray.get(i).getDia());
             }
         }
+
+        float minValue2 = Float.parseFloat(inputArray.get(0).getSys());
+        for(int i=1;i<inputArray.size();i++){
+            if(Float.parseFloat(inputArray.get(i).getSys()) < minValue2){
+                minValue2 = Float.parseFloat(inputArray.get(i).getSys());
+            }
+        }
         if(inputArray.size()==1){
             return 0;
         }
+        float min;
         if(minValue<minValue1){
-            return minValue-1;
+            min= minValue;
         }
         else {
-            return minValue1-1;
+            min= minValue1;
 
         }
-
+        if(min<minValue2){
+            return min-1;
+        }
+        else {
+            return minValue2-1;
+        }
     }
 }
