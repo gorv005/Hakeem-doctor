@@ -4,6 +4,7 @@ package com.app.hakeem.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterCityList;
 import com.app.hakeem.adapter.AdapterDependent;
@@ -516,8 +518,9 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
                         SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
                         SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER,responseLogin.getUser());
 
-                        getActivity().finish();
-
+                        Intent intent = new Intent(getActivity(), ActivityMain.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        getActivity().startActivity(intent);
                     } else {
 
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);

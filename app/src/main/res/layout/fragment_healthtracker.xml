@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.app.hakeem.fragment.FragmentEMR">
 
     <TextView
@@ -32,18 +32,26 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <Button
-                    style="?android:attr/borderlessButtonStyle"
+                <ImageButton
                     android:id="@+id/btnWeightReport"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:background="@color/white"
-                    android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/icon_weight_report"
                     android:gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_weight_report" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+
                     android:text="@string/weight_report"
                     android:textColor="@color/blue"
                     android:textSize="18sp" />
@@ -53,22 +61,33 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <Button
-                    style="?android:attr/borderlessButtonStyle"
-
+                <ImageButton
                     android:id="@+id/btnFeverReport"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
                     android:layout_gravity="center"
                     android:background="@color/white"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/icon_thermometer"
                     android:gravity="center"
+                    android:src="@drawable/icon_thermometer" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+
                     android:text="@string/fever_report"
                     android:textColor="@color/blue"
                     android:textSize="18sp" />
+
+
             </LinearLayout>
 
         </LinearLayout>
@@ -84,44 +103,62 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <Button
-                    style="?android:attr/borderlessButtonStyle"
-
+                <ImageButton
                     android:id="@+id/btnBloodPressure"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+
                     android:background="@color/white"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/icon_blood_pressure"
+                    android:gravity="center"
+                    android:src="@drawable/icon_blood_pressure" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="@string/blood_pressor_report"
                     android:textColor="@color/blue"
                     android:textSize="18sp" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <Button
-                    style="?android:attr/borderlessButtonStyle"
-
+                <ImageButton
                     android:id="@+id/btnBloodSugar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center"
+                    android:scaleType="fitCenter"
                     android:background="@color/white"
                     android:drawablePadding="10dp"
-                    android:drawableTop="@drawable/icon_blood_sugar"
+                    android:gravity="center"
+                    android:src="@drawable/icon_blood_sugar" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="@string/blood_suger_report"
                     android:textColor="@color/blue"
                     android:textSize="18sp" />
+
             </LinearLayout>
 
         </LinearLayout>

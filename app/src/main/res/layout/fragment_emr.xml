@@ -6,13 +6,12 @@
     tools:context="com.app.hakeem.fragment.FragmentEMR">
 
    <TextView
-            android:lines="1"
+            android:maxLines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/emr"
-        android:visibility="gone"
         android:textColor="@color/blue"
         android:textSize="25sp" />
 
@@ -24,7 +23,7 @@
         android:layout_height="30dp">
 
        <TextView
-            android:lines="1"
+            android:maxLines="2"
             android:id="@+id/tvDate"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -33,9 +32,9 @@
             android:layout_height="wrap_content"
             android:text="@string/date"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
        <TextView
-            android:lines="1"
+            android:maxLines="2"
             android:id="@+id/tvDoctor"
             android:layout_width="0dp"
             android:layout_weight="2"
@@ -44,9 +43,9 @@
             android:layout_height="wrap_content"
             android:text="@string/doctor"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
        <TextView
-            android:lines="1"
+            android:maxLines="2"
             android:id="@+id/tvDetails"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -55,20 +54,20 @@
             android:layout_height="wrap_content"
             android:text="@string/details"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
        <TextView
             android:id="@+id/tvPrescription"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:gravity="center_horizontal"
-            android:lines="1"
+            android:maxLines="2"
             android:layout_height="wrap_content"
             android:text="@string/prescription"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
        <TextView
-            android:lines="1"
+            android:maxLines="2"
             android:id="@+id/tvFollowUp"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -78,10 +77,10 @@
             android:layout_height="wrap_content"
             android:text="@string/follow_up"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
     </LinearLayout>
     <TextView
-        android:lines="1"
+        android:maxLines="1"
         android:id="@+id/tvNoData"
         android:layout_width="wrap_content"
         android:layout_gravity="center"

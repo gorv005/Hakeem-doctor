@@ -79,6 +79,9 @@
 -dontwarn com.android.volley.**
 -keep class com.android.volley.** {*;}
 
+-dontwarn org.jivesoftware.smack.**
+-keep class org.jivesoftware.smack.** {*;}
+
 -dontwarn org.acra.**
 -keep class org.acra.** {*;}
 -dontwarn okio.**

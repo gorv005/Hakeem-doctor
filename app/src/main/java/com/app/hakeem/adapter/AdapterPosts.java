@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
 import com.app.hakeem.pojo.Post;
 import com.app.hakeem.util.C;
@@ -106,9 +107,19 @@ public class AdapterPosts extends BaseAdapter {
                 getDailogForImage(getItem(position).getUrl());
             }
         });
+        viewHolder.tvLiked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ActivityMain) activity).likePost(position);
+            }
+        });
         viewHolder.tvLiked.setText(post.getTotalLikes() + "");
         if(post.getIsLiked()==1) {
             viewHolder.tvLiked.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.liked, 0);
+        }
+        else {
+            viewHolder.tvLiked.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.like, 0);
+
         }
 
         viewHolder.tvComment.setText(post.getTotal_comments() + "");
@@ -130,6 +141,9 @@ public class AdapterPosts extends BaseAdapter {
 
     }
 
+  public Post getPost(int pos){
+        return getItem(pos);
+    }
     void getDailogForImage(String url) {
         try {
 

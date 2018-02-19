@@ -2,6 +2,7 @@ package com.app.hakeem.fragment;
 
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.app.hakeem.ActivityContainer;
+import com.app.hakeem.ActivityMain;
 import com.app.hakeem.BuildConfig;
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
@@ -132,7 +134,9 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                         SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
                         SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER,responseLogin.getUser());
                      //   Util.showToast(getActivity(),responseLogin.getMessage(),true);
-                        getActivity().finish();
+                        Intent intent = new Intent(getActivity(), ActivityMain.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        getActivity().startActivity(intent);
                     } else {
                         Util.showAlert(getActivity(),getString(R.string.error),responseLogin.getMessage(),getString(R.string.ok),R.drawable.warning);
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);

@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="@string/date"
             android:textColor="@color/blue"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="2"
@@ -41,7 +41,7 @@
                 <com.joooonho.SelectableRoundedImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/ivDoctor"
-                    android:layout_width="80dp"
+                    android:layout_width="60dp"
                     android:scaleType="centerCrop"
                     app:sriv_left_top_corner_radius="10dip"
                     app:sriv_right_top_corner_radius="10dip"
@@ -50,9 +50,9 @@
                     app:sriv_border_width="1dip"
                     app:sriv_border_color="@color/green"
                     app:sriv_oval="false"
-                    android:layout_height="80dp" />
+                    android:layout_height="60dp" />
                 <TextView
-                    android:lines="1"
+                    android:lines="2"
                     android:layout_toRightOf="@id/ivDoctor"
                     android:id="@+id/tvDocName"
                     android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/date"
                     android:textColor="@color/blue"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
                 <TextView
                     android:layout_marginTop="10dp"
                     android:lines="1"
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/date"
                     android:textColor="@color/blue"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
                 <!--<com.joooonho.SelectableRoundedImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/ivSpeciality"
@@ -114,7 +114,7 @@
                 android:layout_height="35dp"
                 android:text="@string/follow_up"
                 android:textColor="@color/blue"
-                android:textSize="12sp" />
+               />
         </RelativeLayout>
         <RelativeLayout
             android:layout_weight="1"
@@ -131,7 +131,7 @@
                 android:layout_height="35dp"
                 android:text="@string/follow_up"
                 android:textColor="@color/blue"
-                android:textSize="12sp" />
+               />
         </RelativeLayout>
         <RelativeLayout
             android:layout_weight="1"
@@ -147,7 +147,7 @@
             android:layout_height="35dp"
             android:text="@string/follow_up"
             android:textColor="@color/blue"
-            android:textSize="12sp" />
+            />
         </RelativeLayout>
     </LinearLayout>
 

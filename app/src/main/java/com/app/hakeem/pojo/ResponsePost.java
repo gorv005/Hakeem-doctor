@@ -15,6 +15,9 @@ public class ResponsePost {
     @SerializedName("status_code")
     @Expose
     private String statusCode;
+    @SerializedName("message")
+    @Expose
+    private String message;
     @SerializedName("posts")
     @Expose
     private ArrayList<Post> posts = null;
@@ -53,4 +56,11 @@ public class ResponsePost {
         this.posts = posts;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

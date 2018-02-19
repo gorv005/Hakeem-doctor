@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
@@ -22,13 +23,13 @@ import butterknife.ButterKnife;
 public class FragmentHealthTracker extends Fragment {
 
     @BindView(R.id.btnFeverReport)
-    Button btnFeverReport;
+    ImageButton btnFeverReport;
     @BindView(R.id.btnWeightReport)
-    Button btnWeightReport;
+    ImageButton btnWeightReport;
     @BindView(R.id.btnBloodPressure)
-    Button btnBloodPressure;
+    ImageButton btnBloodPressure;
     @BindView(R.id.btnBloodSugar)
-    Button btnBloodSugar;
+    ImageButton btnBloodSugar;
     Bundle bundle;
     public FragmentHealthTracker() {
         // Required empty public constructor

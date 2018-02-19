@@ -44,6 +44,7 @@ import com.app.hakeem.adapter.AdapterPosts;
 import com.app.hakeem.adapter.AdapterSideMenu;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.AddPost;
+import com.app.hakeem.pojo.Post;
 import com.app.hakeem.pojo.Response;
 import com.app.hakeem.pojo.ResponsePost;
 import com.app.hakeem.pojo.SideMenuItem;
@@ -62,7 +63,9 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -109,6 +112,7 @@ public class ActivityMain extends AppCompatActivity
     String filePath,imgPostUrl=null;
     private ProgressDialog mProgressDialog;
     ImageView imgPost,imgDelete;
+    ArrayList<Post> posts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -208,6 +212,7 @@ public class ActivityMain extends AppCompatActivity
         llHealthTracker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(SharedPreference.getInstance(ActivityMain.this).getBoolean(C.IS_LOGIN)) {
                 Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
                 if(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.PATIENT)) {
 
@@ -218,11 +223,22 @@ public class ActivityMain extends AppCompatActivity
 
                 }
                 startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_LOGIN);
+                    startActivity(intent);
+                }
             }
         });
         llMedicalReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(SharedPreference.getInstance(ActivityMain.this).getBoolean(C.IS_LOGIN)) {
+
+
+
                 Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
                 if(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.PATIENT)) {
 
@@ -233,13 +249,22 @@ public class ActivityMain extends AppCompatActivity
 
                 }
                 startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_LOGIN);
+                    startActivity(intent);
+                }
             }
         });
     }
     public   void logout(){
+        showAlertForToast(ActivityMain.this,getString(R.string.logout),getString(R.string.logout_success),getString(R.string.ok),R.drawable.warning,true);
         SharedPreference.getInstance(ActivityMain.this).setBoolean(C.IS_LOGIN,false);
         onResume();
     }
+
+
     public  void showAlertForConfirm(final Activity context, String title, String msg, String btnText1,String btnText2, int img, final boolean finishActivity) {
 
 
@@ -390,14 +415,102 @@ public class ActivityMain extends AppCompatActivity
 
     }
 
+    public void likePost(int pos){
+        if(SharedPreference.getInstance(ActivityMain.this).getBoolean(C.IS_LOGIN)) {
+
+            Post post = adapterPosts.getPost(pos);
+            likeUnlikePost(post, pos);
+        }
+        else {
+            Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
+                intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_LOGIN);
+            startActivity(intent);
+        }
+    }
+     void likeUnlikePost(final Post post, final int pos) {
+
+        dialog = Util.getProgressDialog(this, R.string.please_wait);
+        dialog.setCancelable(false);
+        dialog.show();
+         HashMap<String, String> hashMap = new HashMap<>();
+         hashMap.put("user_id", SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserId());
+         hashMap.put("post_id",""+post.getPostId());
+         if(post.getIsLiked()==1) {
+             hashMap.put("is_liked",""+0 );
+         }
+         else {
+             hashMap.put("is_liked",""+1);
+         }
+         final Gson gson = new Gson();
+         String json = gson.toJson(hashMap);
+         JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(this);
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialog.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    ResponsePost responsePost = gson.fromJson(response.toString(), ResponsePost.class);
+                    if (responsePost.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                       if(posts.get(pos).getIsLiked()==1){
+                           posts.get(pos).setIsLiked(0);
+                           posts.get(pos).setTotalLikes(posts.get(pos).getTotalLikes()-1);
+
+                       }
+                       else {
+                           posts.get(pos).setIsLiked(1);
+                           posts.get(pos).setTotalLikes(posts.get(pos).getTotalLikes()+1);
+
+                       }
+                       adapterPosts.notifyDataSetChanged();
+                    } else {
+                        Util.showAlert(ActivityMain.this,getString(R.string.error),responsePost.getMessage(),getString(R.string.ok),R.drawable.warning);
+
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+                dialog.dismiss();
+
+            }
+        }, "posts", C.API_POSTS_LIKE, Util.getHeader(this), obj);
+
+
+    }
+
     private void getAllPosts() {
 
         dialog = Util.getProgressDialog(this, R.string.please_wait);
         dialog.setCancelable(false);
         dialog.show();
-        String json = "{\"patient_id\" = \"14\" }";
+        HashMap<String, String> hashMap = new HashMap<>();
+        if(SharedPreference.getInstance(ActivityMain.this).getBoolean(C.IS_LOGIN)) {
+            hashMap.put("user_id", SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserId());
+        }
+        else {
+            hashMap.put("user_id", "");
 
-//        String json = gson.toJson("");
+        }
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
         JSONObject obj = null;
         try {
             obj = new JSONObject(json);
@@ -416,8 +529,8 @@ public class ActivityMain extends AppCompatActivity
                     Gson gson = new Gson();
                     ResponsePost responsePost = gson.fromJson(response.toString(), ResponsePost.class);
                     if (responsePost.getStatusCode().equals(C.STATUS_SUCCESS)) {
-
-                        adapterPosts = new AdapterPosts(ActivityMain.this, responsePost.getPosts());
+                        posts=responsePost.getPosts();
+                        adapterPosts = new AdapterPosts(ActivityMain.this, posts);
                         lvPosts.setAdapter(adapterPosts);
 
                     } else {
@@ -776,6 +889,49 @@ public class ActivityMain extends AppCompatActivity
             String newFileName = "LR" + System.currentTimeMillis() + num + "." + fileName;
             return newFileName;
         }
+
+
+    }
+    public  void showAlertForToast(final Activity context, String title, String msg, String btnText, int img, final boolean finishActivity) {
+
+
+        final LayoutInflater factory = LayoutInflater.from(context);
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_alert, null);
+        final Dialog  dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(deleteDialogView);
+
+
+
+        TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
+        tvMsg.setText(msg);
+
+        TextView tvTitle = (TextView) deleteDialogView.findViewById(R.id.tvTitle);
+        tvTitle.setText(title);
+        ImageView ivAlertImage = (ImageView) deleteDialogView.findViewById(R.id.ivAlertImage);
+        ivAlertImage.setImageResource(img);
+        Button btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
+        btnDone.setText(btnText);
+
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.dismiss();
+                if(finishActivity){
+                   getAllPosts();
+                }
+
+            }
+        });
+
+
+        dialog.show();
 
 
     }

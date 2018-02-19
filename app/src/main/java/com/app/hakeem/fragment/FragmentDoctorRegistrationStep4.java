@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.DoctorRegistration;
@@ -538,8 +539,9 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                         SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
                         SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER,responseLogin.getUser());
 
-                        getActivity().finish();
-
+                        Intent intent = new Intent(getActivity(), ActivityMain.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        getActivity().startActivity(intent);
                     } else {
 
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);

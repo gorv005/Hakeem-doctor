@@ -76,7 +76,7 @@
             android:background="@drawable/bg_button"
             android:text="@string/manage_queue"
             android:drawableTint="@color/green"
-            android:drawableLeft="@drawable/queue"
+            android:drawableLeft="@drawable/queue_green"
             android:textAllCaps="false"
             android:textColor="@color/color_selector"
             android:textSize="14sp" />

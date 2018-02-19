@@ -76,6 +76,7 @@ public interface C {
     int API_TIME_OUT = 12000;
     String BASE_URL = "http://www.dataheadstudio.com/test/api";
     String API_POSTS = BASE_URL + "/posts";
+    String API_POSTS_LIKE = BASE_URL + "/postlike";
 
     String API_ADD_POSTS = BASE_URL + "/addpost";
     String API_LOGIN = BASE_URL + "/login";
