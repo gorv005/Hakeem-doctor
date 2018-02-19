@@ -40,6 +40,20 @@
 -keep public class * extends android.content.BroadcastReceiver
 -keep public class * extends android.content.ContentProvider
 
+-dontwarn org.kobjects.**
+-dontwarn org.ksoap2.**
+-dontwarn org.kxml2.**
+-dontwarn org.xmlpull.v1.**
+
+-keep class org.kobjects.** { *; }
+-keep class org.ksoap2.** { *; }
+-keep class org.kxml2.** { *; }
+-keep class org.xmlpull.** { *; }
+
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontoptimize
+-dontpreverify
 
 -dontwarn com.facebook.**
 -keep class com.facebook.** {*;}
@@ -81,6 +95,12 @@
 
 -dontwarn org.jivesoftware.smack.**
 -keep class org.jivesoftware.smack.** {*;}
+
+-dontwarn org.xmlpull.v1.XmlPullParser.**
+-keep class org.xmlpull.v1.XmlPullParser.** {*;}
+
+-dontwarn com.github.mikephil.charting.**
+-keep class com.github.mikephil.charting.** {*;}
 
 -dontwarn org.acra.**
 -keep class org.acra.** {*;}
