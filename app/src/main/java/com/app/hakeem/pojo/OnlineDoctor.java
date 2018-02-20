@@ -4,79 +4,59 @@ package com.app.hakeem.pojo;
  * Created by Ady on 2/20/2018.
  */
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class OnlineDoctor {
 
-    @SerializedName("doctor_id")
+    @SerializedName("first_name")
     @Expose
-    private Integer doctorId;
-    @SerializedName("name")
+    private String firstName;
+    @SerializedName("current_grade")
     @Expose
-    private String name;
-    @SerializedName("mobile_no")
-    @Expose
-    private String mobileNo;
+    private String currentGrade;
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("sub_specialist")
+    @Expose
+    private String subSpecialist;
+    @SerializedName("classification")
+    @Expose
+    private String classification;
+    @SerializedName("last_name")
+    @Expose
+    private String lastName;
+    @SerializedName("doctor_id")
+    @Expose
+    private Integer doctorId;
     @SerializedName("gender")
     @Expose
     private String gender;
-    @SerializedName("status")
+    @SerializedName("created_at")
     @Expose
-    private String status;
+    private String createdAt;
+    @SerializedName("workplace")
+    @Expose
+    private String workplace;
+    @SerializedName("photo")
+    @Expose
+    private String photo;
 
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public OnlineDoctor() {
+    public String getFirstName() {
+        return firstName;
     }
 
-    /**
-     *
-     * @param status
-     * @param email
-     * @param doctorId
-     * @param name
-     * @param gender
-     * @param mobileNo
-     */
-    public OnlineDoctor(Integer doctorId, String name, String mobileNo, String email, String gender, String status) {
-        super();
-        this.doctorId = doctorId;
-        this.name = name;
-        this.mobileNo = mobileNo;
-        this.email = email;
-        this.gender = gender;
-        this.status = status;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public Integer getDoctorId() {
-        return doctorId;
+    public String getCurrentGrade() {
+        return currentGrade;
     }
 
-    public void setDoctorId(Integer doctorId) {
-        this.doctorId = doctorId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMobileNo() {
-        return mobileNo;
-    }
-
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
+    public void setCurrentGrade(String currentGrade) {
+        this.currentGrade = currentGrade;
     }
 
     public String getEmail() {
@@ -87,6 +67,38 @@ public class OnlineDoctor {
         this.email = email;
     }
 
+    public String getSubSpecialist() {
+        return subSpecialist;
+    }
+
+    public void setSubSpecialist(String subSpecialist) {
+        this.subSpecialist = subSpecialist;
+    }
+
+    public String getClassification() {
+        return classification;
+    }
+
+    public void setClassification(String classification) {
+        this.classification = classification;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Integer getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Integer doctorId) {
+        this.doctorId = doctorId;
+    }
+
     public String getGender() {
         return gender;
     }
@@ -95,12 +107,28 @@ public class OnlineDoctor {
         this.gender = gender;
     }
 
-    public String getStatus() {
-        return status;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getWorkplace() {
+        return workplace;
+    }
+
+    public void setWorkplace(String workplace) {
+        this.workplace = workplace;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
 }

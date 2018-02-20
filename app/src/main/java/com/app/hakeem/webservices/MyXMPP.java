@@ -15,13 +15,17 @@ import com.app.hakeem.interfaces.ChatMsgListener;
 import org.jivesoftware.smack.AbstractXMPPConnection;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.ConnectionListener;
+import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.chat.Chat;
 import org.jivesoftware.smack.chat.ChatManager;
+import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
+import org.jivesoftware.smackx.chatstates.ChatState;
+import org.jivesoftware.smackx.chatstates.ChatStateListener;
 import org.jivesoftware.smackx.iqregister.AccountManager;
 
 import java.io.IOException;
@@ -58,6 +62,7 @@ public class MyXMPP {
         configBuilder.setServiceName(DOMAIN);
         configBuilder.setHost(HOST);
         configBuilder.setPort(PORT);
+
         //configBuilder.setDebuggerEnabled(true);
         connection = new XMPPTCPConnection(configBuilder.build());
         connection.addConnectionListener(connectionListener);
@@ -78,7 +83,7 @@ public class MyXMPP {
     }
 
     public void connectConnection() {
-        AsyncTask<Void, Void, Boolean> connectionThread = new AsyncTask<Void, Void, Boolean>() {
+        final AsyncTask<Void, Void, Boolean> connectionThread = new AsyncTask<Void, Void, Boolean>() {
 
             @Override
             protected Boolean doInBackground(Void... arg0) {
@@ -87,9 +92,17 @@ public class MyXMPP {
                 try {
                     connection.connect();
 
-                    login();
-                    connected = true;
+                    if (connection.isConnected()) {
+                        Log.i("TAG", "Connected to " + connection.getHost());
 
+                        // Registering the user
+                        AccountManager accountManager = AccountManager.getInstance(connection);
+                        accountManager.sensitiveOperationOverInsecureConnection(true);
+                        accountManager.createAccount(userName, "password");   // S
+
+                        connected = true;
+                        login();
+                    }
                 } catch (IOException e) {
                 } catch (SmackException e) {
 
@@ -103,13 +116,24 @@ public class MyXMPP {
     }
 
 
-    public void sendMsg(String msg, String to, ChatMsgListener chatMsgListener) {
+    public void sendMsg(String msg, String to, final ChatMsgListener chatMsgListener) {
         if (connection.isConnected() == true) {
             // Assume we've created an XMPPConnection name "connection"._
             newChat = chatmanager.createChat(to + "@" + HOST);
 
             try {
                 newChat.sendMessage(msg);
+                newChat.addMessageListener(new ChatStateListener() {
+                    @Override
+                    public void stateChanged(Chat chat, ChatState state) {
+
+                    }
+
+                    @Override
+                    public void processMessage(Chat chat, Message message) {
+
+                    }
+                });
                 chatMsgListener.messageSent();
             } catch (SmackException.NotConnectedException e) {
                 e.printStackTrace();
@@ -120,8 +144,9 @@ public class MyXMPP {
     public void login() {
 
         try {
-
-            connection.login(userName, passWord);
+            SASLAuthentication.unBlacklistSASLMechanism("PLAIN");
+            SASLAuthentication.blacklistSASLMechanism("DIGEST-MD5");
+            connection.login(userName , passWord);
             //Log.i("LOGIN", "Yey! We're connected to the Xmpp server!");
 
         } catch (XMPPException | SmackException | IOException e) {
@@ -131,41 +156,6 @@ public class MyXMPP {
 
     }
 
-    public void create(final String userName) {
-
-
-        AsyncTask<Void, Void, Boolean> connectionThread = new AsyncTask<Void, Void, Boolean>() {
-
-            @Override
-            protected Boolean doInBackground(Void... arg0) {
-
-                XMPPTCPConnectionConfiguration.Builder configBuilder = XMPPTCPConnectionConfiguration.builder();
-                configBuilder.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
-                configBuilder.setResource("Android");
-                configBuilder.setServiceName(DOMAIN);
-                configBuilder.setHost(HOST);
-                configBuilder.setPort(PORT);
-                //configBuilder.setDebuggerEnabled(true);
-                connection = new XMPPTCPConnection(configBuilder.build());
-                try {
-
-                    Log.i("TAG", "Connected to " + connection.getHost());
-                    connection.connect();
-                    // Registering the user
-                    AccountManager accountManager = AccountManager.getInstance(connection);
-                    accountManager.sensitiveOperationOverInsecureConnection(true);
-                    accountManager.createAccount(userName, "password");
-                    //disconnectConnection();// Skipping optional fields like email, first name, last name, etc..
-                } catch (SmackException | IOException | XMPPException e) {
-                    Log.e("TAG", e.getMessage());
-                }
-                return null;
-            }
-        };
-        connectionThread.execute();
-
-
-    }
 
 
     //Connection Listener to check connection state

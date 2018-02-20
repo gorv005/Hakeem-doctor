@@ -49,8 +49,9 @@ public class ActivityChat extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         sender = getIntent().getStringExtra(C.SENDER);
         receiver = getIntent().getStringExtra(C.RECEIVER);
-        sender =sender.replace("@","");
-        receiver =receiver.replace("@","");
+
+        sender = sender.replace("@", "");
+        receiver = receiver.replace("@", "");
         etMsg = (EditText) findViewById(R.id.etMsg);
         btnSend = (ImageButton) findViewById(R.id.btnSend);
         lvMsg = (ListView) findViewById(R.id.lvMsg);
@@ -74,7 +75,6 @@ public class ActivityChat extends AppCompatActivity {
                     public void messageSent() {
 
                         ChatMessage chatMessage = new ChatMessage();
-                        ;
                         chatMessage.setMessage(etMsg.getText().toString());
                         chatMessage.setMessageStatus(ChatMessage.STATUS_MESSAGE_SENT);
                         chatMessage.setReciver(false);

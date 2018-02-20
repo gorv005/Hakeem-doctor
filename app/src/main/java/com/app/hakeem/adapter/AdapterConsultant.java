@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.hakeem.R;
-import com.app.hakeem.pojo.Awareness;
 import com.app.hakeem.pojo.OnlineDoctor;
 import com.app.hakeem.util.ImageLoader;
 
@@ -25,6 +23,7 @@ public class AdapterConsultant extends BaseAdapter {
     private Activity activity;
     private ArrayList<OnlineDoctor> onlineDoctor;
     ImageLoader imageLoader;
+
 
     public AdapterConsultant(Activity activity, ArrayList<OnlineDoctor> onlineDoctor) {
         this.activity = activity;
@@ -59,9 +58,10 @@ public class AdapterConsultant extends BaseAdapter {
         TextView tvDoctorName = (TextView) convertView.findViewById(R.id.tvDoctorName);
         TextView tvSpeciality = (TextView) convertView.findViewById(R.id.tvDrSpeciality);
         TextView tvSubSpeciality = (TextView) convertView.findViewById(R.id.tvSubSpeciality);
-        tvDoctorName.setText(getItem(position).getName());
-        tvSpeciality.setText(getItem(position).getEmail());
-        tvSubSpeciality.setText(getItem(position).getStatus());
+        tvDoctorName.setText(getItem(position).getFirstName()+" ");
+        tvSpeciality.setText(getItem(position).getClassification());
+        tvSubSpeciality.setText(getItem(position).getSubSpecialist());
+        imageLoader.DisplayImage(getItem(position).getPhoto(),(ImageView) convertView.findViewById(R.id.ivDoctor));
         return convertView;
     }
 }

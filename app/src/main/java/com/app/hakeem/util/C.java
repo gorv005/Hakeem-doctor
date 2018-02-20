@@ -98,7 +98,7 @@ public interface C {
     String API_ADD_DPENDENT = BASE_URL + "/dependentadd";
     String API_AWARENESS = BASE_URL + "/awareness";
     String API_DELETE_DPENDENT = BASE_URL + "/dependentdelete";
-    String API_CONSULTANT = BASE_URL + "/getonlinedoctors";
+    String API_CONSULTANT = BASE_URL + "/specialization";
 
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
 

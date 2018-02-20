@@ -14,13 +14,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.hakeem.ActivityChat;
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterConsultant;
-import com.app.hakeem.adapter.AdapterConsultationType;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.ConsultationTypeAndList;
 import com.app.hakeem.pojo.User;
@@ -127,7 +125,7 @@ public class FragmentConsultantList extends Fragment {
 
         HashMap<String, String> hashMap = new HashMap<>();
 
-            hashMap.put("clinic_id", specialityId+"");
+            hashMap.put("specialist_id", specialityId+"");
 
         final Gson gson = new Gson();
         String json = gson.toJson(hashMap);

@@ -4,10 +4,10 @@ package com.app.hakeem.pojo;
  * Created by Ady on 2/18/2018.
  */
 
-import java.util.ArrayList;
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 
 public class ConsultationTypeAndList {
 
@@ -21,7 +21,7 @@ public class ConsultationTypeAndList {
     @Expose
     private ArrayList<Awareness> awareness = null;
 
-    @SerializedName("data")
+    @SerializedName("specialization")
     @Expose
     private ArrayList<OnlineDoctor> onlineDoctors = null;
 

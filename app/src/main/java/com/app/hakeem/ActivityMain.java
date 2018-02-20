@@ -54,7 +54,6 @@ import com.app.hakeem.util.ImageLoader;
 import com.app.hakeem.util.MultipartUtility;
 import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
-import com.app.hakeem.webservices.MyXMPP;
 import com.app.hakeem.webservices.VolleyService;
 import com.google.gson.Gson;
 
@@ -334,11 +333,9 @@ public class ActivityMain extends AppCompatActivity
                 imgProfile.setImageResource(R.drawable.profile);
             }
 
-            String sender = SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getEmail().replace("@", "");
-
-
-            MyXMPP myXMPP = new MyXMPP();
-            myXMPP.create(sender);
+//            String sender = SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getEmail().replace("@", "");
+//            MyXMPP myXMPP = new MyXMPP();
+//            myXMPP.create(sender);
         } else {
             imgEdit.setVisibility(View.GONE);
             imgProfile.setVisibility(View.GONE);
