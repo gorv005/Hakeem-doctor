@@ -55,7 +55,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@drawable/family_blur">
+        android:background="@drawable/obgy_blur">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivDrProfile"
