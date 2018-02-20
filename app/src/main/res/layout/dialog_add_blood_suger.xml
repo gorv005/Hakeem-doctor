@@ -1,0 +1,199 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.app.hakeem.fragment.FragmentDoctorRegistrationStep1">
+
+
+
+        <LinearLayout
+            android:layout_marginTop="60dp"
+            android:paddingRight="50dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="50dp"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:drawableRight="@drawable/icon_drop_down"
+                android:gravity="center|center_vertical"
+                android:textStyle="bold"
+                android:text="@string/today_blood_suger"
+                android:textColor="@color/blue"
+                android:textSize="14sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/round_back_green"
+                android:layout_centerHorizontal="true"
+                android:gravity="center|center_vertical"
+                android:textStyle="bold"
+                android:text="@string/normal_range"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="@string/timings"
+                        android:textColor="@color/blue"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="@string/reading_mg"
+                        android:textColor="@color/blue"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/etTiming"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/rounded_red_blue_corner"
+                        android:clickable="true"
+                        android:drawablePadding="20dp"
+                        android:drawableRight="@drawable/icon_drop_down"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:hint="@string/speciality"
+                        android:inputType="none"
+                        android:paddingLeft="60dp"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white_off"
+                        android:textSize="14sp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerTiming"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_gravity="start"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:gravity="start"
+                        android:paddingLeft="40dp"
+                        android:visibility="invisible" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/etReading"
+                        android:layout_width="match_parent"                        android:layout_height="50dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+
+                        android:background="@drawable/rounded_red_blue_corner"
+                        android:drawablePadding="20dp"
+                        android:drawableRight="@drawable/icon_drop_down"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:hint="@string/current_grade"
+                        android:paddingLeft="60dp"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white_off"
+                        android:textSize="14sp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerReading"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_gravity="start"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:gravity="start"
+                        android:paddingLeft="40dp"
+                        android:visibility="invisible" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            <RelativeLayout
+                android:paddingRight="15dp"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/dialog_round_back"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            <EditText
+                android:layout_marginTop="5dp"
+                android:id="@+id/etComment"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:maxLength="250"
+                android:textSize="14sp"
+                android:hint="@string/comments"
+                android:gravity="top"
+                android:background="@null"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white_off" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="200dp"
+                android:minWidth="150dp"
+                android:textColor="@color/color_selector_white"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:text="@string/submit"
+                android:background="@drawable/bg_button_blue"
+                android:layout_height="40dp"
+                />
+
+        </LinearLayout>
+</RelativeLayout>

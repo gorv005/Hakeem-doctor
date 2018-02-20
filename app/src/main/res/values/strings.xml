@@ -170,5 +170,19 @@
     <string name="delete">Delete</string>
     <string name="delete_sure">Are you sure you want to delete it?</string>
     <string name="clinic">Clinic</string>
+    <string name="today_blood_suger">Today\'s Blood Suger</string>
+    <string name="normal_range">Normal Range</string>
+    <string name="timings">Timing</string>
+    <string name="reading_mg">Reading Mg/dl</string>
+    <string name="comments">comments...</string>
+    <string name="submit">Submit</string>
+    <string name="today_weight">Today\'s weight and HR</string>
+    <string name="weight_in_kg">Weight in KG</string>
+    <string name="rest_hr">Rest HR</string>
+    <string name="height_in_cm">Height in CM</string>
+    <string name="under_weight"><![CDATA[Under\\nweight\\nBmi<18.5]]></string>
+    <string name="normal_weight">Normal\\nweight\\n18.5-24.9</string>
+    <string name="over_weight">over\\nweight\\n25-29.9</string>
+    <string name="obesity"><![CDATA[Obesity\\n\\nBmi>30]]></string>
 
 </resources>
