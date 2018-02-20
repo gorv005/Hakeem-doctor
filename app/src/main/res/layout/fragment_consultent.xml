@@ -1,18 +1,51 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pattern"
+    android:orientation="vertical"
+    android:weightSum="10"
     tools:context="com.app.hakeem.fragment.FragmentDoctorProfile">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ListView
-        android:id="@+id/lvConsultationType"
+    <RelativeLayout
+        android:id="@+id/rlImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:divider="@null"></ListView>
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:background="@drawable/pediatric">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_gradient" />
+
+        <TextView
+            android:id="@+id/tvClinic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6">
+
+        <ListView
+            android:id="@+id/lvConsultant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"></ListView>
+
+    </RelativeLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

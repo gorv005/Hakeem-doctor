@@ -29,9 +29,11 @@ public interface C {
     int FRAGMENT_DOCTOR_PROFILE = 43;
     int FRAGMENT_DOCTOR_PATIENT_LIST = 44;
     int FRAGMENT_DOCTOR_PATIENT_DEPENDENT_LIST = 45;
-    int FRAGMENT_CONSULTATION_TYPE = 9;
-
     int FRAGMENT_PATIENT_PROFILE = 46;
+    int FRAGMENT_CONSULTATION_TYPE = 9;
+    int FRAGMENT_CONSULTANT = 10;
+
+
     String TAG_FRAGMENT_LOGIN = "fragment_login";
     String TAG_FRAGMENT_REGISTER_P_1 = "TAG_FRAGMENT_REGISTER_P_1";
     String TAG_FRAGMENT_REGISTER_P_2 = "TAG_FRAGMENT_REGISTER_P_2";
@@ -43,7 +45,8 @@ public interface C {
     String TAG_FRAGMENT_TRACKER_BLOOD_PRESSURE_REPORT = "TAG_FRAGMENT_TRACKER_BLOOD_PRESSURE_REPORT ";
 
     String TAG_FRAGMENT_TRACKER_BLOOD_SUGAR_REPORT = "TAG_FRAGMENT_TRACKER_BLOOD_SUGAR_REPORT ";
-    String TAG_FRAGMENT_CONSULTATION_TYPE = "EMR ";
+    String TAG_FRAGMENT_CONSULTATION_TYPE = "TAG_FRAGMENT_CONSULTATION_TYPE";
+    String TAG_FRAGMENT_CONSULTANT = "TAG_FRAGMENT_CONSULTANT";
 
     String TAG_FRAGMENT_EMR = "EMR ";
     String TAG_FRAGMENT_TRACKER = "TRACKER ";
@@ -95,13 +98,15 @@ public interface C {
     String API_ADD_DPENDENT = BASE_URL + "/dependentadd";
     String API_AWARENESS = BASE_URL + "/awareness";
     String API_DELETE_DPENDENT = BASE_URL + "/dependentdelete";
+    String API_CONSULTANT = BASE_URL + "/getonlinedoctors";
+
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
+
     String USER = "user";
 
     String DATE_FORMAT = "dd/MMM/yyyy";
 
     String DATE_FORMAT_FOR_REPORT = "yyyy-MM-dd";
-
     String IMAGE_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/Hakeem";
     String TAG_FRAGMENT_REGISTER_TYPE_R_3 = "TAG_FRAGMENT_REGISTER_TYPE_R_3";
@@ -109,23 +114,24 @@ public interface C {
     String TAG_FRAGMENT_DEPENDENT = "tag_fragment_dependent";
     String USER_PATIENT = "3";
     String USER_DOCTOR = "2";
+
+
     String USER_ADMIN = "1";
-
-
     String DOCTOR = "Doctor";
     String PATIENT = "Patient";
     String DEPENDENT_ID = "dependent_id";
+
     String NAME = "name";
 
     String GENDER = "gender";
 
     String DOB = "dob";
-
     String FONT = "Mont.otf";
     String PATIENT_ID = "patientId";
     String PRE_MEAL = "Pre-meal";
+
+
     String POST_SLEEP = "Post-sleep";
-
-
     String AWARENESS_LIST = "awarenesslist";
+    String SPECIALITY = "speciality";
 }

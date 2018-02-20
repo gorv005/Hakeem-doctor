@@ -9,20 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterConsultationType;
 import com.app.hakeem.interfaces.IResult;
-import com.app.hakeem.pojo.ConsultationType;
-import com.app.hakeem.pojo.ResponseLogin;
+import com.app.hakeem.pojo.ConsultationTypeAndList;
 import com.app.hakeem.pojo.User;
 import com.app.hakeem.util.C;
-import com.app.hakeem.util.ImageLoader;
 import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
 import com.app.hakeem.webservices.VolleyService;
@@ -102,7 +98,7 @@ public class FragmentConsultationType extends Fragment {
         Gson gson = new Gson();
         String strAwareNess = SharedPreference.getInstance(getActivity()).getString(C.AWARENESS_LIST);
         if (strAwareNess != null) {
-            ConsultationType consultationType = gson.fromJson(strAwareNess.toString(), ConsultationType.class);
+            ConsultationTypeAndList consultationType = gson.fromJson(strAwareNess.toString(), ConsultationTypeAndList.class);
             adapter = new AdapterConsultationType(getActivity(), consultationType.getAwareness());
             lvConsultationType.setAdapter(adapter);
             dialog.dismiss();
@@ -116,7 +112,7 @@ public class FragmentConsultationType extends Fragment {
 
                     try {
                         Gson gson = new Gson();
-                        ConsultationType consultationType = gson.fromJson(response.toString(), ConsultationType.class);
+                        ConsultationTypeAndList consultationType = gson.fromJson(response.toString(), ConsultationTypeAndList.class);
                         if (consultationType.getStatusCode().equals(C.STATUS_SUCCESS)) {
                             SharedPreference.getInstance(getActivity()).setString(C.AWARENESS_LIST, response.toString());
                             adapter = new AdapterConsultationType(getActivity(), consultationType.getAwareness());

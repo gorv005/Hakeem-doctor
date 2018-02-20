@@ -9,7 +9,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ConsultationType {
+public class ConsultationTypeAndList {
 
     @SerializedName("message")
     @Expose
@@ -21,11 +21,15 @@ public class ConsultationType {
     @Expose
     private ArrayList<Awareness> awareness = null;
 
+    @SerializedName("data")
+    @Expose
+    private ArrayList<OnlineDoctor> onlineDoctors = null;
+
     /**
      * No args constructor for use in serialization
      *
      */
-    public ConsultationType() {
+    public ConsultationTypeAndList() {
     }
 
     /**
@@ -33,7 +37,7 @@ public class ConsultationType {
      * @param statusCode
      * @param awareness
      */
-    public ConsultationType(String statusCode, ArrayList<Awareness> awareness) {
+    public ConsultationTypeAndList(String statusCode, ArrayList<Awareness> awareness) {
         super();
         this.statusCode = statusCode;
         this.awareness = awareness;
@@ -57,5 +61,17 @@ public class ConsultationType {
 
     public String getMessage() {
         return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public ArrayList<OnlineDoctor> getOnlineDoctors() {
+        return onlineDoctors;
+    }
+
+    public void setOnlineDoctors(ArrayList<OnlineDoctor> onlineDoctors) {
+        this.onlineDoctors = onlineDoctors;
     }
 }

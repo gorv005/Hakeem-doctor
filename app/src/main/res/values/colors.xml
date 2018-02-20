@@ -9,6 +9,7 @@
     <color name="cream">#F5F5F5</color>
 
     <color name="black">#111111</color>
+    <color name="trans_black">#cc111111</color>
 
     <color name="blue">#0AABD3</color>
     <color name="light_blue">#87CEFA</color>

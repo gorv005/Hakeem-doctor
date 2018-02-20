@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.app.hakeem.fragment.FragmentConsultationType;
+import com.app.hakeem.fragment.FragmentConsultantList;
 import com.app.hakeem.fragment.FragmentDependent;
 import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
 import com.app.hakeem.fragment.FragmentDoctorPatientDependents;
@@ -204,6 +205,14 @@ public class ActivityContainer extends AppCompatActivity {
                 getSupportActionBar().show();
                 btnAddDependent.setVisibility(View.GONE);
                 fragment = new FragmentConsultationType();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_CONSULTATION_TYPE);
+
+                break;
+            case C.FRAGMENT_CONSULTANT:
+                getSupportActionBar().show();
+                btnAddDependent.setVisibility(View.GONE);
+                fragment = new FragmentConsultantList();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_CONSULTATION_TYPE);
 

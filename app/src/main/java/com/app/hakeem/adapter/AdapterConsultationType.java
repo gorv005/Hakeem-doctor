@@ -2,6 +2,7 @@ package com.app.hakeem.adapter;
 
 import android.app.Activity;
 import android.media.Image;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.pojo.Awareness;
 import com.app.hakeem.pojo.SideMenuItem;
+import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
 
 import java.util.ArrayList;
@@ -50,7 +53,7 @@ public class AdapterConsultationType extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             convertView = mInflater.inflate(
@@ -59,6 +62,14 @@ public class AdapterConsultationType extends BaseAdapter {
 
         Button btnConsType = (Button) convertView.findViewById(R.id.btnMedicalCons);
         btnConsType.setText(getItem(position).getCategoryName());
+        btnConsType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle =new Bundle();;
+                bundle.putInt(C.SPECIALITY,getItem(position).getCategoryId());
+                ((ActivityContainer) activity).fragmnetLoader(C.FRAGMENT_CONSULTANT,bundle);
+            }
+        });
         imageLoader.DisplayImage(getItem(position).getIconUrl(), (ImageView) convertView.findViewById(R.id.ivIcon));
 
         return convertView;
