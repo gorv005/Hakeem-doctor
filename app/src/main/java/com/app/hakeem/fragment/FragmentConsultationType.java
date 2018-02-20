@@ -144,7 +144,7 @@ public class FragmentConsultationType extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ActivityContainer.tvTitle.setText(R.string.patient_profile);
+        ActivityContainer.tvTitle.setText(R.string.medical_consultation);
 
     }
 }

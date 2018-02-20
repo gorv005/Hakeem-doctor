@@ -203,6 +203,7 @@ public class ActivityContainer extends AppCompatActivity {
                 break;
             case C.FRAGMENT_CONSULTATION_TYPE:
                 getSupportActionBar().show();
+                tvTitle.setText(R.string.medical_consultation);
                 btnAddDependent.setVisibility(View.GONE);
                 fragment = new FragmentConsultationType();
                 fragmentTransaction.replace(R.id.container, fragment);
@@ -266,9 +267,9 @@ public class ActivityContainer extends AppCompatActivity {
 ////                        tvSubTitle.setVisibility(View.GONE);
 ////                        tvTitle2.setVisibility(View.GONE);
 //                        break;
-//                    case C.TAG_FRAGMENT_SEARCH_FLIGHT:
-//                        tvTitle.setText(C.TAG_FRAGMENT_SEARCH_FLIGHT);
-//                        break;
+                    case C.TAG_FRAGMENT_PATIENT_PROFILE:
+                        tvTitle.setText(R.string.patient_profile);
+                        break;
 //                    case C.TAG_FRAGMENT_OURDESTINATIONS:
 //                        tvTitle.setText(getResources().getString(R.string.our_destinations));
 //                        break;
