@@ -1,7 +1,11 @@
 package com.app.hakeem;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -36,7 +40,13 @@ public class ActivityChat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
+        final Drawable upArrow = getResources().getDrawable(R.drawable.back);
+        upArrow.setColorFilter(getResources().getColor(R.color.blue), PorterDuff.Mode.SRC_ATOP);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
         sender = getIntent().getStringExtra(C.SENDER);
         receiver = getIntent().getStringExtra(C.RECEIVER);
         sender =sender.replace("@","");
@@ -122,5 +132,13 @@ public class ActivityChat extends AppCompatActivity {
                 lvMsg.setSelection(adapterSideMenu.getCount() - 1);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+            onBackPressed();
+        return super.onOptionsItemSelected(item);
+
     }
 }

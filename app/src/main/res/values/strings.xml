@@ -155,6 +155,7 @@
     <string name="post">post</string>
     <string name="sleep">sleep</string>
     <string name="medical_consultation">Medical Consultation</string>
+    <string name="consultation_screen">Consultation Screen</string>
     <string name="manage_dependents">Manage Dependents</string>
     <string name="electronic_medical_report">Electronic Medical Records</string>
     <string name="medical_report">Medical Records</string>
@@ -168,5 +169,6 @@
     <string name="no">No</string>
     <string name="delete">Delete</string>
     <string name="delete_sure">Are you sure you want to delete it?</string>
+    <string name="clinic">Clinic</string>
 
 </resources>
