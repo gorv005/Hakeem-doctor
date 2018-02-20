@@ -2,6 +2,7 @@ package com.app.hakeem.fragment;
 
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,10 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.app.hakeem.ActivityChat;
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterConsultant;
@@ -102,6 +106,16 @@ public class FragmentConsultantList extends Fragment {
                 break;
         }
 
+        lvConsultant.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent=new Intent(getActivity(), ActivityChat.class);
+                intent.putExtra(C.SENDER,SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getEmail());
+                intent.putExtra(C.RECEIVER,adapter.getItem(position).getEmail());
+                getActivity().startActivity(intent);
+            }
+        });
 
         loadDoctorlist();
     }

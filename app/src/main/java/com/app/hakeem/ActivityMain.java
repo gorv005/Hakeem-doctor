@@ -54,6 +54,7 @@ import com.app.hakeem.util.ImageLoader;
 import com.app.hakeem.util.MultipartUtility;
 import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
+import com.app.hakeem.webservices.MyXMPP;
 import com.app.hakeem.webservices.VolleyService;
 import com.google.gson.Gson;
 
@@ -103,16 +104,17 @@ public class ActivityMain extends AppCompatActivity
     LinearLayout llAwareness;
     private AdapterSideMenu adapterSideMenu;
     private AdapterPosts adapterPosts;
-    private Dialog dialog,dialogShowAddPostPopUp;
+    private Dialog dialog, dialogShowAddPostPopUp;
     ImageLoader imageLoader;
     private int GALLERY = 1, CAMERA = 2;
     private Uri fileUri;
     Uri contentURI;
-    boolean isImageSelected=false;
-    String filePath,imgPostUrl=null;
+    boolean isImageSelected = false;
+    String filePath, imgPostUrl = null;
     private ProgressDialog mProgressDialog;
-    ImageView imgPost,imgDelete;
+    ImageView imgPost, imgDelete;
     ArrayList<Post> posts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +122,7 @@ public class ActivityMain extends AppCompatActivity
         ButterKnife.bind(this);
         tvTitle.setText(R.string.awareness);
         setSupportActionBar(toolbar);
-        imageLoader=new ImageLoader(this);
+        imageLoader = new ImageLoader(this);
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -162,27 +164,23 @@ public class ActivityMain extends AppCompatActivity
 
                 } else if (sideMenuItem.getNameResourse() == R.string.emr_and_tracker) {
                     Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
-                    if(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+                    if (SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
                         intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PATIENT_LIST);
-                    }
-                    else {
+                    } else {
                         intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_EMR_AND_TRACKER);
 
                     }
                     startActivity(intent);
 
-                }
-                else if (sideMenuItem.getNameResourse() == R.string.profile) {
+                } else if (sideMenuItem.getNameResourse() == R.string.profile) {
                     Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
-                    if(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+                    if (SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
                         intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PROFILE);
-                    }
-                    else {
+                    } else {
                         intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_PROFILE);
                     }
                     startActivity(intent);
-                }
-                else if (sideMenuItem.getNameResourse() == R.string.awareness) {
+                } else if (sideMenuItem.getNameResourse() == R.string.awareness) {
 
                 }
 
@@ -197,34 +195,32 @@ public class ActivityMain extends AppCompatActivity
         rlBottam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlertForConfirm(ActivityMain.this,getString(R.string.logout),getString(R.string.logout_sure),getString(R.string.yes),getString(R.string.no),R.drawable.warning,false);
+                showAlertForConfirm(ActivityMain.this, getString(R.string.logout), getString(R.string.logout_sure), getString(R.string.yes), getString(R.string.no), R.drawable.warning, false);
                 if (drawer.isDrawerOpen(GravityCompat.START)) {
                     drawer.closeDrawer(GravityCompat.START);
                 }
             }
         });
-    llAwareness.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+        llAwareness.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        }
-    });
+            }
+        });
         llHealthTracker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(SharedPreference.getInstance(ActivityMain.this).getBoolean(C.IS_LOGIN)) {
-                Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
-                if(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.PATIENT)) {
+                if (SharedPreference.getInstance(ActivityMain.this).getBoolean(C.IS_LOGIN)) {
+                    Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
+                    if (SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.PATIENT)) {
 
-                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_EMR_AND_TRACKER);
-                }
-                else {
-                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PATIENT_LIST);
+                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_EMR_AND_TRACKER);
+                    } else {
+                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PATIENT_LIST);
 
-                }
-                startActivity(intent);
-                }
-                else {
+                    }
+                    startActivity(intent);
+                } else {
                     Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
                     intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_LOGIN);
                     startActivity(intent);
@@ -235,22 +231,19 @@ public class ActivityMain extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                if(SharedPreference.getInstance(ActivityMain.this).getBoolean(C.IS_LOGIN)) {
+                if (SharedPreference.getInstance(ActivityMain.this).getBoolean(C.IS_LOGIN)) {
 
 
+                    Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
+                    if (SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.PATIENT)) {
 
-                Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
-                if(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.PATIENT)) {
+                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_EMR_AND_TRACKER);
+                    } else {
+                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PATIENT_LIST);
 
-                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_EMR_AND_TRACKER);
-                }
-                else {
-                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PATIENT_LIST);
-
-                }
-                startActivity(intent);
-                }
-                else {
+                    }
+                    startActivity(intent);
+                } else {
                     Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
                     intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_LOGIN);
                     startActivity(intent);
@@ -258,25 +251,25 @@ public class ActivityMain extends AppCompatActivity
             }
         });
     }
-    public   void logout(){
-        showAlertForToast(ActivityMain.this,getString(R.string.logout),getString(R.string.logout_success),getString(R.string.ok),R.drawable.warning,true);
-        SharedPreference.getInstance(ActivityMain.this).setBoolean(C.IS_LOGIN,false);
+
+    public void logout() {
+        showAlertForToast(ActivityMain.this, getString(R.string.logout), getString(R.string.logout_success), getString(R.string.ok), R.drawable.warning, true);
+        SharedPreference.getInstance(ActivityMain.this).setBoolean(C.IS_LOGIN, false);
         onResume();
     }
 
 
-    public  void showAlertForConfirm(final Activity context, String title, String msg, String btnText1,String btnText2, int img, final boolean finishActivity) {
+    public void showAlertForConfirm(final Activity context, String title, String msg, String btnText1, String btnText2, int img, final boolean finishActivity) {
 
 
         final LayoutInflater factory = LayoutInflater.from(context);
         final View deleteDialogView = factory.inflate(
                 R.layout.dialog_alert_with_two_button, null);
-        final Dialog  dialog = new Dialog(context);
+        final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setContentView(deleteDialogView);
-
 
 
         TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
@@ -318,7 +311,7 @@ public class ActivityMain extends AppCompatActivity
 
     }
 
-    View.OnClickListener mShowPostDialogListner=new View.OnClickListener() {
+    View.OnClickListener mShowPostDialogListner = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             showSendPostDialog(ActivityMain.this);
@@ -328,21 +321,25 @@ public class ActivityMain extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        if(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN)){
-            if(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)){
+        if (SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN)) {
+            if (SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
                 imgEdit.setVisibility(View.VISIBLE);
                 imgProfile.setVisibility(View.VISIBLE);
-                imageLoader.DisplayImage(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserPic(),imgProfile);
-                imageLoader.DisplayImage(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserPic(),ivProfileImage);
+                imageLoader.DisplayImage(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserPic(), imgProfile);
+                imageLoader.DisplayImage(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserPic(), ivProfileImage);
 
-            }
-            else {
+            } else {
                 imgEdit.setVisibility(View.GONE);
                 imgProfile.setVisibility(View.GONE);
                 imgProfile.setImageResource(R.drawable.profile);
             }
-        }
-        else {
+
+            String sender = SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getEmail().replace("@", "");
+
+
+            MyXMPP myXMPP = new MyXMPP();
+            myXMPP.create(sender);
+        } else {
             imgEdit.setVisibility(View.GONE);
             imgProfile.setVisibility(View.GONE);
             imgProfile.setImageResource(R.drawable.profile);
@@ -359,6 +356,7 @@ public class ActivityMain extends AppCompatActivity
         }
         listView.setAdapter(adapterSideMenu);
     }
+
     private void AddPost(AddPost post) {
 
         dialog = Util.getProgressDialog(this, R.string.please_wait);
@@ -384,13 +382,13 @@ public class ActivityMain extends AppCompatActivity
                     Gson gson = new Gson();
                     Response responsePost = gson.fromJson(response.toString(), Response.class);
                     if (responsePost.getStatusCode().equals(C.STATUS_SUCCESS)) {
-                        if(dialogShowAddPostPopUp!=null && dialogShowAddPostPopUp.isShowing()){
+                        if (dialogShowAddPostPopUp != null && dialogShowAddPostPopUp.isShowing()) {
                             dialogShowAddPostPopUp.dismiss();
                         }
-                       getAllPosts();
+                        getAllPosts();
 
                     } else {
-                        Util.showAlert(ActivityMain.this,getString(R.string.error),responsePost.getMessage(),getString(R.string.ok),R.drawable.warning);
+                        Util.showAlert(ActivityMain.this, getString(R.string.error), responsePost.getMessage(), getString(R.string.ok), R.drawable.warning);
 
                     }
 
@@ -406,7 +404,7 @@ public class ActivityMain extends AppCompatActivity
 
                 Log.e("Response :", error.toString());
                 dialog.dismiss();
-                if(dialogShowAddPostPopUp!=null && dialogShowAddPostPopUp.isShowing()){
+                if (dialogShowAddPostPopUp != null && dialogShowAddPostPopUp.isShowing()) {
                     dialogShowAddPostPopUp.dismiss();
                 }
             }
@@ -415,35 +413,34 @@ public class ActivityMain extends AppCompatActivity
 
     }
 
-    public void likePost(int pos){
-        if(SharedPreference.getInstance(ActivityMain.this).getBoolean(C.IS_LOGIN)) {
+    public void likePost(int pos) {
+        if (SharedPreference.getInstance(ActivityMain.this).getBoolean(C.IS_LOGIN)) {
 
             Post post = adapterPosts.getPost(pos);
             likeUnlikePost(post, pos);
-        }
-        else {
+        } else {
             Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
-                intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_LOGIN);
+            intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_LOGIN);
             startActivity(intent);
         }
     }
-     void likeUnlikePost(final Post post, final int pos) {
+
+    void likeUnlikePost(final Post post, final int pos) {
 
         dialog = Util.getProgressDialog(this, R.string.please_wait);
         dialog.setCancelable(false);
         dialog.show();
-         HashMap<String, String> hashMap = new HashMap<>();
-         hashMap.put("user_id", SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserId());
-         hashMap.put("post_id",""+post.getPostId());
-         if(post.getIsLiked()==1) {
-             hashMap.put("is_liked",""+0 );
-         }
-         else {
-             hashMap.put("is_liked",""+1);
-         }
-         final Gson gson = new Gson();
-         String json = gson.toJson(hashMap);
-         JSONObject obj = null;
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("user_id", SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserId());
+        hashMap.put("post_id", "" + post.getPostId());
+        if (post.getIsLiked() == 1) {
+            hashMap.put("is_liked", "" + 0);
+        } else {
+            hashMap.put("is_liked", "" + 1);
+        }
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
         try {
             obj = new JSONObject(json);
         } catch (JSONException e) {
@@ -461,19 +458,18 @@ public class ActivityMain extends AppCompatActivity
                     Gson gson = new Gson();
                     ResponsePost responsePost = gson.fromJson(response.toString(), ResponsePost.class);
                     if (responsePost.getStatusCode().equals(C.STATUS_SUCCESS)) {
-                       if(posts.get(pos).getIsLiked()==1){
-                           posts.get(pos).setIsLiked(0);
-                           posts.get(pos).setTotalLikes(posts.get(pos).getTotalLikes()-1);
+                        if (posts.get(pos).getIsLiked() == 1) {
+                            posts.get(pos).setIsLiked(0);
+                            posts.get(pos).setTotalLikes(posts.get(pos).getTotalLikes() - 1);
 
-                       }
-                       else {
-                           posts.get(pos).setIsLiked(1);
-                           posts.get(pos).setTotalLikes(posts.get(pos).getTotalLikes()+1);
+                        } else {
+                            posts.get(pos).setIsLiked(1);
+                            posts.get(pos).setTotalLikes(posts.get(pos).getTotalLikes() + 1);
 
-                       }
-                       adapterPosts.notifyDataSetChanged();
+                        }
+                        adapterPosts.notifyDataSetChanged();
                     } else {
-                        Util.showAlert(ActivityMain.this,getString(R.string.error),responsePost.getMessage(),getString(R.string.ok),R.drawable.warning);
+                        Util.showAlert(ActivityMain.this, getString(R.string.error), responsePost.getMessage(), getString(R.string.ok), R.drawable.warning);
 
                     }
 
@@ -502,10 +498,9 @@ public class ActivityMain extends AppCompatActivity
         dialog.setCancelable(false);
         dialog.show();
         HashMap<String, String> hashMap = new HashMap<>();
-        if(SharedPreference.getInstance(ActivityMain.this).getBoolean(C.IS_LOGIN)) {
+        if (SharedPreference.getInstance(ActivityMain.this).getBoolean(C.IS_LOGIN)) {
             hashMap.put("user_id", SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserId());
-        }
-        else {
+        } else {
             hashMap.put("user_id", "");
 
         }
@@ -529,7 +524,7 @@ public class ActivityMain extends AppCompatActivity
                     Gson gson = new Gson();
                     ResponsePost responsePost = gson.fromJson(response.toString(), ResponsePost.class);
                     if (responsePost.getStatusCode().equals(C.STATUS_SUCCESS)) {
-                        posts=responsePost.getPosts();
+                        posts = responsePost.getPosts();
                         adapterPosts = new AdapterPosts(ActivityMain.this, posts);
                         lvPosts.setAdapter(adapterPosts);
 
@@ -568,9 +563,9 @@ public class ActivityMain extends AppCompatActivity
     }
 
 
-    public  void showSendPostDialog(final Activity context) {
+    public void showSendPostDialog(final Activity context) {
 
-        isImageSelected=false;
+        isImageSelected = false;
         final LayoutInflater factory = LayoutInflater.from(context);
         final View deleteDialogView = factory.inflate(
                 R.layout.dialog_add_post, null);
@@ -602,8 +597,8 @@ public class ActivityMain extends AppCompatActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-                int l=250-s.toString().length();
-                tvPostTextLength.setText(""+l);
+                int l = 250 - s.toString().length();
+                tvPostTextLength.setText("" + l);
             }
         });
         ivCamera.setOnClickListener(new View.OnClickListener() {
@@ -622,7 +617,7 @@ public class ActivityMain extends AppCompatActivity
         imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isImageSelected=false;
+                isImageSelected = false;
                 imgPost.setVisibility(View.GONE);
                 imgDelete.setVisibility(View.GONE);
             }
@@ -632,31 +627,27 @@ public class ActivityMain extends AppCompatActivity
             public void onClick(View v) {
 
 
-
-                AddPost addPost=new AddPost();
-                 addPost.setUserId(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserId());
-              //  addPost.setAwarenessId(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getSpecialist());
+                AddPost addPost = new AddPost();
+                addPost.setUserId(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserId());
+                //  addPost.setAwarenessId(SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getSpecialist());
                 addPost.setAwarenessId("1");
                 addPost.setTags("morning,evening");
 
-                if(isImageSelected){
+                if (isImageSelected) {
                     addPost.setType(C.PHOTO);
                     addPost.setContent("");
 
-                    new UploadFileFroURL(ActivityMain.this,addPost).execute(filePath);
-                }
-              else  if(etPost.getText().toString().trim().length()>0 ){
+                    new UploadFileFroURL(ActivityMain.this, addPost).execute(filePath);
+                } else if (etPost.getText().toString().trim().length() > 0) {
                     addPost.setType(C.TEXT);
                     addPost.setContent(etPost.getText().toString().trim());
                     addPost.setUrl("");
 
                     AddPost(addPost);
-                }
-                else {
-                    Util.showAlert(ActivityMain.this,getString(R.string.error),getString(R.string.post_should_not_be_empty),getString(R.string.ok),R.drawable.warning);
+                } else {
+                    Util.showAlert(ActivityMain.this, getString(R.string.error), getString(R.string.post_should_not_be_empty), getString(R.string.ok), R.drawable.warning);
 
                 }
-
 
 
             }
@@ -674,6 +665,7 @@ public class ActivityMain extends AppCompatActivity
 
         startActivityForResult(galleryIntent, GALLERY);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -685,14 +677,14 @@ public class ActivityMain extends AppCompatActivity
             if (data != null) {
                 contentURI = data.getData();
                 try {
-                    isImageSelected=true;
+                    isImageSelected = true;
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), contentURI);
                     //   String path = saveImage(bitmap);
-                    bitmap= Util.scaleDown(bitmap, 500, true);
+                    bitmap = Util.scaleDown(bitmap, 500, true);
                     imgPost.setVisibility(View.VISIBLE);
                     imgDelete.setVisibility(View.VISIBLE);
                     imgPost.setImageBitmap(bitmap);
-                    filePath= Util.getPath(contentURI,this);
+                    filePath = Util.getPath(contentURI, this);
                  /*   String profileImage= Utils.getBase64Image(bitmap);
                     if(C.isloggedIn) {
                         profile.setProfilePic(profileImage);
@@ -755,8 +747,7 @@ public class ActivityMain extends AppCompatActivity
             }
             // intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
             startActivityForResult(intent, CAMERA);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -803,10 +794,11 @@ public class ActivityMain extends AppCompatActivity
         private Activity activity;
 
         AddPost addPost;
-        public UploadFileFroURL(Activity activity,AddPost post) {
+
+        public UploadFileFroURL(Activity activity, AddPost post) {
             // TODO Auto-generated constructor stub
             this.activity = activity;
-            addPost=post;
+            addPost = post;
         }
 
 
@@ -842,7 +834,7 @@ public class ActivityMain extends AppCompatActivity
                         publishProgress(num);
 
                     }
-                }, requestURL, "profileUserAuthKey", "uploadprofileimage",ActivityMain.this);
+                }, requestURL, "profileUserAuthKey", "uploadprofileimage", ActivityMain.this);
 
 
 //                multipart.addFormField(C.ACTION, "uploadprofileimage");
@@ -877,9 +869,9 @@ public class ActivityMain extends AppCompatActivity
 //            Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
             Gson gson = new Gson(); // Or use new GsonBuilder().create();
             UploadFileRes fileRes = gson.fromJson(result, UploadFileRes.class);
-            if(fileRes.getStatusCode().equals(C.STATUS_SUCCESS)){
+            if (fileRes.getStatusCode().equals(C.STATUS_SUCCESS)) {
                 addPost.setUrl(fileRes.getUrls().getPhoto());
-               AddPost(addPost);
+                AddPost(addPost);
             }
         }
 
@@ -892,18 +884,18 @@ public class ActivityMain extends AppCompatActivity
 
 
     }
-    public  void showAlertForToast(final Activity context, String title, String msg, String btnText, int img, final boolean finishActivity) {
+
+    public void showAlertForToast(final Activity context, String title, String msg, String btnText, int img, final boolean finishActivity) {
 
 
         final LayoutInflater factory = LayoutInflater.from(context);
         final View deleteDialogView = factory.inflate(
                 R.layout.dialog_alert, null);
-        final Dialog  dialog = new Dialog(context);
+        final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setContentView(deleteDialogView);
-
 
 
         TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
@@ -923,8 +915,8 @@ public class ActivityMain extends AppCompatActivity
 
 
                 dialog.dismiss();
-                if(finishActivity){
-                   getAllPosts();
+                if (finishActivity) {
+                    getAllPosts();
                 }
 
             }

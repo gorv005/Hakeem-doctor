@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.app.hakeem.adapter.AdapterChatList;
 import com.app.hakeem.interfaces.ChatMsgListener;
 import com.app.hakeem.pojo.ChatMessage;
+import com.app.hakeem.util.C;
 import com.app.hakeem.webservices.MyXMPP;
 
 import org.jivesoftware.smack.chat.Chat;
@@ -28,12 +29,18 @@ public class ActivityChat extends AppCompatActivity {
     private ListView lvMsg;
     private AdapterChatList adapterSideMenu;
     private MyXMPP myXMPP;
+    private String sender;
+    private String receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        sender = getIntent().getStringExtra(C.SENDER);
+        receiver = getIntent().getStringExtra(C.RECEIVER);
+        sender =sender.replace("@","");
+        receiver =receiver.replace("@","");
         etMsg = (EditText) findViewById(R.id.etMsg);
         btnSend = (ImageButton) findViewById(R.id.btnSend);
         lvMsg = (ListView) findViewById(R.id.lvMsg);
@@ -42,7 +49,7 @@ public class ActivityChat extends AppCompatActivity {
         lvMsg.setStackFromBottom(true);
 
         myXMPP = new MyXMPP();
-        myXMPP.init("ady", "password");
+        myXMPP.init(sender, "password");
         myXMPP.connectConnection();
         myXMPP.chatmanager.addChatListener(new ChatManagerListenerImpl());
 
@@ -51,7 +58,7 @@ public class ActivityChat extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(ActivityChat.this, "connection : " + myXMPP.connection.isConnected() + " Auth : " + myXMPP.connection.isAuthenticated(), Toast.LENGTH_SHORT);
-                myXMPP.sendMsg(etMsg.getText().toString(), "admin", new ChatMsgListener() {
+                myXMPP.sendMsg(etMsg.getText().toString(), receiver, new ChatMsgListener() {
 
                     @Override
                     public void messageSent() {

@@ -134,4 +134,7 @@ public interface C {
     String POST_SLEEP = "Post-sleep";
     String AWARENESS_LIST = "awarenesslist";
     String SPECIALITY = "speciality";
+    String SENDER = "SENDER";
+
+    String RECEIVER = "RECEIVER";
 }

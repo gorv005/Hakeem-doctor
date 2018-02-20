@@ -22,6 +22,7 @@ import org.jivesoftware.smack.chat.Chat;
 import org.jivesoftware.smack.chat.ChatManager;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
+import org.jivesoftware.smackx.iqregister.AccountManager;
 
 import java.io.IOException;
 
@@ -33,12 +34,12 @@ public class MyXMPP {
     private static final String DOMAIN = "ec2-13-127-164-75.ap-south-1.compute.amazonaws.com";
     private static final String HOST = "ec2-13-127-164-75.ap-south-1.compute.amazonaws.com";
     private static final int PORT = 5222;
-    private String userName ="";
-    private String passWord = "";
-    public AbstractXMPPConnection connection ;
-    public ChatManager chatmanager ;
+    public AbstractXMPPConnection connection;
+    public ChatManager chatmanager;
     Chat newChat;
     XMPPConnectionListener connectionListener = new XMPPConnectionListener();
+    private String userName = "";
+    private String passWord = "";
     private boolean connected;
     private boolean isToasted;
     private boolean chat_created;
@@ -46,7 +47,7 @@ public class MyXMPP {
 
 
     //Initialize
-    public void init(String userId, String pwd ) {
+    public void init(String userId, String pwd) {
         Log.i("XMPP", "Initializing!");
         this.userName = userId;
         this.passWord = pwd;
@@ -66,7 +67,7 @@ public class MyXMPP {
     }
 
     // Disconnect Function
-    public void disconnectConnection(){
+    public void disconnectConnection() {
 
         new Thread(new Runnable() {
             @Override
@@ -76,8 +77,7 @@ public class MyXMPP {
         }).start();
     }
 
-    public void connectConnection()
-    {
+    public void connectConnection() {
         AsyncTask<Void, Void, Boolean> connectionThread = new AsyncTask<Void, Void, Boolean>() {
 
             @Override
@@ -86,6 +86,7 @@ public class MyXMPP {
                 // Create a connection
                 try {
                     connection.connect();
+
                     login();
                     connected = true;
 
@@ -103,9 +104,9 @@ public class MyXMPP {
 
 
     public void sendMsg(String msg, String to, ChatMsgListener chatMsgListener) {
-        if (connection.isConnected()== true) {
+        if (connection.isConnected() == true) {
             // Assume we've created an XMPPConnection name "connection"._
-            newChat = chatmanager.createChat(to+"@"+HOST);
+            newChat = chatmanager.createChat(to + "@" + HOST);
 
             try {
                 newChat.sendMessage(msg);
@@ -119,6 +120,7 @@ public class MyXMPP {
     public void login() {
 
         try {
+
             connection.login(userName, passWord);
             //Log.i("LOGIN", "Yey! We're connected to the Xmpp server!");
 
@@ -129,6 +131,41 @@ public class MyXMPP {
 
     }
 
+    public void create(final String userName) {
+
+
+        AsyncTask<Void, Void, Boolean> connectionThread = new AsyncTask<Void, Void, Boolean>() {
+
+            @Override
+            protected Boolean doInBackground(Void... arg0) {
+
+                XMPPTCPConnectionConfiguration.Builder configBuilder = XMPPTCPConnectionConfiguration.builder();
+                configBuilder.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
+                configBuilder.setResource("Android");
+                configBuilder.setServiceName(DOMAIN);
+                configBuilder.setHost(HOST);
+                configBuilder.setPort(PORT);
+                //configBuilder.setDebuggerEnabled(true);
+                connection = new XMPPTCPConnection(configBuilder.build());
+                try {
+
+                    Log.i("TAG", "Connected to " + connection.getHost());
+                    connection.connect();
+                    // Registering the user
+                    AccountManager accountManager = AccountManager.getInstance(connection);
+                    accountManager.sensitiveOperationOverInsecureConnection(true);
+                    accountManager.createAccount(userName, "password");
+                    //disconnectConnection();// Skipping optional fields like email, first name, last name, etc..
+                } catch (SmackException | IOException | XMPPException e) {
+                    Log.e("TAG", e.getMessage());
+                }
+                return null;
+            }
+        };
+        connectionThread.execute();
+
+
+    }
 
 
     //Connection Listener to check connection state
@@ -198,7 +235,6 @@ public class MyXMPP {
                     public void run() {
 
 
-
                     }
                 });
             Log.d("xmpp", "ReconnectionFailed!");
@@ -217,7 +253,6 @@ public class MyXMPP {
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
-
 
 
                     }
@@ -255,7 +290,6 @@ public class MyXMPP {
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
-
 
 
                     }
