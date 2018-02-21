@@ -1,8 +1,11 @@
 package com.app.hakeem.fragment;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +14,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
@@ -65,6 +73,8 @@ public class FragmentHTWeightReport extends Fragment {
     @BindView(R.id.ivAddWight)
     ImageView ivAddWight;
     private boolean isFrom=false;
+    String weightValue="60",hrValue="90",heightValue="150";
+     AlertDialog dialogAddweight;
     public FragmentHTWeightReport() {
         // Required empty public constructor
     }
@@ -119,8 +129,290 @@ public class FragmentHTWeightReport extends Fragment {
         etTo.setText(Util.getCurrentDate());
         etFrom.setText(Util.get2MonthNextDate(Util.getCurrentDate()));
         getWeightReport();
+        ivAddWight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPopUpAddWeight();
+            }
+        });
     }
 
+    private void openPopUpAddWeight() {
+
+
+        final LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_add_weight, null);
+        dialogAddweight = new AlertDialog.Builder(getActivity()).create();
+        dialogAddweight.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogAddweight.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialogAddweight.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialogAddweight.setView(deleteDialogView);
+        dialogAddweight.setCancelable(true);
+
+
+        final EditText   etWeight = (EditText) deleteDialogView.findViewById(R.id.etWeight);
+        final EditText   etHR = (EditText) deleteDialogView.findViewById(R.id.etHR);
+        final EditText etHeight = (EditText) deleteDialogView.findViewById(R.id.etHeight);
+        final EditText etComment = (EditText) deleteDialogView.findViewById(R.id.etComment);
+
+        final Spinner spinnerWeight = (Spinner) deleteDialogView.findViewById(R.id.spinnerWeight);
+        final Spinner spinnerHR = (Spinner) deleteDialogView.findViewById(R.id.spinnerHR);
+        final Spinner spinnerHeight = (Spinner) deleteDialogView.findViewById(R.id.spinnerHeight);
+
+      Button  btnSubmit = (Button) deleteDialogView.findViewById(R.id.btnSubmit);
+        final List weight = new ArrayList<Integer>();
+        for (int i = 60; i <= 269; i++) {
+            weight.add(Integer.toString(i));
+        }
+        final List<String> weightList = new ArrayList<>(weight);
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                getActivity(),R.layout.spinner_item_new,weightList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.BLACK);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerWeight.setAdapter(spinnerArrayAdapter);
+
+        final List hr = new ArrayList<Integer>();
+        for (int i = 90; i <= 290; i++) {
+            hr.add(Integer.toString(i));
+        }
+        final List<String> hrList = new ArrayList<>(hr);
+        final ArrayAdapter<String> spinnerArrayAdapterhr = new ArrayAdapter<String>(
+                getActivity(),R.layout.spinner_item_new,hrList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.BLACK);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapterhr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerHR.setAdapter(spinnerArrayAdapterhr);
+
+
+        final List height = new ArrayList<Integer>();
+        for (int i = 150; i <= 356; i++) {
+            height.add(Integer.toString(i));
+        }
+        final List<String> heightList = new ArrayList<>(height);
+        final ArrayAdapter<String> spinnerArrayAdapterheightList = new ArrayAdapter<String>(
+                getActivity(),R.layout.spinner_item_new,heightList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.BLACK);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapterheightList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerHeight.setAdapter(spinnerArrayAdapterheightList);
+
+        spinnerHR.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                hrValue=hrList.get(position);
+                etHR.setText(hrValue);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnerHeight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                heightValue=heightList.get(position);
+                etHeight.setText(heightValue);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnerWeight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                weightValue=weightList.get(position);
+                etWeight.setText(weightValue);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            if(etComment.getText().equals("")){
+                addWeightReport("weight");
+            }
+            else {
+                addWeightReport(etComment.getText().toString());
+            }
+
+            }
+        });
+
+
+        etWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               spinnerWeight.performClick();
+            }
+        });
+
+        etHR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerHR.performClick();
+
+            }
+        });
+        etHeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerHeight.performClick();
+
+            }
+        });
+        dialogAddweight.show();
+
+
+    }
+    private void addWeightReport(String comment) {
+
+        progressDialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        progressDialog.show();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        if(patientId.equals(dependentId)){
+            hashMap.put("dependent_id", "");
+        }
+        else {
+            hashMap.put("dependent_id", dependentId);
+
+        }
+        hashMap.put("patient_id", patientId);
+        hashMap.put("weight", weightValue);
+        hashMap.put("rest_hr", hrValue);
+        hashMap.put("height",heightValue);
+
+        hashMap.put("comment",comment);
+        hashMap.put("date", Util.getCurrentDate());
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                progressDialog.dismiss();
+                HTWeightReportList responseServer = gson.fromJson(response.toString(), HTWeightReportList.class);
+                if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                    if(dialogAddweight!=null && dialogAddweight.isShowing()) {
+                        dialogAddweight.dismiss();
+                    }
+                            Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                } else {
+                    //Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                }
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+                Log.e("Response", error.toString());
+                progressDialog.dismiss();
+                // Util.showToast(getActivity(), R.string.network_error, false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
+
+            }
+        }, "callback", C.API_ADD_WEIGHT_REPORT, Util.getHeader(getActivity()), obj);
+
+
+    }
 
 
     void initGraph(float min,float max,List<HTWeightReportData> inputArray){

@@ -93,6 +93,8 @@ public interface C {
     String API_GET_FEVER_REPORT = BASE_URL + "/getreportfever";
     String API_GET_WEIGHT_REPORT = BASE_URL + "/getreportweight";
     String API_GET_BLOOD_PRESSURE_REPORT = BASE_URL + "/getbloodpressure";
+    String API_ADD_WEIGHT_REPORT = BASE_URL + "/reportweight";
+    String API_ADD_BLOOD_SUGER_REPORT = BASE_URL + "/reportbloodsugar";
 
     String API_GET_BLOOD_SUGER_REPORT = BASE_URL + "/getbloodsugar";
     String API_ADD_DPENDENT = BASE_URL + "/dependentadd";

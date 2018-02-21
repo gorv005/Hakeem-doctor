@@ -1,8 +1,11 @@
 package com.app.hakeem.fragment;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,15 +14,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.HTBloodSugerReportData;
 import com.app.hakeem.pojo.HTBloodSugerReportList;
+import com.app.hakeem.pojo.HTWeightReportList;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
@@ -38,6 +47,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +75,8 @@ public class FragmentHTBloodSugerReport extends Fragment {
     @BindView(R.id.ivAddBloodSuger)
     ImageView ivAddBloodSuger;
     private boolean isFrom=false;
+    AlertDialog dialogAddBloodSuger;
+    String timingValue="Pre-meal",readingValue="101-111";
     public FragmentHTBloodSugerReport() {
         // Required empty public constructor
     }
@@ -120,6 +132,12 @@ public class FragmentHTBloodSugerReport extends Fragment {
         etTo.setText(Util.getCurrentDate());
         etFrom.setText(Util.get2MonthNextDate(Util.getCurrentDate()));
         getBloodPressureReport();
+        ivAddBloodSuger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                     openPopUpAddBloodSuger();
+            }
+        });
     }
 
 
@@ -147,6 +165,9 @@ public class FragmentHTBloodSugerReport extends Fragment {
         XAxis xAxis = mChart.getXAxis();
         xAxis.setEnabled(false);
     }
+
+
+
     private void getBloodPressureReport() {
 
         progressDialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
@@ -274,6 +295,237 @@ public class FragmentHTBloodSugerReport extends Fragment {
         return d;
     }
     Calendar myCalendar = Calendar.getInstance();
+
+
+    private void openPopUpAddBloodSuger() {
+
+
+        final LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_add_blood_suger, null);
+        dialogAddBloodSuger = new AlertDialog.Builder(getActivity()).create();
+        dialogAddBloodSuger.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogAddBloodSuger.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialogAddBloodSuger.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialogAddBloodSuger.setView(deleteDialogView);
+        dialogAddBloodSuger.setCancelable(true);
+
+
+        final EditText   etTiming = (EditText) deleteDialogView.findViewById(R.id.etTiming);
+        final EditText   etReading = (EditText) deleteDialogView.findViewById(R.id.etReading);
+        final EditText etComment = (EditText) deleteDialogView.findViewById(R.id.etComment);
+
+        final Spinner spinnerTiming = (Spinner) deleteDialogView.findViewById(R.id.spinnerTiming);
+        final Spinner spinnerReading = (Spinner) deleteDialogView.findViewById(R.id.spinnerReading);
+
+        Button  btnSubmit = (Button) deleteDialogView.findViewById(R.id.btnSubmit);
+
+        String[] timing = new String[]{
+                "Pre-meal",
+                "Sleep",
+                "Post-sleep"
+        };
+        final List<String> timingList = new ArrayList<>(Arrays.asList(timing));
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                getActivity(),R.layout.spinner_item_new,timingList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.BLACK);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTiming.setAdapter(spinnerArrayAdapter);
+
+        final String[] reading = new String[]{
+                "101-111",
+                "111-121",
+                "121-131",
+                "131-141",
+                "141-151",
+                "151-161",
+                "161-171",
+                "171-181",
+                "181-191",
+                "191-201"
+        };
+        final List<String> readingList = new ArrayList<>(Arrays.asList(reading));
+        final ArrayAdapter<String> spinnerArrayAdapterreading = new ArrayAdapter<String>(
+                getActivity(),R.layout.spinner_item_new,readingList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.BLACK);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapterreading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerReading.setAdapter(spinnerArrayAdapterreading);
+
+        spinnerTiming.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                timingValue=timingList.get(position);
+                etTiming.setText(timingList.get(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnerReading.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                readingValue=readingList.get(position);
+                etReading.setText(readingList.get(position));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(etComment.getText().equals("")){
+                    addBloodSugereport("weight");
+                }
+                else {
+                    addBloodSugereport(etComment.getText().toString());
+                }
+
+            }
+        });
+
+
+        etReading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerReading.performClick();
+            }
+        });
+
+        etTiming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerTiming.performClick();
+
+            }
+        });
+
+        dialogAddBloodSuger.show();
+
+
+    }
+
+
+    private void addBloodSugereport(String comment) {
+
+        progressDialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        progressDialog.show();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        if(patientId.equals(dependentId)){
+            hashMap.put("dependent_id", "");
+        }
+        else {
+            hashMap.put("dependent_id", dependentId);
+
+        }
+        hashMap.put("patient_id", patientId);
+        hashMap.put("timing", timingValue);
+        hashMap.put("reading", readingValue);
+        hashMap.put("comment",comment);
+        hashMap.put("date", Util.getCurrentDate());
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                progressDialog.dismiss();
+                HTWeightReportList responseServer = gson.fromJson(response.toString(), HTWeightReportList.class);
+                if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                    if(dialogAddBloodSuger!=null && dialogAddBloodSuger.isShowing()) {
+                        dialogAddBloodSuger.dismiss();
+                    }
+                    Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                } else {
+                    //Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                }
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+                Log.e("Response", error.toString());
+                progressDialog.dismiss();
+                // Util.showToast(getActivity(), R.string.network_error, false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
+
+            }
+        }, "callback", C.API_ADD_BLOOD_SUGER_REPORT, Util.getHeader(getActivity()), obj);
+
+
+    }
 
     private void openCalender() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));

@@ -8,7 +8,6 @@
 
 
         <LinearLayout
-            android:layout_marginTop="60dp"
             android:paddingRight="30dp"
             android:paddingTop="10dp"
             android:paddingBottom="20dp"
@@ -118,7 +117,7 @@
                         android:textColor="@color/blue"
                         android:textSize="14sp" />
                     <LinearLayout
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
@@ -134,7 +133,7 @@
                             android:drawableRight="@drawable/icon_drop_down"
                             android:editable="false"
                             android:focusable="false"
-                            android:hint="@string/speciality"
+                            android:hint="60"
                             android:inputType="none"
                             android:paddingLeft="50dp"
                             android:singleLine="true"
@@ -174,7 +173,7 @@
                         android:textColor="@color/blue"
                         android:textSize="14sp" />
                     <LinearLayout
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
@@ -190,7 +189,7 @@
                             android:drawableRight="@drawable/icon_drop_down"
                             android:editable="false"
                             android:focusable="false"
-                            android:hint="@string/speciality"
+                            android:hint="90"
                             android:inputType="none"
                             android:paddingLeft="50dp"
                             android:singleLine="true"
@@ -228,7 +227,7 @@
                         android:textColor="@color/blue"
                         android:textSize="14sp" />
                     <LinearLayout
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
@@ -244,7 +243,7 @@
                             android:drawableRight="@drawable/icon_drop_down"
                             android:editable="false"
                             android:focusable="false"
-                            android:hint="@string/speciality"
+                            android:hint="150"
                             android:inputType="none"
                             android:paddingLeft="50dp"
                             android:singleLine="true"

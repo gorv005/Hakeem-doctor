@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
@@ -94,17 +94,17 @@
                         android:layout_marginTop="20dp"
                         android:background="@drawable/rounded_red_blue_corner"
                         android:clickable="true"
-                        android:drawablePadding="20dp"
+                        android:textAlignment="center"
+                        android:drawablePadding="10dp"
                         android:drawableRight="@drawable/icon_drop_down"
                         android:editable="false"
                         android:focusable="false"
-                        android:hint="@string/speciality"
+                        android:hint="Pre-meal"
                         android:inputType="none"
-                        android:paddingLeft="60dp"
                         android:singleLine="true"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white_off"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <Spinner
                         android:id="@+id/spinnerTiming"
@@ -118,7 +118,7 @@
                         android:visibility="invisible" />
                     </LinearLayout>
                     <LinearLayout
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_marginLeft="10dp"
                         android:layout_width="0dp"
@@ -130,12 +130,12 @@
                         android:layout_marginTop="20dp"
 
                         android:background="@drawable/rounded_red_blue_corner"
-                        android:drawablePadding="20dp"
+                        android:drawablePadding="10dp"
                         android:drawableRight="@drawable/icon_drop_down"
                         android:editable="false"
                         android:focusable="false"
-                        android:hint="@string/current_grade"
-                        android:paddingLeft="60dp"
+                        android:hint="101-111"
+                        android:textAlignment="center"
                         android:singleLine="true"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white_off"
