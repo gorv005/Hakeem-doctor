@@ -7,7 +7,9 @@ package com.app.hakeem.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class OnlineDoctor {
+import java.io.Serializable;
+
+public class OnlineDoctor implements Serializable{
 
     @SerializedName("first_name")
     @Expose

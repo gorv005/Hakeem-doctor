@@ -111,6 +111,9 @@ public class FragmentConsultantList extends Fragment {
                 Intent intent=new Intent(getActivity(), ActivityChat.class);
                 intent.putExtra(C.SENDER,SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getEmail());
                 intent.putExtra(C.RECEIVER,adapter.getItem(position).getEmail());
+                intent.putExtra(C.DOCTOR,adapter.getItem(position));
+
+                intent.putExtra(C.SPECIALITY,specialityId);
                 getActivity().startActivity(intent);
             }
         });

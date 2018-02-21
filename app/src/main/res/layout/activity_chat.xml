@@ -53,6 +53,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
+        android:id="@+id/rlBgImg"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@drawable/obgy_blur">
@@ -64,7 +65,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:background="@color/white"
             android:src="@drawable/profile" />
 
         <LinearLayout
@@ -147,7 +147,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".8"
-                android:background="@drawable/rounded_white"
+                android:background="@drawable/rounded_white_padding"
                 android:padding="5dp" />
 
             <ImageButton

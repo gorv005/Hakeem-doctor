@@ -10,12 +10,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.hakeem.adapter.AdapterChatList;
 import com.app.hakeem.interfaces.ChatMsgListener;
 import com.app.hakeem.pojo.ChatMessage;
+import com.app.hakeem.pojo.OnlineDoctor;
 import com.app.hakeem.util.C;
+import com.app.hakeem.util.ImageLoader;
 import com.app.hakeem.webservices.MyXMPP;
 
 import org.jivesoftware.smack.chat.Chat;
@@ -24,6 +28,10 @@ import org.jivesoftware.smack.chat.ChatMessageListener;
 import org.jivesoftware.smack.packet.Message;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ActivityChat extends AppCompatActivity {
 
@@ -35,11 +43,26 @@ public class ActivityChat extends AppCompatActivity {
     private MyXMPP myXMPP;
     private String sender;
     private String receiver;
+    @BindView(R.id.ivDrProfile)
+    CircleImageView circleImageView;
+
+    @BindView(R.id.rlBgImg)
+    RelativeLayout rlImage;
+
+    @BindView(R.id.tvClinic)
+    TextView tvClinic;
+
+    @BindView(R.id.tvDrName)
+    TextView tvDrName;
+    private int speciality;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        ButterKnife.bind(this);
+
         final Drawable upArrow = getResources().getDrawable(R.drawable.back);
         upArrow.setColorFilter(getResources().getColor(R.color.blue), PorterDuff.Mode.SRC_ATOP);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -49,6 +72,17 @@ public class ActivityChat extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         sender = getIntent().getStringExtra(C.SENDER);
         receiver = getIntent().getStringExtra(C.RECEIVER);
+        OnlineDoctor onlineDoctor=(OnlineDoctor) getIntent().getSerializableExtra(C.DOCTOR);
+        speciality = getIntent().getIntExtra(C.SPECIALITY,1);
+
+        ImageLoader  imageLoader =new ImageLoader(this);
+        imageLoader.DisplayImage(onlineDoctor.getPhoto(),circleImageView);
+
+        tvClinic.setText(onlineDoctor.getClassification());
+
+        tvDrName.setText(onlineDoctor.getFirstName());
+
+        setBgImage(speciality);
 
         sender = sender.replace("@", "");
         receiver = receiver.replace("@", "");
@@ -92,6 +126,31 @@ public class ActivityChat extends AppCompatActivity {
         });
     }
 
+   void  setBgImage(int specialityId)
+    {
+        switch (specialityId) {
+            case 1:
+                rlImage.setBackgroundResource(R.drawable.family_blur);
+                tvClinic.setText(R.string.family_and_community);
+                break;
+            case 2:
+                rlImage.setBackgroundResource(R.drawable.psy_blur);
+                tvClinic.setText(R.string.psychological);
+                break;
+            case 3:
+                rlImage.setBackgroundResource(R.drawable.obde_blur);
+                tvClinic.setText(R.string.abdominal);
+                break;
+            case 4:
+                rlImage.setBackgroundResource(R.drawable.obgy_blur);
+                tvClinic.setText(R.string.obgyne);
+                break;
+            case 5:
+                rlImage.setBackgroundResource(R.drawable.pediatric_blur);
+                tvClinic.setText(R.string.pediatrics);
+                break;
+        }
+    }
 
     private class ChatManagerListenerImpl implements ChatManagerListener {
 
