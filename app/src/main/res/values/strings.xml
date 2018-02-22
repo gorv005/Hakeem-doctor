@@ -182,9 +182,26 @@
     <string name="weight_in_kg">Weight in KG</string>
     <string name="rest_hr">Rest HR</string>
     <string name="height_in_cm">Height in CM</string>
-    <string name="under_weight"><![CDATA[Under\\nweight\\nBmi<18.5]]></string>
-    <string name="normal_weight">Normal\\nweight\\n18.5-24.9</string>
-    <string name="over_weight">over\\nweight\\n25-29.9</string>
-    <string name="obesity"><![CDATA[Obesity\\n\\nBmi>30]]></string>
+    <string name="normal_weight">Normal weight 18.5-24.9</string>
+    <string name="over_weight">over weight 25-29.9</string>
+    <string name="obesity">Obesity Bmi>30></string>
+    <string name="under_weight"><![CDATA[Under weight  Bmi<18.5]]></string>
+    <string name="C">oC</string>
+    <string name="today_temp">Today\'s Temprature</string>
+    <string name="very_hot_er">Degree symbol in XML\\nTemperature is 34.5\\u00B0</string>
+    <string name="today_blood_pressure">Today\'s heart rate and blood pressure</string>
+    <string name="medical_emergency_sys">Medical Emergency\n>180</string>
+    <string name="high_bp_stage_2_sys">High BP Stage 2\n>140</string>
+    <string name="high_bp_stage_1_sys">High BP Stage 1\n130-139</string>
+    <string name="pre_hyper_tention_sys">Prehyper-tention\n120-129</string>
+    <string name="normal_blood_pressure_sys">Normal Blood Pressure\n>120</string>
 
+    <string name="medical_emergency_dia">Medical Emergency\n>120</string>
+    <string name="high_bp_stage_2_dia">High BP Stage 2\n>90</string>
+    <string name="high_bp_stage_1_dia">High BP Stage 1\n80-89</string>
+    <string name="pre_hyper_tention_dia">Prehyper-tention\n70-79</string>
+    <string name="normal_blood_pressure_dia">Normal Blood Pressure\n>70-79</string>
+    <string name="sys_mm_hg">SYS\nmm Hg</string>
+    <string name="dia_mm_hg">DIA\nmm Hg</string>
+    <string name="heart_rate">Heart\nRate</string>
 </resources>

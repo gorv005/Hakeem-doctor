@@ -1,23 +1,245 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_height="wrap_content"
     >
 
-    <SeekBar
-        android:id="@+id/customSeekBar"
-        android:layout_width="200dp"
-        android:layout_height="400dp"
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:drawableRight="@drawable/icon_drop_down"
+            android:gravity="center|center_vertical"
+            android:textStyle="bold"
+            android:text="@string/today_temp"
+            android:textColor="@color/blue"
+            android:textSize="14sp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivVeryHot"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/marker"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+                <TextView
+                    android:id="@+id/tvVeryHot"
+                    android:layout_width="170dp"
+                    android:layout_height="60dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:background="@drawable/round_back_red"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center|center_vertical"
+                    android:textStyle="bold"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ivHot"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/marker"
+                    android:visibility="invisible"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+                <TextView
+                    android:id="@+id/tvHot"
+                    android:layout_width="170dp"
+                    android:layout_height="60dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginLeft="2dp"
+                    android:background="@drawable/round_back_orange"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center|center_vertical"
+                    android:textStyle="bold"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ivNormal"
+
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/marker"
+                    android:layout_width="30dp"
+                    android:visibility="invisible"
+                    android:layout_height="30dp" />
+                <TextView
+                    android:id="@+id/tvNormal"
+
+                    android:layout_width="170dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="1dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:background="@drawable/round_back_green"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center|center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/over_weight"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ivCold"
+
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/marker"
+                    android:layout_width="30dp"
+                    android:visibility="invisible"
+                    android:layout_height="30dp" />
+                <TextView
+                    android:id="@+id/tvCold"
+
+                    android:layout_width="170dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="1dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:background="@drawable/round_back_blue_light"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center|center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/obesity"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ivVeryCold"
+
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/marker"
+                    android:layout_width="30dp"
+                    android:visibility="invisible"
+                    android:layout_height="30dp" />
+                <TextView
+                    android:id="@+id/tvVeryCold"
+
+                    android:layout_width="170dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="1dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:background="@drawable/round_back_blue"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center|center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/obesity"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:gravity="right"
+        android:layout_gravity="right"
         android:layout_alignParentRight="true"
-        android:max="12"
-        android:progress="1"
-        android:thumb="@drawable/error"
-        android:rotation="270"
-        android:progressDrawable="@drawable/custom_progress"/>
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:layout_marginLeft="2dp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:textSize="18sp" />
+    <com.app.hakeem.util.VerticalSeekBar
+        android:layout_below="@id/tvC"
+        android:id="@+id/seekBar"
+        android:layout_width="70dp"
+        android:layout_height="match_parent" />
+    </RelativeLayout>
+    </LinearLayout>
+        <RelativeLayout
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="5dp"
+            android:background="@drawable/dialog_round_back"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
 
+            <EditText
+                android:layout_marginTop="5dp"
+                android:id="@+id/etComment"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:maxLength="250"
+                android:textSize="14sp"
+                android:hint="@string/comments"
+                android:gravity="top"
+                android:background="@null"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white_off" />
+        </RelativeLayout>
 
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="200dp"
+            android:minWidth="150dp"
+            android:textColor="@color/color_selector_white"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:text="@string/submit"
+            android:background="@drawable/bg_button_blue"
+            android:layout_height="40dp"
+            />
+    </LinearLayout>
 </RelativeLayout>

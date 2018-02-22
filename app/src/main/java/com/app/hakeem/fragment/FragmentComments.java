@@ -9,19 +9,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterComments;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.CommentList;
-import com.app.hakeem.pojo.DoctorPatientList;
-import com.app.hakeem.pojo.HTBloodSugerReportList;
 import com.app.hakeem.pojo.Post;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
+import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
 import com.app.hakeem.webservices.VolleyService;
 import com.google.gson.Gson;
@@ -41,6 +42,10 @@ public class FragmentComments extends Fragment {
 
     @BindView(R.id.ivDoctor)
     ImageView ivDoctor;
+    @BindView(R.id.etComment)
+    EditText etComment;
+    @BindView(R.id.ivSendTweet)
+    ImageView ivSendTweet;
     @BindView(R.id.ivMsgImg)
     ImageView ivMsg;
     @BindView(R.id.ivSpeciality)
@@ -104,8 +109,74 @@ public class FragmentComments extends Fragment {
         }
         imageLoader.DisplayImage(post.getIconUrl(), ivSpeciality);
         imageLoader.DisplayImage(post.getUserPic(), ivDoctor);
+        ivSendTweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               if(SharedPreference.getInstance(getActivity()).getBoolean(C.IS_LOGIN)){
+                    if (etComment.getText().toString().length() > 0) {
+                        AddComments(etComment.getText().toString());
+                    }
+                }
+                else {
+                   ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_LOGIN,null);
+               }
+
+            }
+        });
         getComments();
     }
+
+    private void AddComments(String comment) {
+
+        progressDialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        progressDialog.show();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("user_id", SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
+        hashMap.put("post_id",""+post.getPostId());
+        hashMap.put("comment",comment);
+
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                progressDialog.dismiss();
+                CommentList responseServer = gson.fromJson(response.toString(), CommentList.class);
+                if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                    etComment.setText("");
+                    getComments();
+
+                } else {
+                    //Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+
+                }
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+                Log.e("Response", error.toString());
+                progressDialog.dismiss();
+                // Util.showToast(getActivity(), R.string.network_error, false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
+
+            }
+        }, "callback", C.ADD_COMMENTS, Util.getHeader(getActivity()), obj);
+
+
+    }
+
     private void getComments() {
 
         progressDialog = Util.getProgressDialog(getActivity(), R.string.please_wait);

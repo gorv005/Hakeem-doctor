@@ -317,7 +317,7 @@ public class FragmentHTWeightReport extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            if(etComment.getText().equals("")){
+                if(etComment.getText().toString().trim().length()==0){
                 addWeightReport("weight");
             }
             else {

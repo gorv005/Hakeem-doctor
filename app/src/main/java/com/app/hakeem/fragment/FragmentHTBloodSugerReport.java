@@ -436,7 +436,7 @@ public class FragmentHTBloodSugerReport extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etComment.getText().equals("")){
+                if(etComment.getText().toString().trim().length()==0){
                     addBloodSugereport("weight");
                 }
                 else {

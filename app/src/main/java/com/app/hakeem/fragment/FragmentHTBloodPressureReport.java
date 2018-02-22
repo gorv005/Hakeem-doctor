@@ -1,8 +1,10 @@
 package com.app.hakeem.fragment;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -18,11 +21,13 @@ import android.widget.ImageView;
 
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
+import com.app.hakeem.interfaces.ITempValue;
 import com.app.hakeem.pojo.HTBloodPressureReportData;
 import com.app.hakeem.pojo.HTBloodPressureReportList;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
+import com.app.hakeem.util.VerticalSeekBarForBloodPressure;
 import com.app.hakeem.webservices.VolleyService;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -49,7 +54,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentHTBloodPressureReport extends Fragment {
+public class FragmentHTBloodPressureReport extends Fragment implements ITempValue{
 
     private LineChart mChart;
     private Dialog progressDialog;
@@ -65,6 +70,19 @@ public class FragmentHTBloodPressureReport extends Fragment {
     @BindView(R.id.btnRefresh)
     Button btnRefresh;
     private boolean isFrom=false;
+    AlertDialog dialogAddBloodSuger;
+    ImageView ivMedicalEmrSys;
+    ImageView ivHighBpStage2Sys;
+    ImageView ivHighBpStage1Sys;
+    ImageView ivPrehyperSys;
+    ImageView ivNormalBloodSys;
+    ImageView ivMedicalEmrdia;
+    ImageView ivHighBpStage2dia;
+    ImageView ivHighBpStage1dia;
+    ImageView ivPrehyperdia;
+    ImageView ivNormalBlooddia;
+    VerticalSeekBarForBloodPressure verticalSeekBar;
+    float sysvalue,diaValue;
     public FragmentHTBloodPressureReport() {
         // Required empty public constructor
     }
@@ -120,9 +138,131 @@ public class FragmentHTBloodPressureReport extends Fragment {
         etTo.setText(Util.getCurrentDate());
         etFrom.setText(Util.get2MonthNextDate(Util.getCurrentDate()));
         getBloodPressureReport();
+        ivAddBloodPressure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPopUpAddBloodSuger();
+            }
+        });
     }
 
 
+    private void openPopUpAddBloodSuger() {
+
+
+        final LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_add_blood_pressure, null);
+        dialogAddBloodSuger = new AlertDialog.Builder(getActivity()).create();
+        dialogAddBloodSuger.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogAddBloodSuger.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialogAddBloodSuger.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialogAddBloodSuger.setView(deleteDialogView);
+        dialogAddBloodSuger.getWindow().setLayout(280, 520);
+        dialogAddBloodSuger.setCancelable(true);
+        verticalSeekBar=(VerticalSeekBarForBloodPressure)deleteDialogView.findViewById(R.id.seekBar);
+        verticalSeekBar.initilize(FragmentHTBloodPressureReport.this);
+
+        final EditText etComment = (EditText) deleteDialogView.findViewById(R.id.etComment);
+
+
+        ivNormalBlooddia = (ImageView) deleteDialogView.findViewById(R.id.ivNormalBlooddia);
+        ivPrehyperdia = (ImageView) deleteDialogView.findViewById(R.id.ivPrehyperdia);
+        ivHighBpStage1dia = (ImageView) deleteDialogView.findViewById(R.id.ivHighBpStage1dia);
+        ivHighBpStage2dia = (ImageView) deleteDialogView.findViewById(R.id.ivHighBpStage2dia);
+        ivMedicalEmrdia = (ImageView) deleteDialogView.findViewById(R.id.ivMedicalEmrdia);
+        ivNormalBloodSys = (ImageView) deleteDialogView.findViewById(R.id.ivNormalBloodSys);
+        ivPrehyperSys = (ImageView) deleteDialogView.findViewById(R.id.ivPrehyperSys);
+        ivHighBpStage1Sys = (ImageView) deleteDialogView.findViewById(R.id.ivHighBpStage1Sys);
+        ivHighBpStage2Sys = (ImageView) deleteDialogView.findViewById(R.id.ivHighBpStage2Sys);
+        ivMedicalEmrSys = (ImageView) deleteDialogView.findViewById(R.id.ivMedicalEmrSys);
+
+
+        Button  btnSubmit = (Button) deleteDialogView.findViewById(R.id.btnSubmit);
+
+
+
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(etComment.getText().toString().trim().length()==0){
+                    addBloodPressureReport("bloodPressure");
+                }
+                else {
+                    addBloodPressureReport(etComment.getText().toString());
+                }
+
+            }
+        });
+
+
+
+
+        dialogAddBloodSuger.show();
+
+
+    }
+    private void addBloodPressureReport(String comment) {
+
+        progressDialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        progressDialog.show();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        if(patientId.equals(dependentId)){
+            hashMap.put("dependent_id", "");
+        }
+        else {
+            hashMap.put("dependent_id", dependentId);
+
+        }
+        hashMap.put("patient_id", patientId);
+        hashMap.put("sys", "");
+        hashMap.put("dia", "");
+        hashMap.put("heart_rate", "");
+
+        hashMap.put("comment",comment);
+        hashMap.put("date", Util.getCurrentDate());
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                progressDialog.dismiss();
+                HTBloodPressureReportList responseServer = gson.fromJson(response.toString(), HTBloodPressureReportList.class);
+                if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                    if(dialogAddBloodSuger!=null && dialogAddBloodSuger.isShowing()) {
+                        dialogAddBloodSuger.dismiss();
+                    }
+                    Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                } else {
+                    //Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                }
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+                Log.e("Response", error.toString());
+                progressDialog.dismiss();
+                // Util.showToast(getActivity(), R.string.network_error, false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
+
+            }
+        }, "callback", C.API_ADD_BLOOD_PRESSURE_REPORT, Util.getHeader(getActivity()), obj);
+
+
+    }
 
     void initGraph(float min,float max,List<HTBloodPressureReportData> inputArray){
         Log.e("MIn="+min,"MAx="+max);
@@ -380,5 +520,47 @@ String mAction="";
         else {
             return minValue2-1;
         }
+    }
+
+    @Override
+    public void getValue(float value) {
+        Log.e("DEBUG","v="+value);
+     //   tempvalue=value;
+        /*if(value>39){
+            ivVeryHot.setVisibility(View.VISIBLE);
+            ivCold.setVisibility(View.INVISIBLE);
+            ivHot.setVisibility(View.INVISIBLE);
+            ivNormal.setVisibility(View.INVISIBLE);
+            ivVeryCold.setVisibility(View.INVISIBLE);
+        }
+        else if(value>37.5 && value<=39){
+            ivVeryHot.setVisibility(View.INVISIBLE);
+            ivCold.setVisibility(View.INVISIBLE);
+            ivHot.setVisibility(View.VISIBLE);
+            ivNormal.setVisibility(View.INVISIBLE);
+            ivVeryCold.setVisibility(View.INVISIBLE);
+        }
+        else if(value>36.5 && value<=37.5){
+            ivVeryHot.setVisibility(View.INVISIBLE);
+            ivCold.setVisibility(View.INVISIBLE);
+            ivHot.setVisibility(View.INVISIBLE);
+            ivNormal.setVisibility(View.VISIBLE);
+            ivVeryCold.setVisibility(View.INVISIBLE);
+        }
+        else if(value>36 && value<=36.5){
+            ivVeryHot.setVisibility(View.INVISIBLE);
+            ivCold.setVisibility(View.VISIBLE);
+            ivHot.setVisibility(View.INVISIBLE);
+            ivNormal.setVisibility(View.INVISIBLE);
+            ivVeryCold.setVisibility(View.INVISIBLE);
+        }
+        else if(value<36){
+            ivVeryHot.setVisibility(View.INVISIBLE);
+            ivCold.setVisibility(View.INVISIBLE);
+            ivHot.setVisibility(View.INVISIBLE);
+            ivNormal.setVisibility(View.INVISIBLE);
+            ivVeryCold.setVisibility(View.VISIBLE);
+        }
+*/
     }
 }
