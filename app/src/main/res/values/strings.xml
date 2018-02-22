@@ -175,6 +175,8 @@
     <string name="timings">Timing</string>
     <string name="reading_mg">Reading Mg/dl</string>
     <string name="comments">comments...</string>
+    <string name="type_comments">Type your comment here</string>
+
     <string name="submit">Submit</string>
     <string name="today_weight">Today\'s weight and HR</string>
     <string name="weight_in_kg">Weight in KG</string>

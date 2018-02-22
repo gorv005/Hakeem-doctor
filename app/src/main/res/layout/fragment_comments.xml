@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginLeft="10dp"
+            android:minHeight="100dp">
+
+            <RelativeLayout
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+
+                android:layout_gravity="right|center_vertical"
+                android:gravity="left">
+
+                <com.joooonho.SelectableRoundedImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ivDoctor"
+                    android:layout_width="96dp"
+                    android:scaleType="centerCrop"
+                    app:sriv_left_top_corner_radius="10dip"
+                    app:sriv_right_top_corner_radius="10dip"
+                    app:sriv_left_bottom_corner_radius="10dip"
+                    app:sriv_right_bottom_corner_radius="10dip"
+                    app:sriv_border_width="1dip"
+                    app:sriv_border_color="@color/green"
+                    app:sriv_oval="false"
+                    android:layout_height="96dp" />
+
+                <com.joooonho.SelectableRoundedImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ivSpeciality"
+                    app:sriv_left_top_corner_radius="5dip"
+                    app:sriv_right_top_corner_radius="5dip"
+                    app:sriv_left_bottom_corner_radius="5dip"
+                    app:sriv_right_bottom_corner_radius="5dip"
+                    app:sriv_border_width="0.5dip"
+                    app:sriv_border_color="@color/green"
+                    app:sriv_oval="false"
+                    android:layout_alignParentBottom="true"
+                    android:scaleType="fitCenter"
+                    android:background="@color/white"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:gravity="right"
+            android:minHeight="100dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDoctorName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/docotr_name"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/blue"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray4"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/ivMsgImg"
+                    android:maxHeight="130dp"
+                    android:minHeight="100dp"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray3"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tvLike"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:drawablePadding="10dp"
+                android:text="12"
+                android:gravity="center"
+                android:layout_marginRight="80dp"
+                android:drawableRight="@drawable/like"
+                android:textColor="@color/gray4" />
+            <TextView
+                android:id="@+id/tvComment"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/comment"
+                android:text="12"
+                android:textColor="@color/gray3" />
+
+            <TextView
+                android:id="@+id/tvShare"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="5"
+                android:gravity="center"
+                android:layout_marginLeft="80dp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/share"
+                android:textColor="@color/gray4" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray3" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <com.joooonho.SelectableRoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ivProfileImage"
+            android:layout_width="40dp"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
+            app:sriv_left_top_corner_radius="10dip"
+            app:sriv_right_top_corner_radius="10dip"
+            app:sriv_left_bottom_corner_radius="10dip"
+            app:sriv_right_bottom_corner_radius="10dip"
+            app:sriv_border_width="1dip"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/image_round_back"
+            android:layout_gravity="center_vertical"
+            app:sriv_border_color="@color/green"
+            app:sriv_oval="false"
+            android:layout_height="40dp" />
+
+        <EditText
+            android:layout_toRightOf="@id/ivProfileImage"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/etComment"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:layout_centerHorizontal="true"
+            android:maxLength="250"
+            android:layout_marginRight="60dp"
+            android:textSize="14sp"
+            android:hint="@string/type_comments"
+            android:background="@drawable/image_round_back"
+            android:textColor="@color/blue"
+            android:textColorHint="@color/gray1" />
+        <ImageView
+
+            android:layout_alignParentRight="true"
+            android:id="@+id/ivSendTweet"
+            android:layout_marginRight="20dp"
+            android:layout_width="30dp"
+            android:layout_centerVertical="true"
+
+            android:layout_height="30dp"
+            android:src="@drawable/write_tweet_blue"
+            />
+    </RelativeLayout>
+    <ListView
+        android:divider="@null"
+        android:background="@color/white"
+        android:id="@+id/lvComments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
+</LinearLayout>

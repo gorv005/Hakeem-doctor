@@ -2,7 +2,9 @@ package com.app.hakeem.adapter;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +13,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
 import com.app.hakeem.pojo.Post;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
+import com.app.hakeem.util.SharedPreference;
 
 import java.util.ArrayList;
 
@@ -111,6 +115,17 @@ public class AdapterPosts extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 ((ActivityMain) activity).likePost(position);
+            }
+        });
+        viewHolder.tvComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, ActivityContainer.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable(C.POST,getItem(position));
+                intent.putExtra(C.BUNDLE,bundle);
+                intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_COMMENTS);
+                activity.startActivity(intent);
             }
         });
         viewHolder.tvLiked.setText(post.getTotalLikes() + "");

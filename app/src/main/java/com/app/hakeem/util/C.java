@@ -32,6 +32,7 @@ public interface C {
     int FRAGMENT_PATIENT_PROFILE = 46;
     int FRAGMENT_CONSULTATION_TYPE = 9;
     int FRAGMENT_CONSULTANT = 10;
+    int FRAGMENT_COMMENTS = 47;
 
 
     String TAG_FRAGMENT_LOGIN = "fragment_login";
@@ -54,6 +55,7 @@ public interface C {
     String TAG_FRAGMENT_TRACKER_FEVER = "TAG_FRAGMENT_TRACKER_FEVER ";
     String TAG_FRAGMENT_TRACKER_BLOOD_PRESSURE = "TAG_FRAGMENT_TRACKER_BLOOD_PRESSURE ";
     String TAG_FRAGMENT_DOCTOR_PROFILE = "TAG_FRAGMENT_DOCTOR_PROFILE";
+    String TAG_FRAGMENT_COMMENTS = "TAG_FRAGMENT_COMMENTS";
 
     String TAG_FRAGMENT_PATIENT_PROFILE = "TAG_FRAGMENT_PATIENT_PROFILE";
     String TAG_FRAGMENT_DOCTOR_PATIENT_LIST = "TAG_FRAGMENT_DOCTOR_PATIENT_LIST";
@@ -95,6 +97,7 @@ public interface C {
     String API_GET_BLOOD_PRESSURE_REPORT = BASE_URL + "/getbloodpressure";
     String API_ADD_WEIGHT_REPORT = BASE_URL + "/reportweight";
     String API_ADD_BLOOD_SUGER_REPORT = BASE_URL + "/reportbloodsugar";
+    String API_GET_COMMENTS = BASE_URL + "/comments";
 
     String API_GET_BLOOD_SUGER_REPORT = BASE_URL + "/getbloodsugar";
     String API_ADD_DPENDENT = BASE_URL + "/dependentadd";
@@ -139,4 +142,5 @@ public interface C {
     String SENDER = "SENDER";
 
     String RECEIVER = "RECEIVER";
+    String POST ="post" ;
 }

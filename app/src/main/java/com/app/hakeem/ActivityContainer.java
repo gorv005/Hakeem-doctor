@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.app.hakeem.fragment.FragmentComments;
 import com.app.hakeem.fragment.FragmentConsultationType;
 import com.app.hakeem.fragment.FragmentConsultantList;
 import com.app.hakeem.fragment.FragmentDependent;
@@ -165,13 +166,19 @@ public class ActivityContainer extends AppCompatActivity {
 
                 break;
             case C.FRAGMENT_DOCTOR_PROFILE:
-
-
                 getSupportActionBar().show();
                 btnAddDependent.setVisibility(View.GONE);
                 fragment = new FragmentDoctorProfile();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE);
+
+                break;
+            case C.FRAGMENT_COMMENTS:
+                getSupportActionBar().show();
+                btnAddDependent.setVisibility(View.GONE);
+                fragment = new FragmentComments();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_COMMENTS);
 
                 break;
             case C.FRAGMENT_PATIENT_PROFILE:

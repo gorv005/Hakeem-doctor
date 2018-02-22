@@ -861,7 +861,7 @@ public class Util {
                     .parse(date);
             Calendar c = Calendar.getInstance();
             c.setTime(start);
-            c.add(Calendar.MONTH, -2);
+            c.add(Calendar.MONTH, -1);
             start = c.getTime();
             SimpleDateFormat newDateFormat = new SimpleDateFormat(C.DATE_FORMAT_FOR_REPORT);
             date = newDateFormat.format(start);
