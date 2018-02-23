@@ -150,10 +150,10 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
                 R.layout.dialog_add_temprature, null);
         dialogAddBloodSuger = new AlertDialog.Builder(getActivity()).create();
         dialogAddBloodSuger.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogAddBloodSuger.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialogAddBloodSuger.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+      //  dialogAddBloodSuger.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+      //  dialogAddBloodSuger.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialogAddBloodSuger.setView(deleteDialogView);
-        dialogAddBloodSuger.getWindow().setLayout(280, 520);
+     //   dialogAddBloodSuger.getWindow().setLayout(280, 520);
         dialogAddBloodSuger.setCancelable(true);
 
         final EditText etComment = (EditText) deleteDialogView.findViewById(R.id.etComment);

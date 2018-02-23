@@ -62,7 +62,7 @@ public class FragmentPatientProfile extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         if(user!=null && user.getUserType().equals(C.PATIENT)){
-            tvName.setText(user.getFirstName()+" "+user.getLastName());
+            tvName.setText(user.getFirstName());
 
            // imageLoader.DisplayImage(user.getUserPic(),imgProfile);
         }

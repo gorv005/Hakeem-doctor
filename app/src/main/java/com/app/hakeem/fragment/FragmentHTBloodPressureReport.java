@@ -4,6 +4,7 @@ package com.app.hakeem.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,10 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
@@ -155,15 +159,17 @@ public class FragmentHTBloodPressureReport extends Fragment implements ITempValu
                 R.layout.dialog_add_blood_pressure, null);
         dialogAddBloodSuger = new AlertDialog.Builder(getActivity()).create();
         dialogAddBloodSuger.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogAddBloodSuger.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialogAddBloodSuger.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+       // dialogAddBloodSuger.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+     //   dialogAddBloodSuger.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialogAddBloodSuger.setView(deleteDialogView);
-        dialogAddBloodSuger.getWindow().setLayout(280, 520);
+       // dialogAddBloodSuger.getWindow().setLayout(280, 520);
         dialogAddBloodSuger.setCancelable(true);
         verticalSeekBar=(VerticalSeekBarForBloodPressure)deleteDialogView.findViewById(R.id.seekBar);
         verticalSeekBar.initilize(FragmentHTBloodPressureReport.this);
 
         final EditText etComment = (EditText) deleteDialogView.findViewById(R.id.etComment);
+        final EditText etHeartRate = (EditText) deleteDialogView.findViewById(R.id.etHeartRate);
+        final Spinner spinnerHeartrate = (Spinner) deleteDialogView.findViewById(R.id.spinnerHeartRate);
 
 
         ivNormalBlooddia = (ImageView) deleteDialogView.findViewById(R.id.ivNormalBlooddia);
@@ -180,8 +186,49 @@ public class FragmentHTBloodPressureReport extends Fragment implements ITempValu
 
         Button  btnSubmit = (Button) deleteDialogView.findViewById(R.id.btnSubmit);
 
-
-
+        final List heatRate = new ArrayList<Integer>();
+        for (int i = 40; i <= 120; i++) {
+            heatRate.add(Integer.toString(i));
+        }
+        final List<String> weightList = new ArrayList<>(heatRate);
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                getActivity(),R.layout.spinner_item_new,weightList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.BLACK);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerHeartrate.setAdapter(spinnerArrayAdapter);
+        etHeartRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerHeartrate.performClick();
+            }
+        });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

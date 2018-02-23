@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_centerHorizontal="true"
-        android:padding="20dp"
+        android:padding="10dp"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -39,8 +39,8 @@
                     android:id="@+id/ivVeryHot"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvVeryHot"
                     android:layout_width="170dp"
@@ -64,8 +64,8 @@
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
                     android:visibility="invisible"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvHot"
                     android:layout_width="170dp"
@@ -91,9 +91,9 @@
 
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
-                    android:layout_width="30dp"
                     android:visibility="invisible"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvNormal"
 
@@ -120,9 +120,9 @@
 
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
-                    android:layout_width="30dp"
                     android:visibility="invisible"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvCold"
 
@@ -149,9 +149,9 @@
 
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
-                    android:layout_width="30dp"
                     android:visibility="invisible"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvVeryCold"
 

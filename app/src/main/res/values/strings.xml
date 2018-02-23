@@ -217,5 +217,7 @@
     <string name="search_phrase">Search phrase</string>
     <string name="emr_log">EMR LOG</string>
     <string name="chat_ended">Chat ended by doctor</string>
+    <string name="for_more_info">for more instructions about using TatabApp tracker please visit www.tatabapp.com</string>
+    <string name="heartRate">Heart Rate :</string>
 
 </resources>

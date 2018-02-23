@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.hakeem.fragment.FragmentComments;
@@ -34,6 +35,7 @@ import com.app.hakeem.fragment.FragmentPatientRegistrationStep2;
 import com.app.hakeem.fragment.FragmentRegisterType;
 import com.app.hakeem.fragment.FragmentSplash;
 import com.app.hakeem.util.C;
+import com.app.hakeem.util.Util;
 
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class ActivityContainer extends AppCompatActivity {
     private Bundle bundle;
     private int fragmentAction;
     private Button btnAddDependent;
-
+    private ImageView ivQuestionMark;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,7 @@ public class ActivityContainer extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         tvTitle = (TextView) findViewById(R.id.tvTitle);
+        ivQuestionMark = (ImageView) findViewById(R.id.ivQuestionMark);
         btnAddDependent = (Button) findViewById(R.id.btnAddDependents);
         btnAddDependent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +70,12 @@ public class ActivityContainer extends AppCompatActivity {
                     ((FragmentDependent) fragment).openPopUpToAddChild();
                 }
 
+            }
+        });
+        ivQuestionMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.showAlertForToast(ActivityContainer.this,getString(R.string.alert),getString(R.string.for_more_info),getString(R.string.ok),R.drawable.warning,false);
             }
         });
         bundle = getIntent().getBundleExtra(C.BUNDLE);
@@ -141,6 +150,8 @@ public class ActivityContainer extends AppCompatActivity {
                 getSupportActionBar().show();
                 tvTitle.setText(R.string.dependent);
                 btnAddDependent.setVisibility(View.VISIBLE);
+                ivQuestionMark.setVisibility(View.GONE);
+
                 fragment = new FragmentDependent();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DEPENDENT);
@@ -149,6 +160,8 @@ public class ActivityContainer extends AppCompatActivity {
                 getSupportActionBar().show();
                 tvTitle.setText(R.string.patient);
                 btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+
                 fragment = new FragmentPatientListForEmrAndHealthTracker();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_EMR_AND_TRACKER);
@@ -160,6 +173,8 @@ public class ActivityContainer extends AppCompatActivity {
                 getSupportActionBar().show();
                 tvTitle.setText(R.string.emr);
                 btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.VISIBLE);
+
                 fragment = new FragmentEmrAndHealthTracker();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_PATIENT_EMR_AND_TRACKER);
@@ -168,6 +183,8 @@ public class ActivityContainer extends AppCompatActivity {
             case C.FRAGMENT_DOCTOR_PROFILE:
                 getSupportActionBar().show();
                 btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+
                 fragment = new FragmentDoctorProfile();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE);
@@ -178,6 +195,8 @@ public class ActivityContainer extends AppCompatActivity {
                 tvTitle.setText(R.string.comments);
 
                 btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+
                 fragment = new FragmentComments();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_COMMENTS);
@@ -187,6 +206,8 @@ public class ActivityContainer extends AppCompatActivity {
 
                 getSupportActionBar().show();
                 btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+
                 fragment = new FragmentPatientProfile();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE);
@@ -197,6 +218,8 @@ public class ActivityContainer extends AppCompatActivity {
 
                 getSupportActionBar().show();
                 btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+
                 fragment = new FragmentDoctorsPatientList();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PATIENT_LIST);
@@ -205,6 +228,8 @@ public class ActivityContainer extends AppCompatActivity {
             case C.FRAGMENT_DOCTOR_PATIENT_DEPENDENT_LIST:
                 getSupportActionBar().show();
                 btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+
                 fragment = new FragmentDoctorPatientDependents();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PATIENT_DEPENDENT_LIST);
@@ -214,6 +239,8 @@ public class ActivityContainer extends AppCompatActivity {
                 getSupportActionBar().show();
                 tvTitle.setText(R.string.medical_consultation);
                 btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+
                 fragment = new FragmentConsultationType();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_CONSULTATION_TYPE);
@@ -222,6 +249,8 @@ public class ActivityContainer extends AppCompatActivity {
             case C.FRAGMENT_CONSULTANT:
                 getSupportActionBar().show();
                 btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+
                 fragment = new FragmentConsultantList();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_CONSULTATION_TYPE);
@@ -256,7 +285,8 @@ public class ActivityContainer extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-
+        btnAddDependent.setVisibility(View.GONE);
+        ivQuestionMark.setVisibility(View.GONE);
         getSupportFragmentManager().executePendingTransactions();
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
 

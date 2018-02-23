@@ -1,12 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="wrap_content"
     >
 
     <LinearLayout
         android:layout_centerHorizontal="true"
-        android:padding="20dp"
+        android:padding="10dp"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -15,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:drawableRight="@drawable/icon_drop_down"
-            android:gravity="center|center_vertical"
+            android:gravity="center|center_horizontal"
             android:textStyle="bold"
             android:text="@string/today_blood_pressure"
             android:textColor="@color/blue"
@@ -51,12 +52,12 @@
                     android:id="@+id/ivMedicalEmrSys"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvMedicalEmrSys"
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
                     android:background="@drawable/round_back_red"
@@ -76,12 +77,12 @@
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
                     android:visibility="invisible"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvHighBpStage2Sys"
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
                     android:layout_marginTop="1dp"
@@ -103,14 +104,14 @@
 
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
-                    android:layout_width="30dp"
                     android:visibility="invisible"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvHighBpStage1Sys"
 
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="1dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
@@ -120,7 +121,7 @@
                     android:gravity="center|center_vertical"
                     android:textStyle="bold"
                     android:text="@string/high_bp_stage_1_sys"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="10sp" />
             </LinearLayout>
             <LinearLayout
@@ -132,15 +133,14 @@
 
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
-                    android:layout_width="30dp"
                     android:visibility="invisible"
-                    android:layout_height="30dp" />
-
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvPrehyperSys"
 
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="2dp"
                     android:layout_marginTop="1dp"
@@ -149,7 +149,7 @@
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
                     android:text="@string/pre_hyper_tention_sys"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="10sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -162,14 +162,14 @@
 
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
-                    android:layout_width="30dp"
                     android:visibility="invisible"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvNormalBloodSys"
 
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="1dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
@@ -179,14 +179,14 @@
                     android:gravity="center|center_vertical"
                     android:textStyle="bold"
                     android:text="@string/normal_blood_pressure_sys"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="10sp" />
             </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -212,12 +212,12 @@
                     android:id="@+id/ivMedicalEmrdia"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvMedicalEmrdia"
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
                     android:background="@drawable/round_back_red"
@@ -237,12 +237,12 @@
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
                     android:visibility="invisible"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvHighBpStage2dia"
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
                     android:layout_marginTop="1dp"
@@ -264,14 +264,14 @@
 
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
-                    android:layout_width="30dp"
                     android:visibility="invisible"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvHighBpStage1dia"
 
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="1dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
@@ -281,7 +281,7 @@
                     android:gravity="center|center_vertical"
                     android:textStyle="bold"
                     android:text="@string/high_bp_stage_1_dia"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="10sp" />
             </LinearLayout>
             <LinearLayout
@@ -293,15 +293,14 @@
 
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
-                    android:layout_width="30dp"
                     android:visibility="invisible"
-                    android:layout_height="30dp" />
-
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvPrehyperdia"
 
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="2dp"
                     android:layout_marginTop="1dp"
@@ -310,7 +309,7 @@
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
                     android:text="@string/pre_hyper_tention_dia"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="10sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -323,14 +322,14 @@
 
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/marker"
-                    android:layout_width="30dp"
                     android:visibility="invisible"
-                    android:layout_height="30dp" />
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
                 <TextView
                     android:id="@+id/tvNormalBlooddia"
 
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="1dp"
                     android:paddingLeft="2dp"
                     android:paddingRight="2dp"
@@ -340,7 +339,7 @@
                     android:gravity="center|center_vertical"
                     android:textStyle="bold"
                     android:text="@string/normal_blood_pressure_dia"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="10sp" />
             </LinearLayout>
 
@@ -350,7 +349,6 @@
 
 
     <RelativeLayout
-        android:layout_marginLeft="20dp"
 
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
@@ -369,12 +367,64 @@
     <com.app.hakeem.util.VerticalSeekBarForBloodPressure
         android:layout_below="@id/tvC"
         android:id="@+id/seekBar"
-        android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
-        android:layout_width="70dp"
+        android:layout_width="120dp"
         android:layout_height="match_parent" />
     </RelativeLayout>
     </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:drawableRight="@drawable/icon_drop_down"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:text="@string/heartRate"
+                android:textColor="@color/blue"
+                android:textSize="12sp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etHeartRate"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/rounded_red_blue_corner"
+                    android:clickable="true"
+                    android:drawablePadding="20dp"
+                    android:drawableRight="@drawable/icon_drop_down"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="40"
+                    android:inputType="none"
+                    android:paddingLeft="50dp"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white_off"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerHeartRate"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_gravity="start"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:gravity="start"
+                    android:paddingLeft="40dp"
+                    android:visibility="invisible" />
+            </LinearLayout>
+        </LinearLayout>
         <RelativeLayout
             android:paddingRight="15dp"
             android:paddingLeft="15dp"

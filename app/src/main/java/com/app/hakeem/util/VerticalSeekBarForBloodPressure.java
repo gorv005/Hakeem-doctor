@@ -34,6 +34,7 @@ public class VerticalSeekBarForBloodPressure extends View {
     //    private Bitmap bg;
     private Paint paint;
     ITempValue iTempValue;
+
     public VerticalSeekBarForBloodPressure(Context context) {
         super(context);
         init(context);
@@ -66,8 +67,9 @@ public class VerticalSeekBarForBloodPressure extends View {
 
 
     public void SeekBar(ITempValue context) {
-        iTempValue=context;
+        iTempValue = context;
     }
+
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(h, w, oldh, oldw);
     }
@@ -84,31 +86,33 @@ public class VerticalSeekBarForBloodPressure extends View {
         super.onDraw(canvas);
         cellHeight = getHeight() / totalVal;
         paint.setColor(ContextCompat.getColor(context, R.color.blue_dark));
-        drawRoundRect(0, 0, 2 * getWidth() / 3, getHeight(), 20, paint,canvas);
+        drawRoundRect(getWidth() / 4, 0, 3 * getWidth() / 4, getHeight(), 20, paint, canvas);
         paint.setColor(ContextCompat.getColor(context, R.color.blue));
-        drawRoundRect(4, 4, 2 * getWidth() / 3 - 4, getHeight() - 8, 20, paint,canvas);
+        drawRoundRect(getWidth() / 4 + 4, 4, 3 * getWidth() / 4 - 4, getHeight() - 8, 20, paint, canvas);
 
-        pipe = Bitmap.createScaledBitmap(pipe, 2 * getWidth() / 3 - 10, pipe.getHeight(), true);
-        slider = Bitmap.createScaledBitmap(slider, 2 * getWidth() / 3, slider.getHeight(), true);
+        pipe = Bitmap.createScaledBitmap(pipe, getWidth() / 2 - 10, pipe.getHeight(), true);
+        slider = Bitmap.createScaledBitmap(slider, getWidth() / 2, slider.getHeight(), true);
         for (int i = 1; i < totalVal; i++) {
-            canvas.drawBitmap(pipe, 5, i * cellHeight, null);
+            canvas.drawBitmap(pipe, getWidth() / 4 + 5, i * cellHeight, null);
             paint.setColor(Color.BLACK);
             paint.setTextSize(18);
             paint.setTypeface(Typeface.SERIF);
-            canvas.drawText((minVal - (i*5)) + "", 2 * getWidth() / 3 + 6, i * cellHeight + 8, paint);
+            canvas.drawText((minVal - (i * 5)) + "", 3 * getWidth() / 4 + 6, i * cellHeight + 8, paint);
+            canvas.drawText((minVal - (i * 5) + 60) + "", 4, i * cellHeight + 8, paint);
+
         }
 //        canvas.drawBitmap(slider, (getWidth() - slider.getWidth()) / 2, i * cellHeight + cellHeight / 2 - 12, null);
-        canvas.drawBitmap(slider, 0, y - 12, null);
+        canvas.drawBitmap(slider, getWidth() / 4, y - 12, null);
     }
 
 
-    private void drawRoundRect(float left, float top, float right, float bottom,int radius, Paint paint, Canvas canvas) {
+    private void drawRoundRect(float left, float top, float right, float bottom, int radius, Paint paint, Canvas canvas) {
         Path path = new Path();
         path.moveTo(left, top);
-        path.lineTo(right-radius, top);
+        path.lineTo(right - radius, top);
         path.quadTo(right, top, right, top + radius);
-        path.lineTo(right, bottom-radius);
-        path.quadTo(right, bottom, right-radius, bottom );
+        path.lineTo(right, bottom - radius);
+        path.quadTo(right, bottom, right - radius, bottom);
         path.lineTo(left + radius, bottom);
         path.quadTo(left, bottom, left, bottom - radius);
         path.lineTo(left, top + radius);
@@ -153,13 +157,15 @@ public class VerticalSeekBarForBloodPressure extends View {
     }
 
 
-   public void initilize(ITempValue iTempValue){
-        this.iTempValue=iTempValue;
+    public void initilize(ITempValue iTempValue) {
+        this.iTempValue = iTempValue;
     }
+
     public float getCurrentVal() {
 
-       iTempValue.getValue(Float.parseFloat(String.format(
-               "%.1f", (float) (minVal - ((y + slider.getHeight() / 2) / (float) cellHeight))+2.5F)));
-        return (float) (minVal - ((y + slider.getHeight() / 2) / (float) cellHeight));
+     /*  iTempValue.getValue(Float.parseFloat(String.format(
+               "%.1f", (float) (minVal - ((y + slider.getHeight() / 2) / (float) cellHeight))+2.5F)));*/
+        return Float.parseFloat(String.format(
+                "%.1f", (float) (minVal - ((y + slider.getHeight() / 2)*5 / (float) cellHeight))+2.5F));
     }
 }

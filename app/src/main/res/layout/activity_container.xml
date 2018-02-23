@@ -46,9 +46,19 @@
                         android:textColor="@color/blue"
                         android:textSize="18sp" />
 
+                    <ImageView
+                        android:id="@+id/ivQuestionMark"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/question_mark"
+                        android:layout_width="30dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="30dp" />
                     <Button
+                        style="?android:attr/borderlessButtonStyle"
                         android:id="@+id/btnAddDependents"
                         android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
