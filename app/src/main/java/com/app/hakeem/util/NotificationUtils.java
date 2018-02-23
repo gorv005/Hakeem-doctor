@@ -106,7 +106,7 @@ public class NotificationUtils {
                 .setContentIntent(resultPendingIntent)
                 .setSound(alarmSound)
                 .setStyle(inboxStyle)
-                .setWhen(getTimeMilliSec(timeStamp))
+//                .setWhen(getTimeMilliSec(timeStamp))
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)
                 .build();
@@ -127,7 +127,7 @@ public class NotificationUtils {
                 .setContentIntent(resultPendingIntent)
                 .setSound(alarmSound)
                 .setStyle(bigPictureStyle)
-                .setWhen(getTimeMilliSec(timeStamp))
+//                .setWhen(getTimeMilliSec(timeStamp))
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)
