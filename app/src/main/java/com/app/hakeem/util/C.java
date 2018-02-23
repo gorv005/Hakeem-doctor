@@ -113,38 +113,39 @@ public interface C {
     String API_START_CHAT = BASE_URL + "/startchat";
 
     String API_END_CHAT = BASE_URL + "/endchat";
+    String API_PRESCRIPTION = BASE_URL + "/prescription";
+
+
     String API_REGISTER_TOKEN = BASE_URL + "/registration_ids";
-
-
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
     String USER = "user";
     String DATE_FORMAT = "dd/MMM/yyyy";
     String DATE_FORMAT_FOR_REPORT = "yyyy-MM-dd";
     String IMAGE_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/Hakeem";
+
+
     String TAG_FRAGMENT_REGISTER_TYPE_R_3 = "TAG_FRAGMENT_REGISTER_TYPE_R_3";
-
-
     String TAG_FRAGMENT_REGISTER_TYPE_R_4 = "TAG_FRAGMENT_REGISTER_TYPE_R_4";
     String TAG_FRAGMENT_DEPENDENT = "tag_fragment_dependent";
     String USER_PATIENT = "3";
+
     String USER_DOCTOR = "2";
 
     String USER_ADMIN = "1";
 
     String DOCTOR = "Doctor";
-
     String PATIENT = "Patient";
     String DEPENDENT_ID = "dependent_id";
     String NAME = "name";
+
+
     String GENDER = "gender";
-
-
     String DOB = "dob";
     String FONT = "Mont.otf";
     String PATIENT_ID = "patientId";
-    String PRE_MEAL = "Pre-meal";
 
+    String PRE_MEAL = "Pre-meal";
     String POST_SLEEP = "Post-sleep";
     String AWARENESS_LIST = "awarenesslist";
     String SPECIALITY = "speciality";
@@ -159,18 +160,21 @@ public interface C {
     String IS_DOCOTR_ONLINE = "is_docotr_online";
     String TOTAL_PERSON_INQUEUE = "TOTAL_PERSON_INQUEUE";
     String REGISTRATION_COMPLETE = "registrationComplete";
-    String PUSH_NOTIFICATION = "pushNotification";
 
+    String PUSH_NOTIFICATION = "pushNotification";
     // id to handle the notification in the notification tray
     int NOTIFICATION_ID = 100;
-    int NOTIFICATION_ID_BIG_IMAGE = 101;
 
+    int NOTIFICATION_ID_BIG_IMAGE = 101;
     String SHARED_PREF = "ah_firebase";
     String TOKEN = "tadddoffn";
     String CHAT_PATIENT_ID = "CHAT_PATIENT_ID";
     String NEW_PATIENT = "New Patient";
     String END_CHAT = "End Chat";
     String START_CHATTING = "Start Chating";
-    String TITLE = "title";
 
+    String TITLE = "title";
+    String DIAGNOSIS = "diagnosis";
+    String FOLLOWUP = "followup";
+    String PRESCRIPTION = "prescription";
 }

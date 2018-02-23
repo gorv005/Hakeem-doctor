@@ -84,23 +84,25 @@ public class FragmentConsultantList extends Fragment {
         switch (specialityId) {
             case 1:
                 rlImage.setBackgroundResource(R.drawable.family);
-                tvClinic.setText(R.string.family_and_community);
+                tvClinic.setText(getActivity().getResources().getString(R.string.family_and_community)+getActivity().getResources().getString(R.string.clinic));
                 break;
             case 2:
                 rlImage.setBackgroundResource(R.drawable.psychiatric);
-                tvClinic.setText(R.string.psychological);
+
+                tvClinic.setText(getActivity().getResources().getString(R.string.psychological)+getActivity().getResources().getString(R.string.clinic));
                 break;
             case 3:
                 rlImage.setBackgroundResource(R.drawable.abdominal);
-                tvClinic.setText(R.string.abdominal);
+                tvClinic.setText(getActivity().getResources().getString(R.string.abdominal)+getActivity().getResources().getString(R.string.clinic));
                 break;
             case 4:
                 rlImage.setBackgroundResource(R.drawable.obgyne);
-                tvClinic.setText(R.string.obgyne);
+
+                tvClinic.setText(getActivity().getResources().getString(R.string.obgyne)+getActivity().getResources().getString(R.string.clinic));
                 break;
             case 5:
                 rlImage.setBackgroundResource(R.drawable.pediatric);
-                tvClinic.setText(R.string.pediatrics);
+                tvClinic.setText(getActivity().getResources().getString(R.string.pediatrics)+getActivity().getResources().getString(R.string.clinic));
                 break;
         }
 

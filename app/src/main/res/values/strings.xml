@@ -160,7 +160,7 @@
     <string name="post">post</string>
     <string name="sleep">sleep</string>
     <string name="medical_consultation">Medical Consultation</string>
-    <string name="consultation_screen">Consultation Screen</string>
+    <string name="consultation_screen">Consultation</string>
     <string name="manage_dependents">Manage Dependents</string>
     <string name="electronic_medical_report">Electronic Medical Records</string>
     <string name="medical_report">Medical Records</string>
@@ -174,13 +174,14 @@
     <string name="no">No</string>
     <string name="delete">Delete</string>
     <string name="delete_sure">Are you sure you want to delete it?</string>
-    <string name="clinic">Clinic</string>
+    <string name="clinic">" Clinic"</string>
     <string name="today_blood_suger">Today\'s Blood Suger</string>
     <string name="normal_range">Normal Range</string>
     <string name="timings">Timing</string>
     <string name="reading_mg">Reading Mg/dl</string>
     <string name="comments">comments...</string>
     <string name="type_comments">Type your comment here</string>
+    <string name="please_add_detail">Please enter valid details</string>
 
     <string name="submit">Submit</string>
     <string name="today_weight">Today\'s weight and HR</string>

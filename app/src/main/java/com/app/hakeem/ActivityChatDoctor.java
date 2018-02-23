@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -20,12 +22,14 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -74,12 +78,12 @@ public class ActivityChatDoctor extends AppCompatActivity {
     private String receiver;
     private int GALLERY = 1, CAMERA = 2;
 
-    @BindView(R.id.llFollowUp)
-    LinearLayout llFollowUp;
-    @BindView(R.id.llDiagnosis)
-    LinearLayout llDiagnosis;
-    @BindView(R.id.llPrescription)
-    LinearLayout llPrescription;
+    @BindView(R.id.ibFollowUp)
+    ImageButton llFollowUp;
+    @BindView(R.id.ibDiagnosis)
+    ImageButton  llDiagnosis;
+    @BindView(R.id.ibPrescription)
+    ImageButton  llPrescription;
     @BindView(R.id.switchOnline)
     Switch switchOnline;
     @BindView(R.id.tvTotalPatient)
@@ -239,6 +243,121 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
             startAndEndChat(C.API_START_CHAT, queuePerson.getPatientId() + "");
         }
+
+        llDiagnosis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showPopUp(C.DIAGNOSIS);
+            }
+        });
+        llFollowUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showPopUp(C.FOLLOWUP);
+            }
+        });
+        llPrescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopUp(C.PRESCRIPTION);
+            }
+        });
+    }
+
+    private void showPopUp(final String type) {
+
+
+        final LayoutInflater factory = LayoutInflater.from(this);
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_prescription, null);
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(deleteDialogView);
+
+
+        final EditText etText = (EditText) deleteDialogView.findViewById(R.id.etPrescription);
+
+        ImageView ivAlertImage = (ImageView) deleteDialogView.findViewById(R.id.ivSend);
+
+        ivAlertImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (etText.getText().toString().trim().length() > 3) {
+                    sendPriscription(type, etText.getText().toString());
+                } else {
+                    Util.showAlert(ActivityChatDoctor.this, "", ActivityChatDoctor.this.getResources().getString(R.string.please_add_detail), getString(R.string.ok), R.drawable.warning);
+                }
+                dialog.dismiss();
+
+            }
+        });
+
+
+        dialog.show();
+
+    }
+
+
+    public void sendPriscription(final String type, String detail) {
+
+
+        dialogQueue = Util.getProgressDialog(this, R.string.loading);
+        dialogQueue.show();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("doctor_id", SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserId() + "");
+        hashMap.put("patient_id", currentPatientId);
+
+        hashMap.put("type", type);
+        hashMap.put("detail", detail);
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(this);
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialogQueue.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    Response responseLogin = gson.fromJson(response.toString(), Response.class);
+                    if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.success), responseLogin.getMessage(), getString(R.string.ok), R.drawable.success, false);
+                    } else {
+                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, false);
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+                dialogQueue.dismiss();
+
+            }
+        }, "prescription",C.API_PRESCRIPTION , Util.getHeader(this), obj);
+
 
     }
 
@@ -604,7 +723,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
     }
 
 
-   public class MyReceiver extends BroadcastReceiver {
+    public class MyReceiver extends BroadcastReceiver {
         public MyReceiver() {
         }
 
@@ -638,8 +757,9 @@ public class ActivityChatDoctor extends AppCompatActivity {
         super.onResume();
         IntentFilter filter = new IntentFilter(C.NEW_PATIENT);
 
-        myReceiver =new MyReceiver();
-        registerReceiver(myReceiver, filter);    }
+        myReceiver = new MyReceiver();
+        registerReceiver(myReceiver, filter);
+    }
 
     @Override
     protected void onPause() {

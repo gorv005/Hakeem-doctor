@@ -1,7 +1,6 @@
 package com.app.hakeem.adapter;
 
 import android.app.Activity;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.pojo.Awareness;
-import com.app.hakeem.pojo.SideMenuItem;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
 
@@ -71,6 +68,7 @@ public class AdapterConsultationType extends BaseAdapter {
             }
         });
         imageLoader.DisplayImage(getItem(position).getIconUrl(), (ImageView) convertView.findViewById(R.id.ivIcon));
+        ((ImageView) convertView.findViewById(R.id.ivIcon)).bringToFront();
 
         return convertView;
     }

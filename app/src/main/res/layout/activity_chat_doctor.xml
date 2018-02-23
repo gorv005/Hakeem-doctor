@@ -37,8 +37,9 @@
                         android:id="@+id/tvTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-android:layout_centerHorizontal="true"                        android:text="@string/chat"
+                        android:text="@string/chat"
                         android:textColor="@color/blue"
                         android:textSize="18sp" />
 
@@ -151,6 +152,8 @@ android:layout_centerHorizontal="true"                        android:text="@str
                 android:orientation="vertical">
 
                 <ImageButton
+                    android:id="@+id/ibPrescription"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -174,6 +177,8 @@ android:layout_centerHorizontal="true"                        android:text="@str
                 android:orientation="vertical">
 
                 <ImageButton
+                    android:id="@+id/ibFollowUp"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -196,6 +201,8 @@ android:layout_centerHorizontal="true"                        android:text="@str
                 android:orientation="vertical">
 
                 <ImageButton
+                    android:id="@+id/ibDiagnosis"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
