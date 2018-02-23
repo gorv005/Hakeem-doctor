@@ -132,6 +132,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
         currentPatientId = queuePerson.getPatientId() + "";
         tvPatient.setText(queuePerson.getName());
+
         receiver = queuePerson.getEmail();
         receiver = receiver.replace("@", "");
         sender = SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getEmail();
@@ -193,7 +194,6 @@ public class ActivityChatDoctor extends AppCompatActivity {
             }
         });
 
-        uploadFileFroURL = new UploadFileFroURL(this, fileUploadListener);
 
 
         etMsg.addTextChangedListener(new TextWatcher() {
@@ -224,7 +224,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
         ibEndChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startAndEndChat(C.API_END_CHAT);
+                startAndEndChat(C.API_END_CHAT,currentPatientId);
             }
         });
 
@@ -234,7 +234,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
         } else {
 
-            startAndEndChat(C.API_START_CHAT);
+            startAndEndChat(C.API_START_CHAT,queuePerson.getPatientId()+"");
         }
 
     }
@@ -273,7 +273,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
     }
 
-    public void startAndEndChat(final String url) {
+    public void startAndEndChat(final String url,String patientID) {
 
 
         dialogQueue = Util.getProgressDialog(this, R.string.loading);
@@ -282,8 +282,9 @@ public class ActivityChatDoctor extends AppCompatActivity {
         HashMap<String, String> hashMap = new HashMap<>();
 
         hashMap.put("doctor_id", SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserId() + "");
-        hashMap.put("patient_id", queuePerson.getPatientId() + "");
-        hashMap.put("start_datetime", Util.getTimeAM());
+        hashMap.put("patient_id",  patientID);
+
+        hashMap.put(url.equals(C.API_END_CHAT)?"end_datetime":"start_datetime", Util.getTimeAM());
         hashMap.put("queue_id", queuePerson.getQueueId() + "");
 
 
@@ -308,6 +309,9 @@ public class ActivityChatDoctor extends AppCompatActivity {
                     Response responseLogin = gson.fromJson(response.toString(), Response.class);
                     if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
                         if (url.equals(C.API_END_CHAT)) {
+
+
+
                             onBackPressed();
                         } else {
                             loadChatOnConnect();
@@ -315,9 +319,12 @@ public class ActivityChatDoctor extends AppCompatActivity {
                         }
                     } else if (responseLogin.getStatusCode().equals(C.STATUS_FAIL) && url.equals(C.API_START_CHAT) && responseLogin.getPatient() != null) {
                         receiver = responseLogin.getPatient().getEmail().replace("@", "");
-                        currentPatientId = responseLogin.getPatient().getId();
+                        currentPatientId = responseLogin.getPatient().getPatientId();
                         tvPatient.setText(responseLogin.getPatient().getName());
                         loadChatOnConnect();
+                    }
+                    else {
+                        Util.showAlertForToast(ActivityChatDoctor.this,getString(R.string.error),responseLogin.getMessage(),getString(R.string.ok),R.drawable.warning,false);
                     }
 
                 } catch (Exception e) {
@@ -469,6 +476,8 @@ public class ActivityChatDoctor extends AppCompatActivity {
                         profileDetail.setPicturename(Utils.getCurrentTimeStamp()+".jpg");
                     }*/
 
+                    uploadFileFroURL = new UploadFileFroURL(this, fileUploadListener);
+
                     uploadFileFroURL.execute(filePath);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -487,6 +496,8 @@ public class ActivityChatDoctor extends AppCompatActivity {
 //                bitmap=  Util.rotateImageIfRequired(bitmap,fileUri.getPath());
                 contentURI = fileUri;
                 filePath = fileUri.getPath();
+
+                uploadFileFroURL = new UploadFileFroURL(this, fileUploadListener);
 
                 uploadFileFroURL.execute(filePath);
                /* String profileImage = Utils.getBase64Image(bitmap);

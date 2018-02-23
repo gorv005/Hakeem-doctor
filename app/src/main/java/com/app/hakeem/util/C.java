@@ -113,6 +113,7 @@ public interface C {
     String API_START_CHAT = BASE_URL + "/startchat";
 
     String API_END_CHAT = BASE_URL + "/endchat";
+    String API_REGISTER_TOKEN = BASE_URL + "/registration_ids";
 
 
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
@@ -165,4 +166,11 @@ public interface C {
     int NOTIFICATION_ID_BIG_IMAGE = 101;
 
     String SHARED_PREF = "ah_firebase";
+    String TOKEN = "tadddoffn";
+    String CHAT_PATIENT_ID = "CHAT_PATIENT_ID";
+    String NEW_PATIENT = "New patient";
+    String END_CHAT = "End Chat";
+    String START_CHATTING = "Start Chating";
+    String TITLE = "title";
+
 }

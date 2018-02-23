@@ -45,6 +45,7 @@ import com.app.hakeem.adapter.AdapterSideMenu;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.AddPost;
 import com.app.hakeem.pojo.Post;
+import com.app.hakeem.pojo.QueuePerson;
 import com.app.hakeem.pojo.Response;
 import com.app.hakeem.pojo.ResponsePost;
 import com.app.hakeem.pojo.SideMenuItem;
@@ -182,12 +183,19 @@ public class ActivityMain extends AppCompatActivity
                     startActivity(intent);
                 } else if (sideMenuItem.getNameResourse() == R.string.queue) {
 
+                    Intent intent = new Intent(ActivityMain.this, ActivityChatDoctor.class);
                     if (responseQueue.getQueuePeople().size() > 0) {
-                        Intent intent = new Intent(ActivityMain.this, ActivityChatDoctor.class);
                         intent.putExtra(C.USER, responseQueue.getQueuePeople().get(0));
-                        intent.putExtra(C.TOTAL_PERSON_INQUEUE, responseQueue.getQueuePeople().size());
-                        startActivity(intent);
                     }
+                    else
+                    {
+                        QueuePerson queuePerson=new QueuePerson();
+                        queuePerson.setPatientId("na");
+                        queuePerson.setEmail("na");
+                        intent.putExtra(C.USER, queuePerson);
+                    }
+                    intent.putExtra(C.TOTAL_PERSON_INQUEUE, responseQueue.getQueuePeople().size());
+                    startActivity(intent);
                 }
 
             }
@@ -360,7 +368,65 @@ public class ActivityMain extends AppCompatActivity
             adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN), ""));
         }
         listView.setAdapter(adapterSideMenu);
+        saveTokenToServer();
     }
+
+
+    void saveTokenToServer() {
+
+        if(!SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN))
+            return;
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("device_id", SharedPreference.getInstance(getApplicationContext()).getString(C.TOKEN));
+        hashMap.put("user_id", SharedPreference.getInstance(getApplicationContext()).getUser(C.LOGIN_USER).getUserId());
+
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        VolleyService volleyService = new VolleyService(getApplicationContext());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+
+                try {
+//                    Gson gson = new Gson();
+//                    ConsultationTypeAndList consultationType = gson.fromJson(response.toString(), ConsultationTypeAndList.class);
+//                    if (consultationType.getStatusCode().equals(C.STATUS_SUCCESS)) {
+//
+//                        Util.showAlert(getActivity(),getString(R.string.error),consultationType.getMessage(),getString(R.string.ok),R.drawable.warning);
+//                    } else {
+//                        Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.warning);
+//                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+
+
+            }
+        }, "consultant", C.API_REGISTER_TOKEN, Util.getHeader(getApplicationContext()), obj);
+
+
+    }
+
 
     private void AddPost(AddPost post) {
 

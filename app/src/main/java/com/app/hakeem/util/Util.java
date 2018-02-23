@@ -915,9 +915,9 @@ public class Util {
         return date;
     }
 
-    public static Map<String, String> getHeader(Activity activity) {
+    public static Map<String, String> getHeader(Context context) {
         HashMap<String, String> headers = new HashMap<String, String>();
-        String authToken = SharedPreference.getInstance(activity).getString(C.AUTH_TOKEN);
+        String authToken = SharedPreference.getInstance(context).getString(C.AUTH_TOKEN);
         headers.put("authtoken", authToken);
         headers.put("Accept", "application/json");
         headers.put("Content-Type", "application/json");

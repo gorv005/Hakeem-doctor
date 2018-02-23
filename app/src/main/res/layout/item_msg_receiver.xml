@@ -25,6 +25,8 @@
 
             <RelativeLayout
                 android:layout_width="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -35,7 +37,7 @@
                     android:layout_marginTop="5dp"
                     android:minWidth="70dp"
                     android:text="@string/app_name"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@color/blue" />
 
                 <ImageView
                     android:id="@+id/ivMsg"
@@ -64,9 +66,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:drawablePadding="5dp"
+                    android:paddingRight="5dp"
                     android:text="1:00pm"
-                    android:textColor="@android:color/white"
+                    android:drawableRight="@drawable/sent_chat"
+                    android:textColor="@android:color/darker_gray"
                     android:textSize="10sp" />
 
             </LinearLayout>

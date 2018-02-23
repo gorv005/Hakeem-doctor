@@ -1,11 +1,16 @@
 package com.app.hakeem.adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.hakeem.R;
@@ -76,8 +81,15 @@ public class AdapterChatList extends BaseAdapter {
                 tvMessage.setVisibility(View.GONE);
                 iv.setVisibility(View.VISIBLE);
                 Gson gson = new Gson();
-                MessageAttachment msg = gson.fromJson(getItem(position).getMessage(), MessageAttachment.class);
+                final MessageAttachment msg = gson.fromJson(getItem(position).getMessage(), MessageAttachment.class);
                 imageLoader.DisplayImage(msg.getUrl(), iv);
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        showImage(msg.getUrl());
+                    }
+                });
 
             } catch (Exception e) {
 
@@ -92,6 +104,28 @@ public class AdapterChatList extends BaseAdapter {
 
 
         return convertView;
+    }
+
+
+    public void showImage(String imageUri) {
+        Dialog builder = new Dialog(activity);
+        builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        builder.getWindow().setBackgroundDrawable(
+                new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                //nothing;
+            }
+        });
+
+        ImageView imageView = new ImageView(activity);
+
+        imageLoader.DisplayImage(imageUri,imageView);
+        builder.addContentView(imageView, new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        builder.show();
     }
 
     public ArrayList<ChatMessage> getList() {

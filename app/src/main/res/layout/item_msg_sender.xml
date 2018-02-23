@@ -66,8 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:drawablePadding="5dp"
-                    android:drawableRight="@drawable/sent_chat"
+                    android:paddingRight="5dp"                    android:drawableRight="@drawable/sent_chat"
                     android:text="1:00pm"
                     android:textSize="10sp" />
 

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "445521068492",
+    "firebase_url": "https://medplanners-60937.firebaseio.com",
+    "project_id": "medplanners-60937",
+    "storage_bucket": "medplanners-60937.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445521068492:android:c2748651961e7bc8",
+        "android_client_info": {
+          "package_name": "com.app.hakeem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445521068492-8qqu93ten97klorjjihdmd3ftr0uml6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCA9Y5065n0S2umufMosBcQ2CprACHax4A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

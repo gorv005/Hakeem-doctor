@@ -25,7 +25,7 @@ public class QueuePerson implements Serializable{
     private Integer doctorId;
     @SerializedName("patient_id")
     @Expose
-    private Integer patientId;
+    private String patientId;
 
     public Integer getQueueId() {
         return queueId;
@@ -59,11 +59,11 @@ public class QueuePerson implements Serializable{
         this.doctorId = doctorId;
     }
 
-    public Integer getPatientId() {
+    public String getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(Integer patientId) {
+    public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
 

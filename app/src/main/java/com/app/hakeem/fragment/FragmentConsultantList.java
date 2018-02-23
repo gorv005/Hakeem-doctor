@@ -109,13 +109,17 @@ public class FragmentConsultantList extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                if (SharedPreference.getInstance(getActivity()).getString(C.CHAT_DOCTOR_ID)!=null) {
-                    Intent intent = new Intent(getActivity(), ActivityChat.class);
-                    intent.putExtra(C.SENDER, SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getEmail());
-                    intent.putExtra(C.RECEIVER, adapter.getItem(position).getEmail());
-                    intent.putExtra(C.DOCTOR, adapter.getItem(position));
-                    intent.putExtra(C.SPECIALITY, specialityId);
-                    getActivity().startActivity(intent);
+                if (C.START_CHATTING.equals(SharedPreference.getInstance(getActivity()).getString(C.TITLE))) {
+                    if (SharedPreference.getInstance(getActivity()).getString(C.CHAT_DOCTOR_ID).equals(adapter.getItem(position).getDoctorId() + "")) {
+                        Intent intent = new Intent(getActivity(), ActivityChat.class);
+                        intent.putExtra(C.SENDER, SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getEmail());
+                        intent.putExtra(C.RECEIVER, adapter.getItem(position).getEmail());
+                        intent.putExtra(C.DOCTOR, adapter.getItem(position));
+                        intent.putExtra(C.SPECIALITY, specialityId);
+                        getActivity().startActivity(intent);
+                    } else {
+                        addPatientToQueue(adapter.getItem(position).getDoctorId() + "");
+                    }
                 } else {
                     addPatientToQueue(adapter.getItem(position).getDoctorId() + "");
                 }
@@ -157,7 +161,7 @@ public class FragmentConsultantList extends Fragment {
                     ConsultationTypeAndList consultationType = gson.fromJson(response.toString(), ConsultationTypeAndList.class);
                     if (consultationType.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
-                        Util.showAlert(getActivity(),getString(R.string.error),consultationType.getMessage(),getString(R.string.ok),R.drawable.warning);
+                        Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.warning);
                     } else {
                         Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.warning);
                     }

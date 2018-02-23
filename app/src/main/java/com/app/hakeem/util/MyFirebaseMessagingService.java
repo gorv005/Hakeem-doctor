@@ -7,7 +7,6 @@ package com.app.hakeem.util;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -35,7 +34,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
+
             Log.e(TAG, "Notification Body: " + remoteMessage.getNotification().getBody());
+            SharedPreference.getInstance(getApplicationContext()).setString(C.TITLE, remoteMessage.getNotification().getTitle());
+            if (remoteMessage.getNotification().getTitle().equals(C.END_CHAT)) {
+                SharedPreference.getInstance(getApplicationContext()).setString(C.CHAT_DOCTOR_ID, null);
+                SharedPreference.getInstance(getApplicationContext()).setString(C.CHAT_PATIENT_ID, null);
+
+            } else {
+                SharedPreference.getInstance(getApplicationContext()).setString(C.CHAT_DOCTOR_ID, remoteMessage.getData().get("doctor_id"));
+                SharedPreference.getInstance(getApplicationContext()).setString(C.CHAT_PATIENT_ID, remoteMessage.getData().get("patient_id"));
+            }
             handleNotification(remoteMessage.getNotification().getBody());
         }
 
@@ -53,18 +62,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void handleNotification(String message) {
-        if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
-            // app is in foreground, broadcast the push message
-            Intent pushNotification = new Intent(C.PUSH_NOTIFICATION);
-            pushNotification.putExtra("message", message);
-            LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+//        if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
+//            // app is in foreground, broadcast the push message
+//            Intent pushNotification = new Intent(C.PUSH_NOTIFICATION);
+//            pushNotification.putExtra("message", message);
+//            LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+//
+//            // play notification sound
+//
+//        }else{
+//            // If the app is in background, firebase itself handles the notification
+//        }
 
-            // play notification sound
-            NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
-            notificationUtils.playNotificationSound();
-        }else{
-            // If the app is in background, firebase itself handles the notification
-        }
+        NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
+        notificationUtils.showNotificationMessage("MedPlanner", message, "", new Intent(), "");
+        notificationUtils.playNotificationSound();
     }
 
     private void handleDataMessage(JSONObject json) {
@@ -88,28 +100,28 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.e(TAG, "timestamp: " + timestamp);
 
 
-            if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
-                // app is in foreground, broadcast the push message
-                Intent pushNotification = new Intent(C.PUSH_NOTIFICATION);
-                pushNotification.putExtra("message", message);
-                LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+//            if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
+//                // app is in foreground, broadcast the push message
+//                Intent pushNotification = new Intent(C.PUSH_NOTIFICATION);
+//                pushNotification.putExtra("message", message);
+//                LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+//
+//                // play notification sound
+//                NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
+//                notificationUtils.playNotificationSound();
+//            } else {
+            // app is in background, show the notification in notification tray
+            Intent resultIntent = new Intent(getApplicationContext(), ActivityMain.class);
+            resultIntent.putExtra("message", message);
 
-                // play notification sound
-                NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
-                notificationUtils.playNotificationSound();
+            // check for image attachment
+            if (TextUtils.isEmpty(imageUrl)) {
+                showNotificationMessage(getApplicationContext(), title, message, timestamp, resultIntent);
             } else {
-                // app is in background, show the notification in notification tray
-                Intent resultIntent = new Intent(getApplicationContext(), ActivityMain.class);
-                resultIntent.putExtra("message", message);
-
-                // check for image attachment
-                if (TextUtils.isEmpty(imageUrl)) {
-                    showNotificationMessage(getApplicationContext(), title, message, timestamp, resultIntent);
-                } else {
-                    // image is present, show notification with image
-                    showNotificationMessageWithBigImage(getApplicationContext(), title, message, timestamp, resultIntent, imageUrl);
-                }
+                // image is present, show notification with image
+                showNotificationMessageWithBigImage(getApplicationContext(), title, message, timestamp, resultIntent, imageUrl);
             }
+//            }
         } catch (JSONException e) {
             Log.e(TAG, "Json Exception: " + e.getMessage());
         } catch (Exception e) {

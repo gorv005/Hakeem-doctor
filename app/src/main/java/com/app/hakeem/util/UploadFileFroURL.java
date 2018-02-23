@@ -43,7 +43,7 @@ public class UploadFileFroURL extends AsyncTask<String, Integer, String> {
         mProgressDialog.setMessage("Please Wait!");
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setMax(100);
-        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressDialog.setCancelable(false);
         mProgressDialog.show();
     }

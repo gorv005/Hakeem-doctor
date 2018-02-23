@@ -169,7 +169,6 @@ public class ActivityChat extends AppCompatActivity {
             }
         });
 
-        uploadFileFroURL = new UploadFileFroURL(this, fileUploadListener);
 
 
         etMsg.addTextChangedListener(new TextWatcher() {
@@ -388,6 +387,7 @@ public class ActivityChat extends AppCompatActivity {
                         profileDetail.setPicture(profileImage);
                         profileDetail.setPicturename(Utils.getCurrentTimeStamp()+".jpg");
                     }*/
+                    uploadFileFroURL = new UploadFileFroURL(this, fileUploadListener);
 
                     uploadFileFroURL.execute(filePath);
                 } catch (IOException e) {
@@ -407,6 +407,8 @@ public class ActivityChat extends AppCompatActivity {
 //                bitmap=  Util.rotateImageIfRequired(bitmap,fileUri.getPath());
                 contentURI = fileUri;
                 filePath = fileUri.getPath();
+
+                uploadFileFroURL = new UploadFileFroURL(this, fileUploadListener);
 
                 uploadFileFroURL.execute(filePath);
                /* String profileImage = Utils.getBase64Image(bitmap);
