@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -17,6 +18,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v13.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -102,6 +105,12 @@ public class ActivityMain extends AppCompatActivity
     LinearLayout llMedicalReport;
     @BindView(R.id.llAwareness)
     LinearLayout llAwareness;
+    @BindView(R.id.rlPhrase)
+    View rlPhrase;
+    @BindView(R.id.ivDeletePhrase)
+    ImageView ivDeletePhrase;
+    @BindView(R.id.tvSearchPhrase)
+    TextView tvSearchPhrase;
     private AdapterSideMenu adapterSideMenu;
     private AdapterPosts adapterPosts;
     private Dialog dialog, dialogShowAddPostPopUp, dialogQueue;
@@ -122,6 +131,7 @@ public class ActivityMain extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         tvTitle.setText(R.string.awareness);
+
         setSupportActionBar(toolbar);
         imageLoader = new ImageLoader(this);
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -221,6 +231,12 @@ public class ActivityMain extends AppCompatActivity
 
             }
         });
+        imgSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSearchDialog(ActivityMain.this);
+            }
+        });
         llHealthTracker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,9 +267,9 @@ public class ActivityMain extends AppCompatActivity
                     Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
                     if (SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.PATIENT)) {
 
-                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_EMR_AND_TRACKER);
+                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_CONSULTATION_TYPE);
                     } else {
-                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PATIENT_LIST);
+                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_CONSULTATION_TYPE);
 
                     }
                     startActivity(intent);
@@ -262,6 +278,14 @@ public class ActivityMain extends AppCompatActivity
                     intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_LOGIN);
                     startActivity(intent);
                 }
+            }
+        });
+        rlPhrase.setVisibility(View.GONE);
+        ivDeletePhrase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapterPosts.filter("");
+                rlPhrase.setVisibility(View.GONE);
             }
         });
     }
@@ -633,6 +657,98 @@ public class ActivityMain extends AppCompatActivity
 
     }
 
+    public void showSearchDialog(final Activity context) {
+
+        final LayoutInflater factory = LayoutInflater.from(context);
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_search, null);
+        final Dialog  dialogShowAddPostPopUp = new Dialog(context);
+        dialogShowAddPostPopUp.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogShowAddPostPopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialogShowAddPostPopUp.setContentView(deleteDialogView);
+
+
+        final EditText etSearch = (EditText) deleteDialogView.findViewById(R.id.etSearch);
+        final ImageView ivSearch = (ImageView) deleteDialogView.findViewById(R.id.ivSearch);
+        final TextView tvobgyne = (TextView) deleteDialogView.findViewById(R.id.tvobgyne);
+       final TextView tvPediatric = (TextView) deleteDialogView.findViewById(R.id.tvPediatric);
+        final  TextView tvAbodminal = (TextView) deleteDialogView.findViewById(R.id.tvAbodminal);
+        final TextView tvPsycological = (TextView) deleteDialogView.findViewById(R.id.tvPsycological);
+        final TextView tvFamilyAndCommunity = (TextView) deleteDialogView.findViewById(R.id.tvFamilyAndCommunity);
+
+
+
+        ivSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapterPosts.filter(etSearch.getText().toString());
+                dialogShowAddPostPopUp.dismiss();
+                rlPhrase.setVisibility(View.VISIBLE);
+                tvSearchPhrase.setText(getString(R.string.search_phrase)+":"+etSearch.getText().toString());
+            }
+        });
+        tvobgyne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etSearch.setText(getString(R.string.obgyne));
+                tvobgyne.setTextColor(ContextCompat.getColor(context, R.color.blue));
+                tvPediatric.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvAbodminal.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvPsycological.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvFamilyAndCommunity.setTextColor(ContextCompat.getColor(context, R.color.white));
+
+            }
+        });
+        tvPediatric.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etSearch.setText(getString(R.string.pediatric));
+                tvobgyne.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvPediatric.setTextColor(ContextCompat.getColor(context, R.color.blue));
+                tvAbodminal.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvPsycological.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvFamilyAndCommunity.setTextColor(ContextCompat.getColor(context, R.color.white));
+            }
+        });
+        tvAbodminal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etSearch.setText(getString(R.string.abodminal));
+                tvobgyne.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvPediatric.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvAbodminal.setTextColor(ContextCompat.getColor(context, R.color.blue));
+                tvPsycological.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvFamilyAndCommunity.setTextColor(ContextCompat.getColor(context, R.color.white));
+            }
+        });
+        tvPsycological.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etSearch.setText(getString(R.string.psycological));
+                tvobgyne.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvPediatric.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvAbodminal.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvPsycological.setTextColor(ContextCompat.getColor(context, R.color.blue));
+                tvFamilyAndCommunity.setTextColor(ContextCompat.getColor(context, R.color.white));
+            }
+        });
+        tvFamilyAndCommunity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etSearch.setText(getString(R.string.family_and_community));
+                tvobgyne.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvPediatric.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvAbodminal.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvPsycological.setTextColor(ContextCompat.getColor(context, R.color.white));
+                tvFamilyAndCommunity.setTextColor(ContextCompat.getColor(context, R.color.blue));
+            }
+        });
+
+        dialogShowAddPostPopUp.show();
+
+
+    }
 
     public void showSendPostDialog(final Activity context) {
 
@@ -675,7 +791,13 @@ public class ActivityMain extends AppCompatActivity
         ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                takePhotoFromCamera();
+                if (isCameraPermissionGranted()) {
+                    takePhotoFromCamera();
+                }
+                else {
+                    requestPermissionForCamera();
+
+                }
             }
         });
 
@@ -729,7 +851,40 @@ public class ActivityMain extends AppCompatActivity
 
 
     }
+    public  boolean isCameraPermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_GRANTED) {
 
+                return true;
+            } else {
+
+
+                // ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+
+            return true;
+        }
+
+
+    }
+
+    private void requestPermissionForCamera(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(ActivityMain.this, android.Manifest.permission.CAMERA)){
+            //     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},Utils.PERMISSION_REQUEST_CODE);
+            Util.showAlert(ActivityMain.this, getString(R.string.alert), "Please allow camera permission in App Settings for additional functionality.", getString(R.string.ok), R.drawable.warning);
+
+            //  Toast.makeText(getActivity(),"GPS permission allows us to access location data. Please allow in App Settings for additional functionality.",Toast.LENGTH_LONG).show();
+
+        } else {
+
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 2);
+        }
+    }
     public void choosePhotoFromGallary() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

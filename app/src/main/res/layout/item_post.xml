@@ -108,9 +108,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
+        <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:background="@color/gray3"/>
 
         <LinearLayout
@@ -153,9 +153,9 @@
                 android:textColor="@color/gray4" />
         </LinearLayout>
 
-        <ImageView
+        <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:background="@color/gray3" />
     </LinearLayout>
 

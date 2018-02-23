@@ -1,0 +1,119 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/rl"
+    android:background="@android:color/transparent"
+    android:layout_height="match_parent"
+    >
+
+<LinearLayout
+    android:padding="5dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="5dp"
+        android:background="@drawable/dialog_round_back"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/etSearch"
+            android:enabled="false"
+            android:focusable="false"
+
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:maxLength="250"
+            android:textSize="14sp"
+            android:drawableTint="@color/white"
+            android:hint="@string/search"
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off" />
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:tint="@color/white"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_earch"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvobgyne"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginRight="10dp"
+            android:text="@string/obgyne"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_toRightOf="@id/tvobgyne"
+            android:id="@+id/tvPediatric"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:text="@string/pediatric"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_toRightOf="@id/tvPediatric"
+            android:id="@+id/tvAbodminal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:text="@string/abodminal"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_toRightOf="@id/tvAbodminal"
+            android:id="@+id/tvPsycological"
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:text="@string/psycological"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvFamilyAndCommunity"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:textSize="12sp"
+        android:text="@string/family_and_community"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+

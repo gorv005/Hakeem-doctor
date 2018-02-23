@@ -55,7 +55,7 @@ public class AdapterDoctorPatientsList extends BaseAdapter {
 
         TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
 
-        tvName.setText(getItem(position).getFirstName()+" "+getItem(position).getLastName());
+        tvName.setText(getItem(position).getFirstName());
         tvName.setTextColor(activity.getResources().getColor(R.color.blue));
 
 

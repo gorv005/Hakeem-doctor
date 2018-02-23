@@ -77,7 +77,7 @@ public class AdapterEMRDoctorList extends BaseAdapter {
         if(position%2==1){
             viewHolder.rl.setBackgroundColor(ContextCompat.getColor(activity, R.color.cream));
         }
-        viewHolder.tvDocName.setText(activity.getString(R.string.dr)+" "+EMRDoctorDataList.get(position).getFirstName()+" "+EMRDoctorDataList.get(position).getLastName());
+        viewHolder.tvDocName.setText(activity.getString(R.string.dr)+" "+EMRDoctorDataList.get(position).getFirstName());
         viewHolder.tvDocSpec.setText(EMRDoctorDataList.get(position).getSubSpecialist());
         viewHolder.tvDate.setText(EMRDoctorDataList.get(position).getCreatedAt().split(" ")[0]);
         imageLoader.DisplayImage(EMRDoctorDataList.get(position).getPhoto(), viewHolder.ivDoctor);

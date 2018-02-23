@@ -91,7 +91,7 @@
     <string name="please_add_atleast_one_depandent">Please add atleast one dependent</string>
     <string name="family_and_community">Family and Community</string>
     <string name="psychological">Psychological</string>
-    <string name="abdominal">Adbominal</string>
+    <string name="abdominal">Abodminal</string>
     <string name="obgyne">Obgyne</string>
     <string name="pediatrics">Pediatrics</string>
     <string name="specialist">Specialist</string>
@@ -101,6 +101,9 @@
     <string name="network_error">Network error. Please try after some time.</string>
     <string name="please_connect_to_the_internet">Please connet to the internet first.</string>
     <string name="health_tracker">Health Tracker</string>
+    <string name="emr_tracker">EMR/Tracker</string>
+    <string name="Consultation">Consultation</string>
+
     <string name="emr">EMR</string>
     <string name="birthdate">BirthDate</string>
     <string name="weight">weight</string>
@@ -207,5 +210,11 @@
     <string name="dia_mm_hg">DIA\nmm Hg</string>
     <string name="heart_rate">Heart\nRate</string>
     <string name="chat">Chat</string>
+    <string name="search">Search</string>
+    <string name="psycological">Psycological</string>
+    <string name="abodminal">Abodminal</string>
+    <string name="pediatric">Pediatric</string>
+    <string name="search_phrase">Search phrase</string>
+    <string name="emr_log">EMR LOG</string>
 
 </resources>

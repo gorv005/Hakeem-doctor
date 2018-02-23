@@ -22,6 +22,7 @@ import com.app.hakeem.util.ImageLoader;
 import com.app.hakeem.util.SharedPreference;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by aditya.singh on 6/14/2016.
@@ -32,6 +33,8 @@ public class AdapterPosts extends BaseAdapter {
     private final LayoutInflater mInflater;
     private Activity activity;
     private ArrayList<Post> Posts;
+    private ArrayList<Post> arraylist;
+
     ImageLoader imageLoader;
 
     public AdapterPosts(Activity activity, ArrayList<Post> Posts) {
@@ -39,7 +42,8 @@ public class AdapterPosts extends BaseAdapter {
         this.Posts = Posts;
         mInflater = LayoutInflater.from(activity);
         imageLoader = new ImageLoader(activity);
-
+        this.arraylist = new ArrayList<Post>();
+        this.arraylist.addAll(Posts);
     }
 
     @Override
@@ -120,12 +124,19 @@ public class AdapterPosts extends BaseAdapter {
         viewHolder.tvComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, ActivityContainer.class);
-                Bundle bundle=new Bundle();
-                bundle.putSerializable(C.POST,getItem(position));
-                intent.putExtra(C.BUNDLE,bundle);
-                intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_COMMENTS);
-                activity.startActivity(intent);
+                if(SharedPreference.getInstance(activity).getBoolean(C.IS_LOGIN)) {
+                    Intent intent = new Intent(activity, ActivityContainer.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(C.POST, getItem(position));
+                    intent.putExtra(C.BUNDLE, bundle);
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_COMMENTS);
+                    activity.startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(activity, ActivityContainer.class);
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_LOGIN);
+                    activity.startActivity(intent);
+                }
             }
         });
         viewHolder.tvLiked.setText(post.getTotalLikes() + "");
@@ -186,5 +197,23 @@ public class AdapterPosts extends BaseAdapter {
             e.printStackTrace();
         }
     }
-
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        Posts.clear();
+        if (charText.length() == 0) {
+            Posts.addAll(arraylist);
+        }
+        else
+        {
+            for (Post wp : arraylist)
+            {
+                if (wp.getSpecialist().toLowerCase(Locale.getDefault()).contains(charText))
+                {
+                    Posts.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 }

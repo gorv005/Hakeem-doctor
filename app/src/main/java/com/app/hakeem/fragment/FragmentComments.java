@@ -42,6 +42,8 @@ public class FragmentComments extends Fragment {
 
     @BindView(R.id.ivDoctor)
     ImageView ivDoctor;
+    @BindView(R.id.ivProfileImage)
+    ImageView ivProfileImage;
     @BindView(R.id.etComment)
     EditText etComment;
     @BindView(R.id.ivSendTweet)
@@ -107,6 +109,7 @@ public class FragmentComments extends Fragment {
             tvMsg.setVisibility(View.VISIBLE);
            tvMsg.setText(post.getContent());
         }
+        imageLoader.DisplayImage(SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserPic(),ivProfileImage);
         imageLoader.DisplayImage(post.getIconUrl(), ivSpeciality);
         imageLoader.DisplayImage(post.getUserPic(), ivDoctor);
         ivSendTweet.setOnClickListener(new View.OnClickListener() {

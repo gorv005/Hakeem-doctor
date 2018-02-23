@@ -175,6 +175,8 @@ public class ActivityContainer extends AppCompatActivity {
                 break;
             case C.FRAGMENT_COMMENTS:
                 getSupportActionBar().show();
+                tvTitle.setText(R.string.comments);
+
                 btnAddDependent.setVisibility(View.GONE);
                 fragment = new FragmentComments();
                 fragmentTransaction.replace(R.id.container, fragment);

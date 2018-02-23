@@ -41,7 +41,6 @@
             android:drawablePadding="20dp"
             android:hint="@string/username"
             android:inputType="textEmailAddress"
-            android:minWidth="200dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white_off" />
 
@@ -58,7 +57,6 @@
             android:drawablePadding="20dp"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:minWidth="200dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white_off" />
 
@@ -77,8 +75,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
@@ -90,7 +88,6 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/bg_button_noborder"
                 android:minWidth="130dp"
-                android:layout_marginLeft="20dp"
                 android:text="@string/create_account"
                 android:textAllCaps="false"
                 android:textColor="@color/color_selector"
@@ -105,7 +102,6 @@
                 android:background="@drawable/bg_button_noborder"
                 android:minWidth="130dp"
                 android:text="@string/need_help"
-                android:layout_marginRight="20dp"
                 android:textAllCaps="false"
                 android:textColor="@color/color_selector"
                 android:textSize="14sp" />

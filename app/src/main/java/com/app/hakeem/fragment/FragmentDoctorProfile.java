@@ -68,7 +68,7 @@ public class FragmentDoctorProfile extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         if(user!=null && user.getUserType().equals(C.DOCTOR)){
-            tvDocName.setText(user.getFirstName()+" "+user.getLastName());
+            tvDocName.setText(user.getFirstName());
             tvDocProf.setText(user.getSpecialist());
 
             imageLoader.DisplayImage(user.getUserPic(),imgProfile);

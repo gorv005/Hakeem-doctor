@@ -26,7 +26,7 @@
                 android:drawableLeft="@drawable/icon_name"
                 android:drawablePadding="20dp"
                 android:hint="@string/hospital_name"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white_off" />
             <EditText
@@ -41,7 +41,7 @@
                 android:hint="@string/working_since"
                 android:editable="false"
                 android:focusable="false"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white_off" />
             <EditText
@@ -54,7 +54,7 @@
                 android:drawableLeft="@drawable/icon_calendar"
                 android:drawablePadding="20dp"
                 android:hint="@string/working_since"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:editable="false"
                 android:focusable="false"
                 android:textColor="@color/white"
