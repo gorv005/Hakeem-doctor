@@ -107,43 +107,62 @@ public interface C {
     String API_AWARENESS = BASE_URL + "/awareness";
     String API_DELETE_DPENDENT = BASE_URL + "/dependentdelete";
     String API_CONSULTANT = BASE_URL + "/specialization";
+    String API_PATIENT_QUEUE = BASE_URL + "/patientqueue";
+    String API_ALL_QUEUE_PATIENT = BASE_URL + "/getallqueuepatient";
+    String API_GO_ONLINE = BASE_URL + "/godoctor_online";
+    String API_START_CHAT = BASE_URL + "/startchat";
+
+    String API_END_CHAT = BASE_URL + "/endchat";
+
 
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
-
     String USER = "user";
-
     String DATE_FORMAT = "dd/MMM/yyyy";
-
     String DATE_FORMAT_FOR_REPORT = "yyyy-MM-dd";
     String IMAGE_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/Hakeem";
     String TAG_FRAGMENT_REGISTER_TYPE_R_3 = "TAG_FRAGMENT_REGISTER_TYPE_R_3";
+
+
     String TAG_FRAGMENT_REGISTER_TYPE_R_4 = "TAG_FRAGMENT_REGISTER_TYPE_R_4";
     String TAG_FRAGMENT_DEPENDENT = "tag_fragment_dependent";
     String USER_PATIENT = "3";
     String USER_DOCTOR = "2";
 
-
     String USER_ADMIN = "1";
+
     String DOCTOR = "Doctor";
+
     String PATIENT = "Patient";
     String DEPENDENT_ID = "dependent_id";
-
     String NAME = "name";
-
     String GENDER = "gender";
+
 
     String DOB = "dob";
     String FONT = "Mont.otf";
     String PATIENT_ID = "patientId";
     String PRE_MEAL = "Pre-meal";
 
-
     String POST_SLEEP = "Post-sleep";
     String AWARENESS_LIST = "awarenesslist";
     String SPECIALITY = "speciality";
     String SENDER = "SENDER";
-
     String RECEIVER = "RECEIVER";
-    String POST ="post" ;
+    String POST = "post";
+    String FALSE = "0";
+    String TRUE = "1";
+    String PASSWORD = "Admin@123";
+    String IMAGE = "image";
+    String CHAT_DOCTOR_ID = "chat_doc";
+    String IS_DOCOTR_ONLINE = "is_docotr_online";
+    String TOTAL_PERSON_INQUEUE = "TOTAL_PERSON_INQUEUE";
+    String REGISTRATION_COMPLETE = "registrationComplete";
+    String PUSH_NOTIFICATION = "pushNotification";
+
+    // id to handle the notification in the notification tray
+    int NOTIFICATION_ID = 100;
+    int NOTIFICATION_ID_BIG_IMAGE = 101;
+
+    String SHARED_PREF = "ah_firebase";
 }

@@ -103,7 +103,7 @@ public class ActivityMain extends AppCompatActivity
     LinearLayout llAwareness;
     private AdapterSideMenu adapterSideMenu;
     private AdapterPosts adapterPosts;
-    private Dialog dialog, dialogShowAddPostPopUp;
+    private Dialog dialog, dialogShowAddPostPopUp, dialogQueue;
     ImageLoader imageLoader;
     private int GALLERY = 1, CAMERA = 2;
     private Uri fileUri;
@@ -113,6 +113,7 @@ public class ActivityMain extends AppCompatActivity
     private ProgressDialog mProgressDialog;
     ImageView imgPost, imgDelete;
     ArrayList<Post> posts;
+    private Response responseQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,8 +180,14 @@ public class ActivityMain extends AppCompatActivity
                         intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_PATIENT_PROFILE);
                     }
                     startActivity(intent);
-                } else if (sideMenuItem.getNameResourse() == R.string.awareness) {
+                } else if (sideMenuItem.getNameResourse() == R.string.queue) {
 
+                    if (responseQueue.getQueuePeople().size() > 0) {
+                        Intent intent = new Intent(ActivityMain.this, ActivityChatDoctor.class);
+                        intent.putExtra(C.USER, responseQueue.getQueuePeople().get(0));
+                        intent.putExtra(C.TOTAL_PERSON_INQUEUE, responseQueue.getQueuePeople().size());
+                        startActivity(intent);
+                    }
                 }
 
             }
@@ -324,6 +331,7 @@ public class ActivityMain extends AppCompatActivity
             if (SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
                 imgEdit.setVisibility(View.VISIBLE);
                 imgProfile.setVisibility(View.VISIBLE);
+                getQueuePatient();
                 imageLoader.DisplayImage(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserPic(), imgProfile);
                 imageLoader.DisplayImage(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserPic(), ivProfileImage);
 
@@ -921,6 +929,63 @@ public class ActivityMain extends AppCompatActivity
 
 
         dialog.show();
+
+
+    }
+
+
+    void getQueuePatient() {
+
+
+        dialogQueue = Util.getProgressDialog(this, R.string.loading);
+        dialogQueue.show();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("doctor_id", SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserId() + "");
+
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(this);
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialogQueue.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    responseQueue = gson.fromJson(response.toString(), Response.class);
+                    if (responseQueue.getStatusCode().equals(C.STATUS_SUCCESS)) {
+
+                        adapterSideMenu.getItem(0).setVal(responseQueue.getQueuePeople().size() + "");
+                        adapterSideMenu.notifyDataSetChanged();
+
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+                dialogQueue.dismiss();
+
+            }
+        }, "login", C.API_ALL_QUEUE_PATIENT, Util.getHeader(this), obj);
 
 
     }

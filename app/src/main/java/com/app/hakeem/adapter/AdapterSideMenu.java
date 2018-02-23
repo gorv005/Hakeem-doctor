@@ -49,15 +49,27 @@ public class AdapterSideMenu extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
+
             convertView = mInflater.inflate(
-                    R.layout.item_menu, parent, false);
+                    R.layout.item_menu_queue, parent, false);
         }
 
-        TextView tvMenuName = (TextView)convertView.findViewById(R.id.tvMenuName);
+        TextView tvTotalPatient = (TextView) convertView.findViewById(R.id.tvTotalPatient);
+        if (getItem(position).getNameResourse() != R.string.queue)
+            tvTotalPatient.setVisibility(View.GONE);
+        else {
+            tvTotalPatient.setVisibility(View.VISIBLE);
+            tvTotalPatient.setText(getItem(position).getVal());
+        }
+        TextView tvMenuName = (TextView) convertView.findViewById(R.id.tvMenuName);
         tvMenuName.setText(activity.getResources().getString(getItem(position).getNameResourse()));
         ImageView ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
         ivIcon.setImageResource((getItem(position).getImageNameResource()));
 
         return convertView;
+    }
+
+    void setTotalPatient(String val) {
+
     }
 }

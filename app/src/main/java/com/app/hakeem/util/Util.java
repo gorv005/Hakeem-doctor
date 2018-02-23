@@ -12,8 +12,10 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.media.ExifInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -22,6 +24,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
+import android.text.format.DateFormat;
 import android.text.style.StyleSpan;
 import android.util.Base64;
 import android.util.Log;
@@ -108,6 +111,51 @@ public class Util {
         return yourAge;
     }
 
+    public static boolean isCameraPermissionGranted(Activity activity) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (activity.checkSelfPermission(Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_GRANTED) {
+
+                return true;
+            } else {
+
+
+                // ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
+                return false;
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+
+            return true;
+        }
+
+
+    }
+
+
+    public static Bitmap rotateImageIfRequired(Bitmap img, String selectedImage) throws IOException {
+
+        ExifInterface ei = new ExifInterface(selectedImage);
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+        }
+    }
+
+    public static Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+        return rotatedImg;
+    }
 
     public static boolean isValidPassword(String password) {
 
@@ -123,6 +171,39 @@ public class Util {
 
     }
 
+
+    public static String getMessageTimn(long mili) {
+//        SimpleDateFormat sdf;
+//        Timestamp stamp = new Timestamp(mili);
+//        Date date = new Date(stamp.getTime());
+//        if (System.currentTimeMillis() - 3600 * 1000 * 24 > mili)
+//            sdf = new SimpleDateFormat("h:mm a");
+//        else
+//            sdf = new SimpleDateFormat("dd MMM");
+////        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+//        return sdf.format(date);
+
+//mili = mili -3600 * 1000 * 24;
+        Calendar smsTime = Calendar.getInstance();
+        smsTime.setTimeInMillis(mili);
+
+        Calendar now = Calendar.getInstance();
+
+        final String timeFormatString = "h:mm aa";
+        final String dateTimeFormatString = "dd MMM";
+        final long HOURS = 60 * 60 * 60;
+        if (now.get(Calendar.DATE) == smsTime.get(Calendar.DATE)) {
+            return "" + DateFormat.format(timeFormatString, smsTime);
+        } else {
+            return "" + DateFormat.format(dateTimeFormatString, smsTime);
+        }
+//        else if (now.get(Calendar.YEAR) == smsTime.get(Calendar.YEAR)) {
+//            return DateFormat.format(dateTimeFormatString, smsTime).toString();
+//        } else {
+//            return DateFormat.format("MMMM dd yyyy, h:mm aa", smsTime).toString();
+//        }
+
+    }
 
     public static String getDateInNumber(String s) {
 
@@ -276,49 +357,7 @@ public class Util {
     }
 
 
-    public static void showPopUP(final Activity activity, final String statusCode, String status) {
-        try {
-            final LayoutInflater factory = LayoutInflater.from(activity);
-            final View deleteDialogView = factory.inflate(
-                    R.layout.pop_up_msg, null);
-            final AlertDialog deleteDialog = new AlertDialog.Builder(activity).create();
-            deleteDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            deleteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-            deleteDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            deleteDialog.setView(deleteDialogView);
 
-            if (statusCode.equals(C.STATUS_SUCCESS)) {
-                ((TextView) deleteDialogView.findViewById(R.id.tvResult)).setText(R.string.success);
-
-
-            } else if (statusCode.equals(C.STATUS_NOT_KNOWN)) {
-                ((TextView) deleteDialogView.findViewById(R.id.tvResult)).setText(R.string.oops);
-
-
-            } else {
-                ((TextView) deleteDialogView.findViewById(R.id.tvResult)).setText(R.string.oops);
-
-            }
-            ((TextView) deleteDialogView.findViewById(R.id.tvStatus)).setText(status);
-
-            deleteDialogView.findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    if (statusCode == C.STATUS_SUCCESS) {
-
-                    } else if (statusCode.equals(C.STATUS_FAIL)) {
-
-                    }
-                    deleteDialog.dismiss();
-                }
-            });
-            deleteDialog.show();
-            deleteDialog.setCancelable(false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void hideKeyBoard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity
@@ -507,22 +546,18 @@ public class Util {
     }
 
 
-    public static String getTimeAM(String time) {
-        try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm a");
-            Date startDate = simpleDateFormat.parse(time);
-            SimpleDateFormat newDateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm a");
+    public static String getTimeAM() {
 
-            String strDate = newDateFormat.format(startDate);
-            return strDate.toUpperCase();
+        Calendar smsTime = Calendar.getInstance();
+        smsTime.setTimeInMillis(System.currentTimeMillis());
 
-        } catch (Exception e) {
+        Calendar now = Calendar.getInstance();
 
-            e.printStackTrace();
-        }
+        final String dateTimeFormatString = "yyyy-MM-dd hh:mm:ss";
+
+        return "" + DateFormat.format(dateTimeFormatString, smsTime);
 
 
-        return time;
     }
 
     public static Time getTimeDuration(String departureTime) {
@@ -677,7 +712,7 @@ public class Util {
     public static ArrayList<SideMenuItem> getSideMenuList(boolean isLogin, String userType) {
         ArrayList<SideMenuItem> sideMenuItems = new ArrayList<SideMenuItem>();
 
-         if (isLogin && userType.equals(C.DOCTOR)) {
+        if (isLogin && userType.equals(C.DOCTOR)) {
             sideMenuItems.add(new SideMenuItem(R.string.queue, R.drawable.queue));
             sideMenuItems.add(new SideMenuItem(R.string.emr_and_tracker, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.profile, R.drawable.icon_profile));
@@ -685,7 +720,7 @@ public class Util {
             sideMenuItems.add(new SideMenuItem(R.string.setting, R.drawable.icon_settting));
             sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));
 
-         } else if (isLogin && userType.equals(C.PATIENT)) {
+        } else if (isLogin && userType.equals(C.PATIENT)) {
             sideMenuItems.add(new SideMenuItem(R.string.dependent, R.drawable.menu_children));
             sideMenuItems.add(new SideMenuItem(R.string.emr_and_tracker, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.profile, R.drawable.icon_profile));
@@ -693,9 +728,8 @@ public class Util {
             sideMenuItems.add(new SideMenuItem(R.string.setting, R.drawable.icon_settting));
             sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));
 
-         }
-        else
-             sideMenuItems.add(new SideMenuItem(R.string.login, R.drawable.icon_settting));
+        } else
+            sideMenuItems.add(new SideMenuItem(R.string.login, R.drawable.icon_settting));
 //        if (isLogin) {
 //            sideMenuItems.add(new SideMenuItem(R.string.my_bookings, R.drawable.booking));
 //            sideMenuItems.add(new SideMenuItem(R.string.my_account, R.drawable.account));
@@ -809,6 +843,15 @@ public class Util {
         return false;
     }
 
+    //    public static Map<String, String> getHeader() {
+//        HashMap<String, String> headers = new HashMap<String, String>();
+////        String authToken = SharedPreference.getInstance(activity).getString(C.AUTH_TOKEN);
+////        headers.put("authtoken", authToken);
+//        headers.put("Accept", "application/json");
+//        headers.put("Content-Type", "application/json");
+//        return headers;
+
+
     public static boolean isDateSmallThanCurrent(String departDate, String returnDate) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
         Date date1 = null;
@@ -889,15 +932,9 @@ public class Util {
         headers.put("Content-Type", "multipart/form-data");
         return headers;
     }
-//    public static Map<String, String> getHeader() {
-//        HashMap<String, String> headers = new HashMap<String, String>();
-////        String authToken = SharedPreference.getInstance(activity).getString(C.AUTH_TOKEN);
-////        headers.put("authtoken", authToken);
-//        headers.put("Accept", "application/json");
-//        headers.put("Content-Type", "application/json");
-//        return headers;
-//    }
 
+
+//    }
 
     public static String loadCityJson(Activity activity) {
         String json = null;
@@ -929,8 +966,6 @@ public class Util {
     public static List<GeneralPojoKeyValue> getRelationList() {
 
 
-
-
         final List<GeneralPojoKeyValue> acadQualArr = new ArrayList<GeneralPojoKeyValue>();
         LinkedHashMap<String, String> hashMap;
 
@@ -957,62 +992,20 @@ public class Util {
         }
 
 
-
         return acadQualArr;
     }
 
-    public static void showAlert(Context context,String title,String msg,String btnText,int img) {
+    public static void showAlert(Context context, String title, String msg, String btnText, int img) {
 
 
         final LayoutInflater factory = LayoutInflater.from(context);
         final View deleteDialogView = factory.inflate(
                 R.layout.dialog_alert, null);
-        final Dialog  dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-     //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setContentView(deleteDialogView);
-
-
-
-        TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
-        tvMsg.setText(msg);
-
-        TextView tvTitle = (TextView) deleteDialogView.findViewById(R.id.tvTitle);
-        tvTitle.setText(title);
-        ImageView ivAlertImage = (ImageView) deleteDialogView.findViewById(R.id.ivAlertImage);
-        ivAlertImage.setImageResource(img);
-        Button btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
-        btnDone.setText(btnText);
-
-
-        btnDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                    dialog.dismiss();
-
-            }
-        });
-
-
-        dialog.show();
-
-
-    }
-    public static void showAlertForToast(final Activity context, String title, String msg, String btnText, int img, final boolean finishActivity) {
-
-
-        final LayoutInflater factory = LayoutInflater.from(context);
-        final View deleteDialogView = factory.inflate(
-                R.layout.dialog_alert, null);
-        final Dialog  dialog = new Dialog(context);
+        final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setContentView(deleteDialogView);
-
 
 
         TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
@@ -1032,9 +1025,6 @@ public class Util {
 
 
                 dialog.dismiss();
-                if(finishActivity){
-                     context.finish();
-                }
 
             }
         });
@@ -1045,4 +1035,46 @@ public class Util {
 
     }
 
+    public static void showAlertForToast(final Activity context, String title, String msg, String btnText, int img, final boolean finishActivity) {
+
+
+        final LayoutInflater factory = LayoutInflater.from(context);
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_alert, null);
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(deleteDialogView);
+
+
+        TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
+        tvMsg.setText(msg);
+
+        TextView tvTitle = (TextView) deleteDialogView.findViewById(R.id.tvTitle);
+        tvTitle.setText(title);
+        ImageView ivAlertImage = (ImageView) deleteDialogView.findViewById(R.id.ivAlertImage);
+        ivAlertImage.setImageResource(img);
+        Button btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
+        btnDone.setText(btnText);
+
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.dismiss();
+                if (finishActivity) {
+                    context.finish();
+                }
+
+            }
+        });
+
+
+        dialog.show();
+
+
+    }
 }

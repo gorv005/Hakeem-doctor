@@ -11,6 +11,7 @@
         <ImageView
             android:id="@+id/ivTriangle"
             android:layout_width="10dp"
+            android:visibility="gone"
             android:layout_height="10dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
@@ -19,8 +20,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:background="@drawable/rounded_blue"
+            android:background="@drawable/incoming"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -37,6 +37,17 @@
                     android:text="@string/app_name"
                     android:textColor="@android:color/white" />
 
+                <ImageView
+                    android:id="@+id/ivMsg"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:minHeight="100dp"
+                    android:minWidth="100dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 

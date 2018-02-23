@@ -19,6 +19,7 @@ import com.app.hakeem.BuildConfig;
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.LoginCredential;
+import com.app.hakeem.pojo.Response;
 import com.app.hakeem.pojo.ResponseLogin;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.SharedPreference;
@@ -28,6 +29,8 @@ import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +51,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
     @BindView(R.id.btnNeedHelp)
     Button btnNeedHelp;
     private Dialog dialog;
+    private Dialog dialogQueue;
 
 
     public FragmentLogin() {
@@ -67,9 +71,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        if(BuildConfig.DEBUG)
-        {
-            etUserName.setText("qwerty@yopmail.com");
+        if (BuildConfig.DEBUG) {
+            etUserName.setText("x@yopmail.com");
             etPassword.setText("Admin@123");
             /*etUserName.setText("shagun@gmail.com");
             etPassword.setText("Admin@123");*/
@@ -87,6 +90,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btnLogin:
 
+                SharedPreference.getInstance(getActivity()).setBoolean(C.IS_DOCOTR_ONLINE, false);
                 if (isAllValid()) {
                     doLogin(etUserName.getText().toString(), etPassword.getText().toString());
                 }
@@ -95,7 +99,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
             case R.id.btnNeedHelp:
                 break;
             case R.id.btnCreateAccount:
-                ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_REGISTRATION_TYPE,null);
+                ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_REGISTRATION_TYPE, null);
                 break;
 
         }
@@ -132,13 +136,17 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
                         SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
-                        SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER,responseLogin.getUser());
-                     //   Util.showToast(getActivity(),responseLogin.getMessage(),true);
-                        Intent intent = new Intent(getActivity(), ActivityMain.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        getActivity().startActivity(intent);
+                        SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER, responseLogin.getUser());
+                        //   Util.showToast(getActivity(),responseLogin.getMessage(),true);
+
+                        if (SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+
+                            goOnline();
+                        } else {
+                            openMainActivity();
+                        }
                     } else {
-                        Util.showAlert(getActivity(),getString(R.string.error),responseLogin.getMessage(),getString(R.string.ok),R.drawable.warning);
+                        Util.showAlert(getActivity(), getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning);
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);
                     }
 
@@ -158,6 +166,71 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         }, "login", C.API_LOGIN, Util.getHeader(getActivity()), obj);
 
 
+    }
+
+    private void goOnline() {
+
+
+        dialogQueue = Util.getProgressDialog(getActivity(), R.string.loading);
+        dialogQueue.show();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("doctor_id", SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId() + "");
+        hashMap.put("status_id", "1");
+
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialogQueue.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    Response responseLogin = gson.fromJson(response.toString(), Response.class);
+                    if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
+
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_DOCOTR_ONLINE, true);
+                        openMainActivity();
+                    }
+                    else {
+                        Util.showToast(getActivity(),R.string.network_error,true);
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+                dialogQueue.dismiss();
+
+            }
+        }, "online_doctor", C.API_GO_ONLINE, Util.getHeader(getActivity()), obj);
+
+
+    }
+
+    private void openMainActivity() {
+        Intent intent = new Intent(getActivity(), ActivityMain.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        getActivity().startActivity(intent);
     }
 
     private boolean isAllValid() {

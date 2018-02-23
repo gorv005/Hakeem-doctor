@@ -37,12 +37,40 @@
                         android:id="@+id/tvTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="5dp"
-                        android:text="@string/consultation_screen"
+android:layout_centerHorizontal="true"                        android:text="@string/chat"
                         android:textColor="@color/blue"
                         android:textSize="18sp" />
+
+
+                    <ImageButton
+                        android:id="@+id/ibEndChat"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/delete" />
+
+                    <ImageView
+                        android:id="@+id/ivIcon"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_toStartOf="@+id/ibEndChat"
+                        android:src="@drawable/queue" />
+
+                    <TextView
+                        android:id="@+id/tvTotalPatient"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignTop="@+id/ibEndChat"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@+id/ibEndChat"
+                        android:background="@drawable/red_circle"
+                        android:gravity="center"
+                        android:text="12"
+                        android:textColor="@color/white" />
 
 
                 </RelativeLayout>
@@ -55,21 +83,29 @@
         android:id="@+id/rlBgImg"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@drawable/obgy_blur">
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/blue" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivDrProfile"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:background="@drawable/profile" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -82,11 +118,11 @@
                     android:layout_height="wrap_content"
                     android:background="@color/blue"
                     android:gravity="right"
-                    android:text="@string/clinic"
+                    android:text="@string/patient"
                     android:textColor="@color/white" />
 
                 <TextView
-                    android:id="@+id/tvClinic"
+                    android:id="@+id/tvPatient"
                     android:layout_width="80dp"
 
                     android:layout_height="wrap_content"
@@ -94,34 +130,95 @@
                     android:gravity="left"
                     android:text="@string/clinic"
                     android:textColor="@color/blue" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_toStartOf="@id/ivDrProfile"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llPrescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:src="@drawable/prescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prescription"
+                    android:textColor="@color/blue"
+                    android:textSize="8sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/llFollowUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:src="@drawable/followup" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/follow_up"
+                    android:textColor="@color/blue"
+                    android:textSize="8sp" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llDiagnosis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:src="@drawable/diagnose" />
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/blue"
-                    android:gravity="right"
-                    android:text="@string/dr"
-                    android:textColor="@color/white" />
-
-                <TextView
-                    android:id="@+id/tvDrName"
-                    android:layout_width="80dp"
-
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="left"
-                    android:text="@string/clinic"
-                    android:textColor="@color/blue" />
+                    android:text="@string/diagnosis"
+                    android:textColor="@color/blue"
+                    android:textSize="8sp" />
             </LinearLayout>
+
         </LinearLayout>
 
+        <Switch
+            android:id="@+id/switchOnline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="30dp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -142,16 +239,16 @@
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:gravity="center"
-                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_weight=".15">
+                android:layout_gravity="center"
+                android:layout_weight=".15"
+                android:gravity="center">
 
                 <ImageButton
                     android:id="@+id/btnAttach"
-                    android:layout_centerInParent="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:background="@android:color/transparent"

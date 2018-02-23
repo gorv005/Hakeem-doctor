@@ -108,17 +108,77 @@ public class FragmentConsultantList extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent=new Intent(getActivity(), ActivityChat.class);
-                intent.putExtra(C.SENDER,SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getEmail());
-                intent.putExtra(C.RECEIVER,adapter.getItem(position).getEmail());
-                intent.putExtra(C.DOCTOR,adapter.getItem(position));
 
-                intent.putExtra(C.SPECIALITY,specialityId);
-                getActivity().startActivity(intent);
+                if (SharedPreference.getInstance(getActivity()).getString(C.CHAT_DOCTOR_ID)!=null) {
+                    Intent intent = new Intent(getActivity(), ActivityChat.class);
+                    intent.putExtra(C.SENDER, SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getEmail());
+                    intent.putExtra(C.RECEIVER, adapter.getItem(position).getEmail());
+                    intent.putExtra(C.DOCTOR, adapter.getItem(position));
+                    intent.putExtra(C.SPECIALITY, specialityId);
+                    getActivity().startActivity(intent);
+                } else {
+                    addPatientToQueue(adapter.getItem(position).getDoctorId() + "");
+                }
             }
         });
 
         loadDoctorlist();
+    }
+
+    private void addPatientToQueue(String doctorID) {
+        dialog = Util.getProgressDialog(getActivity(), R.string.loading);
+        dialog.show();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("doctor_id", doctorID + "");
+        hashMap.put("patient_id", SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
+        hashMap.put("date", Util.getTimeAM());
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialog.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    ConsultationTypeAndList consultationType = gson.fromJson(response.toString(), ConsultationTypeAndList.class);
+                    if (consultationType.getStatusCode().equals(C.STATUS_SUCCESS)) {
+
+                        Util.showAlert(getActivity(),getString(R.string.error),consultationType.getMessage(),getString(R.string.ok),R.drawable.warning);
+                    } else {
+                        Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.warning);
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+                dialog.dismiss();
+
+            }
+        }, "consultant", C.API_PATIENT_QUEUE, Util.getHeader(getActivity()), obj);
+
+
     }
 
     private void loadDoctorlist() {
@@ -128,7 +188,7 @@ public class FragmentConsultantList extends Fragment {
 
         HashMap<String, String> hashMap = new HashMap<>();
 
-            hashMap.put("specialist_id", specialityId+"");
+        hashMap.put("specialist_id", specialityId + "");
 
         final Gson gson = new Gson();
         String json = gson.toJson(hashMap);

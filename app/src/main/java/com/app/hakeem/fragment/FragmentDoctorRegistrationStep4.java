@@ -1,18 +1,14 @@
 package com.app.hakeem.fragment;
 
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -36,6 +32,7 @@ import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.DoctorRegistration;
 import com.app.hakeem.pojo.LoginCredential;
+import com.app.hakeem.pojo.Response;
 import com.app.hakeem.pojo.ResponseLogin;
 import com.app.hakeem.pojo.UploadFileRes;
 import com.app.hakeem.util.C;
@@ -52,6 +49,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -81,15 +79,16 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
     @BindView(R.id.btnCompleteRegistration)
     Button btnCompleteRegistration;
 
-    boolean isImageSelected=false;
+    boolean isImageSelected = false;
     private int GALLERY = 1, CAMERA = 2;
-    String action="";
+    String action = "";
     private Uri fileUri;
     Uri contentURI;
     private Dialog dialog;
     String filePath;
     DoctorRegistration doctorRegistration;
     private ProgressDialog mProgressDialog;
+    private Dialog dialogQueue;
 
 
     public FragmentDoctorRegistrationStep4() {
@@ -100,10 +99,11 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-        if(bundle!=null) {
+        if (bundle != null) {
             doctorRegistration = (DoctorRegistration) bundle.getSerializable(C.USER);
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -119,18 +119,18 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
         btnCompleteRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isAllValid()){
+                if (isAllValid()) {
                     doctorRegistration.setIban(etIban.getText().toString());
-                  new  UploadFileFroURL(getActivity()).execute(filePath);
+                    new UploadFileFroURL(getActivity()).execute(filePath);
                 }
             }
         });
     }
 
-    View.OnClickListener mBtnPicUploadClickListner=new View.OnClickListener() {
+    View.OnClickListener mBtnPicUploadClickListner = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (isCameraPermissionGranted()) {
+            if (Util.isCameraPermissionGranted(getActivity())) {
                 showPictureDialog();
             } else {
                 requestPermissionForCamera();
@@ -140,40 +140,39 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
 
     public boolean isAllValid() {
         if (etIban.getText().toString().length() == 0) {
-         //   etIban.setError(getActivity().getResources().getString(R.string.Iban_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.Iban_required),getString(R.string.ok),R.drawable.warning);
+            //   etIban.setError(getActivity().getResources().getString(R.string.Iban_required));
+            Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.Iban_required), getString(R.string.ok), R.drawable.warning);
 
             etIban.requestFocus();
             return false;
         } else if (etConfirmIban.getText().toString().length() == 0) {
-         //   etConfirmIban.setError(getActivity().getResources().getString(R.string.Iban_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.Iban_required),getString(R.string.ok),R.drawable.warning);
+            //   etConfirmIban.setError(getActivity().getResources().getString(R.string.Iban_required));
+            Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.Iban_required), getString(R.string.ok), R.drawable.warning);
 
             etConfirmIban.requestFocus();
             return false;
-        }
-        else if (!etConfirmIban.getText().toString().equals(etIban.getText().toString())) {
-        //    etConfirmIban.setError(getActivity().getResources().getString(R.string.iban_mismatch));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.iban_mismatch),getString(R.string.ok),R.drawable.warning);
+        } else if (!etConfirmIban.getText().toString().equals(etIban.getText().toString())) {
+            //    etConfirmIban.setError(getActivity().getResources().getString(R.string.iban_mismatch));
+            Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.iban_mismatch), getString(R.string.ok), R.drawable.warning);
 
             etConfirmIban.requestFocus();
             return false;
-        }
-        else if (!isImageSelected) {
-         //   btnPhotoUpload.setError(getActivity().getResources().getString(R.string.select_image));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.select_image),getString(R.string.ok),R.drawable.warning);
+        } else if (!isImageSelected) {
+            //   btnPhotoUpload.setError(getActivity().getResources().getString(R.string.select_image));
+            Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.select_image), getString(R.string.ok), R.drawable.warning);
 
             btnPhotoUpload.requestFocus();
             return false;
         }
         return true;
     }
-    private void showPictureDialog(){
+
+    private void showPictureDialog() {
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(getActivity());
         pictureDialog.setTitle("Select Action");
         String[] pictureDialogItems = {
                 getString(R.string.select_from_gallary),
-                getString(R.string.select_from_camera) };
+                getString(R.string.select_from_camera)};
         pictureDialog.setItems(pictureDialogItems,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -198,6 +197,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
 
         startActivityForResult(galleryIntent, GALLERY);
     }
+
     private void takePhotoFromCamera() {
         try {
             Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -216,8 +216,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
             }
             // intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
             startActivityForResult(intent, CAMERA);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -230,32 +229,13 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
         fileUri = Uri.fromFile(file);
         return file;
     }
-    public  boolean isCameraPermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (getActivity().checkSelfPermission(Manifest.permission.CAMERA)
-                    == PackageManager.PERMISSION_GRANTED) {
-
-                return true;
-            } else {
 
 
-                // ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
-                return false;
-            }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
+    private void requestPermissionForCamera() {
 
-            return true;
-        }
-
-
-    }
-
-    private void requestPermissionForCamera(){
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.CAMERA)){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.CAMERA)) {
             //     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},Utils.PERMISSION_REQUEST_CODE);
-       //TODO     getDailogConfirm("Please allow camera permission in App Settings for additional functionality.", "4");
+            //TODO     getDailogConfirm("Please allow camera permission in App Settings for additional functionality.", "4");
             //  Toast.makeText(getActivity(),"GPS permission allows us to access location data. Please allow in App Settings for additional functionality.",Toast.LENGTH_LONG).show();
 
         } else {
@@ -274,14 +254,14 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
         }
         if (requestCode == GALLERY) {
             if (data != null) {
-                 contentURI = data.getData();
+                contentURI = data.getData();
                 try {
-                    isImageSelected=true;
+                    isImageSelected = true;
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), contentURI);
                     //   String path = saveImage(bitmap);
-                    bitmap= Util.scaleDown(bitmap, 500, true);
+                    bitmap = Util.scaleDown(bitmap, 500, true);
                     ivProfileImage.setImageBitmap(bitmap);
-                    filePath= Util.getPath(contentURI,getActivity());
+                    filePath = Util.getPath(contentURI, getActivity());
                  /*   String profileImage= Utils.getBase64Image(bitmap);
                     if(C.isloggedIn) {
                         profile.setProfilePic(profileImage);
@@ -305,11 +285,11 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                 options.inSampleSize = 8;
                 Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
                         options);
-                bitmap=  rotateImageIfRequired(bitmap,fileUri.getPath());
-                isImageSelected=true;
+                bitmap = Util.rotateImageIfRequired(bitmap, fileUri.getPath());
+                isImageSelected = true;
                 ivProfileImage.setImageBitmap(bitmap);
-                contentURI=fileUri;
-                filePath=fileUri.getPath();
+                contentURI = fileUri;
+                filePath = fileUri.getPath();
                /* String profileImage = Utils.getBase64Image(bitmap);
                 if (C.isloggedIn) {
                     profile.setProfilePic(profileImage);
@@ -318,39 +298,11 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                     profileDetail.setPicture(profileImage);
                     profileDetail.setPicturename(Utils.getCurrentTimeStamp() + ".jpg");
                 }*/
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-
-
-    public static Bitmap rotateImageIfRequired(Bitmap img, String selectedImage) throws IOException {
-
-        ExifInterface ei = new ExifInterface(selectedImage);
-        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-
-        switch (orientation) {
-            case ExifInterface.ORIENTATION_ROTATE_90:
-                return rotateImage(img, 90);
-            case ExifInterface.ORIENTATION_ROTATE_180:
-                return rotateImage(img, 180);
-            case ExifInterface.ORIENTATION_ROTATE_270:
-                return rotateImage(img, 270);
-            default:
-                return img;
-        }
-    }
-
-    public static Bitmap rotateImage(Bitmap img, int degree) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(degree);
-        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
-        img.recycle();
-        return rotatedImg;
-    }
-
 
 
     public class UploadFileFroURL extends AsyncTask<String, Integer, String> {
@@ -434,8 +386,8 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
 //            Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
             Gson gson = new Gson(); // Or use new GsonBuilder().create();
             UploadFileRes fileRes = gson.fromJson(result, UploadFileRes.class);
-            if(fileRes.getStatusCode().equals(C.STATUS_SUCCESS)){
-               doctorRegistration.setPhoto(fileRes.getUrls().getPhoto());
+            if (fileRes.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                doctorRegistration.setPhoto(fileRes.getUrls().getPhoto());
                 doctorRegistration.setDocument(fileRes.getUrls().getPhoto());
 
                 doctorRegistration.setUserGroup("2");
@@ -479,13 +431,12 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                     Gson gson = new Gson();
                     ResponseLogin responseLogin = gson.fromJson(response.toString(), ResponseLogin.class);
                     if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_DOCOTR_ONLINE, false);
+                        doLogin(doctorRegistration.getEmail(), doctorRegistration.getPassword());
+                        //  Toast.makeText(getActivity(),responseLogin.getMessage(),Toast.LENGTH_LONG).show();
 
-                        doLogin(doctorRegistration.getEmail(),doctorRegistration.getPassword());
-                      //  Toast.makeText(getActivity(),responseLogin.getMessage(),Toast.LENGTH_LONG).show();
-
-                    }
-                    else {
-                        Util.showAlert(getActivity(),getString(R.string.alert),responseLogin.getMessage(),getString(R.string.ok),R.drawable.warning);
+                    } else {
+                        Util.showAlert(getActivity(), getString(R.string.alert), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning);
                     }
 
                 } catch (Exception e) {
@@ -505,6 +456,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
 
 
     }
+
     private void doLogin(String email, String password) {
 
         dialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
@@ -537,11 +489,12 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
 
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
                         SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
-                        SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER,responseLogin.getUser());
+                        SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER, responseLogin.getUser());
 
-                        Intent intent = new Intent(getActivity(), ActivityMain.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        getActivity().startActivity(intent);
+
+                        goOnline();
+
+
                     } else {
 
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);
@@ -564,6 +517,71 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
         }, "login", C.API_LOGIN, Util.getHeader(getActivity()), obj);
 
 
+    }
+
+
+    private void goOnline() {
+
+
+        dialogQueue = Util.getProgressDialog(getActivity(), R.string.loading);
+        dialogQueue.show();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("doctor_id", SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId() + "");
+        hashMap.put("status_id", "1");
+
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialogQueue.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    Response responseLogin = gson.fromJson(response.toString(), Response.class);
+                    if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
+
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_DOCOTR_ONLINE, true);
+                        openMainActivity();
+                    } else {
+
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+                dialogQueue.dismiss();
+
+            }
+        }, "online_doctor", C.API_GO_ONLINE, Util.getHeader(getActivity()), obj);
+
+
+    }
+
+    private void openMainActivity() {
+        Intent intent = new Intent(getActivity(), ActivityMain.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        getActivity().startActivity(intent);
     }
 
 }

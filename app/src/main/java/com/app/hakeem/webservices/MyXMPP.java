@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.app.hakeem.interfaces.ChatMsgListener;
+import com.app.hakeem.util.C;
 
 import org.jivesoftware.smack.AbstractXMPPConnection;
 import org.jivesoftware.smack.ConnectionConfiguration;
@@ -98,7 +99,7 @@ public class MyXMPP {
                         // Registering the user
                         AccountManager accountManager = AccountManager.getInstance(connection);
                         accountManager.sensitiveOperationOverInsecureConnection(true);
-                        accountManager.createAccount(userName, "password");   // S
+                        accountManager.createAccount(userName, C.PASSWORD);   // S
 
                         connected = true;
                         login();

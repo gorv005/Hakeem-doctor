@@ -141,6 +141,8 @@
     <string name="details">Details</string>
     <string name="prescription">Prescription</string>
     <string name="follow_up">Follow Up</string>
+    <string name="diagnosis">Diagnosis</string>
+
     <string name="no_data">No Data</string>
     <string name="dr">Dr.</string>
     <string name="temp_report">Temperature Report</string>
@@ -204,4 +206,6 @@
     <string name="sys_mm_hg">SYS\nmm Hg</string>
     <string name="dia_mm_hg">DIA\nmm Hg</string>
     <string name="heart_rate">Heart\nRate</string>
+    <string name="chat">Chat</string>
+
 </resources>

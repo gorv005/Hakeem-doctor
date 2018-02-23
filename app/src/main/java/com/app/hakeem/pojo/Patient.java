@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 public class Patient {
 
+    @SerializedName("patient_id")
+    @Expose
+    private String patientId;
     @SerializedName("id")
     @Expose
     private String id;
@@ -89,4 +92,11 @@ public class Patient {
         this.childrens = childrens;
     }
 
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
 }

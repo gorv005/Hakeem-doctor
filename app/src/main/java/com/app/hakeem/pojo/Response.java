@@ -3,6 +3,8 @@ package com.app.hakeem.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by aditya.singh on 2/2/2018.
  */
@@ -19,6 +21,10 @@ public class Response {
     @SerializedName("patient")
     @Expose
     private Patient patient;
+
+    @SerializedName("data")
+    @Expose
+    private ArrayList<QueuePerson> queuePeople;
 
 
     public Response() {
@@ -46,5 +52,13 @@ public class Response {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public ArrayList<QueuePerson> getQueuePeople() {
+        return queuePeople;
+    }
+
+    public void setQueuePeople(ArrayList<QueuePerson> queuePeople) {
+        this.queuePeople = queuePeople;
     }
 }

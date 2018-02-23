@@ -7,6 +7,7 @@ public class SideMenuItem {
 
     private  int nameResourse;
     private  int imageNameResource;
+    String val;
 
 
     public SideMenuItem(int nameResourse, int imageNameResource) {
@@ -28,5 +29,13 @@ public class SideMenuItem {
 
     public void setImageNameResource(int imageNameResource) {
         this.imageNameResource = imageNameResource;
+    }
+
+    public String getVal() {
+        return val;
+    }
+
+    public void setVal(String val) {
+        this.val = val;
     }
 }
