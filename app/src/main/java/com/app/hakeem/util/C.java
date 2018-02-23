@@ -168,7 +168,7 @@ public interface C {
     String SHARED_PREF = "ah_firebase";
     String TOKEN = "tadddoffn";
     String CHAT_PATIENT_ID = "CHAT_PATIENT_ID";
-    String NEW_PATIENT = "New patient";
+    String NEW_PATIENT = "New Patient";
     String END_CHAT = "End Chat";
     String START_CHATTING = "Start Chating";
     String TITLE = "title";

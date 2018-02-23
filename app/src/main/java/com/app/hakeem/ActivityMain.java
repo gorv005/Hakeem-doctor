@@ -3,7 +3,10 @@ package com.app.hakeem;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -124,6 +127,7 @@ public class ActivityMain extends AppCompatActivity
     ImageView imgPost, imgDelete;
     ArrayList<Post> posts;
     private Response responseQueue;
+    private ReceiverNewPatient myReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -359,6 +363,12 @@ public class ActivityMain extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+
+        IntentFilter filter = new IntentFilter(C.NEW_PATIENT);
+
+        myReceiver =new ReceiverNewPatient();
+        registerReceiver(myReceiver, filter);
+
         if (SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN)) {
             if (SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
                 imgEdit.setVisibility(View.VISIBLE);
@@ -393,6 +403,8 @@ public class ActivityMain extends AppCompatActivity
         }
         listView.setAdapter(adapterSideMenu);
         saveTokenToServer();
+
+
     }
 
 
@@ -1210,5 +1222,31 @@ public class ActivityMain extends AppCompatActivity
 
 
     }
+
+
+    public class ReceiverNewPatient extends BroadcastReceiver {
+        public ReceiverNewPatient() {
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (intent.getAction().equals(C.NEW_PATIENT))
+
+            {
+               getQueuePatient();
+
+            }
+        }
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(myReceiver);
+    }
+
 
 }

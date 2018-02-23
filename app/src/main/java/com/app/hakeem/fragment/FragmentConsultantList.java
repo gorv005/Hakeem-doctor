@@ -161,7 +161,7 @@ public class FragmentConsultantList extends Fragment {
                     ConsultationTypeAndList consultationType = gson.fromJson(response.toString(), ConsultationTypeAndList.class);
                     if (consultationType.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
-                        Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.warning);
+                        Util.showAlert(getActivity(), getString(R.string.ok), consultationType.getMessage(), getString(R.string.ok), R.drawable.success);
                     } else {
                         Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.warning);
                     }

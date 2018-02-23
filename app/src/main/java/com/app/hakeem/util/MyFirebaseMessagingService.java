@@ -45,6 +45,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 SharedPreference.getInstance(getApplicationContext()).setString(C.CHAT_DOCTOR_ID, remoteMessage.getData().get("doctor_id"));
                 SharedPreference.getInstance(getApplicationContext()).setString(C.CHAT_PATIENT_ID, remoteMessage.getData().get("patient_id"));
             }
+            Intent intent = new Intent();
+            intent.setAction(remoteMessage.getNotification().getTitle());
+            sendBroadcast(intent);
+
             handleNotification(remoteMessage.getNotification().getBody());
         }
 

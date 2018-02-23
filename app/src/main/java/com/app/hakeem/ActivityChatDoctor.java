@@ -1,7 +1,10 @@
 package com.app.hakeem;
 
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
@@ -112,6 +115,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
     private QueuePerson queuePerson;
     private int totalQueuePerson;
     private String currentPatientId;
+    private MyReceiver myReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,7 +199,6 @@ public class ActivityChatDoctor extends AppCompatActivity {
         });
 
 
-
         etMsg.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -224,7 +227,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
         ibEndChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startAndEndChat(C.API_END_CHAT,currentPatientId);
+                startAndEndChat(C.API_END_CHAT, currentPatientId);
             }
         });
 
@@ -234,7 +237,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
         } else {
 
-            startAndEndChat(C.API_START_CHAT,queuePerson.getPatientId()+"");
+            startAndEndChat(C.API_START_CHAT, queuePerson.getPatientId() + "");
         }
 
     }
@@ -273,7 +276,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
     }
 
-    public void startAndEndChat(final String url,String patientID) {
+    public void startAndEndChat(final String url, String patientID) {
 
 
         dialogQueue = Util.getProgressDialog(this, R.string.loading);
@@ -282,9 +285,9 @@ public class ActivityChatDoctor extends AppCompatActivity {
         HashMap<String, String> hashMap = new HashMap<>();
 
         hashMap.put("doctor_id", SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserId() + "");
-        hashMap.put("patient_id",  patientID);
+        hashMap.put("patient_id", patientID);
 
-        hashMap.put(url.equals(C.API_END_CHAT)?"end_datetime":"start_datetime", Util.getTimeAM());
+        hashMap.put(url.equals(C.API_END_CHAT) ? "end_datetime" : "start_datetime", Util.getTimeAM());
         hashMap.put("queue_id", queuePerson.getQueueId() + "");
 
 
@@ -311,20 +314,20 @@ public class ActivityChatDoctor extends AppCompatActivity {
                         if (url.equals(C.API_END_CHAT)) {
 
 
-
                             onBackPressed();
                         } else {
                             loadChatOnConnect();
                             tvTotalPatient.setText(totalQueuePerson - 1);
+                            if (totalQueuePerson - 1 == 0)
+                                tvTotalPatient.setVisibility(View.GONE);
                         }
                     } else if (responseLogin.getStatusCode().equals(C.STATUS_FAIL) && url.equals(C.API_START_CHAT) && responseLogin.getPatient() != null) {
                         receiver = responseLogin.getPatient().getEmail().replace("@", "");
                         currentPatientId = responseLogin.getPatient().getPatientId();
                         tvPatient.setText(responseLogin.getPatient().getName());
                         loadChatOnConnect();
-                    }
-                    else {
-                        Util.showAlertForToast(ActivityChatDoctor.this,getString(R.string.error),responseLogin.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    } else {
+                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, false);
                     }
 
                 } catch (Exception e) {
@@ -601,4 +604,46 @@ public class ActivityChatDoctor extends AppCompatActivity {
     }
 
 
+   public class MyReceiver extends BroadcastReceiver {
+        public MyReceiver() {
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (intent.getAction().equals(C.NEW_PATIENT))
+
+            {
+                String totalPatient = tvTotalPatient.getText().toString();
+                int val = 0;
+                try {
+                    val = Integer.parseInt(totalPatient);
+                    val += 1;
+                    tvTotalPatient.setText(val);
+                    if (val > 0)
+                        tvTotalPatient.setVisibility(View.VISIBLE);
+                } catch (Exception e) {
+                    tvTotalPatient.setVisibility(View.VISIBLE);
+                    tvTotalPatient.setText(val);
+                }
+
+
+            }
+        }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter(C.NEW_PATIENT);
+
+        myReceiver =new MyReceiver();
+        registerReceiver(myReceiver, filter);    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(myReceiver);
+    }
 }

@@ -216,5 +216,6 @@
     <string name="pediatric">Pediatric</string>
     <string name="search_phrase">Search phrase</string>
     <string name="emr_log">EMR LOG</string>
+    <string name="chat_ended">Chat ended by doctor</string>
 
 </resources>

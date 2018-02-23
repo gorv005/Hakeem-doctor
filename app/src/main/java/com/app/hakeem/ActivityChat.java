@@ -1,6 +1,9 @@
 package com.app.hakeem;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
@@ -87,6 +90,7 @@ public class ActivityChat extends AppCompatActivity {
     ChatRepo chatRepo;
 
     UploadFileFroURL uploadFileFroURL;
+    private MyReceiver myReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,14 +107,14 @@ public class ActivityChat extends AppCompatActivity {
         sender = getIntent().getStringExtra(C.SENDER);
         receiver = getIntent().getStringExtra(C.RECEIVER);
 
-        chatRepo =new ChatRepo();
+        chatRepo = new ChatRepo();
 
 
-        OnlineDoctor onlineDoctor=(OnlineDoctor) getIntent().getSerializableExtra(C.DOCTOR);
-        speciality = getIntent().getIntExtra(C.SPECIALITY,1);
+        OnlineDoctor onlineDoctor = (OnlineDoctor) getIntent().getSerializableExtra(C.DOCTOR);
+        speciality = getIntent().getIntExtra(C.SPECIALITY, 1);
 
-        ImageLoader  imageLoader =new ImageLoader(this);
-        imageLoader.DisplayImage(onlineDoctor.getPhoto(),ivDrProfile);
+        ImageLoader imageLoader = new ImageLoader(this);
+        imageLoader.DisplayImage(onlineDoctor.getPhoto(), ivDrProfile);
 
         tvClinic.setText(onlineDoctor.getClassification());
 
@@ -125,7 +129,7 @@ public class ActivityChat extends AppCompatActivity {
         lvMsg = (ListView) findViewById(R.id.lvMsg);
         lvMsg.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
-        adapterSideMenu = new AdapterChatList(this, chatRepo.getChatMessages(sender,receiver));
+        adapterSideMenu = new AdapterChatList(this, chatRepo.getChatMessages(sender, receiver));
         lvMsg.setAdapter(adapterSideMenu);
         lvMsg.setStackFromBottom(true);
 
@@ -170,7 +174,6 @@ public class ActivityChat extends AppCompatActivity {
         });
 
 
-
         etMsg.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -185,13 +188,10 @@ public class ActivityChat extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
-                if(s.toString().trim().length()==0)
-                {
+                if (s.toString().trim().length() == 0) {
                     btnCamera.setVisibility(View.VISIBLE);
                     btnSend.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     btnCamera.setVisibility(View.GONE);
                     btnSend.setVisibility(View.VISIBLE);
                 }
@@ -202,9 +202,7 @@ public class ActivityChat extends AppCompatActivity {
     }
 
 
-
-    void  setBgImage(int specialityId)
-    {
+    void setBgImage(int specialityId) {
         switch (specialityId) {
             case 1:
                 rlImage.setBackgroundResource(R.drawable.family_blur);
@@ -291,7 +289,6 @@ public class ActivityChat extends AppCompatActivity {
     }
 
 
-
     FileUploadListener fileUploadListener = new FileUploadListener() {
         @Override
         public void onFileUploded(UploadFileRes response) {
@@ -347,9 +344,6 @@ public class ActivityChat extends AppCompatActivity {
 
         startActivityForResult(galleryIntent, GALLERY);
     }
-
-
-
 
 
     private File createImageFile() {
@@ -450,4 +444,39 @@ public class ActivityChat extends AppCompatActivity {
         super.onBackPressed();
         myXMPP.disconnectConnection();
     }
+
+
+   public class MyReceiver extends BroadcastReceiver {
+        public MyReceiver() {
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (intent.getAction().equals(C.END_CHAT))
+
+            {
+
+                Util.showAlertForToast(ActivityChat.this, getString(R.string.alert), getString(R.string.chat_ended), getString(R.string.ok), R.drawable.warning,true);
+
+            }
+        }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter(C.END_CHAT);
+        myReceiver = new MyReceiver();
+        registerReceiver(myReceiver, filter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(myReceiver);
+    }
+
+
 }
