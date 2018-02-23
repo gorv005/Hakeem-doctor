@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -86,7 +87,8 @@ public class FragmentHTBloodPressureReport extends Fragment implements ITempValu
     ImageView ivPrehyperdia;
     ImageView ivNormalBlooddia;
     VerticalSeekBarForBloodPressure verticalSeekBar;
-    float sysvalue,diaValue;
+    float sysvalue=180F,diaValue=120F,tempvalue;
+    String heartRateValue="40";
     public FragmentHTBloodPressureReport() {
         // Required empty public constructor
     }
@@ -229,7 +231,18 @@ public class FragmentHTBloodPressureReport extends Fragment implements ITempValu
                 spinnerHeartrate.performClick();
             }
         });
+        spinnerHeartrate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                heartRateValue=weightList.get(position);
+                etHeartRate.setText(heartRateValue);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -264,9 +277,9 @@ public class FragmentHTBloodPressureReport extends Fragment implements ITempValu
 
         }
         hashMap.put("patient_id", patientId);
-        hashMap.put("sys", "");
-        hashMap.put("dia", "");
-        hashMap.put("heart_rate", "");
+        hashMap.put("sys",""+sysvalue);
+        hashMap.put("dia", ""+diaValue);
+        hashMap.put("heart_rate", heartRateValue);
 
         hashMap.put("comment",comment);
         hashMap.put("date", Util.getCurrentDate());
@@ -569,45 +582,94 @@ String mAction="";
         }
     }
 
+
     @Override
     public void getValue(float value) {
         Log.e("DEBUG","v="+value);
-     //   tempvalue=value;
-        /*if(value>39){
-            ivVeryHot.setVisibility(View.VISIBLE);
-            ivCold.setVisibility(View.INVISIBLE);
-            ivHot.setVisibility(View.INVISIBLE);
-            ivNormal.setVisibility(View.INVISIBLE);
-            ivVeryCold.setVisibility(View.INVISIBLE);
+        sysvalue=value+60;
+        diaValue=value;
+        if(diaValue>60 && diaValue<=69) {
+
+            ivNormalBlooddia.setVisibility(View.VISIBLE);
+            ivPrehyperdia.setVisibility(View.INVISIBLE);
+            ivHighBpStage1dia.setVisibility(View.INVISIBLE);
+            ivHighBpStage2dia.setVisibility(View.INVISIBLE);
+            ivMedicalEmrdia.setVisibility(View.INVISIBLE);
         }
-        else if(value>37.5 && value<=39){
-            ivVeryHot.setVisibility(View.INVISIBLE);
-            ivCold.setVisibility(View.INVISIBLE);
-            ivHot.setVisibility(View.VISIBLE);
-            ivNormal.setVisibility(View.INVISIBLE);
-            ivVeryCold.setVisibility(View.INVISIBLE);
+        else if(diaValue>=70 && diaValue<=79) {
+
+            ivNormalBlooddia.setVisibility(View.INVISIBLE);
+            ivPrehyperdia.setVisibility(View.VISIBLE);
+            ivHighBpStage1dia.setVisibility(View.INVISIBLE);
+            ivHighBpStage2dia.setVisibility(View.INVISIBLE);
+            ivMedicalEmrdia.setVisibility(View.INVISIBLE);
         }
-        else if(value>36.5 && value<=37.5){
-            ivVeryHot.setVisibility(View.INVISIBLE);
-            ivCold.setVisibility(View.INVISIBLE);
-            ivHot.setVisibility(View.INVISIBLE);
-            ivNormal.setVisibility(View.VISIBLE);
-            ivVeryCold.setVisibility(View.INVISIBLE);
+       else if(diaValue>=80 && diaValue<=89) {
+
+            ivNormalBlooddia.setVisibility(View.INVISIBLE);
+            ivPrehyperdia.setVisibility(View.INVISIBLE);
+            ivHighBpStage1dia.setVisibility(View.VISIBLE);
+            ivHighBpStage2dia.setVisibility(View.INVISIBLE);
+            ivMedicalEmrdia.setVisibility(View.INVISIBLE);
         }
-        else if(value>36 && value<=36.5){
-            ivVeryHot.setVisibility(View.INVISIBLE);
-            ivCold.setVisibility(View.VISIBLE);
-            ivHot.setVisibility(View.INVISIBLE);
-            ivNormal.setVisibility(View.INVISIBLE);
-            ivVeryCold.setVisibility(View.INVISIBLE);
+       else if(diaValue>=90 && diaValue<120) {
+
+            ivNormalBlooddia.setVisibility(View.INVISIBLE);
+            ivPrehyperdia.setVisibility(View.INVISIBLE);
+            ivHighBpStage1dia.setVisibility(View.INVISIBLE);
+            ivHighBpStage2dia.setVisibility(View.VISIBLE);
+            ivMedicalEmrdia.setVisibility(View.INVISIBLE);
         }
-        else if(value<36){
-            ivVeryHot.setVisibility(View.INVISIBLE);
-            ivCold.setVisibility(View.INVISIBLE);
-            ivHot.setVisibility(View.INVISIBLE);
-            ivNormal.setVisibility(View.INVISIBLE);
-            ivVeryCold.setVisibility(View.VISIBLE);
+      else   if(diaValue>=120) {
+            ivNormalBlooddia.setVisibility(View.INVISIBLE);
+            ivPrehyperdia.setVisibility(View.INVISIBLE);
+            ivHighBpStage1dia.setVisibility(View.INVISIBLE);
+            ivHighBpStage2dia.setVisibility(View.INVISIBLE);
+            ivMedicalEmrdia.setVisibility(View.VISIBLE);
         }
-*/
-    }
+
+
+        if(sysvalue==120 ) {
+
+            ivNormalBloodSys.setVisibility(View.VISIBLE);
+            ivPrehyperSys.setVisibility(View.INVISIBLE);
+            ivHighBpStage1Sys.setVisibility(View.INVISIBLE);
+            ivHighBpStage2Sys.setVisibility(View.INVISIBLE);
+            ivMedicalEmrSys.setVisibility(View.INVISIBLE);
+        }
+        else if(sysvalue>=120 && sysvalue<=129) {
+
+            ivNormalBloodSys.setVisibility(View.INVISIBLE);
+            ivPrehyperSys.setVisibility(View.VISIBLE);
+            ivHighBpStage1Sys.setVisibility(View.INVISIBLE);
+            ivHighBpStage2Sys.setVisibility(View.INVISIBLE);
+            ivMedicalEmrSys.setVisibility(View.INVISIBLE);
+        }
+        else if(sysvalue>=130 && sysvalue<=139) {
+
+            ivNormalBloodSys.setVisibility(View.INVISIBLE);
+            ivPrehyperSys.setVisibility(View.INVISIBLE);
+            ivHighBpStage1Sys.setVisibility(View.VISIBLE);
+            ivHighBpStage2Sys.setVisibility(View.INVISIBLE);
+            ivMedicalEmrSys.setVisibility(View.INVISIBLE);
+        }
+        else if(sysvalue>=140 && sysvalue<180) {
+
+            ivNormalBloodSys.setVisibility(View.INVISIBLE);
+            ivPrehyperSys.setVisibility(View.INVISIBLE);
+            ivHighBpStage1Sys.setVisibility(View.INVISIBLE);
+            ivHighBpStage2Sys.setVisibility(View.VISIBLE);
+            ivMedicalEmrSys.setVisibility(View.INVISIBLE);
+        }
+        else   if(sysvalue>=180) {
+            ivNormalBloodSys.setVisibility(View.INVISIBLE);
+            ivPrehyperSys.setVisibility(View.INVISIBLE);
+            ivHighBpStage1Sys.setVisibility(View.INVISIBLE);
+            ivHighBpStage2Sys.setVisibility(View.INVISIBLE);
+            ivMedicalEmrSys.setVisibility(View.VISIBLE);
+        }
+
+
+        }
+
 }

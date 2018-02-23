@@ -72,8 +72,13 @@ public class FragmentHTWeightReport extends Fragment {
     Button btnRefresh;
     @BindView(R.id.ivAddWight)
     ImageView ivAddWight;
+
+    ImageView ivObesityWeight;
+    ImageView ivOverWeight;
+    ImageView ivNormalWeight;
+    ImageView ivUnderWeight;
     private boolean isFrom=false;
-    String weightValue="60",hrValue="90",heightValue="150";
+    String weightValue="20",hrValue="90",heightValue="30";
      AlertDialog dialogAddweight;
     public FragmentHTWeightReport() {
         // Required empty public constructor
@@ -155,6 +160,10 @@ public class FragmentHTWeightReport extends Fragment {
         final EditText   etHR = (EditText) deleteDialogView.findViewById(R.id.etHR);
         final EditText etHeight = (EditText) deleteDialogView.findViewById(R.id.etHeight);
         final EditText etComment = (EditText) deleteDialogView.findViewById(R.id.etComment);
+        ivUnderWeight = (ImageView) deleteDialogView.findViewById(R.id.ivUnderWeight);
+        ivNormalWeight = (ImageView) deleteDialogView.findViewById(R.id.ivNormalWeight);
+        ivOverWeight = (ImageView) deleteDialogView.findViewById(R.id.ivOverWeight);
+        ivObesityWeight = (ImageView) deleteDialogView.findViewById(R.id.ivObesityWeight);
 
         final Spinner spinnerWeight = (Spinner) deleteDialogView.findViewById(R.id.spinnerWeight);
         final Spinner spinnerHR = (Spinner) deleteDialogView.findViewById(R.id.spinnerHR);
@@ -162,7 +171,7 @@ public class FragmentHTWeightReport extends Fragment {
 
       Button  btnSubmit = (Button) deleteDialogView.findViewById(R.id.btnSubmit);
         final List weight = new ArrayList<Integer>();
-        for (int i = 60; i <= 269; i++) {
+        for (int i = 20; i <= 269; i++) {
             weight.add(Integer.toString(i));
         }
         final List<String> weightList = new ArrayList<>(weight);
@@ -239,7 +248,7 @@ public class FragmentHTWeightReport extends Fragment {
 
 
         final List height = new ArrayList<Integer>();
-        for (int i = 150; i <= 356; i++) {
+        for (int i = 30; i <= 356; i++) {
             height.add(Integer.toString(i));
         }
         final List<String> heightList = new ArrayList<>(height);
@@ -294,6 +303,7 @@ public class FragmentHTWeightReport extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 heightValue=heightList.get(position);
                 etHeight.setText(heightValue);
+                getBMIValue();
             }
 
             @Override
@@ -307,6 +317,7 @@ public class FragmentHTWeightReport extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 weightValue=weightList.get(position);
                 etWeight.setText(weightValue);
+                getBMIValue();
             }
 
             @Override
@@ -349,9 +360,40 @@ public class FragmentHTWeightReport extends Fragment {
 
             }
         });
+
         dialogAddweight.show();
+        getBMIValue();
 
+    }
 
+    void getBMIValue(){
+        float h=Float.parseFloat(heightValue)/100f;
+        h=h*h;
+        float bmi=Float.parseFloat(weightValue)/h;
+        if(bmi<18.5){
+            ivUnderWeight.setVisibility(View.VISIBLE);
+            ivNormalWeight.setVisibility(View.INVISIBLE);
+            ivOverWeight.setVisibility(View.INVISIBLE);
+            ivObesityWeight.setVisibility(View.INVISIBLE);
+        }
+        else if(bmi>=18.5 && bmi<24.9){
+            ivUnderWeight.setVisibility(View.INVISIBLE);
+            ivNormalWeight.setVisibility(View.VISIBLE);
+            ivOverWeight.setVisibility(View.INVISIBLE);
+            ivObesityWeight.setVisibility(View.INVISIBLE);
+        }
+        else if(bmi>=25 && bmi<29.9){
+            ivUnderWeight.setVisibility(View.INVISIBLE);
+            ivNormalWeight.setVisibility(View.INVISIBLE);
+            ivOverWeight.setVisibility(View.VISIBLE);
+            ivObesityWeight.setVisibility(View.INVISIBLE);
+        }
+        else if(bmi>30){
+            ivUnderWeight.setVisibility(View.INVISIBLE);
+            ivNormalWeight.setVisibility(View.INVISIBLE);
+            ivOverWeight.setVisibility(View.INVISIBLE);
+            ivObesityWeight.setVisibility(View.VISIBLE);
+        }
     }
     private void addWeightReport(String comment) {
 

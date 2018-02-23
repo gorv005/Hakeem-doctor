@@ -91,6 +91,20 @@ public class FragmentEmrAndHealthTracker extends Fragment {
             }
         });
 
+        rbHeathTracker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rbHeathTracker.setChecked(true);
+
+            }
+        });
+
+        rbEmr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rbEmr.setChecked(true);
+            }
+        });
         rbHeathTracker.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
