@@ -272,11 +272,25 @@ public class ActivityMain extends AppCompatActivity
                     if (SharedPreference.getInstance(ActivityMain.this).getUser(C.LOGIN_USER).getUserType().equals(C.PATIENT)) {
 
                         intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_CONSULTATION_TYPE);
+                        startActivity(intent);
+
                     } else {
-                        intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_CONSULTATION_TYPE);
+
+                        Intent intent1 = new Intent(ActivityMain.this, ActivityChatDoctor.class);
+                        if (responseQueue.getQueuePeople().size() > 0) {
+                            intent1.putExtra(C.USER, responseQueue.getQueuePeople().get(0));
+                        }
+                        else
+                        {
+                            QueuePerson queuePerson=new QueuePerson();
+                            queuePerson.setPatientId("na");
+                            queuePerson.setEmail("na");
+                            intent1.putExtra(C.USER, queuePerson);
+                        }
+                        intent1.putExtra(C.TOTAL_PERSON_INQUEUE, responseQueue.getQueuePeople().size());
+                        startActivity(intent1);
 
                     }
-                    startActivity(intent);
                 } else {
                     Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
                     intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_LOGIN);

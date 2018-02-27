@@ -78,7 +78,7 @@ public class FragmentHTWeightReport extends Fragment {
     ImageView ivNormalWeight;
     ImageView ivUnderWeight;
     private boolean isFrom=false;
-    String weightValue="20",hrValue="90",heightValue="30";
+    String weightValue="60",hrValue="90",heightValue="150";
      AlertDialog dialogAddweight;
     public FragmentHTWeightReport() {
         // Required empty public constructor
@@ -207,7 +207,6 @@ public class FragmentHTWeightReport extends Fragment {
         };
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerWeight.setAdapter(spinnerArrayAdapter);
-
         final List hr = new ArrayList<Integer>();
         for (int i = 90; i <= 290; i++) {
             hr.add(Integer.toString(i));
@@ -252,6 +251,7 @@ public class FragmentHTWeightReport extends Fragment {
             height.add(Integer.toString(i));
         }
         final List<String> heightList = new ArrayList<>(height);
+
         final ArrayAdapter<String> spinnerArrayAdapterheightList = new ArrayAdapter<String>(
                 getActivity(),R.layout.spinner_item_new,heightList){
             @Override
@@ -360,8 +360,12 @@ public class FragmentHTWeightReport extends Fragment {
 
             }
         });
+        spinnerHeight.setSelection(120);
+        spinnerHR.setSelection(0);
+        spinnerWeight.setSelection(40);
 
         dialogAddweight.show();
+
         getBMIValue();
 
     }
