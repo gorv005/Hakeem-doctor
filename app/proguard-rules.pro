@@ -70,6 +70,10 @@
 -dontwarn butterknife.**
 -keep class butterknife.** {*;}
 
+-dontwarn org.jivesoftware.**
+-keep class org.jivesoftware.** {*;}
+
+-dontwarn com.squareup.okhttp.**
 
 -dontwarn com.squareup.okhttp.**
 -keep class com.squareup.okhttp.** {*;}

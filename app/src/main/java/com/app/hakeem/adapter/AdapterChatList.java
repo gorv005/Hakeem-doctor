@@ -20,6 +20,7 @@ import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
 import com.app.hakeem.util.Util;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -82,7 +83,8 @@ public class AdapterChatList extends BaseAdapter {
                 iv.setVisibility(View.VISIBLE);
                 Gson gson = new Gson();
                 final MessageAttachment msg = gson.fromJson(getItem(position).getMessage(), MessageAttachment.class);
-                imageLoader.DisplayImage(msg.getUrl(), iv);
+//                imageLoader.DisplayImage(msg.getUrl(), iv);
+                Picasso.with(activity).load(msg.getUrl()).fit().centerCrop().into(iv);
                 iv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -121,7 +123,8 @@ public class AdapterChatList extends BaseAdapter {
 
         ImageView imageView = new ImageView(activity);
 
-        imageLoader.DisplayImage(imageUri,imageView);
+        Picasso.with(activity).load(imageUri).fit().centerCrop().into(imageView);
+
         builder.addContentView(imageView, new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));

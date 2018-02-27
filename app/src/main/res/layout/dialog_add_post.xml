@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="210dp"
                 android:layout_centerHorizontal="true"
-                android:maxLength="250"
+                android:maxLength="501"
                 android:textSize="14sp"
                 android:text=""
                 android:gravity="top"

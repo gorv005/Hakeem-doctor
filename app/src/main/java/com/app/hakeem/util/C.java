@@ -69,6 +69,7 @@ public interface C {
     long SPLASH_LOADER_TIME = 100;
     String STATUS_SUCCESS = "HK001";
     String STATUS_NOT_KNOWN = "HK002";
+    String STATUS_CHAT_WITH_DOCTOR = "HK004";
 
     String STATUS_FAIL = "HK002";
     String IS_LOGIN = "is_login";

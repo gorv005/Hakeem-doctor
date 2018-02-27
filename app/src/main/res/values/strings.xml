@@ -220,5 +220,6 @@
     <string name="chat_ended">Chat ended by doctor</string>
     <string name="for_more_info">for more instructions about using TatabApp tracker please visit www.tatabapp.com</string>
     <string name="heartRate">Heart Rate :</string>
+    <string name="enter_250_char">The content length is more than 250 characters. Content length should be 250 characters.</string>
 
 </resources>

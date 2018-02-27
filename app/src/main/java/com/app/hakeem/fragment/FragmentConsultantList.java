@@ -21,6 +21,7 @@ import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterConsultant;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.ConsultationTypeAndList;
+import com.app.hakeem.pojo.OnlineDoctor;
 import com.app.hakeem.pojo.User;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.SharedPreference;
@@ -84,25 +85,25 @@ public class FragmentConsultantList extends Fragment {
         switch (specialityId) {
             case 1:
                 rlImage.setBackgroundResource(R.drawable.family);
-                tvClinic.setText(getActivity().getResources().getString(R.string.family_and_community)+getActivity().getResources().getString(R.string.clinic));
+                tvClinic.setText(getActivity().getResources().getString(R.string.family_and_community) + getActivity().getResources().getString(R.string.clinic));
                 break;
             case 2:
                 rlImage.setBackgroundResource(R.drawable.psychiatric);
 
-                tvClinic.setText(getActivity().getResources().getString(R.string.psychological)+getActivity().getResources().getString(R.string.clinic));
+                tvClinic.setText(getActivity().getResources().getString(R.string.psychological) + getActivity().getResources().getString(R.string.clinic));
                 break;
             case 3:
                 rlImage.setBackgroundResource(R.drawable.abdominal);
-                tvClinic.setText(getActivity().getResources().getString(R.string.abdominal)+getActivity().getResources().getString(R.string.clinic));
+                tvClinic.setText(getActivity().getResources().getString(R.string.abdominal) + getActivity().getResources().getString(R.string.clinic));
                 break;
             case 4:
                 rlImage.setBackgroundResource(R.drawable.obgyne);
 
-                tvClinic.setText(getActivity().getResources().getString(R.string.obgyne)+getActivity().getResources().getString(R.string.clinic));
+                tvClinic.setText(getActivity().getResources().getString(R.string.obgyne) + getActivity().getResources().getString(R.string.clinic));
                 break;
             case 5:
                 rlImage.setBackgroundResource(R.drawable.pediatric);
-                tvClinic.setText(getActivity().getResources().getString(R.string.pediatrics)+getActivity().getResources().getString(R.string.clinic));
+                tvClinic.setText(getActivity().getResources().getString(R.string.pediatrics) + getActivity().getResources().getString(R.string.clinic));
                 break;
         }
 
@@ -111,33 +112,33 @@ public class FragmentConsultantList extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                if (C.START_CHATTING.equals(SharedPreference.getInstance(getActivity()).getString(C.TITLE))) {
-                    if (SharedPreference.getInstance(getActivity()).getString(C.CHAT_DOCTOR_ID).equals(adapter.getItem(position).getDoctorId() + "")) {
-                        Intent intent = new Intent(getActivity(), ActivityChat.class);
-                        intent.putExtra(C.SENDER, SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getEmail());
-                        intent.putExtra(C.RECEIVER, adapter.getItem(position).getEmail());
-                        intent.putExtra(C.DOCTOR, adapter.getItem(position));
-                        intent.putExtra(C.SPECIALITY, specialityId);
-                        getActivity().startActivity(intent);
-                    } else {
-                        addPatientToQueue(adapter.getItem(position).getDoctorId() + "");
-                    }
-                } else {
-                    addPatientToQueue(adapter.getItem(position).getDoctorId() + "");
-                }
+//                if (C.START_CHATTING.equals(SharedPreference.getInstance(getActivity()).getString(C.TITLE))) {
+//                    if (SharedPreference.getInstance(getActivity()).getString(C.CHAT_DOCTOR_ID).equals(adapter.getItem(position).getDoctorId() + "")) {
+//                        Intent intent = new Intent(getActivity(), ActivityChat.class);
+//                        intent.putExtra(C.SENDER, SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getEmail());
+//                        intent.putExtra(C.RECEIVER, adapter.getItem(position).getEmail());
+//                        intent.putExtra(C.DOCTOR, adapter.getItem(position));
+//                        intent.putExtra(C.SPECIALITY, specialityId);
+//                        getActivity().startActivity(intent);
+//                    } else {
+//                        addPatientToQueue(adapter.getItem(position).getDoctorId() + "");
+//                    }
+//                } else {
+                addPatientToQueue(adapter.getItem(position));
+//                }
             }
         });
 
         loadDoctorlist();
     }
 
-    private void addPatientToQueue(String doctorID) {
+    private void addPatientToQueue(final OnlineDoctor onlineDoctor) {
         dialog = Util.getProgressDialog(getActivity(), R.string.loading);
         dialog.show();
 
         HashMap<String, String> hashMap = new HashMap<>();
 
-        hashMap.put("doctor_id", doctorID + "");
+        hashMap.put("doctor_id", onlineDoctor.getDoctorId() + "");
         hashMap.put("patient_id", SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
         hashMap.put("date", Util.getTimeAM());
 
@@ -164,6 +165,16 @@ public class FragmentConsultantList extends Fragment {
                     if (consultationType.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
                         Util.showAlert(getActivity(), getString(R.string.ok), consultationType.getMessage(), getString(R.string.ok), R.drawable.success);
+                    } else if (consultationType.getStatusCode().equals(C.STATUS_CHAT_WITH_DOCTOR)) {
+
+                        Intent intent = new Intent(getActivity(), ActivityChat.class);
+                        intent.putExtra(C.SENDER, SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getEmail());
+                        intent.putExtra(C.RECEIVER, onlineDoctor.getEmail());
+                        intent.putExtra(C.DOCTOR, onlineDoctor);
+                        intent.putExtra(C.SPECIALITY, specialityId);
+                        getActivity().startActivity(intent);
+
+
                     } else {
                         Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.warning);
                     }

@@ -776,6 +776,7 @@ public class ActivityMain extends AppCompatActivity
 
 
         final EditText etPost = (EditText) deleteDialogView.findViewById(R.id.etPost);
+
         final TextView tvPostTextLength = (TextView) deleteDialogView.findViewById(R.id.tvPostTextLength);
         imgPost = (ImageView) deleteDialogView.findViewById(R.id.img_photo);
         imgDelete = (ImageView) deleteDialogView.findViewById(R.id.btn_close);
@@ -796,8 +797,22 @@ public class ActivityMain extends AppCompatActivity
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(s.toString().length()>=500)
+                {
+                    Util.showAlertForToast(ActivityMain.this,getString(R.string.error),getString(R.string.enter_250_char),getString(R.string.ok),R.drawable.warning,false);
+                    return;
+                }
+                if(s.toString().length()>250)
+                {
+                    tvPostTextLength.setTextColor(Color.RED);
+                }
+                else
+                {
+                    tvPostTextLength.setTextColor(Color.WHITE);
+                }
                 int l = 250 - s.toString().length();
                 tvPostTextLength.setText("" + l);
+
             }
         });
         ivCamera.setOnClickListener(new View.OnClickListener() {
