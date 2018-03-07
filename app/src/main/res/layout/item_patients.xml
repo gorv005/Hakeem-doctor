@@ -23,7 +23,7 @@
             android:layout_marginRight="10dp"
             android:minWidth="80dp"
             android:src="@drawable/profile"
-            android:tint="@color/blue" />
+             />
 
         <ImageView
             android:id="@+id/ivForward"

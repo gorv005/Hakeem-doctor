@@ -68,8 +68,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/rl"
                 android:background="@color/gray4"
-                android:layout_width=".5dp"
-                android:layout_height="50dp"/>
+                android:layout_width="5dp"
+                android:layout_height="match_parent"/>
         </RelativeLayout>
 
         <LinearLayout

@@ -85,7 +85,7 @@ public class AdapterPosts extends BaseAdapter {
 
 
         Post post = getItem(position);
-        viewHolder.tvDoctorName.setText(post.getPostBy());
+        viewHolder.tvDoctorName.setText("Dr. "+post.getPostBy());
         if (C.PHOTO.equals(post.getType())) {
             viewHolder.tvMsg.setVisibility(View.GONE);
             viewHolder.ivMsg.setVisibility(View.VISIBLE);

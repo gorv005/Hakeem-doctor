@@ -182,6 +182,7 @@
     <string name="comments">comments...</string>
     <string name="type_comments">Type your comment here</string>
     <string name="please_add_detail">Please enter valid details</string>
+    <string name="comment">Comments</string>
 
     <string name="submit">Submit</string>
     <string name="today_weight">Today\'s weight and HR</string>

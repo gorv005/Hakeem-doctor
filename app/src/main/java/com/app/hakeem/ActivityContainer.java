@@ -192,7 +192,7 @@ public class ActivityContainer extends AppCompatActivity {
                 break;
             case C.FRAGMENT_COMMENTS:
                 getSupportActionBar().show();
-                tvTitle.setText(R.string.comments);
+                tvTitle.setText(R.string.comment);
 
                 btnAddDependent.setVisibility(View.GONE);
                 ivQuestionMark.setVisibility(View.GONE);
