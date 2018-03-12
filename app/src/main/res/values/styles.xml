@@ -18,8 +18,8 @@
         <item name="color">@color/gray4</item>
     </style>
 
-
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" >
+        <item name="android:windowBackground">@drawable/bg</item>
         <item name="android:typeface">monospace</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="windowActionBar">false</item>

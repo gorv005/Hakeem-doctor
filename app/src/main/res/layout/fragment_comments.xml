@@ -214,6 +214,7 @@
         android:divider="@null"
         android:background="@color/white"
         android:id="@+id/lvComments"
+        android:dividerHeight="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
 </LinearLayout>

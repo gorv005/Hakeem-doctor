@@ -2,9 +2,7 @@ package com.app.hakeem.adapter;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +11,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.app.hakeem.ActivityContainer;
-import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
 import com.app.hakeem.pojo.Comment;
-import com.app.hakeem.pojo.Post;
-import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,6 +62,8 @@ public class AdapterComments extends BaseAdapter {
 
             viewHolder.tvDoctorName = (TextView) convertView.findViewById(R.id.tvDoctorName);
             viewHolder.ivDoctor = (ImageView) convertView.findViewById(R.id.ivDoctor);
+            viewHolder.ivLine1 = (ImageView) convertView.findViewById(R.id.line1);
+            viewHolder.ivLine2 = (ImageView) convertView.findViewById(R.id.line2);
             viewHolder.ivSpecialityIcon = (ImageView) convertView.findViewById(R.id.ivSpeciality);
             viewHolder.tvMsg = (TextView) convertView.findViewById(R.id.tvMsg);
 
@@ -76,6 +71,11 @@ public class AdapterComments extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        if (position == 0)
+            viewHolder.ivLine1.setVisibility(View.VISIBLE);
+        if (position == getCount() - 1)
+            viewHolder.ivLine2.setVisibility(View.GONE);
 
         viewHolder.tvDoctorName.setText(getItem(position).getCommentBy());
         viewHolder.tvMsg.setText(getItem(position).getComment());
@@ -92,6 +92,8 @@ public class AdapterComments extends BaseAdapter {
 
         TextView tvDoctorName;
         ImageView ivDoctor;
+        ImageView ivLine1;
+        ImageView ivLine2;
         ImageView ivSpecialityIcon;
         TextView tvMsg;
         ImageView ivMsg;
@@ -113,7 +115,7 @@ public class AdapterComments extends BaseAdapter {
             // dialog.setTitle("Android Custom Dialog Box");
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(true);
-;
+            ;
             ImageView imageView = (ImageView) dialog.findViewById(R.id.imageViewZoom);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -122,9 +124,9 @@ public class AdapterComments extends BaseAdapter {
                 }
             });
 
-            imageLoader.DisplayImage(url,imageView);
+            imageLoader.DisplayImage(url, imageView);
             dialog.show();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

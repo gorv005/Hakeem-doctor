@@ -72,8 +72,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         ButterKnife.bind(this, view);
 
         if (BuildConfig.DEBUG) {
-            etUserName.setText("x@yopmail.com");
-            etPassword.setText("Admin@123");
+            //  etUserName.setText("x@yopmail.com");
+            // etPassword.setText("Admin@123");
             /*etUserName.setText("shagun@gmail.com");
             etPassword.setText("Admin@123");*/
         }
@@ -203,9 +203,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_DOCOTR_ONLINE, true);
                         openMainActivity();
-                    }
-                    else {
-                        Util.showToast(getActivity(),R.string.network_error,true);
+                    } else {
+                        Util.showToast(getActivity(), R.string.network_error, true);
                     }
 
                 } catch (Exception e) {

@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -56,6 +55,8 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@drawable/obgy_blur">
+
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivDrProfile"
@@ -127,7 +128,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg">
+        >
 
         <LinearLayout
             android:id="@+id/llMsgs"
@@ -142,16 +143,16 @@
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:gravity="center"
-                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_weight=".15">
+                android:layout_gravity="center"
+                android:layout_weight=".15"
+                android:gravity="center">
 
                 <ImageButton
                     android:id="@+id/btnAttach"
-                    android:layout_centerInParent="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:background="@android:color/transparent"

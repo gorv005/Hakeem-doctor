@@ -149,7 +149,7 @@ public class AdapterPosts extends BaseAdapter {
         }
 
         viewHolder.tvComment.setText(post.getTotal_comments() + "");
-        viewHolder.tvShare.setText("5");
+        viewHolder.tvShare.setText("0");
         return convertView;
     }
 
