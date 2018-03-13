@@ -75,6 +75,10 @@
     <string name="done">Done</string>
     <string name="gender">Gender</string>
     <string name="first_name_required">We need a First Name</string>
+    <string name="hospital_name_required">We need a Hospital Name</string>
+    <string name="working_since_required">Working since required</string>
+
+
     <string name="first_name_should_be_more_then_3_character">First Name should be 3-20 alphabets only, no special characters</string>
     <string name="name_could_not_starts_with_dot">Name cannot start with a dot</string>
     <string name="email_is_required">We need an Email ID</string>
@@ -222,5 +226,6 @@
     <string name="for_more_info">for more instructions about using TatabApp tracker please visit www.tatabapp.com</string>
     <string name="heartRate">Heart Rate :</string>
     <string name="enter_250_char">The content length is more than 250 characters. Content length should be 250 characters.</string>
+    <string name="resigned_date_required">Resigned date required</string>
 
 </resources>

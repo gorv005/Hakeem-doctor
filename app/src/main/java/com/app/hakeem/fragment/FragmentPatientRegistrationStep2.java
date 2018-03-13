@@ -196,7 +196,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
 
         if (isDependent) {
-            myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 17);
+//            myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 17);
             datePickerDialog.getDatePicker().setMinDate(myCalendar.getTimeInMillis());
         }
         else {

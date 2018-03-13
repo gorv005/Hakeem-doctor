@@ -465,21 +465,21 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
     public boolean isAllVaildDetailOfExp() {
         if (etHospitalName.getText().toString().length() == 0) {
             //etHospitalName.setError(getActivity().getResources().getString(R.string.first_name_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.first_name_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.hospital_name_required),getString(R.string.ok),R.drawable.warning);
 
             etHospitalName.requestFocus();
             return false;
         }
        else if (etWorkingSince.getText().toString().length() == 0) {
            // etWorkingSince.setError(getActivity().getResources().getString(R.string.first_name_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.first_name_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.working_since_required),getString(R.string.ok),R.drawable.warning);
 
             etWorkingSince.requestFocus();
             return false;
         }
         else if (etResignedSince.getText().toString().length() == 0) {
           //  etResignedSince.setError(getActivity().getResources().getString(R.string.first_name_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.first_name_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.resigned_date_required),getString(R.string.ok),R.drawable.warning);
 
             etResignedSince.requestFocus();
             return false;

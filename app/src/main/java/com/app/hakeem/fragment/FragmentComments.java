@@ -62,6 +62,8 @@ public class FragmentComments extends Fragment {
     TextView tvComment;
     @BindView(R.id.lvComments)
     ListView lvComments;
+    @BindView(R.id.ivLine)
+    ImageView ivLine;
     Post post;
     ImageLoader imageLoader;
     private Dialog progressDialog;
@@ -209,15 +211,18 @@ public class FragmentComments extends Fragment {
                     if(responseServer.getComments()!=null && responseServer.getComments().size()>0) {
                         adapterComments=new AdapterComments(getActivity(),responseServer.getComments());
                         lvComments.setAdapter(adapterComments);
+                        ivLine.setVisibility(View.VISIBLE);
+
                     }
                     else {
                         Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
-
+                        ivLine.setVisibility(View.GONE);
                     }
 
                 } else {
                     //Util.showToast(getActivity(), responseServer.getMessage(), false);
                     Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    ivLine.setVisibility(View.GONE);
 
                 }
             }
