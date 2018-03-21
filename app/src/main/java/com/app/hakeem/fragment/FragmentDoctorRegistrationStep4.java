@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -24,7 +23,6 @@ import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
@@ -154,6 +152,11 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
         etIban.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
+                if(!s.toString().startsWith("SA")){
+                    etIban.setText("SA");
+                    Selection.setSelection(etIban.getText(), etIban.getText().length());
+
+                }
 
             }
 
@@ -166,20 +169,61 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                                       int count) {
 
 
-                 if(s.length()>1) {
-                    if (!s.toString().startsWith(getString(R.string.sa))) {
-                        etIban.setText(getString(R.string.sa)+s.toString());
-                        Selection.setSelection(etIban.getText(), etIban
-                                .getText().length());
+//                 if(s.length()>1) {
+//                    if (!s.toString().startsWith(getString(R.string.sa))) {
+//                        etIban.setText(getString(R.string.sa)+s.toString());
+//                        Selection.setSelection(etIban.getText(), etIban
+//                                .getText().length());
+//
+//                    }
+//
+//                }
+//
+//                if (s.toString().equals(getString(R.string.sa))) {
+//                    etIban.setText("");
+//
+//                }
 
-                    }
+
+
+            }
+        });
+        etConfirmIban.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().startsWith("SA")){
+                    etConfirmIban.setText("SA");
+                    Selection.setSelection(etConfirmIban.getText(), etConfirmIban.getText().length());
 
                 }
 
-                if (s.toString().equals(getString(R.string.sa))) {
-                    etIban.setText("");
+            }
 
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+
+
+//                 if(s.length()>1) {
+//                    if (!s.toString().startsWith(getString(R.string.sa))) {
+//                        etIban.setText(getString(R.string.sa)+s.toString());
+//                        Selection.setSelection(etIban.getText(), etIban
+//                                .getText().length());
+//
+//                    }
+//
+//                }
+//
+//                if (s.toString().equals(getString(R.string.sa))) {
+//                    etIban.setText("");
+//
+//                }
+
+
 
             }
         });
