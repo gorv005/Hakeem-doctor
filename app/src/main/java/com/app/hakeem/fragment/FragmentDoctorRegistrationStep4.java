@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -18,12 +19,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -66,6 +72,9 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
 
     @BindView(R.id.etIban)
     EditText etIban;
+
+    @BindView(R.id.checkBox_terms_and_cond)
+    CheckBox checkBox_terms_and_cond;
 
     @BindView(R.id.etConfirmIban)
     EditText etConfirmIban;
@@ -125,6 +134,56 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                 }
             }
         });
+
+        /*etIban.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (etIban.getText().length() == 0)
+                    etIban.setText(getString(R.string.sa));
+                return false;
+            }
+        });*/
+      /*  etIban.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!hasFocus && etIban.getText().toString().equals(getString(R.string.sa)))
+                    etIban.setText("");
+            }
+        });*/
+        etIban.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+
+
+                 if(s.length()>1) {
+                    if (!s.toString().startsWith(getString(R.string.sa))) {
+                        etIban.setText(getString(R.string.sa)+s.toString());
+                        Selection.setSelection(etIban.getText(), etIban
+                                .getText().length());
+
+                    }
+
+                }
+
+                if (s.toString().equals(getString(R.string.sa))) {
+                    etIban.setText("");
+
+                }
+
+            }
+        });
+
     }
 
     View.OnClickListener mBtnPicUploadClickListner = new View.OnClickListener() {
@@ -162,6 +221,10 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
             Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.select_image), getString(R.string.ok), R.drawable.warning);
 
             btnPhotoUpload.requestFocus();
+            return false;
+        }
+        if(!checkBox_terms_and_cond.isChecked()){
+            Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.please_select_terms_and_condition), getString(R.string.ok), R.drawable.warning);
             return false;
         }
         return true;

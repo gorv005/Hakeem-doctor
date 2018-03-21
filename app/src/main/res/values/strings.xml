@@ -226,7 +226,9 @@
     <string name="for_more_info">for more instructions about using TatabApp tracker please visit www.tatabapp.com</string>
     <string name="heartRate">Heart Rate :</string>
     <string name="enter_250_char">The content length is more than 250 characters. Content length should be 250 characters.</string>
+    <string name="sa">SA</string>
     <string name="resigned_date_required">Resigned date required</string>
     <string name="no_one_found_in_queue">No one found in Queue</string>
+    <string name="please_select_terms_and_condition">Please select terms and condition</string>
 
 </resources>

@@ -184,6 +184,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_white"
                 android:minWidth="150dp"
+                android:visibility="gone"
                 android:text="@string/terms_and_condition"
                 android:textAlignment="center"
                 android:textColor="@color/color_selector"
