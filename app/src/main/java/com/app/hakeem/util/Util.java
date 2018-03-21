@@ -978,8 +978,21 @@ public class Util {
         hashMap.put("5", "Uncle");
         hashMap.put("6", "Aunty");
         hashMap.put("7", "Nephew");
-        hashMap.put("8", "Grandfather");
-        hashMap.put("9", "GrandMother");
+        hashMap.put("8", "Niece");
+        hashMap.put("9", "Nephew");
+        hashMap.put("10", "Grandfather");
+        hashMap.put("11", "Grandmother");
+        hashMap.put("12", "Great Grandmother");
+        hashMap.put("13", "Great Grandfather");
+        hashMap.put("14", "Daughter-in-law");
+        hashMap.put("15", "Son-in-law");
+        hashMap.put("16", "Brother-in-law");
+        hashMap.put("17", "Sister-in-law");
+        hashMap.put("18", "Father-in-law");
+        hashMap.put("19", "Mother-in-law");
+        hashMap.put("20", "Son");
+        hashMap.put("22", "Daughter");
+
 
 
         int i = 0;
