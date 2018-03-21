@@ -169,30 +169,6 @@
 
 
             <LinearLayout
-                android:id="@+id/llFollowUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/ibFollowUp"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:padding="10dp"
-                    android:src="@drawable/followup" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/follow_up"
-                    android:textColor="@color/blue"
-                    android:textSize="8sp" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/llDiagnosis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -212,6 +188,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/diagnosis"
+                    android:textColor="@color/blue"
+                    android:textSize="8sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llFollowUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="bottom|center_horizontal"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/cbfollowUp"
+                    android:layout_width="wrap_content"
+                    android:checked="true"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/follow_up"
                     android:textColor="@color/blue"
                     android:textSize="8sp" />
             </LinearLayout>

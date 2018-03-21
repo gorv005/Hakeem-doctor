@@ -490,7 +490,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
                         SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
                         SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER, responseLogin.getUser());
-
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_NOFICATION,true);
 
                         goOnline();
 
@@ -498,6 +498,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                     } else {
 
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_NOFICATION,false);
                     }
 
                 } catch (Exception e) {

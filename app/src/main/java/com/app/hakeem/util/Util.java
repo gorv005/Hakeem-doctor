@@ -716,17 +716,17 @@ public class Util {
             sideMenuItems.add(new SideMenuItem(R.string.queue, R.drawable.queue));
             sideMenuItems.add(new SideMenuItem(R.string.emr_and_tracker, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.profile, R.drawable.icon_profile));
-            sideMenuItems.add(new SideMenuItem(R.string.awareness, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.setting, R.drawable.icon_settting));
-            sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));
+//            sideMenuItems.add(new SideMenuItem(R.string.awareness, R.drawable.menu_general));
+//            sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));
 
         } else if (isLogin && userType.equals(C.PATIENT)) {
             sideMenuItems.add(new SideMenuItem(R.string.dependent, R.drawable.menu_children));
             sideMenuItems.add(new SideMenuItem(R.string.emr_and_tracker, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.profile, R.drawable.icon_profile));
-            sideMenuItems.add(new SideMenuItem(R.string.awareness, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.setting, R.drawable.icon_settting));
-            sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));
+//            sideMenuItems.add(new SideMenuItem(R.string.awareness, R.drawable.menu_general));
+//            sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));
 
         } else
             sideMenuItems.add(new SideMenuItem(R.string.login, R.drawable.icon_settting));

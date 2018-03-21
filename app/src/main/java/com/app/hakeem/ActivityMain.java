@@ -200,15 +200,20 @@ public class ActivityMain extends AppCompatActivity
                     Intent intent = new Intent(ActivityMain.this, ActivityChatDoctor.class);
                     if (responseQueue.getQueuePeople().size() > 0) {
                         intent.putExtra(C.USER, responseQueue.getQueuePeople().get(0));
-                    }
-                    else
-                    {
-                        QueuePerson queuePerson=new QueuePerson();
+                    } else {
+                        QueuePerson queuePerson = new QueuePerson();
                         queuePerson.setPatientId("na");
                         queuePerson.setEmail("na");
                         intent.putExtra(C.USER, queuePerson);
+
+
+
                     }
                     intent.putExtra(C.TOTAL_PERSON_INQUEUE, responseQueue.getQueuePeople().size());
+                    startActivity(intent);
+                } else if (sideMenuItem.getNameResourse() == R.string.setting) {
+                    Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_SETTING);
                     startActivity(intent);
                 }
 
@@ -279,10 +284,8 @@ public class ActivityMain extends AppCompatActivity
                         Intent intent1 = new Intent(ActivityMain.this, ActivityChatDoctor.class);
                         if (responseQueue.getQueuePeople().size() > 0) {
                             intent1.putExtra(C.USER, responseQueue.getQueuePeople().get(0));
-                        }
-                        else
-                        {
-                            QueuePerson queuePerson=new QueuePerson();
+                        } else {
+                            QueuePerson queuePerson = new QueuePerson();
                             queuePerson.setPatientId("na");
                             queuePerson.setEmail("na");
                             intent1.putExtra(C.USER, queuePerson);
@@ -311,6 +314,8 @@ public class ActivityMain extends AppCompatActivity
     public void logout() {
         showAlertForToast(ActivityMain.this, getString(R.string.logout), getString(R.string.logout_success), getString(R.string.ok), R.drawable.warning, true);
         SharedPreference.getInstance(ActivityMain.this).setBoolean(C.IS_LOGIN, false);
+        SharedPreference.getInstance(ActivityMain.this).setBoolean(C.IS_NOFICATION, false);
+
         onResume();
     }
 
@@ -380,7 +385,7 @@ public class ActivityMain extends AppCompatActivity
 
         IntentFilter filter = new IntentFilter(C.NEW_PATIENT);
 
-        myReceiver =new ReceiverNewPatient();
+        myReceiver = new ReceiverNewPatient();
         registerReceiver(myReceiver, filter);
 
         if (SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN)) {
@@ -424,7 +429,7 @@ public class ActivityMain extends AppCompatActivity
 
     void saveTokenToServer() {
 
-        if(!SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN))
+        if (!SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN))
             return;
 
         HashMap<String, String> hashMap = new HashMap<>();
@@ -688,7 +693,7 @@ public class ActivityMain extends AppCompatActivity
         final LayoutInflater factory = LayoutInflater.from(context);
         final View deleteDialogView = factory.inflate(
                 R.layout.dialog_search, null);
-        final Dialog  dialogShowAddPostPopUp = new Dialog(context);
+        final Dialog dialogShowAddPostPopUp = new Dialog(context);
         dialogShowAddPostPopUp.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogShowAddPostPopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -698,11 +703,10 @@ public class ActivityMain extends AppCompatActivity
         final EditText etSearch = (EditText) deleteDialogView.findViewById(R.id.etSearch);
         final ImageView ivSearch = (ImageView) deleteDialogView.findViewById(R.id.ivSearch);
         final TextView tvobgyne = (TextView) deleteDialogView.findViewById(R.id.tvobgyne);
-       final TextView tvPediatric = (TextView) deleteDialogView.findViewById(R.id.tvPediatric);
-        final  TextView tvAbodminal = (TextView) deleteDialogView.findViewById(R.id.tvAbodminal);
+        final TextView tvPediatric = (TextView) deleteDialogView.findViewById(R.id.tvPediatric);
+        final TextView tvAbodminal = (TextView) deleteDialogView.findViewById(R.id.tvAbodminal);
         final TextView tvPsycological = (TextView) deleteDialogView.findViewById(R.id.tvPsycological);
         final TextView tvFamilyAndCommunity = (TextView) deleteDialogView.findViewById(R.id.tvFamilyAndCommunity);
-
 
 
         ivSearch.setOnClickListener(new View.OnClickListener() {
@@ -711,7 +715,7 @@ public class ActivityMain extends AppCompatActivity
                 adapterPosts.filter(etSearch.getText().toString());
                 dialogShowAddPostPopUp.dismiss();
                 rlPhrase.setVisibility(View.VISIBLE);
-                tvSearchPhrase.setText(getString(R.string.search_phrase)+":"+etSearch.getText().toString());
+                tvSearchPhrase.setText(getString(R.string.search_phrase) + ":" + etSearch.getText().toString());
             }
         });
         tvobgyne.setOnClickListener(new View.OnClickListener() {
@@ -811,17 +815,13 @@ public class ActivityMain extends AppCompatActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().length()>=500)
-                {
-                    Util.showAlertForToast(ActivityMain.this,getString(R.string.error),getString(R.string.enter_250_char),getString(R.string.ok),R.drawable.warning,false);
+                if (s.toString().length() >= 500) {
+                    Util.showAlertForToast(ActivityMain.this, getString(R.string.error), getString(R.string.enter_250_char), getString(R.string.ok), R.drawable.warning, false);
                     return;
                 }
-                if(s.toString().length()>250)
-                {
+                if (s.toString().length() > 250) {
                     tvPostTextLength.setTextColor(Color.RED);
-                }
-                else
-                {
+                } else {
                     tvPostTextLength.setTextColor(Color.WHITE);
                 }
                 int l = 250 - s.toString().length();
@@ -834,8 +834,7 @@ public class ActivityMain extends AppCompatActivity
             public void onClick(View v) {
                 if (isCameraPermissionGranted()) {
                     takePhotoFromCamera();
-                }
-                else {
+                } else {
                     requestPermissionForCamera();
 
                 }
@@ -892,7 +891,8 @@ public class ActivityMain extends AppCompatActivity
 
 
     }
-    public  boolean isCameraPermissionGranted() {
+
+    public boolean isCameraPermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.CAMERA)
                     == PackageManager.PERMISSION_GRANTED) {
@@ -904,8 +904,7 @@ public class ActivityMain extends AppCompatActivity
                 // ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
                 return false;
             }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
+        } else { //permission is automatically granted on sdk<23 upon installation
 
             return true;
         }
@@ -913,9 +912,9 @@ public class ActivityMain extends AppCompatActivity
 
     }
 
-    private void requestPermissionForCamera(){
+    private void requestPermissionForCamera() {
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(ActivityMain.this, android.Manifest.permission.CAMERA)){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(ActivityMain.this, android.Manifest.permission.CAMERA)) {
             //     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},Utils.PERMISSION_REQUEST_CODE);
             Util.showAlert(ActivityMain.this, getString(R.string.alert), "Please allow camera permission in App Settings for additional functionality.", getString(R.string.ok), R.drawable.warning);
 
@@ -926,6 +925,7 @@ public class ActivityMain extends AppCompatActivity
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 2);
         }
     }
+
     public void choosePhotoFromGallary() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -1263,12 +1263,11 @@ public class ActivityMain extends AppCompatActivity
             if (intent.getAction().equals(C.NEW_PATIENT))
 
             {
-               getQueuePatient();
+                getQueuePatient();
 
             }
         }
     }
-
 
 
     @Override

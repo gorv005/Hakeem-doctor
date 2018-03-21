@@ -33,6 +33,7 @@ import com.app.hakeem.fragment.FragmentPatientProfile;
 import com.app.hakeem.fragment.FragmentPatientRegistrationStep1;
 import com.app.hakeem.fragment.FragmentPatientRegistrationStep2;
 import com.app.hakeem.fragment.FragmentRegisterType;
+import com.app.hakeem.fragment.FragmentSetting;
 import com.app.hakeem.fragment.FragmentSplash;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.Util;
@@ -254,6 +255,14 @@ public class ActivityContainer extends AppCompatActivity {
                 fragment = new FragmentConsultantList();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_CONSULTATION_TYPE);
+
+                break;
+            case C.FRAGMENT_SETTING:
+                getSupportActionBar().show();
+                tvTitle.setText(R.string.notification);
+                fragment = new FragmentSetting();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_SETTING);
 
                 break;
         }

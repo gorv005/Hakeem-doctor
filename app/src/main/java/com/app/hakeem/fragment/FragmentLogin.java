@@ -138,7 +138,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                         SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
                         SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER, responseLogin.getUser());
                         //   Util.showToast(getActivity(),responseLogin.getMessage(),true);
-
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_NOFICATION,true);
                         if (SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
 
                             goOnline();
@@ -148,6 +148,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                     } else {
                         Util.showAlert(getActivity(), getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning);
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_NOFICATION,false);
                     }
 
                 } catch (Exception e) {

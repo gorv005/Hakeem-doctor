@@ -78,9 +78,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //            // If the app is in background, firebase itself handles the notification
 //        }
 
-        NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
-        notificationUtils.showNotificationMessage("MedPlanner", message, "", new Intent(), "");
-        notificationUtils.playNotificationSound();
+        boolean isNotification = SharedPreference.getInstance(getApplicationContext()).getBoolean(C.IS_NOFICATION);
+
+        if (isNotification) {
+            NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
+            notificationUtils.showNotificationMessage("MedPlanner", message, "", new Intent(), "");
+            notificationUtils.playNotificationSound();
+        }
     }
 
     private void handleDataMessage(JSONObject json) {

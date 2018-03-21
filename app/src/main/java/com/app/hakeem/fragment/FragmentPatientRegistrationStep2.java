@@ -517,13 +517,14 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
                         SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
                         SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER,responseLogin.getUser());
-
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_NOFICATION,true);
                         Intent intent = new Intent(getActivity(), ActivityMain.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         getActivity().startActivity(intent);
                     } else {
 
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);
+                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_NOFICATION,false);
                     }
 
                 } catch (Exception e) {

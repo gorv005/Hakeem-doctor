@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -78,12 +79,12 @@ public class ActivityChatDoctor extends AppCompatActivity {
     private String receiver;
     private int GALLERY = 1, CAMERA = 2;
 
-    @BindView(R.id.ibFollowUp)
-    ImageButton llFollowUp;
+    @BindView(R.id.cbfollowUp)
+    CheckBox cbFollowUp;
     @BindView(R.id.ibDiagnosis)
-    ImageButton  llDiagnosis;
+    ImageButton llDiagnosis;
     @BindView(R.id.ibPrescription)
-    ImageButton  llPrescription;
+    ImageButton llPrescription;
     @BindView(R.id.switchOnline)
     Switch switchOnline;
     @BindView(R.id.tvTotalPatient)
@@ -251,11 +252,14 @@ public class ActivityChatDoctor extends AppCompatActivity {
                 showPopUp(C.DIAGNOSIS);
             }
         });
-        llFollowUp.setOnClickListener(new View.OnClickListener() {
+        cbFollowUp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                showPopUp(C.FOLLOWUP);
+                if (isChecked)
+                    sendPriscription(C.FOLLOWUP, "true");
+                else
+                    sendPriscription(C.FOLLOWUP, "false");
             }
         });
         llPrescription.setOnClickListener(new View.OnClickListener() {
@@ -356,7 +360,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
                 dialogQueue.dismiss();
 
             }
-        }, "prescription",C.API_PRESCRIPTION , Util.getHeader(this), obj);
+        }, "prescription", C.API_PRESCRIPTION, Util.getHeader(this), obj);
 
 
     }
@@ -447,6 +451,14 @@ public class ActivityChatDoctor extends AppCompatActivity {
                         loadChatOnConnect();
                     } else {
                         Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, false);
+                        btnSend.setEnabled(false);
+                        btnAttach.setEnabled(false);
+                        btnCamera.setEnabled(false);
+                        ibEndChat.setEnabled(false);
+                        llPrescription.setEnabled(false);
+                        llDiagnosis.setEnabled(false);
+                        cbFollowUp.setEnabled(false);
+                        etMsg.setEnabled(false);
                     }
 
                 } catch (Exception e) {
