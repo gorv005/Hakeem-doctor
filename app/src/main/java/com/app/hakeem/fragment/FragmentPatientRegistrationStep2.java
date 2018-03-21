@@ -19,6 +19,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -67,6 +68,9 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
     @BindView(R.id.tvCity)
     TextView tvCity;
+
+    @BindView(R.id.checkBox_terms_and_cond)
+    CheckBox checkBox_terms_and_cond;
 
     @BindView(R.id.tvTerm_and_condition)
     TextView tvTermsAndCondition;
@@ -440,6 +444,10 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
           //  Util.showToast(getActivity(), R.string.please_add_atleast_one_depandent, false);
             Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_add_atleast_one_depandent),getString(R.string.ok),R.drawable.warning);
 
+            return false;
+        }
+        if(!checkBox_terms_and_cond.isChecked()){
+            Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.please_select_terms_and_condition), getString(R.string.ok), R.drawable.warning);
             return false;
         }
         return true;
