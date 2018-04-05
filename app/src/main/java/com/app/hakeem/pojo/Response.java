@@ -26,7 +26,9 @@ public class Response {
     @Expose
     private ArrayList<QueuePerson> queuePeople;
 
-
+    @SerializedName("approval_url")
+    @Expose
+    private String approvalUrl;
     public Response() {
     }
 
@@ -60,5 +62,13 @@ public class Response {
 
     public void setQueuePeople(ArrayList<QueuePerson> queuePeople) {
         this.queuePeople = queuePeople;
+    }
+
+    public String getApprovalUrl() {
+        return approvalUrl;
+    }
+
+    public void setApprovalUrl(String approvalUrl) {
+        this.approvalUrl = approvalUrl;
     }
 }

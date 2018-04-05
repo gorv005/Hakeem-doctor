@@ -16,9 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.hakeem.fragment.FragmentComments;
-import com.app.hakeem.fragment.FragmentConsultationType;
 import com.app.hakeem.fragment.FragmentConsultantList;
+import com.app.hakeem.fragment.FragmentConsultationType;
 import com.app.hakeem.fragment.FragmentDependent;
+import com.app.hakeem.fragment.FragmentDependentToAddInQueue;
 import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
 import com.app.hakeem.fragment.FragmentDoctorPatientDependents;
 import com.app.hakeem.fragment.FragmentDoctorProfile;
@@ -48,6 +49,7 @@ public class ActivityContainer extends AppCompatActivity {
     private int fragmentAction;
     private Button btnAddDependent;
     private ImageView ivQuestionMark;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +78,7 @@ public class ActivityContainer extends AppCompatActivity {
         ivQuestionMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Util.showAlertForToast(ActivityContainer.this,getString(R.string.alert),getString(R.string.for_more_info),getString(R.string.ok),R.drawable.warning,false);
+                Util.showAlertForToast(ActivityContainer.this, getString(R.string.alert), getString(R.string.for_more_info), getString(R.string.ok), R.drawable.warning, false);
             }
         });
         bundle = getIntent().getBundleExtra(C.BUNDLE);
@@ -265,6 +267,17 @@ public class ActivityContainer extends AppCompatActivity {
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_SETTING);
 
                 break;
+
+            case C.FRAGMENT_SELECT_PATIENT_TO_QUEUE:
+                getSupportActionBar().show();
+                tvTitle.setText(R.string.select_patient);
+                fragment = new FragmentDependentToAddInQueue();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_ADD_INQUEU);
+
+                break;
+
+
         }
         fragment.setArguments(bundle);
         fragmentTransaction.commit();
@@ -318,6 +331,11 @@ public class ActivityContainer extends AppCompatActivity {
                     case C.TAG_FRAGMENT_PATIENT_PROFILE:
                         tvTitle.setText(R.string.patient_profile);
                         break;
+                    case C.TAG_FRAGMENT_ADD_INQUEU:
+                        tvTitle.setText(R.string.select_patient);
+                        break;
+
+
 //                    case C.TAG_FRAGMENT_OURDESTINATIONS:
 //                        tvTitle.setText(getResources().getString(R.string.our_destinations));
 //                        break;

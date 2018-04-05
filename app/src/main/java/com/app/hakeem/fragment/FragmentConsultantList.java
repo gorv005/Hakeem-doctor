@@ -17,11 +17,13 @@ import android.widget.TextView;
 
 import com.app.hakeem.ActivityChat;
 import com.app.hakeem.ActivityContainer;
+import com.app.hakeem.ActivityPayment;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterConsultant;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.ConsultationTypeAndList;
 import com.app.hakeem.pojo.OnlineDoctor;
+import com.app.hakeem.pojo.Response;
 import com.app.hakeem.pojo.User;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.SharedPreference;
@@ -56,6 +58,8 @@ public class FragmentConsultantList extends Fragment {
     private Dialog dialog;
     private AdapterConsultant adapter;
     private int specialityId;
+    private String dependentId;
+    private HashMap<Object, Object> hashMap;
 
 
     public FragmentConsultantList() {
@@ -67,6 +71,7 @@ public class FragmentConsultantList extends Fragment {
         super.onCreate(savedInstanceState);
         user = SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER);
         specialityId = getArguments().getInt(C.SPECIALITY);
+        dependentId = getArguments().getString(C.DEPENDENT_ID);
 
     }
 
@@ -136,9 +141,10 @@ public class FragmentConsultantList extends Fragment {
         dialog = Util.getProgressDialog(getActivity(), R.string.loading);
         dialog.show();
 
-        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap = new HashMap<>();
 
         hashMap.put("doctor_id", onlineDoctor.getDoctorId() + "");
+        hashMap.put("dependent_id", dependentId);
         hashMap.put("patient_id", SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
         hashMap.put("date", Util.getTimeAM());
 
@@ -175,6 +181,8 @@ public class FragmentConsultantList extends Fragment {
                         getActivity().startActivity(intent);
 
 
+                    } else if (consultationType.getStatusCode().equals(C.STATUS_MAKE_PAYMENT)) {
+                        doPayment();
                     } else {
                         Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.warning);
                     }
@@ -194,6 +202,64 @@ public class FragmentConsultantList extends Fragment {
 
             }
         }, "consultant", C.API_PATIENT_QUEUE, Util.getHeader(getActivity()), obj);
+
+
+    }
+
+    private void doPayment() {
+
+        dialog = Util.getProgressDialog(getActivity(), R.string.loading);
+        dialog.show();
+
+
+        hashMap.put("amount", "20.0");
+
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialog.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    Response response1 = gson.fromJson(response.toString(), Response.class);
+                    if (response1.getStatusCode().equals(C.STATUS_SUCCESS)) {
+
+
+                        Intent intent = new Intent(getActivity(), ActivityPayment.class);
+                        intent.putExtra(C.PAYMENT_URL, response1.getApprovalUrl());
+                        startActivity(intent);
+                    } else {
+                        Util.showAlert(getActivity(), getString(R.string.error), response1.getMessage(), getString(R.string.ok), R.drawable.warning);
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+                dialog.dismiss();
+
+            }
+        }, "consultant", C.API_MAKE_PAYMENT, Util.getHeader(getActivity()), obj);
 
 
     }

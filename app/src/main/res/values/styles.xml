@@ -18,7 +18,7 @@
         <item name="color">@color/gray4</item>
     </style>
 
-    <style name="AppTheme.NoActionBar" >
+    <style name="AppTheme.NoActionBar">
         <item name="android:windowBackground">@drawable/bg</item>
         <item name="android:typeface">monospace</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -32,7 +32,10 @@
 
 
     </style>
+
     <style name="WhiteCheck">
         <item name="colorAccent">@color/green</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 </resources>
