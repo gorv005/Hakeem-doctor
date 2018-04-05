@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
@@ -86,6 +87,8 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
     @BindView(R.id.btnCompleteRegistration)
     Button btnCompleteRegistration;
 
+    @BindView(R.id.tvTerm_and_condition)
+    TextView tvTerm_and_condition;
     boolean isImageSelected = false;
     private int GALLERY = 1, CAMERA = 2;
     String action = "";
@@ -149,6 +152,12 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                     etIban.setText("");
             }
         });*/
+        tvTerm_and_condition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
         etIban.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
