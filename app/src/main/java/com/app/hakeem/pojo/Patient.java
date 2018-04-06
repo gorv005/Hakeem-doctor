@@ -32,6 +32,11 @@ public class Patient {
     @SerializedName("email")
     @Expose
     private String email;
+
+    @SerializedName("dependents")
+    @Expose
+    private Dependent dependent;
+
     @SerializedName("childrens")
     @Expose
     private ArrayList<Child> childrens = null;
@@ -98,5 +103,13 @@ public class Patient {
 
     public void setPatientId(String patientId) {
         this.patientId = patientId;
+    }
+
+    public Dependent getDependent() {
+        return dependent;
+    }
+
+    public void setDependent(Dependent dependent) {
+        this.dependent = dependent;
     }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -67,21 +68,23 @@ public class AdapterEMRDoctorList extends BaseAdapter {
             viewHolder.ivDoctor = (ImageView) convertView.findViewById(R.id.ivDoctor);
             viewHolder.ivDetails = (ImageView) convertView.findViewById(R.id.ivDetails);
             viewHolder.ivPrescription = (ImageView) convertView.findViewById(R.id.ivPrescription);
-            viewHolder.ivFollowUp = (ImageView) convertView.findViewById(R.id.ivFollowUp);
+            viewHolder.ivFollowUp = (CheckBox) convertView.findViewById(R.id.cbfollowUp);
             viewHolder.rl = (View) convertView.findViewById(R.id.rl);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        if(position%2==1){
+        if (position % 2 == 1) {
             viewHolder.rl.setBackgroundColor(ContextCompat.getColor(activity, R.color.cream));
         }
-        viewHolder.tvDocName.setText(activity.getString(R.string.dr)+" "+EMRDoctorDataList.get(position).getFirstName());
+        viewHolder.tvDocName.setText(activity.getString(R.string.dr) + " " + EMRDoctorDataList.get(position).getFirstName());
         viewHolder.tvDocSpec.setText(EMRDoctorDataList.get(position).getSubSpecialist());
         viewHolder.tvDate.setText(EMRDoctorDataList.get(position).getCreatedAt().split(" ")[0]);
         imageLoader.DisplayImage(EMRDoctorDataList.get(position).getPhoto(), viewHolder.ivDoctor);
+        viewHolder.ivFollowUp.setChecked(EMRDoctorDataList.get(position).getIsFollow().equals("true") ? true : false);
 
+//        viewHolder.ivFollowUp.setEnabled(false);
         return convertView;
     }
 
@@ -94,7 +97,7 @@ public class AdapterEMRDoctorList extends BaseAdapter {
         TextView tvDocSpec;
         ImageView ivDetails;
         ImageView ivPrescription;
-        ImageView ivFollowUp;
+        CheckBox ivFollowUp;
         View rl;
 
 
@@ -112,7 +115,7 @@ public class AdapterEMRDoctorList extends BaseAdapter {
             // dialog.setTitle("Android Custom Dialog Box");
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(true);
-;
+            ;
             ImageView imageView = (ImageView) dialog.findViewById(R.id.imageViewZoom);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -121,9 +124,9 @@ public class AdapterEMRDoctorList extends BaseAdapter {
                 }
             });
 
-            imageLoader.DisplayImage(url,imageView);
+            imageLoader.DisplayImage(url, imageView);
             dialog.show();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -527,7 +527,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
     }
 
-    public void startAndEndChat(final String url, String patientID, String dependentId) {
+    public void startAndEndChat(final String url, String patientID, final String dependentId) {
 
 
         dialogQueue = Util.getProgressDialog(this, R.string.loading);
@@ -575,8 +575,11 @@ public class ActivityChatDoctor extends AppCompatActivity {
                     } else if (responseLogin.getStatusCode().equals(C.STATUS_FAIL) && url.equals(C.API_START_CHAT) && responseLogin.getPatient() != null) {
                         receiver = responseLogin.getPatient().getEmail().replace("@", "");
                         currentPatientId = responseLogin.getPatient().getPatientId();
-                        ActivityChatDoctor.this.dependentId = responseLogin.getPatient().getPatientId();
+                        ActivityChatDoctor.this.dependentId = responseLogin.getPatient().getDependent().getDependentId() != 0 ? responseLogin.getPatient().getDependent().getDependentId() + "" : "";
                         tvPatient.setText(responseLogin.getPatient().getName());
+                        if (responseLogin.getPatient().getDependent().getDependentId() != 0) {
+                            tvPatient.setText(responseLogin.getPatient().getDependent().getName());
+                        }
                         getFollowUp();
                         loadChatOnConnect();
                     } else {

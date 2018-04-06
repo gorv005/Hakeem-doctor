@@ -1,81 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:id="@+id/rl"
     android:orientation="vertical">
 
     <LinearLayout
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:weightSum="6"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:weightSum="6">
 
         <TextView
-            android:lines="1"
             android:id="@+id/tvDate"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_horizontal"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:lines="1"
             android:text="@string/date"
             android:textColor="@color/blue"
             android:textSize="10sp" />
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
 
-           >
+            >
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                >
+                android:layout_gravity="right|center_vertical">
 
-                <com.joooonho.SelectableRoundedImageView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.joooonho.SelectableRoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/ivDoctor"
                     android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:scaleType="centerCrop"
-                    app:sriv_left_top_corner_radius="10dip"
-                    app:sriv_right_top_corner_radius="10dip"
-                    app:sriv_left_bottom_corner_radius="10dip"
-                    app:sriv_right_bottom_corner_radius="10dip"
-                    app:sriv_border_width="1dip"
                     app:sriv_border_color="@color/green"
+                    app:sriv_border_width="1dip"
+                    app:sriv_left_bottom_corner_radius="10dip"
+                    app:sriv_left_top_corner_radius="10dip"
                     app:sriv_oval="false"
-                    android:layout_height="60dp" />
+                    app:sriv_right_bottom_corner_radius="10dip"
+                    app:sriv_right_top_corner_radius="10dip" />
+
                 <TextView
-                    android:lines="2"
-                    android:layout_toRightOf="@id/ivDoctor"
                     android:id="@+id/tvDocName"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_horizontal"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/ivDoctor"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:lines="2"
                     android:text="@string/date"
                     android:textColor="@color/blue"
                     android:textSize="10sp" />
+
                 <TextView
-                    android:layout_marginTop="10dp"
-                    android:lines="1"
-                    android:layout_toRightOf="@id/ivDoctor"
                     android:id="@+id/tvDocSpec"
                     android:layout_width="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_below="@id/tvDocName"
-                    android:layout_marginLeft="5dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_horizontal"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvDocName"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/ivDoctor"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:lines="1"
                     android:text="@string/date"
                     android:textColor="@color/blue"
                     android:textSize="10sp" />
@@ -100,54 +101,54 @@
 
 
         <RelativeLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
             <ImageView
-                android:lines="1"
                 android:id="@+id/ivDetails"
                 android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_centerInParent="true"
 
                 android:gravity="center_horizontal"
-                android:src="@drawable/diagnose"
-                android:layout_height="35dp"
-                android:text="@string/follow_up"
-                android:textColor="@color/blue"
-               />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-            <ImageView
                 android:lines="1"
+                android:src="@drawable/diagnose"
+                android:text="@string/follow_up"
+                android:textColor="@color/blue" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
                 android:id="@+id/ivPrescription"
                 android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_centerInParent="true"
 
                 android:gravity="center_horizontal"
+                android:lines="1"
                 android:src="@drawable/prescription"
-                android:layout_height="35dp"
                 android:text="@string/follow_up"
-                android:textColor="@color/blue"
-               />
+                android:textColor="@color/blue" />
         </RelativeLayout>
-        <RelativeLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-        <ImageView
-            android:lines="1"
-            android:id="@+id/ivFollowUp"
-            android:layout_width="35dp"
-            android:layout_centerInParent="true"
 
-            android:src="@drawable/document_blue"
-            android:layout_height="35dp"
-            android:text="@string/follow_up"
-            android:textColor="@color/blue"
-            />
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <CheckBox
+                android:id="@+id/cbfollowUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_centerInParent="true"
+                android:checked="false" />
+
         </RelativeLayout>
     </LinearLayout>
 

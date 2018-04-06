@@ -204,6 +204,7 @@
                     android:id="@+id/cbfollowUp"
                     android:layout_width="wrap_content"
                     android:checked="false"
+                    android:clickable="false"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp" />
 

@@ -50,6 +50,11 @@ public class EMRDoctorData implements Serializable {
     @Expose
     private String email;
 
+    @SerializedName("is_follow")
+    @Expose
+    private String isFollow;
+
+
     public Integer getId() {
         return id;
     }
@@ -152,5 +157,13 @@ public class EMRDoctorData implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getIsFollow() {
+        return isFollow;
+    }
+
+    public void setIsFollow(String isFollow) {
+        this.isFollow = isFollow;
     }
 }
