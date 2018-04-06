@@ -83,7 +83,7 @@ public class FragmentPatientProfile extends Fragment {
         @Override
         public void onClick(View v) {
 
-            ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_SELECT_PATIENT_TO_QUEUE,null);
+            ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_CONSULTATION_TYPE,null);
         }
     };
     View.OnClickListener mbtnManageDependentsClickListner=new View.OnClickListener() {

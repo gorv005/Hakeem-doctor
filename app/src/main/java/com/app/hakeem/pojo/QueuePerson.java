@@ -27,6 +27,10 @@ public class QueuePerson implements Serializable{
     @Expose
     private String patientId;
 
+    @SerializedName("dependent")
+    @Expose
+    private Dependent dependent;
+
     public Integer getQueueId() {
         return queueId;
     }
@@ -67,4 +71,11 @@ public class QueuePerson implements Serializable{
         this.patientId = patientId;
     }
 
+    public Dependent getDependent() {
+        return dependent;
+    }
+
+    public void setDependent(Dependent dependent) {
+        this.dependent = dependent;
+    }
 }

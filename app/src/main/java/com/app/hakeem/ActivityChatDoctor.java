@@ -44,6 +44,7 @@ import com.app.hakeem.pojo.ChatMessage;
 import com.app.hakeem.pojo.MessageAttachment;
 import com.app.hakeem.pojo.QueuePerson;
 import com.app.hakeem.pojo.Response;
+import com.app.hakeem.pojo.ResponseFollowUp;
 import com.app.hakeem.pojo.UploadFileRes;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.ChatRepo;
@@ -121,6 +122,8 @@ public class ActivityChatDoctor extends AppCompatActivity {
     private int totalQueuePerson;
     private String currentPatientId;
     private MyReceiver myReceiver;
+    private String dependentId;
+    private boolean isFisrtDone = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +144,13 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
         currentPatientId = queuePerson.getPatientId() + "";
         tvPatient.setText(queuePerson.getName());
+        if (queuePerson.getDependent() != null) {
+            dependentId = queuePerson.getDependent().getDependentId() + "";
+            tvPatient.setText(queuePerson.getDependent().getName());
+
+        } else {
+            dependentId = "";
+        }
 
         receiver = queuePerson.getEmail();
         receiver = receiver.replace("@", "");
@@ -232,7 +242,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
         ibEndChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startAndEndChat(C.API_END_CHAT, currentPatientId);
+                startAndEndChat(C.API_END_CHAT, currentPatientId, dependentId);
             }
         });
 
@@ -242,7 +252,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
         } else {
 
-            startAndEndChat(C.API_START_CHAT, queuePerson.getPatientId() + "");
+            startAndEndChat(C.API_START_CHAT, queuePerson.getPatientId() + "", dependentId);
         }
 
         llDiagnosis.setOnClickListener(new View.OnClickListener() {
@@ -256,10 +266,9 @@ public class ActivityChatDoctor extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if (isChecked)
-                    sendPriscription(C.FOLLOWUP, "true");
-                else
-                    sendPriscription(C.FOLLOWUP, "false");
+//                if (isFisrtDone)
+                setFollowUp(isChecked ? "true" : "false");
+//                isFisrtDone = true;
             }
         });
         llPrescription.setOnClickListener(new View.OnClickListener() {
@@ -317,7 +326,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
         hashMap.put("doctor_id", SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserId() + "");
         hashMap.put("patient_id", currentPatientId);
-
+        hashMap.put("dependent_id", dependentId);
         hashMap.put("type", type);
         hashMap.put("detail", detail);
 
@@ -366,6 +375,125 @@ public class ActivityChatDoctor extends AppCompatActivity {
     }
 
 
+    public void setFollowUp(String followUp) {
+
+//
+        dialogQueue = Util.getProgressDialog(this, R.string.loading);
+//        dialogQueue.show();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("doctor_id", SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserId() + "");
+        hashMap.put("patient_id", currentPatientId);
+        hashMap.put("dependent_id", dependentId);
+        hashMap.put("is_follow", followUp);
+
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(this);
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialogQueue.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    Response responseLogin = gson.fromJson(response.toString(), Response.class);
+                    if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
+//                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.success), responseLogin.getMessage(), getString(R.string.ok), R.drawable.success, false);
+                    } else {
+//                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, false);
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+                dialogQueue.dismiss();
+
+            }
+        }, "followup", C.API_FOLLOWUP, Util.getHeader(this), obj);
+
+
+    }
+
+
+    public void getFollowUp() {
+
+
+        dialogQueue = Util.getProgressDialog(this, R.string.loading);
+        dialogQueue.show();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("doctor_id", SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserId() + "");
+        hashMap.put("patient_id", currentPatientId);
+        hashMap.put("dependent_id", dependentId);
+
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(this);
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialogQueue.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    ResponseFollowUp responseLogin = gson.fromJson(response.toString(), ResponseFollowUp.class);
+                    if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
+
+                        cbFollowUp.setChecked(responseLogin.getData().getIsFollow().equals("true") ? true : false);
+
+                    } else {
+                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, false);
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+                dialogQueue.dismiss();
+
+            }
+        }, "followup", C.API_CHECK_FOLLOWUP, Util.getHeader(this), obj);
+
+
+    }
+
+
     void loadChatOnConnect() {
         lvMsg.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         lvMsg.setStackFromBottom(true);
@@ -399,7 +527,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
     }
 
-    public void startAndEndChat(final String url, String patientID) {
+    public void startAndEndChat(final String url, String patientID, String dependentId) {
 
 
         dialogQueue = Util.getProgressDialog(this, R.string.loading);
@@ -409,7 +537,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
         hashMap.put("doctor_id", SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserId() + "");
         hashMap.put("patient_id", patientID);
-
+        hashMap.put("dependent_id", dependentId);
         hashMap.put(url.equals(C.API_END_CHAT) ? "end_datetime" : "start_datetime", Util.getTimeAM());
         hashMap.put("queue_id", queuePerson.getQueueId() + "");
 
@@ -447,7 +575,9 @@ public class ActivityChatDoctor extends AppCompatActivity {
                     } else if (responseLogin.getStatusCode().equals(C.STATUS_FAIL) && url.equals(C.API_START_CHAT) && responseLogin.getPatient() != null) {
                         receiver = responseLogin.getPatient().getEmail().replace("@", "");
                         currentPatientId = responseLogin.getPatient().getPatientId();
+                        ActivityChatDoctor.this.dependentId = responseLogin.getPatient().getPatientId();
                         tvPatient.setText(responseLogin.getPatient().getName());
+                        getFollowUp();
                         loadChatOnConnect();
                     } else {
                         Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, false);

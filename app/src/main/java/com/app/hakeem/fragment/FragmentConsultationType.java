@@ -57,7 +57,6 @@ public class FragmentConsultationType extends Fragment {
     private User user;
     private Dialog dialog;
     private AdapterConsultationType adapter;
-    private String dependentId;
 
     public FragmentConsultationType() {
         // Required empty public constructor
@@ -75,7 +74,6 @@ public class FragmentConsultationType extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        dependentId = getArguments().getString(C.DEPENDENT_ID);
         return inflater.inflate(R.layout.fragment_consultation_type, container, false);
     }
 
@@ -101,7 +99,7 @@ public class FragmentConsultationType extends Fragment {
         String strAwareNess = SharedPreference.getInstance(getActivity()).getString(C.AWARENESS_LIST);
         if (strAwareNess != null) {
             ConsultationTypeAndList consultationType = gson.fromJson(strAwareNess.toString(), ConsultationTypeAndList.class);
-            adapter = new AdapterConsultationType(getActivity(), consultationType.getAwareness(),dependentId);
+            adapter = new AdapterConsultationType(getActivity(), consultationType.getAwareness());
             lvConsultationType.setAdapter(adapter);
             dialog.dismiss();
         } else {
@@ -117,7 +115,7 @@ public class FragmentConsultationType extends Fragment {
                         ConsultationTypeAndList consultationType = gson.fromJson(response.toString(), ConsultationTypeAndList.class);
                         if (consultationType.getStatusCode().equals(C.STATUS_SUCCESS)) {
                             SharedPreference.getInstance(getActivity()).setString(C.AWARENESS_LIST, response.toString());
-                            adapter = new AdapterConsultationType(getActivity(), consultationType.getAwareness(), dependentId);
+                            adapter = new AdapterConsultationType(getActivity(), consultationType.getAwareness());
                             lvConsultationType.setAdapter(adapter);
                         } else {
                             Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.warning);

@@ -26,12 +26,10 @@ public class AdapterConsultationType extends BaseAdapter {
     private Activity activity;
     private ArrayList<Awareness> awareness;
     ImageLoader imageLoader;
-    String dependentId;
 
-    public AdapterConsultationType(Activity activity, ArrayList<Awareness> awareness, String dependentId) {
+    public AdapterConsultationType(Activity activity, ArrayList<Awareness> awareness) {
         this.activity = activity;
         this.awareness = awareness;
-        this.dependentId = dependentId;
         mInflater = LayoutInflater.from(activity);
         imageLoader = new ImageLoader(activity);
     }
@@ -65,10 +63,8 @@ public class AdapterConsultationType extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-
                 bundle.putInt(C.SPECIALITY, getItem(position).getCategoryId());
-                bundle.putString(C.DEPENDENT_ID, dependentId);
-                ((ActivityContainer) activity).fragmnetLoader(C.FRAGMENT_CONSULTANT, bundle);
+                ((ActivityContainer) activity).fragmnetLoader(C.FRAGMENT_SELECT_PATIENT_TO_QUEUE, bundle);
             }
         });
         imageLoader.DisplayImage(getItem(position).getIconUrl(), (ImageView) convertView.findViewById(R.id.ivIcon));

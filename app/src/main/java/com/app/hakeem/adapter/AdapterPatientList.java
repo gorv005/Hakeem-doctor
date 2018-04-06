@@ -38,11 +38,13 @@ public class AdapterPatientList extends BaseAdapter {
     private Activity activity;
     private ArrayList<Child> children;
     private Dialog progressDialog;
+    boolean isDeleteDisable = false;
 
-    public AdapterPatientList(DependentDelete dependentDelete, Activity activity, ArrayList<Child> child) {
+    public AdapterPatientList(DependentDelete dependentDelete, Activity activity, ArrayList<Child> child, boolean isDeleteDisable) {
         this.activity = activity;
         this.children = child;
         this.dependentDelete = dependentDelete;
+        this.isDeleteDisable = isDeleteDisable;
         mInflater = LayoutInflater.from(activity);
 
     }
@@ -77,6 +79,7 @@ public class AdapterPatientList extends BaseAdapter {
         tvName.setTextColor(activity.getResources().getColor(R.color.blue));
 
         Button btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
+        btnDelete.setVisibility(isDeleteDisable ? View.GONE : View.VISIBLE);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,14 +132,14 @@ public class AdapterPatientList extends BaseAdapter {
 
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
-                 //   Util.showToast(activity, , false);
-                    Util.showAlertForToast(activity,responseServer.getMessage(),responseServer.getMessage(),activity.getString(R.string.ok),R.drawable.warning,false);
+                    //   Util.showToast(activity, , false);
+                    Util.showAlertForToast(activity, responseServer.getMessage(), responseServer.getMessage(), activity.getString(R.string.ok), R.drawable.warning, false);
 
                     dependentDelete.notifyDependentDeleted();
 
                 } else {
-              //      Util.showToast(activity, responseServer.getMessage(), false);
-                    Util.showAlertForToast(activity,responseServer.getMessage(),responseServer.getMessage(),activity.getString(R.string.ok),R.drawable.warning,false);
+                    //      Util.showToast(activity, responseServer.getMessage(), false);
+                    Util.showAlertForToast(activity, responseServer.getMessage(), responseServer.getMessage(), activity.getString(R.string.ok), R.drawable.warning, false);
 
                 }
 

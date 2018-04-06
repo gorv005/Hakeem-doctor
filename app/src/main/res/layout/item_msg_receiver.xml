@@ -68,7 +68,7 @@
                     android:layout_margin="5dp"
                     android:paddingRight="5dp"
                     android:text="1:00pm"
-                    android:drawableRight="@drawable/sent_chat"
+                    android:drawableRight="@drawable/ticks"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="10sp" />
 

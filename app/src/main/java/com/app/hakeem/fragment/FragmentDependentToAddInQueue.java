@@ -44,6 +44,7 @@ public class FragmentDependentToAddInQueue extends Fragment implements Dependent
 
     private View header;
     private AdapterPatientList adapterPatientList;
+    private int specilization;
 
 
     public FragmentDependentToAddInQueue() {
@@ -55,6 +56,7 @@ public class FragmentDependentToAddInQueue extends Fragment implements Dependent
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        specilization = getArguments().getInt(C.SPECIALITY);
         return inflater.inflate(R.layout.fragment_dependent, container, false);
     }
 
@@ -74,8 +76,9 @@ public class FragmentDependentToAddInQueue extends Fragment implements Dependent
                 if (position == 0)
                     bundle.putString(C.DEPENDENT_ID, "");
                 else
-                    bundle.putString(C.DEPENDENT_ID, adapterPatientList.getItem(position-1).getChildId());
-                ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_CONSULTATION_TYPE, bundle);
+                    bundle.putString(C.DEPENDENT_ID, adapterPatientList.getItem(position - 1).getChildId());
+                bundle.putInt(C.SPECIALITY, specilization);
+                ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_CONSULTANT, bundle);
             }
         });
 
@@ -120,7 +123,7 @@ public class FragmentDependentToAddInQueue extends Fragment implements Dependent
                     TextView tvName = (TextView) header.findViewById(R.id.tvName);
                     tvName.setText(responseServer.getPatient().getName());
                     lvDependent.addHeaderView(header);
-                    adapterPatientList = new AdapterPatientList(FragmentDependentToAddInQueue.this, getActivity(), responseServer.getPatient().getChildrens());
+                    adapterPatientList = new AdapterPatientList(FragmentDependentToAddInQueue.this, getActivity(), responseServer.getPatient().getChildrens(),true);
                     lvDependent.setAdapter(adapterPatientList);
 
                 } else {

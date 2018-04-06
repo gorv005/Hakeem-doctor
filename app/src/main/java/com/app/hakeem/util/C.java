@@ -120,9 +120,11 @@ public interface C {
     String API_START_CHAT = BASE_URL + "/startchat";
     String API_END_CHAT = BASE_URL + "/endchat";
     String API_PRESCRIPTION = BASE_URL + "/prescription";
+    String API_FOLLOWUP = BASE_URL + "/followup";
+    String API_CHECK_FOLLOWUP = BASE_URL + "/checkfollowup";
+
     String API_REGISTER_TOKEN = BASE_URL + "/registration_ids";
     String API_MAKE_PAYMENT = BASE_URL + "/make_payment";
-
 
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
     String USER = "user";

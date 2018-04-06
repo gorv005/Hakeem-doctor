@@ -126,7 +126,7 @@ public class FragmentDependent extends Fragment implements DependentDelete {
                     TextView tvName = (TextView) header.findViewById(R.id.tvName);
                     tvName.setText(responseServer.getPatient().getName());
                     lvDependent.addHeaderView(header);
-                    AdapterPatientList adapterPatientList = new AdapterPatientList(FragmentDependent.this,getActivity(), responseServer.getPatient().getChildrens());
+                    AdapterPatientList adapterPatientList = new AdapterPatientList(FragmentDependent.this,getActivity(), responseServer.getPatient().getChildrens(),false);
                     lvDependent.setAdapter(adapterPatientList);
 
                 } else {
