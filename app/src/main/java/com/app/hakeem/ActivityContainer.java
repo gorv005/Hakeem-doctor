@@ -36,6 +36,7 @@ import com.app.hakeem.fragment.FragmentPatientRegistrationStep2;
 import com.app.hakeem.fragment.FragmentRegisterType;
 import com.app.hakeem.fragment.FragmentSetting;
 import com.app.hakeem.fragment.FragmentSplash;
+import com.app.hakeem.fragment.FragmentTermsAndCondition;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.Util;
 
@@ -142,6 +143,15 @@ public class ActivityContainer extends AppCompatActivity {
                 fragment = new FragmentDoctorRegistrationStep3();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_TYPE_R_3);
+                break;
+            case C.FRAGMENT_TERMS_AND_CONDITION:
+                getSupportActionBar().show();
+                tvTitle.setText(R.string.terms_and_condition);
+                btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+                fragment = new FragmentTermsAndCondition();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_TERMS_AND_CONDITION);
                 break;
             case C.FRAGMENT_DOCTOR_REGISTRATION_STEP4:
                 getSupportActionBar().hide();
@@ -306,7 +316,10 @@ public class ActivityContainer extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        Fragment fragment=getVisibleFragment();
+        if(fragment !=null &&fragment instanceof FragmentTermsAndCondition){
+            getSupportActionBar().hide();
+        }
         btnAddDependent.setVisibility(View.GONE);
         ivQuestionMark.setVisibility(View.GONE);
         getSupportFragmentManager().executePendingTransactions();

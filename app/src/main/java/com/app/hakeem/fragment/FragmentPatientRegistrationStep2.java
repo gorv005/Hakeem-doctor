@@ -28,6 +28,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterCityList;
@@ -129,7 +130,12 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
         btnCompleteRegistration.setOnClickListener(this);
         btnAddDependent.setOnClickListener(this);
-        tvTermsAndCondition.setOnClickListener(this);
+        tvTermsAndCondition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_TERMS_AND_CONDITION,null);
+            }
+        });
         tvBirthDay.setOnClickListener(this);
         tvCity.setOnClickListener(this);
     }

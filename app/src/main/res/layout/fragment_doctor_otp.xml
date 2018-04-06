@@ -1,0 +1,109 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pattern"
+    tools:context="com.app.hakeem.fragment.FragmentDoctorOTP">
+
+    <TextView
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_white"
+        android:minWidth="150dp"
+        android:text="@string/sms_verification"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/green"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_white"
+        android:text="@string/please_enter_sms_activation"
+        android:textAlignment="center"
+        android:textColor="@color/green"
+        android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/etMobileNumber"
+
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_red_blue_corner"
+            android:drawableLeft="@drawable/mobile_icon"
+            android:drawablePadding="20dp"
+            android:hint="@string/mobile"
+            android:inputType="number"
+            android:maxLength="14"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off"
+            android:textSize="14sp" />
+        <EditText
+            android:id="@+id/etSMSverificationNumber"
+
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_red_blue_corner"
+            android:drawableLeft="@drawable/icon_name"
+            android:drawablePadding="20dp"
+            android:hint="@string/sms_verification_number"
+            android:inputType="number"
+            android:maxLength="8"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off"
+            android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/btnResend"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_white"
+            android:minWidth="150dp"
+            android:text="@string/resend"
+            android:textAlignment="center"
+            android:textColor="@color/green"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <Button
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btnSend"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_button"
+        android:minWidth="150dp"
+        android:text="@string/send"
+        android:textAlignment="center"
+        android:textColor="@color/color_selector"
+        android:textSize="14sp" />
+
+</RelativeLayout>

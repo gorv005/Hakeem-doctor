@@ -95,20 +95,6 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/background_border_image" />
-
-            <Button
-                android:id="@+id/btnCompleteRegistration"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_button"
-                android:minWidth="150dp"
-                android:text="@string/complete_registration"
-                android:textAlignment="center"
-                android:textColor="@color/color_selector"
-                android:textSize="14sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
@@ -136,6 +122,20 @@
                     android:textColor="@color/color_selector"
                     android:textSize="14sp" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnCompleteRegistration"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_button"
+                android:minWidth="150dp"
+                android:text="@string/complete_registration"
+                android:textAlignment="center"
+                android:textColor="@color/color_selector"
+                android:textSize="14sp" />
+
 
         </LinearLayout>
     </ScrollView>
