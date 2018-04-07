@@ -88,6 +88,7 @@ public interface C {
     int API_TIME_OUT = 12000;
     String BASE_URL = "http://www.dataheadstudio.com/test/api";
     String API_GET_OTP = BASE_URL + "/get_otp";
+    String API_VERIFY_OTP = BASE_URL + "/verify_otp";
 
     String API_POSTS = BASE_URL + "/posts";
     String API_POSTS_LIKE = BASE_URL + "/postlike";
@@ -196,4 +197,5 @@ public interface C {
     String DOCTOR_DETAILS = "doc_detail";
     String IS_DOC = "is_doc";
     String DETAILS = "details";
+    String USER_ID = "user_id";
 }

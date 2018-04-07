@@ -4,7 +4,6 @@ package com.app.hakeem.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -29,7 +28,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.app.hakeem.ActivityContainer;
-import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterCityList;
 import com.app.hakeem.adapter.AdapterDependent;
@@ -278,10 +276,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
                         @Override
                         public void run() {
                             doLogin(requestPatientRegistration.getEmail(),requestPatientRegistration.getPassword());
-                            Bundle bundle=new Bundle();
-                            bundle.putSerializable(C.DETAILS,requestPatientRegistration);
-                            bundle.putBoolean(C.IS_DOC,false);
-                            ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_OTP,bundle);
+
                         }
                     },2000);
 
@@ -531,13 +526,20 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
                     ResponseLogin responseLogin = gson.fromJson(response.toString(), ResponseLogin.class);
                     if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
-                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
+                      /*  SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
                         SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
                         SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER,responseLogin.getUser());
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_NOFICATION,true);
                         Intent intent = new Intent(getActivity(), ActivityMain.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        getActivity().startActivity(intent);
+                        getActivity().startActivity(intent);*/
+
+                        Bundle bundle=new Bundle();
+                        bundle.putSerializable(C.DETAILS,requestPatientRegistration);
+                        bundle.putBoolean(C.IS_DOC,false);
+                        bundle.putString(C.USER_ID,responseLogin.getUser().getUserId());
+
+                        ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_OTP,bundle);
                     } else {
 
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);

@@ -57,6 +57,7 @@ public class FragmentDoctorOTP extends Fragment {
     RequestPatientRegistration requestPatientRegistration;
     private Dialog dialogQueue;
     boolean isDoc=false;
+    String userId;
     public FragmentDoctorOTP() {
         // Required empty public constructor
     }
@@ -68,9 +69,12 @@ public class FragmentDoctorOTP extends Fragment {
             isDoc=bundle.getBoolean(C.IS_DOC);
            if(isDoc) {
                doctorRegistration = (DoctorRegistration) bundle.getSerializable(C.DETAILS);
+               userId=bundle.getString(C.USER_ID);
            }
            else {
                requestPatientRegistration = (RequestPatientRegistration) bundle.getSerializable(C.DETAILS);
+               userId=bundle.getString(C.USER_ID);
+
            }
         }
     }
@@ -93,7 +97,7 @@ public class FragmentDoctorOTP extends Fragment {
             etMobileNumber.setText(requestPatientRegistration.getMobileNumber());
         }
         if(etMobileNumber.getText().toString()!=null && etMobileNumber.getText().toString().length()>7){
-            otpRequest(etMobileNumber.getText().toString());
+            otpRequest(etMobileNumber.getText().toString(),userId);
         }
 
             btnSend.setOnClickListener(new View.OnClickListener() {
@@ -102,11 +106,7 @@ public class FragmentDoctorOTP extends Fragment {
                     if(etMobileNumber.getText().toString()!=null && etMobileNumber.getText().toString().length()>7) {
 
                         if (etSMSverificationNumber.getText().toString().length() > 0) {
-                            if (isDoc) {
-                                doLogin(doctorRegistration.getEmail(), doctorRegistration.getPassword());
-                            } else {
-                                doLogin(requestPatientRegistration.getEmail(), requestPatientRegistration.getPassword());
-                            }
+                           otpVerify(etMobileNumber.getText().toString(),etSMSverificationNumber.getText().toString());
                         } else {
                             etSMSverificationNumber.setError(getString(R.string.otp_required));
                         }
@@ -122,7 +122,7 @@ public class FragmentDoctorOTP extends Fragment {
             @Override
             public void onClick(View v) {
                 if(etMobileNumber.getText().toString()!=null && etMobileNumber.getText().toString().length()>7){
-                    otpRequest(etMobileNumber.getText().toString());
+                    otpRequest(etMobileNumber.getText().toString(),userId);
 
                 }
                 else {
@@ -136,14 +136,14 @@ public class FragmentDoctorOTP extends Fragment {
     }
 
 
-
-    private void otpRequest(String mobile) {
+    private void otpVerify(String mobile,String otp) {
 
         dialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
         dialog.setCancelable(false);
         dialog.show();
         HashMap<String, String> hashMap = new HashMap<>();
-            hashMap.put("mobile_no", mobile);
+        hashMap.put("mobile_no", mobile);
+        hashMap.put("otp", otp);
 
         final Gson gson = new Gson();
         String json = gson.toJson(hashMap);
@@ -165,14 +165,74 @@ public class FragmentDoctorOTP extends Fragment {
                     Gson gson = new Gson();
                     ResponsePost responsePost = gson.fromJson(response.toString(), ResponsePost.class);
                     if (responsePost.getStatusCode().equals(C.STATUS_SUCCESS)) {
-                        if(isDoc) {
+                        if (isDoc) {
+                            doLogin(doctorRegistration.getEmail(), doctorRegistration.getPassword());
+                        } else {
+                            doLogin(requestPatientRegistration.getEmail(), requestPatientRegistration.getPassword());
+                        }
+
+                    } else {
+                        Util.showAlert(getActivity(), getString(R.string.alert), responsePost.getMessage(), getString(R.string.ok), R.drawable.warning);
+
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+                dialog.dismiss();
+
+            }
+        }, "verify", C.API_VERIFY_OTP, Util.getHeader(getActivity()), obj);
+
+
+    }
+
+    private void otpRequest(String mobile,String userId) {
+
+        dialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        dialog.setCancelable(false);
+        dialog.show();
+        HashMap<String, String> hashMap = new HashMap<>();
+            hashMap.put("mobile_no", mobile);
+        hashMap.put("user_id", userId);
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialog.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    ResponsePost responsePost = gson.fromJson(response.toString(), ResponsePost.class);
+                    if (responsePost.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                       /* if(isDoc) {
                             doLogin(doctorRegistration.getEmail(), doctorRegistration.getPassword());
                         }
                         else {
                             doLogin(requestPatientRegistration.getEmail(),requestPatientRegistration.getPassword());
-                        }
+                        }*/
 
                     } else {
+                        Util.showAlert(getActivity(), getString(R.string.alert), responsePost.getMessage(), getString(R.string.ok), R.drawable.warning);
 
                     }
 

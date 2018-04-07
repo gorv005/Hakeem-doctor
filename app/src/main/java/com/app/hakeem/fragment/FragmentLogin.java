@@ -144,6 +144,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                                 doctorRegistration.setMobileNumber(responseLogin.getUser().getMobileNumber());
 
                                 bundle.putSerializable(C.DETAILS,doctorRegistration);
+                                bundle.putSerializable(C.USER_ID,responseLogin.getUser().getUserId());
+
                                 bundle.putBoolean(C.IS_DOC,true);
                                 ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_OTP,bundle);
                             }
@@ -153,7 +155,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                                 requestPatientRegistration.setEmail(responseLogin.getUser().getEmail());
                                 requestPatientRegistration.setPassword(etPassword.getText().toString());
                                 requestPatientRegistration.setMobileNumber(responseLogin.getUser().getMobileNumber());
-
+                                bundle.putSerializable(C.USER_ID,responseLogin.getUser().getUserId());
                                 bundle.putSerializable(C.DETAILS,requestPatientRegistration);
                                 bundle.putBoolean(C.IS_DOC,false);
                                 ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_OTP,bundle);
