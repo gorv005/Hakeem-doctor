@@ -42,7 +42,12 @@ public class User {
     @SerializedName("specialist")
     @Expose
     private String specialist;
-
+    @SerializedName("is_mobile_verify")
+    @Expose
+    private int isMobileVerify;
+    @SerializedName("mobile_number")
+    @Expose
+    private String mobileNumber;
     /**
      * No args constructor for use in serialization
      *
@@ -161,5 +166,21 @@ public class User {
 
     public void setSpecialist(String specialist) {
         this.specialist = specialist;
+    }
+
+    public int getIsMobileVerify() {
+        return isMobileVerify;
+    }
+
+    public void setIsMobileVerify(int isMobileVerify) {
+        this.isMobileVerify = isMobileVerify;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }

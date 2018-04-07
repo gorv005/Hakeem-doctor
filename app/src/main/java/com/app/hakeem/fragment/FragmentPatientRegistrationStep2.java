@@ -278,7 +278,10 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
                         @Override
                         public void run() {
                             doLogin(requestPatientRegistration.getEmail(),requestPatientRegistration.getPassword());
-
+                            Bundle bundle=new Bundle();
+                            bundle.putSerializable(C.DETAILS,requestPatientRegistration);
+                            bundle.putBoolean(C.IS_DOC,false);
+                            ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_OTP,bundle);
                         }
                     },2000);
 

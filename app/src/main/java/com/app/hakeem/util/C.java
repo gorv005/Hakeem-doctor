@@ -36,6 +36,8 @@ public interface C {
     int FRAGMENT_SETTING = 11;
     int FRAGMENT_SELECT_PATIENT_TO_QUEUE = 12;
     int FRAGMENT_TERMS_AND_CONDITION =50 ;
+    int FRAGMENT_OTP = 51;
+
     String TAG_FRAGMENT_LOGIN = "fragment_login";
     String TAG_FRAGMENT_REGISTER_P_1 = "TAG_FRAGMENT_REGISTER_P_1";
     String TAG_FRAGMENT_REGISTER_P_2 = "TAG_FRAGMENT_REGISTER_P_2";
@@ -85,6 +87,7 @@ public interface C {
 
     int API_TIME_OUT = 12000;
     String BASE_URL = "http://www.dataheadstudio.com/test/api";
+    String API_GET_OTP = BASE_URL + "/get_otp";
 
     String API_POSTS = BASE_URL + "/posts";
     String API_POSTS_LIKE = BASE_URL + "/postlike";
@@ -189,4 +192,8 @@ public interface C {
     String PAYMENT_URL = "PAYMENT_URL";
 
     String TAG_FRAGMENT_TERMS_AND_CONDITION ="TAG_FRAGMENT_TERMS_AND_CONDITION" ;
+    String TAG_FRAGMENT_OTP = "TAG_FRAGMENT_OTP";
+    String DOCTOR_DETAILS = "doc_detail";
+    String IS_DOC = "is_doc";
+    String DETAILS = "details";
 }

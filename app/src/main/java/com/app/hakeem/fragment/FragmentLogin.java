@@ -18,7 +18,9 @@ import com.app.hakeem.ActivityMain;
 import com.app.hakeem.BuildConfig;
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
+import com.app.hakeem.pojo.DoctorRegistration;
 import com.app.hakeem.pojo.LoginCredential;
+import com.app.hakeem.pojo.RequestPatientRegistration;
 import com.app.hakeem.pojo.Response;
 import com.app.hakeem.pojo.ResponseLogin;
 import com.app.hakeem.util.C;
@@ -133,17 +135,43 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                     Gson gson = new Gson();
                     ResponseLogin responseLogin = gson.fromJson(response.toString(), ResponseLogin.class);
                     if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                        if(responseLogin.getUser().getIsMobileVerify()==0){
+                            if (SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+                                Bundle bundle=new Bundle();
+                                DoctorRegistration  doctorRegistration=new DoctorRegistration();
+                                doctorRegistration.setEmail(responseLogin.getUser().getEmail());
+                                doctorRegistration.setPassword(etPassword.getText().toString());
+                                doctorRegistration.setMobileNumber(responseLogin.getUser().getMobileNumber());
 
-                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
-                        SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
-                        SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER, responseLogin.getUser());
-                        //   Util.showToast(getActivity(),responseLogin.getMessage(),true);
-                        SharedPreference.getInstance(getActivity()).setBoolean(C.IS_NOFICATION,true);
-                        if (SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+                                bundle.putSerializable(C.DETAILS,doctorRegistration);
+                                bundle.putBoolean(C.IS_DOC,true);
+                                ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_OTP,bundle);
+                            }
+                            else {
+                                Bundle bundle=new Bundle();
+                                RequestPatientRegistration requestPatientRegistration=new RequestPatientRegistration();
+                                requestPatientRegistration.setEmail(responseLogin.getUser().getEmail());
+                                requestPatientRegistration.setPassword(etPassword.getText().toString());
+                                requestPatientRegistration.setMobileNumber(responseLogin.getUser().getMobileNumber());
 
-                            goOnline();
-                        } else {
-                            openMainActivity();
+                                bundle.putSerializable(C.DETAILS,requestPatientRegistration);
+                                bundle.putBoolean(C.IS_DOC,false);
+                                ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_OTP,bundle);
+                            }
+
+                        }
+                        else {
+                            SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, true);
+                            SharedPreference.getInstance(getActivity()).setString(C.AUTH_TOKEN, responseLogin.getUser().getToken());
+                            SharedPreference.getInstance(getActivity()).setUser(C.LOGIN_USER, responseLogin.getUser());
+                            //   Util.showToast(getActivity(),responseLogin.getMessage(),true);
+                            SharedPreference.getInstance(getActivity()).setBoolean(C.IS_NOFICATION, true);
+                            if (SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+
+                                goOnline();
+                            } else {
+                                openMainActivity();
+                            }
                         }
                     } else {
                         Util.showAlert(getActivity(), getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning);

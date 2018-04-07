@@ -549,9 +549,13 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                     ResponseLogin responseLogin = gson.fromJson(response.toString(), ResponseLogin.class);
                     if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_DOCOTR_ONLINE, false);
-                        doLogin(doctorRegistration.getEmail(), doctorRegistration.getPassword());
+                       // doLogin(doctorRegistration.getEmail(), doctorRegistration.getPassword());
                         //  Toast.makeText(getActivity(),responseLogin.getMessage(),Toast.LENGTH_LONG).show();
+                        Bundle bundle=new Bundle();
+                        bundle.putSerializable(C.DETAILS,doctorRegistration);
+                        bundle.putBoolean(C.IS_DOC,true);
 
+                        ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_OTP,bundle);
                     } else {
                         Util.showAlert(getActivity(), getString(R.string.alert), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning);
                     }
