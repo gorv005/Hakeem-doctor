@@ -40,7 +40,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentDoctorOTP extends Fragment {
+public class FragmentOTP extends Fragment {
     @BindView(R.id.etMobileNumber)
     EditText etMobileNumber;
 
@@ -58,7 +58,7 @@ public class FragmentDoctorOTP extends Fragment {
     private Dialog dialogQueue;
     boolean isDoc=false;
     String userId;
-    public FragmentDoctorOTP() {
+    public FragmentOTP() {
         // Required empty public constructor
     }
     @Override

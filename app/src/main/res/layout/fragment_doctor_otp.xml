@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pattern"
-    tools:context="com.app.hakeem.fragment.FragmentDoctorOTP">
+    tools:context="com.app.hakeem.fragment.FragmentOTP">
 
     <TextView
         android:id="@+id/btnRegister"

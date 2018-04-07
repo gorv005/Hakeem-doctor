@@ -21,7 +21,7 @@ import com.app.hakeem.fragment.FragmentConsultationType;
 import com.app.hakeem.fragment.FragmentDependent;
 import com.app.hakeem.fragment.FragmentDependentToAddInQueue;
 import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
-import com.app.hakeem.fragment.FragmentDoctorOTP;
+import com.app.hakeem.fragment.FragmentOTP;
 import com.app.hakeem.fragment.FragmentDoctorPatientDependents;
 import com.app.hakeem.fragment.FragmentDoctorProfile;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep1;
@@ -159,7 +159,7 @@ public class ActivityContainer extends AppCompatActivity {
 
                 btnAddDependent.setVisibility(View.GONE);
                 ivQuestionMark.setVisibility(View.GONE);
-                fragment = new FragmentDoctorOTP();
+                fragment = new FragmentOTP();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_OTP);
                 break;
