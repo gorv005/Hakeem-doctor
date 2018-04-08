@@ -231,10 +231,10 @@ public class FragmentOTP extends Fragment {
                             doLogin(requestPatientRegistration.getEmail(),requestPatientRegistration.getPassword());
                         }*/
 
-                    } else {
+                    } /*else {
                         Util.showAlert(getActivity(), getString(R.string.alert), responsePost.getMessage(), getString(R.string.ok), R.drawable.warning);
 
-                    }
+                    }*/
 
                 } catch (Exception e) {
 

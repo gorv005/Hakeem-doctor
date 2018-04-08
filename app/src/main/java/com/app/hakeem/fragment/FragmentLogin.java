@@ -136,7 +136,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                     ResponseLogin responseLogin = gson.fromJson(response.toString(), ResponseLogin.class);
                     if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
                         if(responseLogin.getUser().getIsMobileVerify()==0){
-                            if (SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+                            if (responseLogin.getUser().getUserType().equals(C.DOCTOR)) {
                                 Bundle bundle=new Bundle();
                                 DoctorRegistration  doctorRegistration=new DoctorRegistration();
                                 doctorRegistration.setEmail(responseLogin.getUser().getEmail());

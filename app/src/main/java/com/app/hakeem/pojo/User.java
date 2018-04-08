@@ -45,7 +45,7 @@ public class User {
     @SerializedName("is_mobile_verify")
     @Expose
     private int isMobileVerify;
-    @SerializedName("mobile_number")
+    @SerializedName("mobile_no")
     @Expose
     private String mobileNumber;
     /**
