@@ -348,7 +348,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
             etClassification.requestFocus();
             return false;
         }
-        else if (adapterDoctorExperience!=null && adapterDoctorExperience.getAllItem()!=null &&adapterDoctorExperience.getAllItem().size()==0) {
+        else if (adapterDoctorExperience==null || adapterDoctorExperience.getAllItem()==null ||adapterDoctorExperience.getAllItem().size()==0) {
             //Toast.makeText(getActivity(),getString(R.string.require_add_experience),Toast.LENGTH_LONG).show();
             Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.require_add_experience),getString(R.string.ok),R.drawable.warning);
 

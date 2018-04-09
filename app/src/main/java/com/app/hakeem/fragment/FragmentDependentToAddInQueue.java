@@ -121,7 +121,7 @@ public class FragmentDependentToAddInQueue extends Fragment implements Dependent
                     header = getActivity().getLayoutInflater().inflate(R.layout.item_dependent, null);
                     header.findViewById(R.id.btnDelete).setVisibility(View.GONE);
                     TextView tvName = (TextView) header.findViewById(R.id.tvName);
-                    tvName.setText(responseServer.getPatient().getName());
+                    tvName.setText(getString(R.string.main_profile));
                     lvDependent.addHeaderView(header);
                     adapterPatientList = new AdapterPatientList(FragmentDependentToAddInQueue.this, getActivity(), responseServer.getPatient().getChildrens(),true);
                     lvDependent.setAdapter(adapterPatientList);

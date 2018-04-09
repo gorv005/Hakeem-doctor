@@ -76,7 +76,7 @@ public class FragmentPatientListForEmrAndHealthTracker extends Fragment {
                 bundle.putString(C.DOB, adapterPatientList.getItem(position).getDob());
                 bundle.putString(C.GENDER, adapterPatientList.getItem(position).getGender());
                 bundle.putString(C.DEPENDENT_ID, adapterPatientList.getItem(position).getChildId());
-                bundle.putString(C.PATIENT_ID, adapterPatientList.getItem(position).getChildId());
+                bundle.putString(C.PATIENT_ID, SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
 
                 ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_EMR_AND_TRACKER, bundle);
 
