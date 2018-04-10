@@ -583,7 +583,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
                         getFollowUp();
                         loadChatOnConnect();
                     } else {
-                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, false);
+                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, true);
                         btnSend.setEnabled(false);
                         btnAttach.setEnabled(false);
                         btnCamera.setEnabled(false);

@@ -55,7 +55,7 @@ public class AdapterSideMenu extends BaseAdapter {
         }
 
         TextView tvTotalPatient = (TextView) convertView.findViewById(R.id.tvTotalPatient);
-        if (getItem(position).getNameResourse() != R.string.queue)
+        if (getItem(position).getVal() == null)
             tvTotalPatient.setVisibility(View.GONE);
         else {
             tvTotalPatient.setText(getItem(position).getVal());

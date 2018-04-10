@@ -196,8 +196,11 @@ public class ActivityMain extends AppCompatActivity
                     }
                     startActivity(intent);
                 } else if (sideMenuItem.getNameResourse() == R.string.queue) {
-
+                    if(responseQueue==null){
+                        return;
+                    }
                     Intent intent = new Intent(ActivityMain.this, ActivityChatDoctor.class);
+
                     if (responseQueue.getQueuePeople().size() > 0) {
                         intent.putExtra(C.USER, responseQueue.getQueuePeople().get(0));
                     } else {

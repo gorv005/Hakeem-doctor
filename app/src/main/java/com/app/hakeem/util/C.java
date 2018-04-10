@@ -37,7 +37,8 @@ public interface C {
     int FRAGMENT_SELECT_PATIENT_TO_QUEUE = 12;
     int FRAGMENT_TERMS_AND_CONDITION =50 ;
     int FRAGMENT_OTP = 51;
-
+    int FRAGMENT_DIAGNOSIS = 52;
+    int FRAGMENT_PRESCRIPTION =53 ;
     String TAG_FRAGMENT_LOGIN = "fragment_login";
     String TAG_FRAGMENT_REGISTER_P_1 = "TAG_FRAGMENT_REGISTER_P_1";
     String TAG_FRAGMENT_REGISTER_P_2 = "TAG_FRAGMENT_REGISTER_P_2";
@@ -100,6 +101,8 @@ public interface C {
     String API_REGISTER_FETCH_PATIENT = BASE_URL + "/fetchpatient";
     String API_REGISTER_FETCH_DOCTOR_PATIENTS = BASE_URL + "/patients";
     String API_GET_CHAT_GROUP = BASE_URL + "/getchatgroup";
+    String API_GET_PRESCRIPTION = BASE_URL + "/getprescription";
+
     String API_GET_FEVER_REPORT = BASE_URL + "/getreportfever";
     String API_GET_WEIGHT_REPORT = BASE_URL + "/getreportweight";
     String API_GET_BLOOD_PRESSURE_REPORT = BASE_URL + "/getbloodpressure";
@@ -198,4 +201,5 @@ public interface C {
     String IS_DOC = "is_doc";
     String DETAILS = "details";
     String USER_ID = "user_id";
+
 }

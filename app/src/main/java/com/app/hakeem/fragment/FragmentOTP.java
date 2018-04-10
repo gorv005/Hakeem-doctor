@@ -108,12 +108,15 @@ public class FragmentOTP extends Fragment {
                         if (etSMSverificationNumber.getText().toString().length() > 0) {
                            otpVerify(etMobileNumber.getText().toString(),etSMSverificationNumber.getText().toString());
                         } else {
-                            etSMSverificationNumber.setError(getString(R.string.otp_required));
+                           // etSMSverificationNumber.setError(getString(R.string.otp_required));
+                            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.otp_required),getString(R.string.ok),R.drawable.warning);
+                            etSMSverificationNumber.requestFocus();
                         }
                     }
                     else {
-                        etMobileNumber.setError(getString(R.string.please_enter_valid_mobile_number));
-
+                       // etMobileNumber.setError(getString(R.string.please_enter_valid_mobile_number));
+                        Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_valid_mobile_number),getString(R.string.ok),R.drawable.warning);
+                        etMobileNumber.requestFocus();
                     }
                 }
             });
@@ -126,7 +129,9 @@ public class FragmentOTP extends Fragment {
 
                 }
                 else {
-                    etMobileNumber.setError(getString(R.string.please_enter_valid_mobile_number));
+                   // etMobileNumber.setError(getString(R.string.please_enter_valid_mobile_number));
+                    Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_valid_mobile_number),getString(R.string.ok),R.drawable.warning);
+                    etMobileNumber.requestFocus();
                 }
             }
         });

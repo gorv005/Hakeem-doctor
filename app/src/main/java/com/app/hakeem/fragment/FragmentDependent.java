@@ -116,23 +116,28 @@ public class FragmentDependent extends Fragment implements DependentDelete {
         volleyService.postDataVolley(new IResult() {
             @Override
             public void notifySuccess(String requestType, JSONObject response) {
-                progressDialog.dismiss();
-                Response responseServer = gson.fromJson(response.toString(), Response.class);
-                if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                try {
+                    progressDialog.dismiss();
+                    Response responseServer = gson.fromJson(response.toString(), Response.class);
+                    if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
-                    lvDependent.removeHeaderView(header);
-                    header = getActivity().getLayoutInflater().inflate(R.layout.item_dependent, null);
-                    header.findViewById(R.id.btnDelete).setVisibility(View.GONE);
-                    TextView tvName = (TextView) header.findViewById(R.id.tvName);
-                    tvName.setText(getString(R.string.main_profile));
-                    lvDependent.addHeaderView(header);
-                    AdapterPatientList adapterPatientList = new AdapterPatientList(FragmentDependent.this,getActivity(), responseServer.getPatient().getChildrens(),false);
-                    lvDependent.setAdapter(adapterPatientList);
+                        lvDependent.removeHeaderView(header);
+                        header = getActivity().getLayoutInflater().inflate(R.layout.item_dependent, null);
+                        header.findViewById(R.id.btnDelete).setVisibility(View.GONE);
+                        TextView tvName = (TextView) header.findViewById(R.id.tvName);
+                        tvName.setText(getString(R.string.main_profile));
+                        lvDependent.addHeaderView(header);
+                        AdapterPatientList adapterPatientList = new AdapterPatientList(FragmentDependent.this, getActivity(), responseServer.getPatient().getChildrens(), false);
+                        lvDependent.setAdapter(adapterPatientList);
 
-                } else {
-                //    Util. showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(),responseServer.getMessage(),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    } else {
+                        //    Util. showToast(getActivity(), responseServer.getMessage(), false);
+                        Util.showAlertForToast(getActivity(), responseServer.getMessage(), responseServer.getMessage(), getString(R.string.ok), R.drawable.warning, false);
 
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
                 }
             }
 

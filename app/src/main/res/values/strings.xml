@@ -634,4 +634,6 @@
     <string name="resend">Resend</string>
     <string name="send">Send</string>
     <string name="otp_required">Please enter a OTP</string>
+    <string name="no_data_to_display">Oops..!! No details to display..!!</string>
+
 </resources>

@@ -20,6 +20,7 @@ import com.app.hakeem.fragment.FragmentConsultantList;
 import com.app.hakeem.fragment.FragmentConsultationType;
 import com.app.hakeem.fragment.FragmentDependent;
 import com.app.hakeem.fragment.FragmentDependentToAddInQueue;
+import com.app.hakeem.fragment.FragmentDiagnosisList;
 import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
 import com.app.hakeem.fragment.FragmentOTP;
 import com.app.hakeem.fragment.FragmentDoctorPatientDependents;
@@ -34,6 +35,7 @@ import com.app.hakeem.fragment.FragmentPatientListForEmrAndHealthTracker;
 import com.app.hakeem.fragment.FragmentPatientProfile;
 import com.app.hakeem.fragment.FragmentPatientRegistrationStep1;
 import com.app.hakeem.fragment.FragmentPatientRegistrationStep2;
+import com.app.hakeem.fragment.FragmentPrescriptionList;
 import com.app.hakeem.fragment.FragmentRegisterType;
 import com.app.hakeem.fragment.FragmentSetting;
 import com.app.hakeem.fragment.FragmentSplash;
@@ -209,6 +211,25 @@ public class ActivityContainer extends AppCompatActivity {
                 ivQuestionMark.setVisibility(View.GONE);
 
                 fragment = new FragmentDoctorProfile();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE);
+
+                break;
+            case C.FRAGMENT_PRESCRIPTION:
+
+                btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+                fragment = new FragmentPrescriptionList();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE);
+
+                break;
+            case C.FRAGMENT_DIAGNOSIS:
+
+                btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+
+                fragment = new FragmentDiagnosisList();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE);
 

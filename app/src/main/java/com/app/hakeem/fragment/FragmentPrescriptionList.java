@@ -9,13 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterEMRDoctorList;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.EMRDoctorsList;
+import com.app.hakeem.pojo.EMRLogList;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.Util;
 import com.app.hakeem.webservices.VolleyService;
@@ -32,18 +33,15 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentEMR extends Fragment {
-
-    @BindView(R.id.tvEmr)
-    ListView tvEmr;
-    @BindView(R.id.tvNoData)
-    TextView tvNoData;
+public class FragmentPrescriptionList extends Fragment {
+    @BindView(R.id.tvPrescription)
+    TextView tvPrescription;
     private Dialog progressDialog;
-
-    String dependentId,patientId;
-    public FragmentEMR() {
+    String dependentId,patientId,doctorId;
+    public FragmentPrescriptionList() {
         // Required empty public constructor
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,42 +50,41 @@ public class FragmentEMR extends Fragment {
 
             dependentId =  bundle.getString(C.DEPENDENT_ID);
             patientId =  bundle.getString(C.PATIENT_ID);
+            doctorId =  bundle.getString(C.CHAT_DOCTOR_ID);
 
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_emr, container, false);
+        return inflater.inflate(R.layout.fragment_prescription_list, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        if (Util.isNetworkConnectivity(getActivity())) {
-            getDependents();
-        } else {
-            //    Util.showToast(getActivity(), R.string.please_connect_to_the_internet, true);
-            Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.please_connect_to_the_internet),getString(R.string.ok),R.drawable.warning,true);
+        getPrescription();
 
-        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        ActivityContainer.tvTitle.setText(R.string.prescription);
 
     }
-    private void getDependents() {
+
+    private void getPrescription() {
 
         progressDialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
         progressDialog.show();
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("patient_id", patientId);
+        hashMap.put("doctor_id", doctorId);
+
         if(patientId.equals(dependentId)){
             hashMap.put("dependent_id", "");
         }
@@ -110,15 +107,16 @@ public class FragmentEMR extends Fragment {
             @Override
             public void notifySuccess(String requestType, JSONObject response) {
                 progressDialog.dismiss();
-                EMRDoctorsList responseServer = gson.fromJson(response.toString(), EMRDoctorsList.class);
+                Log.e("Response", response.toString());
+
+                EMRLogList responseServer = gson.fromJson(response.toString(), EMRLogList.class);
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
-                    if(responseServer.getData()!=null && responseServer.getData().size()>0) {
-                        AdapterEMRDoctorList adapterEMRDoctorList = new AdapterEMRDoctorList(getActivity(), responseServer.getData(),patientId,dependentId);
-                        tvEmr.setAdapter(adapterEMRDoctorList);
-                        tvNoData.setVisibility(View.GONE);
+                    if(responseServer.getData()!=null && responseServer.getData().getPrescription()!=null
+                    &&responseServer.getData().getPrescription().size()>0) {
+                        tvPrescription.setText(responseServer.getData().getPrescription().get(responseServer.getData().getPrescription().size()-1).getDetails());
                     }
                     else {
-                        tvNoData.setVisibility(View.VISIBLE);
+                        tvPrescription.setText(getString(R.string.no_data_to_display));
 
                     }
 
@@ -137,9 +135,10 @@ public class FragmentEMR extends Fragment {
                 Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
 
             }
-        }, "callback", C.API_GET_CHAT_GROUP, Util.getHeader(getActivity()), obj);
+        }, "callback", C.API_GET_PRESCRIPTION, Util.getHeader(getActivity()), obj);
 
 
     }
+
 
 }

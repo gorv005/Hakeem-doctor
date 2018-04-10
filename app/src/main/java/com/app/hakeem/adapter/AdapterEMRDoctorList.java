@@ -3,6 +3,7 @@ package com.app.hakeem.adapter;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,10 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.pojo.EMRDoctorData;
+import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
 
 import java.util.List;
@@ -29,13 +32,14 @@ public class AdapterEMRDoctorList extends BaseAdapter {
     private Activity activity;
     private List<EMRDoctorData> EMRDoctorDataList;
     ImageLoader imageLoader;
-
-    public AdapterEMRDoctorList(Activity activity, List<EMRDoctorData> EMRDoctorDataList) {
+    String patientId,depedentId;
+    public AdapterEMRDoctorList(Activity activity, List<EMRDoctorData> EMRDoctorDataList,String patientId,String dependentId) {
         this.activity = activity;
         this.EMRDoctorDataList = EMRDoctorDataList;
         mInflater = LayoutInflater.from(activity);
         imageLoader = new ImageLoader(activity);
-
+        this.patientId=patientId;
+        this.depedentId=dependentId;
     }
 
     @Override
@@ -83,7 +87,26 @@ public class AdapterEMRDoctorList extends BaseAdapter {
         viewHolder.tvDate.setText(EMRDoctorDataList.get(position).getCreatedAt().split(" ")[0]);
         imageLoader.DisplayImage(EMRDoctorDataList.get(position).getPhoto(), viewHolder.ivDoctor);
         viewHolder.ivFollowUp.setChecked(EMRDoctorDataList.get(position).getIsFollow().equals("true") ? true : false);
-
+        viewHolder.ivPrescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle=new Bundle();
+                bundle.putString(C.PATIENT_ID,patientId);
+                bundle.putString(C.DEPENDENT_ID,depedentId);
+                bundle.putString(C.CHAT_DOCTOR_ID,""+EMRDoctorDataList.get(position).getDoctorId());
+                ((ActivityContainer)activity).fragmnetLoader(C.FRAGMENT_PRESCRIPTION,bundle);
+            }
+        });
+        viewHolder.ivDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle=new Bundle();
+                bundle.putString(C.PATIENT_ID,patientId);
+                bundle.putString(C.DEPENDENT_ID,depedentId);
+                bundle.putString(C.CHAT_DOCTOR_ID,""+EMRDoctorDataList.get(position).getDoctorId());
+                ((ActivityContainer)activity).fragmnetLoader(C.FRAGMENT_DIAGNOSIS,bundle);
+            }
+        });
 //        viewHolder.ivFollowUp.setEnabled(false);
         return convertView;
     }

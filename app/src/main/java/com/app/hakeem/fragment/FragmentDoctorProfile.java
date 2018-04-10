@@ -1,6 +1,7 @@
 package com.app.hakeem.fragment;
 
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
 import android.os.Bundle;
@@ -13,8 +14,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityChatDoctor;
 import com.app.hakeem.ActivityContainer;
+import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
+import com.app.hakeem.pojo.QueuePerson;
 import com.app.hakeem.pojo.User;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
@@ -81,7 +85,7 @@ public class FragmentDoctorProfile extends Fragment {
         btnManageAwarenessQueue.setCompoundDrawables(sd.getDrawable(), null, null, null);*/
         btnCaseHistory.setOnClickListener(mBtnCaseHostoryClickListner);
         btnManageAwarenessQueue.setOnClickListener(mbtnManageAwarenessQueueClickListner);
-      //  btnManageQueue.setOnClickListener(mBtnCaseHostoryClickListner);
+        btnManageQueue.setOnClickListener(mBtnManageQueueClickListner);
 
     }
 
@@ -102,6 +106,23 @@ public class FragmentDoctorProfile extends Fragment {
         @Override
         public void onClick(View v) {
             getActivity().finish();
+        }
+    };
+    View.OnClickListener mBtnManageQueueClickListner=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getActivity(), ActivityChatDoctor.class);
+
+                QueuePerson queuePerson = new QueuePerson();
+                queuePerson.setPatientId("na");
+                queuePerson.setEmail("na");
+                intent.putExtra(C.USER, queuePerson);
+
+
+
+
+            intent.putExtra(C.TOTAL_PERSON_INQUEUE, 0);
+            startActivity(intent);
         }
     };
 }
