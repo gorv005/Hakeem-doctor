@@ -141,6 +141,7 @@ public class ActivityContainer extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_REGISTER_P_2);
                 break;
+
             case C.FRAGMENT_DOCTOR_REGISTRATION_STEP3:
                 getSupportActionBar().hide();
                 fragment = new FragmentDoctorRegistrationStep3();

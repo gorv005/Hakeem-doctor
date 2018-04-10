@@ -59,7 +59,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentPatientRegistrationStep2 extends Fragment implements View.OnClickListener {
+public class FragmentPatientRegistrationStep2 extends Fragment  {
 
 
     @BindView(R.id.tvBirthDay)
@@ -100,7 +100,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
     private Dialog progressDialog;
     private GeneralPojoKeyValue generalPojoKeyValue;
     private Dialog dialog;
-
+    String dob,city;
 
     public FragmentPatientRegistrationStep2() {
         // Required empty public constructor
@@ -111,7 +111,9 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
-        requestPatientRegistration = (RequestPatientRegistration) bundle.getSerializable(C.USER);
+        if(bundle!=null) {
+            requestPatientRegistration = (RequestPatientRegistration) bundle.getSerializable(C.USER);
+        }
     }
 
     @Override
@@ -125,19 +127,59 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
-        btnCompleteRegistration.setOnClickListener(this);
-        btnAddDependent.setOnClickListener(this);
+        tvBirthDay.setText(dob);
+        tvCity.setText(city);
+        btnCompleteRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isAllValid()) {
+                    requestPatientRegistration.setDob(Util.getDateFromString(tvBirthDay.getText().toString()));
+                    requestPatientRegistration.setCountryCode(tvCity.getText().toString());
+                    requestPatientRegistration.setChildren(adapterDependent.getAllItem());
+                    requestPatientRegistration.setUserGroup(C.USER_PATIENT);
+                    doPatientRegister(requestPatientRegistration);
+                }
+            }
+        });
+        btnAddDependent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPopUpToAddChild();
+            }
+        });
         tvTermsAndCondition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dob=tvBirthDay.getText().toString();
+                city=tvCity.getText().toString();
                 ((ActivityContainer)getActivity()).fragmnetLoader(C.FRAGMENT_TERMS_AND_CONDITION,null);
             }
         });
-        tvBirthDay.setOnClickListener(this);
-        tvCity.setOnClickListener(this);
+        tvBirthDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isDependent = false;
+                openCalender();
+            }
+        });
+        tvCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCitySelector();
+            }
+        });
+        try {
+            if (adapterDependent != null) {
+                lvDependent.setAdapter(adapterDependent);
+
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
+/*
     @Override
     public void onClick(View v) {
 
@@ -166,6 +208,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
         }
 
     }
+*/
 
     private void openCitySelector() {
 
@@ -208,10 +251,10 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
             datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
         }
         else {
-          /*  myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 18);
+            myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 18);
 
-            datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());*/
             datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
+            //datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
 
         }
         datePickerDialog.show();
@@ -446,12 +489,12 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
             tvCity.requestFocus();
             return false;
-        } else if (adapterDependent.getAllItem().size() == 0) {
+        } /*else if (adapterDependent.getAllItem().size() == 0) {
           //  Util.showToast(getActivity(), R.string.please_add_atleast_one_depandent, false);
             Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_add_atleast_one_depandent),getString(R.string.ok),R.drawable.warning);
 
             return false;
-        }
+        }*/
         if(!checkBox_terms_and_cond.isChecked()){
             Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.please_select_terms_and_condition), getString(R.string.ok), R.drawable.warning);
             return false;

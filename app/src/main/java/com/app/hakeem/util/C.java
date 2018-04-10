@@ -39,6 +39,8 @@ public interface C {
     int FRAGMENT_OTP = 51;
     int FRAGMENT_DIAGNOSIS = 52;
     int FRAGMENT_PRESCRIPTION =53 ;
+    int FRAGMENT_PATIENT_REGISTRATION_2 = 54;
+
     String TAG_FRAGMENT_LOGIN = "fragment_login";
     String TAG_FRAGMENT_REGISTER_P_1 = "TAG_FRAGMENT_REGISTER_P_1";
     String TAG_FRAGMENT_REGISTER_P_2 = "TAG_FRAGMENT_REGISTER_P_2";
@@ -202,4 +204,5 @@ public interface C {
     String DETAILS = "details";
     String USER_ID = "user_id";
 
+    String TAG_FRAGMENT_REGISTER_TYPE_R_2 ="TAG_FRAGMENT_REGISTER_TYPE_R_2" ;
 }

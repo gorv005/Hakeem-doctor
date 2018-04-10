@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pattern"
-    tools:context="com.app.hakeem.fragment.FragmentDoctorRegistrationStep1">
+   >
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
@@ -140,6 +140,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/bg_button"
                 android:minWidth="150dp"
+                android:layout_marginBottom="20dp"
                 android:text="@string/complete_registration"
                 android:textAlignment="center"
                 android:textColor="@color/color_selector"

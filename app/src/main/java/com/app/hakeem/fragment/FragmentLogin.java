@@ -267,10 +267,16 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
 
         if (!Util.isValidMail(etUserName.getText().toString())) {
-            etUserName.setError(getActivity().getResources().getString(R.string.enter_valid_mail));
+        //    etUserName.setError(getActivity().getResources().getString(R.string.enter_valid_mail));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.enter_valid_mail),getString(R.string.ok),R.drawable.warning);
+
+            etUserName.requestFocus();
             return false;
         } else if (etPassword.getText().toString().length() == 0) {
-            etPassword.setError(getActivity().getResources().getString(R.string.enter_password));
+         //   etPassword.setError(getActivity().getResources().getString(R.string.enter_password));
+            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.enter_password),getString(R.string.ok),R.drawable.warning);
+
+            etPassword.requestFocus();
             return false;
         }
 
