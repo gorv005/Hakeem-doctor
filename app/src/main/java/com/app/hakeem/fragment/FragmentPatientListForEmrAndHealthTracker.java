@@ -54,12 +54,14 @@ public class FragmentPatientListForEmrAndHealthTracker extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_patient_list_for_emr_and_health_tracker, container, false);
     }
+
     @Override
     public void onResume() {
         super.onResume();
         ActivityContainer.tvTitle.setText(R.string.choose_dependent);
 
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -75,7 +77,11 @@ public class FragmentPatientListForEmrAndHealthTracker extends Fragment {
                 bundle.putString(C.NAME, adapterPatientList.getItem(position).getName());
                 bundle.putString(C.DOB, adapterPatientList.getItem(position).getDob());
                 bundle.putString(C.GENDER, adapterPatientList.getItem(position).getGender());
-                bundle.putString(C.DEPENDENT_ID, adapterPatientList.getItem(position).getChildId());
+                if (position != 0)
+                    bundle.putString(C.DEPENDENT_ID, adapterPatientList.getItem(position).getChildId());
+                else
+                    bundle.putString(C.DEPENDENT_ID, "");
+
                 bundle.putString(C.PATIENT_ID, SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
 
                 ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_EMR_AND_TRACKER, bundle);
@@ -121,14 +127,14 @@ public class FragmentPatientListForEmrAndHealthTracker extends Fragment {
                     child.setName(responseServer.getPatient().getName());
                     child.setDob(responseServer.getPatient().getDob());
                     child.setGender(responseServer.getPatient().getGender());
-                    child.setChildId(responseServer.getPatient().getId()+"");
-                    responseServer.getPatient().getChildrens().add(0,child);
+                    child.setChildId(responseServer.getPatient().getId() + "");
+                    responseServer.getPatient().getChildrens().add(0, child);
                     adapterPatientList = new AdapterPatientListEMRandTracker(getActivity(), responseServer.getPatient().getChildrens());
                     lvDependent.setAdapter(adapterPatientList);
 
                 } else {
-                 //   Util.showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(),responseServer.getMessage(),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    //   Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    Util.showAlertForToast(getActivity(), responseServer.getMessage(), responseServer.getMessage(), getString(R.string.ok), R.drawable.warning, false);
 
                 }
             }

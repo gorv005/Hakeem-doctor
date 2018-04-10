@@ -88,13 +88,7 @@ public class FragmentEMR extends Fragment {
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("patient_id", patientId);
-        if(patientId.equals(dependentId)){
-            hashMap.put("dependent_id", "");
-        }
-        else {
-            hashMap.put("dependent_id", dependentId);
-
-        }
+        hashMap.put("dependent_id", dependentId);
         final Gson gson = new Gson();
         String json = gson.toJson(hashMap);
         JSONObject obj = null;
