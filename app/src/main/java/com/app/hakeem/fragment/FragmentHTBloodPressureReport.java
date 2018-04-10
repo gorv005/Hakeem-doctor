@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -269,13 +268,10 @@ public class FragmentHTBloodPressureReport extends Fragment implements ITempValu
         progressDialog.show();
 
         HashMap<String, String> hashMap = new HashMap<>();
-        if(patientId.equals(dependentId)){
-            hashMap.put("dependent_id", "");
-        }
-        else {
+
             hashMap.put("dependent_id", dependentId);
 
-        }
+
         hashMap.put("patient_id", patientId);
         hashMap.put("sys",""+sysvalue);
         hashMap.put("dia", ""+diaValue);
@@ -354,13 +350,11 @@ public class FragmentHTBloodPressureReport extends Fragment implements ITempValu
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("patient_id", patientId);
-        if(patientId.equals(dependentId)){
-            hashMap.put("dependent_id", "");
-        }
-        else {
+
+
             hashMap.put("dependent_id", dependentId);
 
-        }
+
         hashMap.put("from", etFrom.getText().toString());
         hashMap.put("to", etTo.getText().toString());
 

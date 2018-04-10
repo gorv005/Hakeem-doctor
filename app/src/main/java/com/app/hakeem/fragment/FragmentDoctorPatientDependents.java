@@ -84,7 +84,12 @@ public class FragmentDoctorPatientDependents extends Fragment {
                 bundle.putString(C.NAME, childLis.get(position).getName());
                 bundle.putString(C.DOB, childLis.get(position).getDob());
                 bundle.putString(C.GENDER, childLis.get(position).getGender());
-                bundle.putString(C.DEPENDENT_ID, childLis.get(position).getChildId());
+                if(position==0){
+                    bundle.putString(C.DEPENDENT_ID, "");
+                }
+                else {
+                    bundle.putString(C.DEPENDENT_ID, childLis.get(position).getChildId());
+                }
                 bundle.putString(C.PATIENT_ID, ""+doctorPatientList.getPatientId());
 
                 ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_EMR_AND_TRACKER, bundle);

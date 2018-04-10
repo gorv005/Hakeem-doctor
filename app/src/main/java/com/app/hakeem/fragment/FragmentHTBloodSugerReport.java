@@ -175,13 +175,11 @@ public class FragmentHTBloodSugerReport extends Fragment {
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("patient_id", patientId);
-        if(patientId.equals(dependentId)){
-            hashMap.put("dependent_id", "");
-        }
-        else {
+
+
             hashMap.put("dependent_id", dependentId);
 
-        }
+
         hashMap.put("from", etFrom.getText().toString());
         hashMap.put("to", etTo.getText().toString());
 
@@ -474,13 +472,11 @@ public class FragmentHTBloodSugerReport extends Fragment {
         progressDialog.show();
 
         HashMap<String, String> hashMap = new HashMap<>();
-        if(patientId.equals(dependentId)){
-            hashMap.put("dependent_id", "");
-        }
-        else {
+
+
             hashMap.put("dependent_id", dependentId);
 
-        }
+
         hashMap.put("patient_id", patientId);
         hashMap.put("timing", timingValue);
         hashMap.put("reading", readingValue);

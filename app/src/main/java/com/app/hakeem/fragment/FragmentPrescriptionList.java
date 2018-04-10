@@ -13,9 +13,7 @@ import android.widget.TextView;
 
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
-import com.app.hakeem.adapter.AdapterEMRDoctorList;
 import com.app.hakeem.interfaces.IResult;
-import com.app.hakeem.pojo.EMRDoctorsList;
 import com.app.hakeem.pojo.EMRLogList;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.Util;
@@ -85,13 +83,10 @@ public class FragmentPrescriptionList extends Fragment {
         hashMap.put("patient_id", patientId);
         hashMap.put("doctor_id", doctorId);
 
-        if(patientId.equals(dependentId)){
-            hashMap.put("dependent_id", "");
-        }
-        else {
+
             hashMap.put("dependent_id", dependentId);
 
-        }
+
         final Gson gson = new Gson();
         String json = gson.toJson(hashMap);
         JSONObject obj = null;

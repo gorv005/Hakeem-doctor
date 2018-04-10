@@ -4,7 +4,6 @@ package com.app.hakeem.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -209,13 +208,10 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
         progressDialog.show();
 
         HashMap<String, String> hashMap = new HashMap<>();
-        if(patientId.equals(dependentId)){
-            hashMap.put("dependent_id", "");
-        }
-        else {
+
             hashMap.put("dependent_id", dependentId);
 
-        }
+
         hashMap.put("patient_id", patientId);
         hashMap.put("temperature", ""+tempvalue);
         hashMap.put("comment",comment);
@@ -291,13 +287,10 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("patient_id", patientId);
-        if(patientId.equals(dependentId)){
-            hashMap.put("dependent_id", "");
-        }
-        else {
+
             hashMap.put("dependent_id", dependentId);
 
-        }
+
         hashMap.put("from", etFrom.getText().toString());
         hashMap.put("to", etTo.getText().toString());
 
