@@ -1019,7 +1019,7 @@ public class Util {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setContentView(deleteDialogView);
-
+        dialog.setCancelable(false);
 
         TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
         tvMsg.setText(msg);
@@ -1050,7 +1050,7 @@ public class Util {
 
     public static void showAlertForToast(final Activity context, String title, String msg, String btnText, int img, final boolean finishActivity) {
 
-
+        title=context.getString(R.string.alert);
         final LayoutInflater factory = LayoutInflater.from(context);
         final View deleteDialogView = factory.inflate(
                 R.layout.dialog_alert, null);
@@ -1060,6 +1060,7 @@ public class Util {
         //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setContentView(deleteDialogView);
 
+        dialog.setCancelable(false);
 
         TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
         tvMsg.setText(msg);

@@ -15,11 +15,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.app.hakeem.ActivityContainer;
+import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterComments;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.CommentList;
 import com.app.hakeem.pojo.Post;
+import com.app.hakeem.pojo.ResponsePost;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
 import com.app.hakeem.util.SharedPreference;
@@ -66,8 +68,10 @@ public class FragmentComments extends Fragment {
     ImageView ivLine;
     Post post;
     ImageLoader imageLoader;
-    private Dialog progressDialog;
+    private Dialog progressDialog,dialog;
     AdapterComments adapterComments;
+    boolean isLiked;
+    long totalLike=0;
     public FragmentComments() {
         // Required empty public constructor
     }
@@ -96,6 +100,22 @@ public class FragmentComments extends Fragment {
 
         tvDoctorName.setText(post.getPostBy());
         tvLike.setText(post.getTotalLikes()+"");
+        totalLike=post.getTotalLikes();
+        if(post.getIsLiked()==1) {
+            isLiked=true;
+            tvLike.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.liked, 0);
+        }
+        else {
+            isLiked=false;
+            tvLike.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.like, 0);
+
+        }
+        tvLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                likeUnlikePost(post);
+            }
+        });
         tvComment.setText(post.getTotal_comments()+"");
         if (C.PHOTO.equals(post.getType())) {
             tvMsg.setVisibility(View.GONE);
@@ -129,6 +149,77 @@ public class FragmentComments extends Fragment {
             }
         });
         getComments();
+    }
+
+    void likeUnlikePost(final Post post) {
+
+        dialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        dialog.setCancelable(false);
+        dialog.show();
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("user_id", SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
+        hashMap.put("post_id", "" + post.getPostId());
+        if (isLiked) {
+            hashMap.put("is_liked", "" + 0);
+        } else {
+            hashMap.put("is_liked", "" + 1);
+        }
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialog.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    ResponsePost responsePost = gson.fromJson(response.toString(), ResponsePost.class);
+                    if (responsePost.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                       if(isLiked){
+                           totalLike=totalLike-1;
+                           tvLike.setText(totalLike+"");
+                            isLiked=false;
+                           tvLike.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.like, 0);
+
+                       }
+                       else {
+                           totalLike=totalLike+1;
+                           tvLike.setText(totalLike+"");
+                           isLiked=true;
+                           tvLike.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.liked, 0);
+
+                       }
+                    } else {
+                        Util.showAlert(getActivity(), getString(R.string.error), responsePost.getMessage(), getString(R.string.ok), R.drawable.warning);
+
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+
+                Log.e("Response :", error.toString());
+                dialog.dismiss();
+
+            }
+        }, "posts", C.API_POSTS_LIKE, Util.getHeader(getActivity()), obj);
+
+
     }
 
     private void AddComments(String comment) {
@@ -221,7 +312,7 @@ public class FragmentComments extends Fragment {
 
                 } else {
                     //Util.showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
                     ivLine.setVisibility(View.GONE);
 
                 }

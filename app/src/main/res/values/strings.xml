@@ -635,5 +635,10 @@
     <string name="send">Send</string>
     <string name="otp_required">Please enter a OTP</string>
     <string name="no_data_to_display">Oops..!! No details to display..!!</string>
+    <string name="Abdominal_Clinic">Abdominal Clinic</string>
+    <string name="Psychological_Clinic">Psychological Clinic</string>
+    <string name="Family_and_Community_Clinic">Family and Community Clinic</string>
+    <string name="Obgyne_Clinic">Obgyne Clinic</string>
+    <string name="Pediatrics_Clinic">Pediatrics Clinic</string>
 
 </resources>

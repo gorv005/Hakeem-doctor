@@ -205,12 +205,14 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
 
         if (isDependent) {
 //            myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 17);
-            datePickerDialog.getDatePicker().setMinDate(myCalendar.getTimeInMillis());
+            datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
         }
         else {
-            myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 18);
+          /*  myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 18);
 
+            datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());*/
             datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
+
         }
         datePickerDialog.show();
     }
@@ -432,11 +434,11 @@ public class FragmentPatientRegistrationStep2 extends Fragment implements View.O
     }
 
     public boolean isAllValid() {
-        if (tvDOB.getText().toString().length() == 0) {
+        if (tvBirthDay.getText().toString().length() == 0) {
         //    tvDOB.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
             Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_date_of_birth),getString(R.string.ok),R.drawable.warning);
 
-            tvDOB.requestFocus();
+            tvBirthDay.requestFocus();
             return false;
         } else if (tvCity.getText().toString().length() == 0) {
           //  tvCity.setError(getActivity().getResources().getString(R.string.please_enter_city));

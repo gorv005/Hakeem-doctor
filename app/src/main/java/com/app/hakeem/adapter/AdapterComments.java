@@ -68,6 +68,7 @@ public class AdapterComments extends BaseAdapter {
             viewHolder.tvMsg = (TextView) convertView.findViewById(R.id.tvMsg);
 
             convertView.setTag(viewHolder);
+
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
@@ -79,8 +80,35 @@ public class AdapterComments extends BaseAdapter {
 
         viewHolder.tvDoctorName.setText(getItem(position).getCommentBy());
         viewHolder.tvMsg.setText(getItem(position).getComment());
+        imageLoader.DisplayImage(getItem(position).getProfile_pic(),viewHolder.ivDoctor);
+        if(getItem(position).getSpecialization()!=null
+                &&getItem(position).getSpecialization().equals(activity.getString(R.string.Abdominal_Clinic))){
+                viewHolder.ivSpecialityIcon.setImageResource(R.drawable.sec_abdomen);
 
+        }
+        else if(getItem(position).getSpecialization()!=null
+                &&getItem(position).getSpecialization().equals(activity.getString(R.string.Psychological_Clinic))){
+            viewHolder.ivSpecialityIcon.setImageResource(R.drawable.sec_psy);
 
+        }
+        else if(getItem(position).getSpecialization()!=null
+                &&getItem(position).getSpecialization().equals(activity.getString(R.string.Family_and_Community_Clinic))){
+            viewHolder.ivSpecialityIcon.setImageResource(R.drawable.sec_family);
+
+        }
+        else if(getItem(position).getSpecialization()!=null
+                &&getItem(position).getSpecialization().equals(activity.getString(R.string.Obgyne_Clinic))){
+            viewHolder.ivSpecialityIcon.setImageResource(R.drawable.sec_obgyen);
+
+        }
+        else if(getItem(position).getSpecialization()!=null
+                &&getItem(position).getSpecialization().equals(activity.getString(R.string.Pediatrics_Clinic))){
+            viewHolder.ivSpecialityIcon.setImageResource(R.drawable.section_children);
+
+        }
+        else {
+            viewHolder.ivSpecialityIcon.setVisibility(View.GONE);
+        }
       /*  imageLoader.DisplayImage(post.getIconUrl(), viewHolder.ivSpecialityIcon);
         imageLoader.DisplayImage(post.getUserPic(), viewHolder.ivDoctor);*/
 

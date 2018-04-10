@@ -22,7 +22,16 @@ public class Comment implements Serializable {
     @SerializedName("posted_at")
     @Expose
     private String postedAt;
+    @SerializedName("profile_pic")
+    @Expose
+    private String profile_pic;
 
+    @SerializedName("Usertype")
+    @Expose
+    private String Usertype;
+    @SerializedName("specialization")
+    @Expose
+    private String specialization;
     /**
      * No args constructor for use in serialization
      *
@@ -75,5 +84,31 @@ public class Comment implements Serializable {
 
     public void setPostedAt(String postedAt) {
         this.postedAt = postedAt;
+    }
+
+    public String getProfile_pic() {
+        return profile_pic;
+    }
+
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
+    }
+
+
+
+    public String getUsertype() {
+        return Usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        Usertype = usertype;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
     }
 }
