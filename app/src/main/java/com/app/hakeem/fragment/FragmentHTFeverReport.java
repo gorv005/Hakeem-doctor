@@ -264,7 +264,6 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
         mChart.setDrawGridBackground(false);
         mChart.setData(generateLineData(inputArray));
         mChart.animateX(2000);
-
         //   Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"OpenSans-Light.ttf");
 
        /* Legend l = mChart.getLegend();
@@ -273,7 +272,7 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
         YAxis leftAxis = mChart.getAxisLeft();
         //  leftAxis.setTypeface(tf);
         leftAxis.setAxisMaximum(max);
-        leftAxis.setAxisMinimum(min);
+        leftAxis.setAxisMinimum(0);
         leftAxis.setLabelCount(6);
 
         mChart.getAxisRight().setEnabled(false);

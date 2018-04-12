@@ -303,7 +303,10 @@ public class ActivityContainer extends AppCompatActivity {
                 break;
             case C.FRAGMENT_SETTING:
                 getSupportActionBar().show();
-                tvTitle.setText(R.string.notification);
+                tvTitle.setText(R.string.setting);
+                btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+
                 fragment = new FragmentSetting();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_SETTING);

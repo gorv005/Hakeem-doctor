@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.util.C;
+import com.app.hakeem.util.SharedPreference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -140,8 +141,14 @@ public class FragmentEmrAndHealthTracker extends Fragment {
         Bundle bundle = getArguments();
         fragmentAction = getArguments().getInt(C.FRAGMENT_ACTION, C.FRAGMENT_EMR);
         fragmnetLoader(fragmentAction, bundle);
+        if(bundle.getString(C.NAME)==null ||bundle.getString(C.NAME).equals("")) {
+            tvName.setText(SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getFirstName());
 
-        tvName.setText(bundle.getString(C.NAME));
+        }
+        else {
+            tvName.setText(bundle.getString(C.NAME));
+
+        }
         tvGender.setText(bundle.getString(C.GENDER));
         tvDOB.setText(bundle.getString(C.DOB));
 
@@ -202,7 +209,6 @@ public class FragmentEmrAndHealthTracker extends Fragment {
         fragment.setArguments(bundle);
         fragmentTransaction.commit();
         getChildFragmentManager().executePendingTransactions();
-
 
     }
 

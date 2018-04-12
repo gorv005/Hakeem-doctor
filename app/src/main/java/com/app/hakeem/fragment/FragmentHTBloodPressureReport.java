@@ -338,7 +338,7 @@ public class FragmentHTBloodPressureReport extends Fragment implements ITempValu
         leftAxis.setAxisMaximum(max);
         leftAxis.setLabelCount(6);
 
-        leftAxis.setAxisMinimum(min);
+        leftAxis.setAxisMinimum(0);
         mChart.getAxisRight().setEnabled(false);
         XAxis xAxis = mChart.getXAxis();
         xAxis.setEnabled(false);

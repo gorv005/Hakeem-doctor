@@ -224,9 +224,7 @@ public class ActivityMain extends AppCompatActivity
         });
 
 
-        if (Util.isNetworkConnectivity(this)) {
-            getAllPosts();
-        }
+
 
         rlBottam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -424,6 +422,9 @@ public class ActivityMain extends AppCompatActivity
             adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN), ""));
         }
         listView.setAdapter(adapterSideMenu);
+        if (Util.isNetworkConnectivity(this)) {
+            getAllPosts();
+        }
         saveTokenToServer();
 
 
@@ -1185,9 +1186,9 @@ public class ActivityMain extends AppCompatActivity
 
 
                 dialog.dismiss();
-                if (finishActivity) {
+              /*  if (finishActivity) {
                     getAllPosts();
-                }
+                }*/
 
             }
         });

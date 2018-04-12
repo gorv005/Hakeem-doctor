@@ -117,6 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/patient"
+                android:lines="1"
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
 
@@ -126,6 +127,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/birthdate"
+                android:maxLines="1"
+                android:lines="1"
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
 
@@ -134,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/weight"
+                android:text="65 Kg"
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
 
@@ -143,7 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/height"
+                android:text="167 Cm"
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
 
@@ -223,7 +226,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/chornic"
+                android:text="@string/yes"
+                android:textAllCaps="true"
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
         </LinearLayout>

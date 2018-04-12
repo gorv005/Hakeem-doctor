@@ -2,13 +2,18 @@ package com.app.hakeem.adapter;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.DependentDelete;
 import com.app.hakeem.interfaces.IResult;
@@ -83,8 +88,8 @@ public class AdapterPatientList extends BaseAdapter {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showAlertForConfirm(activity, activity.getString(R.string.delete), activity.getString(R.string.are_sure_you_want_to_delete), activity.getString(R.string.yes), activity.getString(R.string.no), R.drawable.warning, false,position);
 
-                deleteDependent(position);
             }
         });
 
@@ -102,6 +107,56 @@ public class AdapterPatientList extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
+    public void showAlertForConfirm(final Activity context, String title, String msg, String btnText1, String btnText2, int img, final boolean finishActivity, final int pos) {
+
+
+        final LayoutInflater factory = LayoutInflater.from(context);
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_alert_with_two_button, null);
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(deleteDialogView);
+
+
+        TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
+        tvMsg.setText(msg);
+
+        TextView tvTitle = (TextView) deleteDialogView.findViewById(R.id.tvTitle);
+        tvTitle.setText(title);
+        ImageView ivAlertImage = (ImageView) deleteDialogView.findViewById(R.id.ivAlertImage);
+        ivAlertImage.setImageResource(img);
+        Button btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
+        btnDone.setText(btnText1);
+        Button btnCancel = (Button) deleteDialogView.findViewById(R.id.btnCancel);
+        btnCancel.setText(btnText2);
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                deleteDependent(pos);
+
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.dismiss();
+
+
+            }
+        });
+
+        dialog.show();
+
+
+    }
 
     private void deleteDependent(final int position) {
 

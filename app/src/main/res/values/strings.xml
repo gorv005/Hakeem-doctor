@@ -640,5 +640,6 @@
     <string name="Family_and_Community_Clinic">Family and Community Clinic</string>
     <string name="Obgyne_Clinic">Obgyne Clinic</string>
     <string name="Pediatrics_Clinic">Pediatrics Clinic</string>
+    <string name="are_sure_you_want_to_delete">Are you sure you want to delete the dependent?</string>
 
 </resources>
