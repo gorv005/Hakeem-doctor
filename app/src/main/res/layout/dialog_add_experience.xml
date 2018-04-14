@@ -53,7 +53,7 @@
                 android:background="@drawable/rounded_red_blue_corner"
                 android:drawableLeft="@drawable/icon_calendar"
                 android:drawablePadding="20dp"
-                android:hint="@string/working_since"
+                android:hint="@string/working_till"
                 android:textSize="12sp"
                 android:editable="false"
                 android:focusable="false"

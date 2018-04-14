@@ -22,7 +22,7 @@
     <string name="docotr_name">Doctor name</string>
     <string name="profile">Profile</string>
     <string name="awareness">Awareness</string>
-    <string name="setting">Setting</string>
+    <string name="setting">Settings</string>
     <string name="dependent">Dependent</string>
     <string name="queue">Queue</string>
     <string name="emr_and_tracker">EMR and Tracker</string>
@@ -641,5 +641,6 @@
     <string name="Obgyne_Clinic">Obgyne Clinic</string>
     <string name="Pediatrics_Clinic">Pediatrics Clinic</string>
     <string name="are_sure_you_want_to_delete">Are you sure you want to delete the dependent?</string>
+    <string name="working_till">Worked Till</string>
 
 </resources>

@@ -135,7 +135,9 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
                 if (isAllValid()) {
                     requestPatientRegistration.setDob(Util.getDateFromString(tvBirthDay.getText().toString()));
                     requestPatientRegistration.setCountryCode(tvCity.getText().toString());
-                    requestPatientRegistration.setChildren(adapterDependent.getAllItem());
+                    if(adapterDependent!=null) {
+                        requestPatientRegistration.setChildren(adapterDependent.getAllItem());
+                    }
                     requestPatientRegistration.setUserGroup(C.USER_PATIENT);
                     doPatientRegister(requestPatientRegistration);
                 }
