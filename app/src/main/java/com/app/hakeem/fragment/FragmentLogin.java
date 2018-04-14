@@ -255,6 +255,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         }, "online_doctor", C.API_GO_ONLINE, Util.getHeader(getActivity()), obj);
 
 
+
     }
 
     private void openMainActivity() {
