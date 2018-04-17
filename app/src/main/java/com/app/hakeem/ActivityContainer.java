@@ -382,12 +382,12 @@ public class ActivityContainer extends AppCompatActivity {
                     case C.TAG_FRAGMENT_ADD_INQUEU:
                         tvTitle.setText(R.string.select_patient);
                         break;
-                    case C.TAG_FRAGMENT_REGISTER_P_2:
+                    /*case C.TAG_FRAGMENT_REGISTER_P_2:
                         finish();
                         break;
                     case C.TAG_FRAGMENT_REGISTER_TYPE_R_4:
                         finish();
-                        break;
+                        break;*/
 
 //                    case C.TAG_FRAGMENT_OURDESTINATIONS:
 //                        tvTitle.setText(getResources().getString(R.string.our_destinations));

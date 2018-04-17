@@ -134,6 +134,8 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
             @Override
             public void onClick(View v) {
                 if (isAllValid()) {
+                  //  Util.setAppLocale(C.English,getActivity());
+
                     requestPatientRegistration.setDob(Util.getDateFromString(tvBirthDay.getText().toString()));
                     requestPatientRegistration.setCountryCode(tvCity.getText().toString());
                     if(adapterDependent!=null) {
@@ -145,6 +147,8 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
 
                     }
                     requestPatientRegistration.setUserGroup(C.USER_PATIENT);
+                  //  Util.setAppLocale(C.ARABIC,getActivity());
+
                     doPatientRegister(requestPatientRegistration);
                 }
             }
@@ -249,6 +253,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
     }
 
     private void openCalender() {
+        //Util.setAppLocale(C.English,getActivity());
         Calendar myCalendar = Calendar.getInstance();
         myCalendar.setTimeInMillis(System.currentTimeMillis());
 
@@ -265,6 +270,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
             //datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
 
         }
+
         datePickerDialog.show();
     }
 
@@ -277,6 +283,8 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+         //   Util.setAppLocale(C.ARABIC,getActivity());
+
             updateLabel(myCalendar);
         }
 

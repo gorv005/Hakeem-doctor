@@ -135,7 +135,7 @@ public class ActivityMain extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         tvTitle.setText(R.string.awareness);
-        Util.setAppLocale(C.English,this);
+       // Util.setAppLocale(C.ARABIC,this);
         setSupportActionBar(toolbar);
         imageLoader = new ImageLoader(this);
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
