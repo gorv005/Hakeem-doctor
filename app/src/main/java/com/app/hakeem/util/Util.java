@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -1090,5 +1091,34 @@ public class Util {
         dialog.show();
 
 
+    }
+
+    public static void setAppLocale(String selectedLanguage,Context context)
+    {
+        String langLocale = null;
+        if(selectedLanguage.equals(C.English)) {
+            langLocale = C.English;
+        }
+        else if(selectedLanguage.equals(C.ARABIC))
+        {
+            langLocale = C.ARABIC;
+        }
+
+        SharedPreference.getInstance(context).setString(C.language,selectedLanguage);
+        Locale locale = new Locale(langLocale);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        context.getResources().updateConfiguration(config,
+                context.getResources().getDisplayMetrics());
+    }
+
+ public static    String getArabicMobile(String mob) {
+        if (mob != null) {
+            if (mob.startsWith("966")) {
+               return C.NUMBER_FORMAT+mob.substring(3, mob.length());
+            }
+        }
+        return mob;
     }
 }

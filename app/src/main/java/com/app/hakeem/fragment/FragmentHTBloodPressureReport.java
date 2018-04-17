@@ -299,6 +299,7 @@ public class FragmentHTBloodPressureReport extends Fragment implements ITempValu
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
                     if(dialogAddBloodSuger!=null && dialogAddBloodSuger.isShowing()) {
                         dialogAddBloodSuger.dismiss();
+                        getBloodPressureReport();
                     }
                     Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
                 } else {
@@ -409,13 +410,13 @@ String mAction="";
         List<Entry> entriesHt = new ArrayList<Entry>();
 
         ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
-        if(htFeverReportData.size()==1){
+       // if(htFeverReportData.size()==1){
 
             entriesSys.add(new Entry(Float.parseFloat("0"), 0));
             entriesDia.add(new Entry(Float.parseFloat("0"),0));
             entriesHt.add(new Entry(Float.parseFloat("0"),0));
 
-        }
+
         for(int i=0;i<htFeverReportData.size();i++) {
             entriesHt.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getHeartRate())));
             entriesDia.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getDia())));

@@ -4,7 +4,11 @@ package com.app.hakeem.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -57,6 +61,57 @@ public class FragmentDoctorRegistrationStep1 extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
+
+
+        etMobile.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (etMobile.getText().length() == 0)
+                    etMobile.setText(C.NUMBER_FORMAT);
+                return false;
+            }
+        });
+        etMobile.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!hasFocus && etMobile.getText().toString().equals(C.NUMBER_FORMAT))
+                    etMobile.setText("");
+            }
+        });
+        etMobile.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+            /*    if (s != null && s.length() == 5 && (s.charAt(4) < '7')) {
+                    etMobile.setText("");
+                    etMobile.setError("Number should start with 9,8 and 7");
+                }*/
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                if (!s.toString().startsWith(C.NUMBER_FORMAT)) {
+                    etMobile.setText(C.NUMBER_FORMAT);
+                    Selection.setSelection(etMobile.getText(), etMobile
+                            .getText().length());
+
+                }
+            }
+        });
+        etMobile.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+              /*  if (!hasFocus && etMobile.getText().toString().length() != 14)
+                    etMobile.setError("Phone number must be 10 digits");*/
+
+            }
+        });
+
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +121,9 @@ public class FragmentDoctorRegistrationStep1 extends Fragment {
                     doctorRegistration.setFirstName(etUserName.getText().toString());
                     doctorRegistration.setLastName("");
                     doctorRegistration.setGender(rbMale.isChecked() ? "M" : "F");
-                    doctorRegistration.setMobileNumber(etMobile.getText().toString());
+                    String strMobile[]=etMobile.getText().toString().split("-");
+
+                    doctorRegistration.setMobileNumber(strMobile[0]+strMobile[1]);
                     doctorRegistration.setEmail(etEmail.getText().toString());
                     doctorRegistration.setPassword(etPassword.getText().toString());
                     Bundle bundle = new Bundle();
@@ -124,13 +181,13 @@ public class FragmentDoctorRegistrationStep1 extends Fragment {
 
             etUserName.requestFocus();
             return false;
-        } else if (etMobile.getText().toString().length() == 0) {
+        } else if (etMobile.getText().toString().length() == 4||etMobile.getText().toString().length() == 0) {
           //  etMobile.setError(getActivity().getResources().getString(R.string.mobile_no_is_required));
             Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.mobile_no_is_required),getString(R.string.ok),R.drawable.warning);
 
             etMobile.requestFocus();
             return false;
-        } else if (etMobile.getText().length() < 8) {
+        } else if (etMobile.getText().length() < 12) {
 
          //   etMobile.setError(getActivity().getResources().getString(R.string.please_enter_valid_mobile_number));
             Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_valid_mobile_number),getString(R.string.ok),R.drawable.warning);

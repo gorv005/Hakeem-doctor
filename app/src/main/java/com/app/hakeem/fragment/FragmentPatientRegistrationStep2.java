@@ -87,6 +87,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
     RequestPatientRegistration requestPatientRegistration;
 
     AdapterDependent adapterDependent;
+    Calendar myCalendar = Calendar.getInstance();
 
     private AdapterCityList adapter;
     private boolean isDependent = false;
@@ -137,6 +138,11 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
                     requestPatientRegistration.setCountryCode(tvCity.getText().toString());
                     if(adapterDependent!=null) {
                         requestPatientRegistration.setChildren(adapterDependent.getAllItem());
+                    }
+                    else {
+                        adapterDependent=new AdapterDependent(getActivity(),new ArrayList<Child>());
+                        requestPatientRegistration.setChildren(adapterDependent.getAllItem());
+
                     }
                     requestPatientRegistration.setUserGroup(C.USER_PATIENT);
                     doPatientRegister(requestPatientRegistration);
@@ -267,7 +273,6 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            Calendar myCalendar = Calendar.getInstance();
 
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
@@ -279,8 +284,9 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
 
     private void updateLabel(Calendar myCalendar) {
 
-        String myFormat = "dd/MMM/yyyy";
+        String myFormat = C.DATE_FORMAT;
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
+
         if (isDependent) {
 
             tvDOB.setText(sdf.format(myCalendar.getTime()));

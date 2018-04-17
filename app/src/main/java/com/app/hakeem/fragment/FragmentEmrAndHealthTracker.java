@@ -86,16 +86,17 @@ public class FragmentEmrAndHealthTracker extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                rbHeathTracker.setChecked(false);
-                rbHeathTracker.setTextColor(getActivity().getResources().getColor(R.color.blue));
-                rbHeathTracker.setBackgroundResource(R.drawable.button_deselect_blue);
+          /*      if(rbEmr.isChecked()) {
+                      rbHeathTracker.setChecked(false);
+                    rbHeathTracker.setTextColor(getActivity().getResources().getColor(R.color.blue));
+                    rbHeathTracker.setBackgroundResource(R.drawable.button_deselect_blue);
 
-                rbEmr.setBackgroundResource(R.drawable.button_select_blue);
-                rbEmr.setTextColor(getActivity().getResources().getColor(R.color.white));
-                Bundle bundle = getArguments();
-                fragmentAction = getArguments().getInt(C.FRAGMENT_ACTION, C.FRAGMENT_EMR);
-                fragmnetLoader(fragmentAction, bundle);
-
+                    rbEmr.setBackgroundResource(R.drawable.button_select_blue);
+                    rbEmr.setTextColor(getActivity().getResources().getColor(R.color.white));
+                    Bundle bundle = getArguments();
+                    fragmentAction = getArguments().getInt(C.FRAGMENT_ACTION, C.FRAGMENT_EMR);
+                    fragmnetLoader(fragmentAction, bundle);
+                }*/
             }
         });
 
@@ -103,19 +104,6 @@ public class FragmentEmrAndHealthTracker extends Fragment {
             @Override
             public void onClick(View v) {
                 rbHeathTracker.setChecked(true);
-
-            }
-        });
-
-        rbEmr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rbEmr.setChecked(true);
-            }
-        });
-        rbHeathTracker.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 rbEmr.setChecked(false);
                 rbEmr.setBackgroundResource(R.drawable.button_deselect_blue);
@@ -127,11 +115,46 @@ public class FragmentEmrAndHealthTracker extends Fragment {
                 fragmentAction = getArguments().getInt(C.FRAGMENT_ACTION, C.FRAGMENT_TRACKER);
                 fragmnetLoader(fragmentAction, bundle);
 
+
+
+            }
+        });
+
+        rbEmr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rbEmr.setChecked(true);
+
+                rbHeathTracker.setChecked(false);
+                rbHeathTracker.setTextColor(getActivity().getResources().getColor(R.color.blue));
+                rbHeathTracker.setBackgroundResource(R.drawable.button_deselect_blue);
+
+                rbEmr.setBackgroundResource(R.drawable.button_select_blue);
+                rbEmr.setTextColor(getActivity().getResources().getColor(R.color.white));
+                Bundle bundle = getArguments();
+                fragmentAction = getArguments().getInt(C.FRAGMENT_ACTION, C.FRAGMENT_EMR);
+                fragmnetLoader(fragmentAction, bundle);
+            }
+        });
+        rbHeathTracker.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+             /*   if(rbHeathTracker.isChecked()) {
+                    rbEmr.setChecked(false);
+                    rbEmr.setBackgroundResource(R.drawable.button_deselect_blue);
+                    rbEmr.setTextColor(getActivity().getResources().getColor(R.color.blue));
+
+                    rbHeathTracker.setBackgroundResource(R.drawable.button_select_blue);
+                    rbHeathTracker.setTextColor(getActivity().getResources().getColor(R.color.white));
+                    Bundle bundle = getArguments();
+                    fragmentAction = getArguments().getInt(C.FRAGMENT_ACTION, C.FRAGMENT_TRACKER);
+                    fragmnetLoader(fragmentAction, bundle);
+                }*/
             }
         });
 
 
-        rbHeathTracker.setChecked(false);
+      //  rbHeathTracker.setChecked(false);
         rbHeathTracker.setTextColor(getActivity().getResources().getColor(R.color.blue));
         rbHeathTracker.setBackgroundResource(R.drawable.button_deselect_blue);
 

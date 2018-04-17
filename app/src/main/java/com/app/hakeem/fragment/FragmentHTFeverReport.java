@@ -236,6 +236,7 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
                     if(dialogAddBloodSuger!=null && dialogAddBloodSuger.isShowing()) {
                         dialogAddBloodSuger.dismiss();
+                        getFeverReport();
                     }
                     Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
                 } else {
@@ -342,9 +343,9 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
         List<Entry> entries = new ArrayList<Entry>();
 
         ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
-        if(htFeverReportData.size()==1){
+     //   if(htFeverReportData.size()==1){
             entries.add(new Entry(Float.parseFloat("0"), 0));
-        }
+     //   }
         for(int i=0;i<htFeverReportData.size();i++) {
             entries.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getTemperature())));
         }

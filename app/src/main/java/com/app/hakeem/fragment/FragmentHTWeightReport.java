@@ -437,6 +437,7 @@ public class FragmentHTWeightReport extends Fragment {
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
                     if(dialogAddweight!=null && dialogAddweight.isShowing()) {
                         dialogAddweight.dismiss();
+                        getWeightReport();
                     }
                             Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
                 } else {
@@ -546,10 +547,10 @@ public class FragmentHTWeightReport extends Fragment {
         List<Entry> entriesWeight = new ArrayList<Entry>();
 
         ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
-        if(htFeverReportData.size()==1){
+       // if(htFeverReportData.size()==1){
             entriesHr.add(new Entry(Float.parseFloat("0"), 0));
             entriesWeight.add(new Entry(Float.parseFloat("0"),0));
-        }
+      //  }
         for(int i=0;i<htFeverReportData.size();i++) {
             entriesHr.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getRestHr())));
             entriesWeight.add(new Entry(Float.parseFloat(""+i+1), Float.parseFloat(htFeverReportData.get(i).getWeight())));

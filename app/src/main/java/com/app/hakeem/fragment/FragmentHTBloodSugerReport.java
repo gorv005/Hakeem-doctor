@@ -74,9 +74,20 @@ public class FragmentHTBloodSugerReport extends Fragment {
     Button btnRefresh;
     @BindView(R.id.ivAddBloodSuger)
     ImageView ivAddBloodSuger;
+
+    @BindView(R.id.etTiming)
+    EditText etTiming;
+
+    @BindView(R.id.spinnerTiming)
+    Spinner spinnerTiming;
     private boolean isFrom=false;
     AlertDialog dialogAddBloodSuger;
     String timingValue="Pre-meal",readingValue="101-111";
+    LineDataSet ds1;
+    LineDataSet ds2;
+    LineDataSet ds3;
+    List<HTBloodSugerReportData> htBloodSugerReportData;
+
     public FragmentHTBloodSugerReport() {
         // Required empty public constructor
     }
@@ -105,6 +116,59 @@ public class FragmentHTBloodSugerReport extends Fragment {
         ButterKnife.bind(this, view);
 
         mChart = (LineChart) view.findViewById(R.id.lineChart1);
+        etTiming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerTiming.performClick();
+            }
+        });
+        spinnerTiming.setOnItemSelectedListener(mspinnerTimingSelectListner);
+        String[] timing = new String[]{
+           /* "ALL",
+            "PRE",
+            "POST",
+            "SLEEP"*/
+                getActivity().getString(R.string.all),
+                getActivity().getString(R.string.pre),
+                getActivity().getString(R.string.post),
+                getActivity().getString(R.string.sleep)
+
+        };
+
+        final List<String> specialityList = new ArrayList<>(Arrays.asList(timing));
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                getActivity(),R.layout.spinner_item_new,specialityList){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.BLACK);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTiming.setAdapter(spinnerArrayAdapter);
+
 
         etFrom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,15 +205,47 @@ public class FragmentHTBloodSugerReport extends Fragment {
     }
 
 
+    AdapterView.OnItemSelectedListener mspinnerTimingSelectListner=new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(ds1!=null && ds2!=null && ds3!=null) {
+                if (position == 0) {
+                    etTiming.setText(getString(R.string.all));
 
-    void initGraph(float min,float max,List<HTBloodSugerReportData> inputArray){
+                    initGraph(0,getMax(htBloodSugerReportData),htBloodSugerReportData,getResources().getString(R.string.all));
+
+                } else if (position == 1) {
+                    etTiming.setText(getString(R.string.pre));
+
+                    initGraph(0,getMax(htBloodSugerReportData),htBloodSugerReportData,getResources().getString(R.string.pre));
+
+                } else if (position == 2) {
+                    etTiming.setText(getString(R.string.post));
+
+                    initGraph(0,getMax(htBloodSugerReportData),htBloodSugerReportData,getResources().getString(R.string.post));
+
+                } else if (position == 3) {
+                    etTiming.setText(getString(R.string.sleep));
+
+                    initGraph(0,getMax(htBloodSugerReportData),htBloodSugerReportData,getResources().getString(R.string.sleep));
+
+                }
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    void initGraph(float min,float max,List<HTBloodSugerReportData> inputArray,String selected){
         Log.e("MIn="+min,"MAx="+max);
         mChart.getDescription().setEnabled(false);
 
         mChart.setDrawGridBackground(false);
-        mChart.setData(generateLineData(inputArray));
+        mChart.setData(generateLineData(inputArray,selected));
         mChart.animateX(2000);
-
         //   Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"OpenSans-Light.ttf");
 
        /* Legend l = mChart.getLegend();
@@ -201,7 +297,8 @@ public class FragmentHTBloodSugerReport extends Fragment {
                 HTBloodSugerReportList responseServer = gson.fromJson(response.toString(), HTBloodSugerReportList.class);
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
                     if(responseServer.getData()!=null && responseServer.getData().size()>0) {
-                        initGraph(getMin(responseServer.getData()),getMax(responseServer.getData()),responseServer.getData());
+                       htBloodSugerReportData= responseServer.getData();
+                        initGraph(getMin(responseServer.getData()),getMax(responseServer.getData()),htBloodSugerReportData,getResources().getString(R.string.all));
                     }
                     else {
                         Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
@@ -227,7 +324,7 @@ public class FragmentHTBloodSugerReport extends Fragment {
 
 
     }
-    protected LineData generateLineData(List<HTBloodSugerReportData> htFeverReportData) {
+    protected LineData generateLineData(List<HTBloodSugerReportData> htFeverReportData,String selected) {
         List<Entry> entriesPre = new ArrayList<Entry>();
         List<Entry> entriesPost = new ArrayList<Entry>();
         List<Entry> entriesSleep = new ArrayList<Entry>();
@@ -259,9 +356,9 @@ public class FragmentHTBloodSugerReport extends Fragment {
 
 
 
-        LineDataSet ds1 = new LineDataSet(entriesPre, getString(R.string.pre));
-        LineDataSet ds2 = new LineDataSet(entriesPost, getString(R.string.post));
-        LineDataSet ds3 = new LineDataSet(entriesSleep, getString(R.string.sleep));
+         ds1 = new LineDataSet(entriesPre, getString(R.string.pre));
+         ds2 = new LineDataSet(entriesPost, getString(R.string.post));
+         ds3 = new LineDataSet(entriesSleep, getString(R.string.sleep));
         Log.e("DEBUG","dkkd");
         ds1.setLineWidth(2f);
         ds2.setLineWidth(2f);
@@ -284,9 +381,24 @@ public class FragmentHTBloodSugerReport extends Fragment {
         ds3.setColor(ContextCompat.getColor(getActivity(), R.color.red_text));
 
         // load DataSets from textfiles in assets folders
-        sets.add(ds1);
-        sets.add(ds2);
-        sets.add(ds3);
+        if(selected.equals(getResources().getString(R.string.pre))){
+            sets.add(ds1);
+
+        }
+        else  if(selected.equals(getResources().getString(R.string.post))){
+
+            sets.add(ds2);
+        }
+        else  if(selected.equals(getResources().getString(R.string.sleep))){
+
+            sets.add(ds3);
+        }
+        else  {
+            sets.add(ds1);
+            sets.add(ds2);
+            sets.add(ds3);
+        }
+
 
         LineData d = new LineData(sets);
         //  d.setValueTypeface(tf);
@@ -502,6 +614,7 @@ public class FragmentHTBloodSugerReport extends Fragment {
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
                     if(dialogAddBloodSuger!=null && dialogAddBloodSuger.isShowing()) {
                         dialogAddBloodSuger.dismiss();
+                        getBloodPressureReport();
                     }
                     Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
                 } else {

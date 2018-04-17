@@ -6,8 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,6 +40,7 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.internal.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,23 +95,76 @@ public class FragmentOTP extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        etMobileNumber.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (etMobileNumber.getText().length() == 0)
+                        etMobileNumber.setText(C.NUMBER_FORMAT);
+                    return false;
+                }
+            });
+        etMobileNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+
+                    if (!hasFocus && etMobileNumber.getText().toString().equals(C.NUMBER_FORMAT))
+                        etMobileNumber.setText("");
+                }
+            });
+        etMobileNumber.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+            /*    if (s != null && s.length() == 5 && (s.charAt(4) < '7')) {
+                    etMobileNumber.setText("");
+                    etMobileNumber.setError("Number should start with 9,8 and 7");
+                }*/
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                if (!s.toString().startsWith(C.NUMBER_FORMAT)) {
+                    etMobileNumber.setText(C.NUMBER_FORMAT);
+                    Selection.setSelection(etMobileNumber.getText(), etMobileNumber
+                            .getText().length());
+
+                }
+            }
+        });
+        etMobileNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+              /*  if (!hasFocus && etMobileNumber.getText().toString().length() != 14)
+                    etMobileNumber.setError("Phone number must be 10 digits");*/
+
+            }
+        });
         if(isDoc) {
-            etMobileNumber.setText(doctorRegistration.getMobileNumber());
+            String m=Util.getArabicMobile(doctorRegistration.getMobileNumber());
+
+            etMobileNumber.setText(m);
+    //        etMobileNumber.setText(m);
         }
         else {
-            etMobileNumber.setText(requestPatientRegistration.getMobileNumber());
+            String m=Util.getArabicMobile(requestPatientRegistration.getMobileNumber());
+            etMobileNumber.setText(m);
+    //        etMobileNumber.setText(m);
         }
-        if(etMobileNumber.getText().toString()!=null && etMobileNumber.getText().toString().length()>7){
+        if(etMobileNumber.getText().toString()!=null && etMobileNumber.getText().toString().length()>11){
             otpRequest(etMobileNumber.getText().toString(),userId);
         }
 
             btnSend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(etMobileNumber.getText().toString()!=null && etMobileNumber.getText().toString().length()>7) {
+                    if(etMobileNumber.getText().toString()!=null && etMobileNumber.getText().toString().length()>11) {
 
                         if (etSMSverificationNumber.getText().toString().length() > 0) {
-                           otpVerify(etMobileNumber.getText().toString(),etSMSverificationNumber.getText().toString());
+                           otpVerify(etMobileNumber.getText().toString().replaceAll("-",""),etSMSverificationNumber.getText().toString());
                         } else {
                            // etSMSverificationNumber.setError(getString(R.string.otp_required));
                             Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.otp_required),getString(R.string.ok),R.drawable.warning);
@@ -124,7 +182,7 @@ public class FragmentOTP extends Fragment {
         btnResend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etMobileNumber.getText().toString()!=null && etMobileNumber.getText().toString().length()>7){
+                if(etMobileNumber.getText().toString()!=null && etMobileNumber.getText().toString().length()>11){
                     otpRequest(etMobileNumber.getText().toString(),userId);
 
                 }
