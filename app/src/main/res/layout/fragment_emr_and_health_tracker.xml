@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/blue"
-                android:gravity="right"
+                android:gravity="end"
                 android:text="@string/patient"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/blue"
-                android:gravity="right"
+                android:gravity="end"
                 android:text="@string/birthdate"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/blue"
-                android:gravity="right"
+                android:gravity="end"
                 android:text="@string/weight"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/blue"
-                android:gravity="right"
+                android:gravity="end"
                 android:text="@string/height"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -108,45 +108,52 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvName"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/patient"
-                android:lines="1"
+                android:maxLines="1"
+                android:gravity="start"
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvDOB"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/birthdate"
+                android:gravity="start"
                 android:maxLines="1"
-                android:lines="1"
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvWeight"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="65 Kg"
+                android:maxLines="1"
+                android:gravity="start"
+
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvHeight"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="167 Cm"
+                android:maxLines="1"
+                android:gravity="start"
+
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
 
@@ -176,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/blue"
-                android:gravity="right"
+                android:gravity="end"
                 android:text="@string/gender"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -186,7 +193,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/blue"
-                android:gravity="right"
+                android:gravity="end"
                 android:text="@string/chornic"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -195,7 +202,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -214,7 +221,9 @@
 
             <TextView
                 android:id="@+id/tvGender"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:maxLines="1"
+                android:gravity="start"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/gender"
@@ -227,6 +236,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/yes"
+                android:maxLines="1"
+                android:gravity="start"
                 android:textAllCaps="true"
                 android:textColor="@color/blue"
                 android:textSize="12sp" />

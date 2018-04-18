@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="@string/notification"
+            android:layout_alignParentStart="true"
             android:textColor="@color/blue"
             android:textSize="16sp" />
 
@@ -25,31 +26,33 @@
             android:id="@+id/switchNotification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="30dp"
             android:checked="true" />
     </RelativeLayout>
     <RelativeLayout
-
+        android:layout_margin="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         >
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/rounded_white"
+        android:layout_height="match_parent"
         android:text="@string/language"
+        android:layout_marginTop="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
         android:textAlignment="center"
         android:textColor="@color/blue"
         android:textSize="16sp" />
 
     <EditText
         android:id="@+id/etLanguage"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_width="140dp"
         android:layout_height="40dp"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/rounded_red_blue_corner"
         android:clickable="true"
@@ -59,7 +62,7 @@
         android:focusable="false"
         android:hint="@string/speciality"
         android:inputType="none"
-        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
         android:singleLine="true"
         android:textColor="@color/white"
         android:textColorHint="@color/white_off"
@@ -67,15 +70,15 @@
 
     <Spinner
         android:layout_below="@id/etLanguage"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:id="@+id/spinnerLanguage"
         android:layout_width="140dp"
         android:layout_height="0.5dp"
         android:layout_gravity="start"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:gravity="start"
-        android:paddingLeft="40dp"
+        android:paddingStart="40dp"
         android:visibility="invisible" />
     </RelativeLayout>
 </LinearLayout>

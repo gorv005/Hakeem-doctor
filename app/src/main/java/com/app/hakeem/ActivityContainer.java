@@ -22,7 +22,6 @@ import com.app.hakeem.fragment.FragmentDependent;
 import com.app.hakeem.fragment.FragmentDependentToAddInQueue;
 import com.app.hakeem.fragment.FragmentDiagnosisList;
 import com.app.hakeem.fragment.FragmentDocterRegistrationStep2;
-import com.app.hakeem.fragment.FragmentOTP;
 import com.app.hakeem.fragment.FragmentDoctorPatientDependents;
 import com.app.hakeem.fragment.FragmentDoctorProfile;
 import com.app.hakeem.fragment.FragmentDoctorRegistrationStep1;
@@ -31,6 +30,7 @@ import com.app.hakeem.fragment.FragmentDoctorRegistrationStep4;
 import com.app.hakeem.fragment.FragmentDoctorsPatientList;
 import com.app.hakeem.fragment.FragmentEmrAndHealthTracker;
 import com.app.hakeem.fragment.FragmentLogin;
+import com.app.hakeem.fragment.FragmentOTP;
 import com.app.hakeem.fragment.FragmentPatientListForEmrAndHealthTracker;
 import com.app.hakeem.fragment.FragmentPatientProfile;
 import com.app.hakeem.fragment.FragmentPatientRegistrationStep1;
@@ -41,6 +41,7 @@ import com.app.hakeem.fragment.FragmentSetting;
 import com.app.hakeem.fragment.FragmentSplash;
 import com.app.hakeem.fragment.FragmentTermsAndCondition;
 import com.app.hakeem.util.C;
+import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
 
 import java.util.List;
@@ -58,6 +59,9 @@ public class ActivityContainer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
+        if(SharedPreference.getInstance(this).getString(C.LANGUAGE)!=null) {
+            Util.setAppLocale(SharedPreference.getInstance(this).getString(C.LANGUAGE), this);
+        }
         final Drawable upArrow = getResources().getDrawable(R.drawable.back);
         upArrow.setColorFilter(getResources().getColor(R.color.blue), PorterDuff.Mode.SRC_ATOP);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

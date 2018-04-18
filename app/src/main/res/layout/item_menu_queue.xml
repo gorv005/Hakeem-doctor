@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="horizontal"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,29 +13,33 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp">
         <ImageView
             android:id="@+id/ivIcon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:minWidth="80dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/menu_children"
+
             android:tint="@color/white" />
 
         <TextView
             android:id="@+id/tvTotalPatient"
             android:layout_width="20dp"
+            android:layout_toEndOf="@id/ivIcon"
             android:layout_height="20dp"
             android:gravity="center"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/tvMenuName"
             android:background="@drawable/red_circle"
             android:text="12"
             android:textColor="@color/white" />
-
+        </RelativeLayout>
         <ImageView
-            android:id="@+id/ivArrow"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -48,13 +53,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/ivArrow"
-            android:layout_toRightOf="@id/ivIcon"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
             android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>
