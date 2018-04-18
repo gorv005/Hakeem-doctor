@@ -207,6 +207,7 @@ public interface C {
     String TAG_FRAGMENT_REGISTER_TYPE_R_2 ="TAG_FRAGMENT_REGISTER_TYPE_R_2" ;
     java.lang.String NUMBER_FORMAT ="966-" ;
     String English="en";
-    String ARABIC="hi";
+    String ARABIC="ar";
     String language="lan";
+    String LANGUAGE ="language" ;
 }

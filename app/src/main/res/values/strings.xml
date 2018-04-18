@@ -643,5 +643,8 @@
     <string name="are_sure_you_want_to_delete">Are you sure you want to delete the dependent?</string>
     <string name="working_till">Worked Till</string>
     <string name="all">All</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
 
 </resources>

@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
+            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:minHeight="100dp">
 
@@ -114,43 +115,59 @@
             android:background="@color/gray3"/>
 
         <LinearLayout
+            android:layout_weight="3"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_height="wrap_content">
 
-
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="35dp">
             <TextView
                 android:id="@+id/tvLike"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:drawablePadding="10dp"
                 android:text="12"
+                android:layout_centerInParent="true"
                 android:gravity="center"
-                android:layout_marginRight="80dp"
                 android:drawableRight="@drawable/like"
                 android:textColor="@color/gray4" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="35dp">
             <TextView
                 android:id="@+id/tvComment"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="35dp"
                 android:layout_centerInParent="true"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:drawablePadding="10dp"
                 android:drawableRight="@drawable/comment"
                 android:text="12"
                 android:textColor="@color/gray3" />
-
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="35dp">
             <TextView
                 android:id="@+id/tvShare"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:text="12"
+                android:layout_centerInParent="true"
+
                 android:gravity="center"
-                android:layout_marginLeft="80dp"
                 android:drawablePadding="10dp"
                 android:drawableRight="@drawable/share"
                 android:textColor="@color/gray4" />
+            </RelativeLayout>
         </LinearLayout>
 
         <View
