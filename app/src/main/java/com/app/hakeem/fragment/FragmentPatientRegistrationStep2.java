@@ -254,7 +254,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
 
     private void openCalender() {
         //Util.setAppLocale(C.English,getActivity());
-        Calendar myCalendar = Calendar.getInstance();
+        Calendar myCalendar = Calendar.getInstance(Locale.US);
         myCalendar.setTimeInMillis(System.currentTimeMillis());
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));

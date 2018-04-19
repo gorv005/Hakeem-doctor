@@ -78,6 +78,7 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
     public static float tempvalue=42.0F;
     private boolean isFrom=false;
     VerticalSeekBar verticalSeekBar;
+    String mTo,mFrom;
     public FragmentHTFeverReport() {
         // Required empty public constructor
     }
@@ -130,8 +131,10 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
                 getFeverReport();
             }
         });
-        etTo.setText(Util.getCurrentDate());
-        etFrom.setText(Util.get2MonthNextDate(Util.getCurrentDate()));
+        mTo=Util.getCurrentDate();
+        etFrom.setText(Util.get2MonthNextDateWithoutLocale(Util.getCurrentDateWithoutLocale()));
+        mFrom=Util.get2MonthNextDate(Util.getCurrentDate());
+        etTo.setText(Util.getCurrentDateWithoutLocale());
         getFeverReport();
         ivAddTemprature.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,8 +294,8 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
             hashMap.put("dependent_id", dependentId);
 
 
-        hashMap.put("from", etFrom.getText().toString());
-        hashMap.put("to", etTo.getText().toString());
+        hashMap.put("from", mFrom);
+        hashMap.put("to", mTo);
 
         final Gson gson = new Gson();
         String json = gson.toJson(hashMap);
@@ -372,7 +375,7 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
       //  d.setValueTypeface(tf);
         return d;
     }
-    Calendar myCalendar = Calendar.getInstance();
+    Calendar myCalendar = Calendar.getInstance(Locale.US);
 
     private void openCalender() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -398,12 +401,15 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
     private void updateLabel() {
 
         String myFormat = C.DATE_FORMAT_FOR_REPORT;
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
-        if (isFrom) {
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        SimpleDateFormat sdf1 = new SimpleDateFormat(myFormat);
 
-            etFrom.setText(sdf.format(myCalendar.getTime()));
+        if (isFrom) {
+            mFrom=sdf.format(myCalendar.getTime());
+            etFrom.setText(sdf1.format(myCalendar.getTime()));
         } else {
-            etTo.setText(sdf.format(myCalendar.getTime()));
+            mTo=sdf.format(myCalendar.getTime());
+            etTo.setText(sdf1.format(myCalendar.getTime()));
         }
 
     }

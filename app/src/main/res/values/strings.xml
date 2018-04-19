@@ -646,5 +646,7 @@
     <string name="language">Language</string>
     <string name="english">English</string>
     <string name="arabic">Arabic</string>
+    <string name="cm">Cm</string>
+    <string name="kg">Kg</string>
 
 </resources>

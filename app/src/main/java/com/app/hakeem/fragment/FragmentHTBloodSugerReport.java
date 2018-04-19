@@ -87,7 +87,7 @@ public class FragmentHTBloodSugerReport extends Fragment {
     LineDataSet ds2;
     LineDataSet ds3;
     List<HTBloodSugerReportData> htBloodSugerReportData;
-
+    String mTo,mFrom;
     public FragmentHTBloodSugerReport() {
         // Required empty public constructor
     }
@@ -193,8 +193,10 @@ public class FragmentHTBloodSugerReport extends Fragment {
                 getBloodPressureReport();
             }
         });
-        etTo.setText(Util.getCurrentDate());
-        etFrom.setText(Util.get2MonthNextDate(Util.getCurrentDate()));
+        mTo=Util.getCurrentDate();
+        etFrom.setText(Util.get2MonthNextDateWithoutLocale(Util.getCurrentDateWithoutLocale()));
+        mFrom=Util.get2MonthNextDate(Util.getCurrentDate());
+        etTo.setText(Util.getCurrentDateWithoutLocale());
         getBloodPressureReport();
         ivAddBloodSuger.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -276,8 +278,8 @@ public class FragmentHTBloodSugerReport extends Fragment {
             hashMap.put("dependent_id", dependentId);
 
 
-        hashMap.put("from", etFrom.getText().toString());
-        hashMap.put("to", etTo.getText().toString());
+        hashMap.put("from", mFrom);
+        hashMap.put("to", mTo);
 
         final Gson gson = new Gson();
         String json = gson.toJson(hashMap);
@@ -404,7 +406,7 @@ public class FragmentHTBloodSugerReport extends Fragment {
         //  d.setValueTypeface(tf);
         return d;
     }
-    Calendar myCalendar = Calendar.getInstance();
+    Calendar myCalendar = Calendar.getInstance(Locale.US);
 
 
     private void openPopUpAddBloodSuger() {
@@ -660,13 +662,17 @@ public class FragmentHTBloodSugerReport extends Fragment {
     private void updateLabel() {
 
         String myFormat = C.DATE_FORMAT_FOR_REPORT;
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
-        if (isFrom) {
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        SimpleDateFormat sdf1 = new SimpleDateFormat(myFormat);
 
-            etFrom.setText(sdf.format(myCalendar.getTime()));
+        if (isFrom) {
+            mFrom=sdf.format(myCalendar.getTime());
+            etFrom.setText(sdf1.format(myCalendar.getTime()));
         } else {
-            etTo.setText(sdf.format(myCalendar.getTime()));
+            mTo=sdf.format(myCalendar.getTime());
+            etTo.setText(sdf1.format(myCalendar.getTime()));
         }
+
 
     }
 

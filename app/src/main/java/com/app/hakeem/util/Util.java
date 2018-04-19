@@ -185,7 +185,7 @@ public class Util {
 //        return sdf.format(date);
 
 //mili = mili -3600 * 1000 * 24;
-        Calendar smsTime = Calendar.getInstance();
+        Calendar smsTime = Calendar.getInstance(Locale.US);
         smsTime.setTimeInMillis(mili);
 
         Calendar now = Calendar.getInstance();
@@ -503,8 +503,8 @@ public class Util {
     public static String getDateFromString(String date) {
 
         try {
-            Date start = new SimpleDateFormat("dd/MMM/yyyy").parse(date);
-            SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date start = new SimpleDateFormat("dd/MMM/yyyy",Locale.US).parse(date);
+            SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
             date = newDateFormat.format(start);
             return date;
         } catch (Exception e) {
@@ -549,7 +549,7 @@ public class Util {
 
     public static String getTimeAM() {
 
-        Calendar smsTime = Calendar.getInstance();
+        Calendar smsTime = Calendar.getInstance(Locale.US);
         smsTime.setTimeInMillis(System.currentTimeMillis());
 
         Calendar now = Calendar.getInstance();
@@ -890,6 +890,22 @@ public class Util {
             Calendar c = Calendar.getInstance();
             //  System.out.println("Current time => " + c.getTime());
 
+            SimpleDateFormat df = new SimpleDateFormat(C.DATE_FORMAT_FOR_REPORT,Locale.US);
+            formattedDate = df.format(c.getTime());
+            return formattedDate;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return formattedDate;
+    }
+    public static String getCurrentDateWithoutLocale() {
+        String formattedDate = null;
+        try {
+
+
+            Calendar c = Calendar.getInstance();
+            //  System.out.println("Current time => " + c.getTime());
+
             SimpleDateFormat df = new SimpleDateFormat(C.DATE_FORMAT_FOR_REPORT);
             formattedDate = df.format(c.getTime());
             return formattedDate;
@@ -898,10 +914,25 @@ public class Util {
         }
         return formattedDate;
     }
-
     public static String get2MonthNextDate(String date) {
         try {
-            Date start = new SimpleDateFormat(C.DATE_FORMAT_FOR_REPORT, Locale.ENGLISH)
+            Date start = new SimpleDateFormat(C.DATE_FORMAT_FOR_REPORT, Locale.US)
+                    .parse(date);
+            Calendar c = Calendar.getInstance();
+            c.setTime(start);
+            c.add(Calendar.MONTH, -1);
+            start = c.getTime();
+            SimpleDateFormat newDateFormat = new SimpleDateFormat(C.DATE_FORMAT_FOR_REPORT,Locale.US);
+            date = newDateFormat.format(start);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+    public static String get2MonthNextDateWithoutLocale(String date) {
+        try {
+            Date start = new SimpleDateFormat(C.DATE_FORMAT_FOR_REPORT)
                     .parse(date);
             Calendar c = Calendar.getInstance();
             c.setTime(start);

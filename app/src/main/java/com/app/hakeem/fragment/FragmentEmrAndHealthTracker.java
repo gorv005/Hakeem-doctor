@@ -63,6 +63,11 @@ public class FragmentEmrAndHealthTracker extends Fragment {
         }*/
     }
 
+   public void setValues(String hr, String weight){
+        tvHeight.setText(hr);
+        tvWeight.setText(weight);
+
+   }
     @Override
     public void onResume() {
         super.onResume();

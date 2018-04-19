@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.HTWeightReportData;
@@ -80,6 +81,7 @@ public class FragmentHTWeightReport extends Fragment {
     private boolean isFrom=false;
     String weightValue="60",hrValue="90",heightValue="150";
      AlertDialog dialogAddweight;
+     String mTo,mFrom;
     public FragmentHTWeightReport() {
         // Required empty public constructor
     }
@@ -131,8 +133,10 @@ public class FragmentHTWeightReport extends Fragment {
                 getWeightReport();
             }
         });
-        etTo.setText(Util.getCurrentDate());
-        etFrom.setText(Util.get2MonthNextDate(Util.getCurrentDate()));
+        mTo=Util.getCurrentDate();
+        etFrom.setText(Util.get2MonthNextDateWithoutLocale(Util.getCurrentDateWithoutLocale()));
+        mFrom=Util.get2MonthNextDate(Util.getCurrentDate());
+        etTo.setText(Util.getCurrentDateWithoutLocale());
         getWeightReport();
         ivAddWight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -494,8 +498,8 @@ public class FragmentHTWeightReport extends Fragment {
 
 
         hashMap.put("patient_id", patientId);
-        hashMap.put("from", etFrom.getText().toString());
-        hashMap.put("to", etTo.getText().toString());
+        hashMap.put("from", mFrom);
+        hashMap.put("to", mTo);
 
         final Gson gson = new Gson();
         String json = gson.toJson(hashMap);
@@ -515,14 +519,20 @@ public class FragmentHTWeightReport extends Fragment {
                 HTWeightReportList responseServer = gson.fromJson(response.toString(), HTWeightReportList.class);
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
                     if(responseServer.getData()!=null && responseServer.getData().size()>0) {
+                        ((ActivityContainer)getActivity()).setValues(responseServer.getData().get(responseServer.getData().size()-1).getRestHr() +" "+getActivity().getString(R.string.cm),
+                                responseServer.getData().get(responseServer.getData().size()-1).getWeight()+" "+getActivity().getString(R.string.kg));
+
                         initGraph(getMin(responseServer.getData()),getMax(responseServer.getData()),responseServer.getData());
                     }
                     else {
+                     //   ((ActivityContainer)getActivity()).setValues("","");
                         Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
 
                     }
 
                 } else {
+                  //  ((ActivityContainer)getActivity()).setValues("","");
+
                     //Util.showToast(getActivity(), responseServer.getMessage(), false);
                     Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
 
@@ -581,7 +591,7 @@ public class FragmentHTWeightReport extends Fragment {
         //  d.setValueTypeface(tf);
         return d;
     }
-    Calendar myCalendar = Calendar.getInstance();
+    Calendar myCalendar = Calendar.getInstance(Locale.US);
 
     private void openCalender() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -605,14 +615,16 @@ public class FragmentHTWeightReport extends Fragment {
     };
 
     private void updateLabel() {
-
         String myFormat = C.DATE_FORMAT_FOR_REPORT;
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
-        if (isFrom) {
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        SimpleDateFormat sdf1 = new SimpleDateFormat(myFormat);
 
-            etFrom.setText(sdf.format(myCalendar.getTime()));
+        if (isFrom) {
+            mFrom=sdf.format(myCalendar.getTime());
+            etFrom.setText(sdf1.format(myCalendar.getTime()));
         } else {
-            etTo.setText(sdf.format(myCalendar.getTime()));
+            mTo=sdf.format(myCalendar.getTime());
+            etTo.setText(sdf1.format(myCalendar.getTime()));
         }
 
     }

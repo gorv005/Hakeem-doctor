@@ -81,7 +81,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
     EditText etResignedSince;
     int pos;
     Button btnConfirmExperiance;
-    Calendar myCalendar = Calendar.getInstance();
+    Calendar myCalendar = Calendar.getInstance(Locale.US);
     boolean isWorkingSince=false;
     AdapterDoctorExperience adapterDoctorExperience=null;
 

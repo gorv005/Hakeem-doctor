@@ -335,7 +335,13 @@ public class ActivityContainer extends AppCompatActivity {
 
     }
 
+    public void setValues(String hr, String weight){
+       Fragment fragment = getVisibleFragment();
 
+        if(fragment!=null && fragment instanceof FragmentEmrAndHealthTracker){
+            ((FragmentEmrAndHealthTracker)fragment).setValues(hr,weight);
+        }
+    }
     public void callFragment(int frag, Bundle bundle) {
         fragment = getVisibleFragment();
         if (fragment != null && fragment instanceof FragmentEmrAndHealthTracker) {
