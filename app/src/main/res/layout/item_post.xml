@@ -15,17 +15,17 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
+            android:gravity="end"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:minHeight="100dp">
 
             <RelativeLayout
                 android:layout_width="96dp"
                 android:layout_height="96dp"
 
-                android:layout_gravity="right|center_vertical"
-                android:gravity="left">
+                android:layout_gravity="end|center_vertical"
+                android:gravity="start">
 
                 <com.joooonho.SelectableRoundedImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -65,10 +65,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="5dp"
-            android:gravity="right"
+            android:gravity="end"
             android:minHeight="100dp"
             android:orientation="vertical">
 
@@ -133,7 +133,7 @@
                 android:text="12"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:drawableRight="@drawable/like"
+                android:drawableEnd="@drawable/like"
                 android:textColor="@color/gray4" />
             </RelativeLayout>
             <RelativeLayout
@@ -148,7 +148,7 @@
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:drawablePadding="10dp"
-                android:drawableRight="@drawable/comment"
+                android:drawableEnd="@drawable/comment"
                 android:text="12"
                 android:textColor="@color/gray3" />
             </RelativeLayout>
@@ -165,7 +165,7 @@
 
                 android:gravity="center"
                 android:drawablePadding="10dp"
-                android:drawableRight="@drawable/share"
+                android:drawableEnd="@drawable/share"
                 android:textColor="@color/gray4" />
             </RelativeLayout>
         </LinearLayout>

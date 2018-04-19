@@ -23,8 +23,8 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="60dp"
             android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_red_blue_corner"
-                android:drawableLeft="@drawable/icon_name"
+                android:drawableStart="@drawable/icon_name"
                 android:drawablePadding="20dp"
                 android:hint="@string/nationalaty"
 
@@ -64,7 +64,7 @@
                 android:layout_marginTop="20dp"
 
                 android:background="@drawable/rounded_red_blue_corner"
-                android:drawableLeft="@drawable/icon_name"
+                android:drawableStart="@drawable/icon_name"
                 android:drawablePadding="20dp"
                 android:hint="@string/residance"
                 android:singleLine="true"
@@ -80,7 +80,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_red_blue_corner"
-                android:drawableLeft="@drawable/icon_name"
+                android:drawableStart="@drawable/icon_name"
                 android:drawablePadding="20dp"
                 android:hint="@string/workplace"
                 android:singleLine="true"
@@ -96,7 +96,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_red_blue_corner"
-                android:drawableLeft="@drawable/icon_map_location"
+                android:drawableStart="@drawable/icon_map_location"
                 android:drawablePadding="20dp"
                 android:hint="@string/home_location"
                 android:singleLine="true"
@@ -112,7 +112,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_red_blue_corner"
-                android:drawableLeft="@drawable/icon_username"
+                android:drawableStart="@drawable/icon_username"
                 android:drawablePadding="20dp"
                 android:hint="@string/id_card_passport"
                 android:singleLine="true"

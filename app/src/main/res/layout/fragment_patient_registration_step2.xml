@@ -24,8 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:orientation="vertical"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp">
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -44,11 +44,11 @@
                 android:id="@+id/tvBirthDay"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_red_blue_corner"
-                android:drawableLeft="@drawable/icon_calendar"
+                android:drawableStart="@drawable/icon_calendar"
                 android:drawablePadding="20dp"
                 android:hint="@string/bithdate"
                 android:textColor="@color/white"
@@ -60,11 +60,11 @@
                 android:id="@+id/tvCity"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_red_blue_corner"
-                android:drawableLeft="@drawable/icon_name"
+                android:drawableStart="@drawable/icon_name"
                 android:drawablePadding="20dp"
                 android:hint="@string/city"
                 android:inputType="number"

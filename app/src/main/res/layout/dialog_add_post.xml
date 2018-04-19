@@ -8,8 +8,8 @@
 
 
         <RelativeLayout
-            android:paddingRight="15dp"
-            android:paddingLeft="15dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
             android:paddingBottom="20dp"
             android:background="@drawable/dialog_round_back"
             android:layout_centerInParent="true"
@@ -36,15 +36,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-              android:layout_alignParentLeft="true"
+              android:layout_alignParentStart="true"
                 android:text="250"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <ImageView
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="50dp"
                 android:id="@+id/ivAttachDoc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,10 +52,10 @@
                 />
 
             <ImageView
-                android:layout_toRightOf="@id/ivAttachDoc"
+                android:layout_toEndOf="@id/ivAttachDoc"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="80dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="80dp"
                 android:id="@+id/ivCamera"
 
                 android:layout_width="wrap_content"
@@ -65,9 +65,9 @@
 
             <FrameLayout android:id="@+id/root"
                 android:layout_width="50dp"
-                android:layout_marginLeft="120dp"
+                android:layout_marginStart="120dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_height="50dp">
 
                 <ImageView
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="12dp"
-                    android:layout_marginRight="12dp"
+                    android:layout_marginEnd="12dp"
                     android:background="#000"/>
 
                 <ImageButton
@@ -92,7 +92,7 @@
             </FrameLayout>
             <ImageView
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:id="@+id/ivSendTweet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -23,8 +23,8 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="60dp"
             android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp">
 
             <TextView
                 android:id="@+id/btnRegister"
@@ -48,7 +48,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_red_blue_corner"
-                android:drawableLeft="@drawable/icon_username"
+                android:drawableStart="@drawable/icon_username"
                 android:drawablePadding="20dp"
                 android:hint="@string/username"
                 android:singleLine="true"
@@ -78,7 +78,7 @@
                         android:id="@+id/rbMale"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:background="@drawable/button_select_blue"
                         android:button="@null"
                         android:buttonTint="@color/gray4"
@@ -99,7 +99,7 @@
                         android:id="@+id/rbFemale"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:background="@drawable/button_deselect_blue"
                         android:button="@null"
                         android:buttonTint="@color/gray1"
@@ -117,7 +117,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_red_blue_corner"
-                android:drawableLeft="@drawable/mobile_icon"
+                android:drawableStart="@drawable/mobile_icon"
                 android:drawablePadding="20dp"
                 android:hint="@string/mobile"
                 android:inputType="number"
@@ -135,7 +135,7 @@
 
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_red_blue_corner"
-                android:drawableLeft="@drawable/icon_mail"
+                android:drawableStart="@drawable/icon_mail"
                 android:drawablePadding="20dp"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
@@ -153,7 +153,7 @@
 
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_red_blue_corner"
-                android:drawableLeft="@drawable/icon_assword"
+                android:drawableStart="@drawable/icon_assword"
                 android:drawablePadding="20dp"
                 android:hint="@string/password"
                 android:inputType="textPassword"

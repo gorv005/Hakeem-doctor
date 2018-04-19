@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:paddingBottom="15dp"
         android:paddingTop="15dp">
 
@@ -20,8 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/ivArrow"
-            android:layout_toRightOf="@id/ivIcon"
+            android:layout_toStartOf="@id/ivArrow"
+            android:layout_toEndOf="@id/ivIcon"
             android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="18sp" />

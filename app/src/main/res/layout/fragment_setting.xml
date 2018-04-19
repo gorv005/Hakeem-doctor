@@ -57,7 +57,7 @@
         android:background="@drawable/rounded_red_blue_corner"
         android:clickable="true"
         android:drawablePadding="20dp"
-        android:drawableRight="@drawable/icon_drop_down"
+        android:drawableEnd="@drawable/icon_drop_down"
         android:editable="false"
         android:focusable="false"
         android:hint="@string/speciality"

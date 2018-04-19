@@ -13,8 +13,8 @@
         android:background="@drawable/dialog_round_back"
         android:orientation="vertical"
         android:paddingBottom="20dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
 
         <EditText
             android:id="@+id/etPrescription"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:text="250"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -46,8 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="50dp"
             android:src="@drawable/document_white"
             android:visibility="gone" />
 
@@ -56,9 +56,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="80dp"
-            android:layout_toRightOf="@id/ivAttachDoc"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="80dp"
+            android:layout_toEndOf="@id/ivAttachDoc"
             android:src="@drawable/camera_white"
             android:visibility="gone" />
 
@@ -67,15 +67,15 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="120dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="120dp"
             android:visibility="gone">
 
             <ImageView
                 android:id="@+id/img_photo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="12dp"
+                android:layout_marginEnd="12dp"
                 android:layout_marginTop="12dp"
                 android:background="#000"
                 android:visibility="gone" />
@@ -97,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/send_button" />
     </RelativeLayout>
 </LinearLayout>

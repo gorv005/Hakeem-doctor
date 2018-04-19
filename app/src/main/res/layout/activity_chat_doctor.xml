@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="0dp"
-            app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
             app:contentInsetStartWithNavigation="0dp">
 
@@ -47,7 +46,7 @@
                         android:id="@+id/ibEndChat"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:background="@drawable/delete" />
 
@@ -94,9 +93,9 @@
             android:id="@+id/ivDrProfile"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/profile" />
 
         <LinearLayout
@@ -117,7 +116,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:background="@color/blue"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:text="@string/patient"
                     android:textColor="@color/white" />
 
@@ -126,8 +125,8 @@
                     android:layout_width="80dp"
 
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="left"
+                    android:layout_marginStart="10dp"
+                    android:gravity="start"
                     android:text="@string/clinic"
                     android:textColor="@color/blue" />
             </LinearLayout>
@@ -277,8 +276,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight=".15"
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
@@ -291,7 +290,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_weight=".15"
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"

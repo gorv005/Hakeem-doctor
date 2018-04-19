@@ -58,7 +58,14 @@ public class AdapterConsultationType extends BaseAdapter {
         }
 
         Button btnConsType = (Button) convertView.findViewById(R.id.btnMedicalCons);
-        btnConsType.setText(getItem(position).getCategoryName());
+        int resid= activity.getResources().getIdentifier(getItem(position).getCategoryName().replaceAll(" ","_"), "string", activity.getPackageName());
+        if(resid!=0) {
+            btnConsType.setText(activity.getResources().getString(resid));
+        }
+        else {
+            btnConsType.setText(getItem(position).getCategoryName());
+
+        }
         btnConsType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

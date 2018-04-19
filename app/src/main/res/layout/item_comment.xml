@@ -17,8 +17,8 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:gravity="right">
+                android:layout_marginStart="10dp"
+                android:gravity="start">
 
                 <ImageView
                     android:id="@+id/line1"
@@ -32,8 +32,8 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_below="@id/line1"
-                    android:layout_gravity="right|center_vertical"
-                    android:gravity="left">
+                    android:layout_gravity="end|center_vertical"
+                    android:gravity="start">
 
 
                     <com.joooonho.SelectableRoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -85,10 +85,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="5dp"
-                android:gravity="right"
+                android:gravity="end"
                 android:orientation="vertical">
 
                 <TextView
