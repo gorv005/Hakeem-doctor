@@ -385,7 +385,9 @@ public class ActivityMain extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-
+        if(SharedPreference.getInstance(this).getString(C.LANGUAGE)!=null) {
+            Util.setAppLocale(SharedPreference.getInstance(this).getString(C.LANGUAGE), this);
+        }
         IntentFilter filter = new IntentFilter(C.NEW_PATIENT);
 
         myReceiver = new ReceiverNewPatient();
