@@ -1145,7 +1145,7 @@ public class Util {
     }
     public static Boolean isValidToFromDates(Date fromDateObject, Date toDateObject) {
 
-        if (fromDateObject.before(toDateObject)) {
+        if (fromDateObject.before(toDateObject) || fromDateObject.equals(toDateObject)) {
             return true;
         } else {
             return false;
