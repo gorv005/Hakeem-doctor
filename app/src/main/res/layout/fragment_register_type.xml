@@ -5,7 +5,7 @@
     android:background="@drawable/pattern"
     android:orientation="vertical"
     android:weightSum="2"
-    tools:context="com.app.hakeem.fragment.FragmentLogin">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
