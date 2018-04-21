@@ -1127,21 +1127,29 @@ public class Util {
     public static void setAppLocale(String selectedLanguage,Context context)
     {
         String langLocale = null;
-        if(selectedLanguage.equals(C.English)) {
-            langLocale = C.English;
-        }
-        else if(selectedLanguage.equals(C.ARABIC))
-        {
-            langLocale = C.ARABIC;
-        }
+        if(selectedLanguage!=null) {
+            if (selectedLanguage.equals(C.English)) {
+                langLocale = C.English;
+            } else if (selectedLanguage.equals(C.ARABIC)) {
+                langLocale = C.ARABIC;
+            }
 
-        SharedPreference.getInstance(context).setString(C.language,selectedLanguage);
-        Locale locale = new Locale(langLocale);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        context.getResources().updateConfiguration(config,
-                context.getResources().getDisplayMetrics());
+         //   SharedPreference.getInstance(context).setString(C.language, selectedLanguage);
+            Locale locale = new Locale(langLocale);
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            context.getResources().updateConfiguration(config,
+                    context.getResources().getDisplayMetrics());
+        }
+    }
+    public static Boolean isValidToFromDates(Date fromDateObject, Date toDateObject) {
+
+        if (fromDateObject.before(toDateObject)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
  public static    String getArabicMobile(String mob) {

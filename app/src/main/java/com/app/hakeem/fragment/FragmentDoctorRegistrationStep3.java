@@ -85,6 +85,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
     boolean isWorkingSince=false;
     AdapterDoctorExperience adapterDoctorExperience=null;
 
+    java.util.Date startDate,endDate;
 
     String[] speciality = new String[]{
             "Speciality",
@@ -367,7 +368,8 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
 
     private void openPopUpToAddExperience() {
 
-
+        startDate=null;
+        endDate=null;
         final LayoutInflater factory = LayoutInflater.from(getActivity());
         final View deleteDialogView = factory.inflate(
                 R.layout.dialog_add_experience, null);
@@ -454,9 +456,11 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
         String myFormat = C.DATE_FORMAT;
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
         if (isWorkingSince) {
-
+            startDate=myCalendar.getTime();
             etWorkingSince.setText(sdf.format(myCalendar.getTime()));
         } else {
+            endDate=myCalendar.getTime();
+
             etResignedSince.setText(sdf.format(myCalendar.getTime()));
         }
 
@@ -483,6 +487,16 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
 
             etResignedSince.requestFocus();
             return false;
+        }
+        else if (endDate!=null) {
+            //  etResignedSince.setError(getActivity().getResources().getString(R.string.first_name_required));
+            if (!Util.isValidToFromDates(startDate,endDate)) {
+                //  etResignedSince.setError(getActivity().getResources().getString(R.string.first_name_required));
+                Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.resigned_date_should_be_less_than_joining), getString(R.string.ok), R.drawable.warning);
+
+                etResignedSince.requestFocus();
+                return false;
+            }
         }
 
         return true;

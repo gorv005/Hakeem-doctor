@@ -157,9 +157,11 @@ public class VerticalSeekBar extends View {
         this.iTempValue=iTempValue;
     }
     public float getCurrentVal() {
+        Util.setAppLocale(C.English,context);
 
-       iTempValue.getValue(Float.parseFloat(String.format(
+        iTempValue.getValue(Float.parseFloat(String.format(
                "%.1f", (float) (minVal - ((y + slider.getHeight() / 2) / (float) cellHeight))+0.5F)));
+
         return (float) (minVal - ((y + slider.getHeight() / 2) / (float) cellHeight));
 
 

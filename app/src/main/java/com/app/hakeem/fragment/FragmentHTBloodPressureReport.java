@@ -4,6 +4,7 @@ package com.app.hakeem.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -258,7 +259,13 @@ public class FragmentHTBloodPressureReport extends Fragment implements ITempValu
 
             }
         });
+        dialogAddBloodSuger.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Util.setAppLocale(SharedPreference.getInstance(getActivity()).getString(C.LANGUAGE),getActivity());
 
+            }
+        });
 
 
 

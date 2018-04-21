@@ -4,6 +4,8 @@ package com.app.hakeem.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -50,6 +52,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.internal.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -183,7 +186,13 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
         Button  btnSubmit = (Button) deleteDialogView.findViewById(R.id.btnSubmit);
 
 
+        dialogAddBloodSuger.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Util.setAppLocale(SharedPreference.getInstance(getActivity()).getString(C.LANGUAGE),getActivity());
 
+            }
+        });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,7 +211,6 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
 
 
         dialogAddBloodSuger.show();
-
 
     }
     private void addFeverReport(String comment) {

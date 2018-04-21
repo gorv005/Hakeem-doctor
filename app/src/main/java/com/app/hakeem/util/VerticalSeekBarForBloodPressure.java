@@ -162,8 +162,10 @@ public class VerticalSeekBarForBloodPressure extends View {
     }
 
     public float getCurrentVal() {
-
-       iTempValue.getValue(Float.parseFloat(String.format(
+        if(SharedPreference.getInstance(context).getString(C.LANGUAGE)!=null && SharedPreference.getInstance(context).getString(C.LANGUAGE).equals(C.ARABIC)) {
+            Util.setAppLocale(C.English, context);
+        }
+        iTempValue.getValue(Float.parseFloat(String.format(
                "%.1f", (float) (minVal - ((y + slider.getHeight() / 2)*5 / (float) cellHeight))+2.5F)));
         return Float.parseFloat(String.format(
                 "%.1f", (float) (minVal - ((y + slider.getHeight() / 2)*5 / (float) cellHeight))+2.5F));

@@ -1,10 +1,12 @@
 package com.app.hakeem.fragment;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -62,7 +64,7 @@ public class FragmentPatientRegistrationStep1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ButterKnife.bind(this,view);
-
+       // etEmail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
         etMobile.setOnTouchListener(new View.OnTouchListener() {
             @Override

@@ -121,6 +121,7 @@
                 android:drawablePadding="20dp"
                 android:hint="@string/mobile"
                 android:inputType="number"
+                android:digits="1234567890"
                 android:maxLength="14"
                 android:singleLine="true"
                 android:textColor="@color/white"
@@ -132,7 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
-
+                android:digits="@string/customDigits"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_red_blue_corner"
                 android:drawableStart="@drawable/icon_mail"

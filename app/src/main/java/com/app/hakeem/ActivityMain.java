@@ -128,6 +128,7 @@ public class ActivityMain extends AppCompatActivity
     ArrayList<Post> posts;
     private Response responseQueue;
     private ReceiverNewPatient myReceiver;
+    String mSearch="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -698,7 +699,6 @@ public class ActivityMain extends AppCompatActivity
     }
 
     public void showSearchDialog(final Activity context) {
-
         final LayoutInflater factory = LayoutInflater.from(context);
         final View deleteDialogView = factory.inflate(
                 R.layout.dialog_search, null);
@@ -721,7 +721,7 @@ public class ActivityMain extends AppCompatActivity
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapterPosts.filter(etSearch.getText().toString());
+                adapterPosts.filter(mSearch);
                 dialogShowAddPostPopUp.dismiss();
                 rlPhrase.setVisibility(View.VISIBLE);
                 tvSearchPhrase.setText(getString(R.string.search_phrase) + ":" + etSearch.getText().toString());
@@ -730,6 +730,7 @@ public class ActivityMain extends AppCompatActivity
         tvobgyne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mSearch="Obgyne";
                 etSearch.setText(getString(R.string.obgyne));
                 tvobgyne.setTextColor(ContextCompat.getColor(context, R.color.blue));
                 tvPediatric.setTextColor(ContextCompat.getColor(context, R.color.white));
@@ -742,6 +743,8 @@ public class ActivityMain extends AppCompatActivity
         tvPediatric.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mSearch="Pediatric";
+
                 etSearch.setText(getString(R.string.pediatric));
                 tvobgyne.setTextColor(ContextCompat.getColor(context, R.color.white));
                 tvPediatric.setTextColor(ContextCompat.getColor(context, R.color.blue));
@@ -753,6 +756,8 @@ public class ActivityMain extends AppCompatActivity
         tvAbodminal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mSearch="Abodminal";
+
                 etSearch.setText(getString(R.string.abodminal));
                 tvobgyne.setTextColor(ContextCompat.getColor(context, R.color.white));
                 tvPediatric.setTextColor(ContextCompat.getColor(context, R.color.white));
@@ -764,6 +769,9 @@ public class ActivityMain extends AppCompatActivity
         tvPsycological.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                mSearch="Psycological";
+
                 etSearch.setText(getString(R.string.psycological));
                 tvobgyne.setTextColor(ContextCompat.getColor(context, R.color.white));
                 tvPediatric.setTextColor(ContextCompat.getColor(context, R.color.white));
@@ -775,6 +783,9 @@ public class ActivityMain extends AppCompatActivity
         tvFamilyAndCommunity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                mSearch="Family and Community";
+
                 etSearch.setText(getString(R.string.family_and_community));
                 tvobgyne.setTextColor(ContextCompat.getColor(context, R.color.white));
                 tvPediatric.setTextColor(ContextCompat.getColor(context, R.color.white));

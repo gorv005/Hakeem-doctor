@@ -37,7 +37,7 @@
 
                 <ImageView
                     android:id="@+id/ivVeryHot"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical|left"
                     android:src="@drawable/marker"
                     android:layout_width="20dp"
                     android:layout_height="20dp" />
@@ -180,17 +180,18 @@
         android:gravity="end"
         android:layout_gravity="end"
         android:layout_alignParentEnd="true"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/tvC"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingStart="2dp"
             android:paddingEnd="2dp"
             android:layout_marginStart="2dp"
             android:gravity="center"
+            android:text="ggsmm"
             android:layout_centerHorizontal="true"
             android:textStyle="bold"
             android:textColor="@color/blue"

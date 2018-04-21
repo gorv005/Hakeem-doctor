@@ -53,6 +53,8 @@
             android:drawableStart="@drawable/mobile_icon"
             android:drawablePadding="20dp"
             android:hint="@string/mobile"
+            android:digits="1234567890"
+
             android:inputType="number"
             android:maxLength="14"
             android:singleLine="true"
@@ -71,6 +73,7 @@
             android:drawablePadding="20dp"
             android:hint="@string/sms_verification_number"
             android:inputType="number"
+            android:digits="1234567890"
             android:maxLength="8"
             android:singleLine="true"
             android:textColor="@color/white"

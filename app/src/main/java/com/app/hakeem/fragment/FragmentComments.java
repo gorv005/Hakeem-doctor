@@ -148,6 +148,7 @@ public class FragmentComments extends Fragment {
 
             }
         });
+        Util.setAppLocale(C.English,getActivity());
         getComments();
     }
 

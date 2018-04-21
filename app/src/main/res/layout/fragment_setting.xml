@@ -60,7 +60,7 @@
         android:drawableEnd="@drawable/icon_drop_down"
         android:editable="false"
         android:focusable="false"
-        android:hint="@string/speciality"
+        android:hint="@string/language"
         android:inputType="none"
         android:paddingStart="20dp"
         android:singleLine="true"

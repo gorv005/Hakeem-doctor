@@ -1,6 +1,7 @@
 package com.app.hakeem.fragment;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityContainer;
+import com.app.hakeem.ActivityMain;
 import com.app.hakeem.R;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.SharedPreference;
@@ -40,7 +43,7 @@ public class FragmentSetting extends Fragment {
     EditText etLanguage;
     @BindView(R.id.spinnerLanguage)
     Spinner spinnerLanguage;
-
+    boolean isFirstTime=true;
     public FragmentSetting() {
         // Required empty public constructor
     }
@@ -135,16 +138,22 @@ public class FragmentSetting extends Fragment {
     AdapterView.OnItemSelectedListener mspinnerLanguageSelectListner=new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(!isFirstTime) {
+                    if (position == 0) {
+                        etLanguage.setText(getString(R.string.english));
+                        SharedPreference.getInstance(getActivity()).setString(C.LANGUAGE, C.English);
+                        //  Util.setAppLocale(C.English,getActivity());
+                        openMainActivity();
 
-                if (position == 0) {
-                    etLanguage.setText(getString(R.string.english));
-                    SharedPreference.getInstance(getActivity()).setString(C.LANGUAGE,C.English);
-                    Util.setAppLocale(C.English,getActivity());
-                } else if (position == 1) {
-                    etLanguage.setText(getString(R.string.arabic));
-                    SharedPreference.getInstance(getActivity()).setString(C.LANGUAGE,C.ARABIC);
-                    Util.setAppLocale(C.ARABIC,getActivity());
-
+                    } else if (position == 1) {
+                        etLanguage.setText(getString(R.string.arabic));
+                        SharedPreference.getInstance(getActivity()).setString(C.LANGUAGE, C.ARABIC);
+                        //  Util.setAppLocale(C.ARABIC,getActivity());
+                        openMainActivity();
+                    }
+                }
+                else {
+                    isFirstTime=false;
                 }
 
         }
@@ -154,5 +163,9 @@ public class FragmentSetting extends Fragment {
 
         }
     };
-
+    private void openMainActivity() {
+        Intent intent = new Intent(getActivity(), ActivityContainer.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        getActivity().startActivity(intent);
+    }
 }
