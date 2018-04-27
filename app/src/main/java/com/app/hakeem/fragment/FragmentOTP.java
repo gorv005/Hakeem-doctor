@@ -154,27 +154,23 @@ public class FragmentOTP extends Fragment {
             etMobileNumber.setText(m);
     //        etMobileNumber.setText(m);
         }
-        if(etMobileNumber.getText().toString()!=null && etMobileNumber.getText().toString().length()>11){
-            otpRequest(etMobileNumber.getText().toString(),userId);
+        if(isAllValid()){
+            otpRequest(etMobileNumber.getText().toString().replaceAll("-",""),userId);
         }
 
             btnSend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(etMobileNumber.getText().toString()!=null && etMobileNumber.getText().toString().length()>11) {
+                    if(isAllValid()) {
 
-                        if (etSMSverificationNumber.getText().toString().length() > 0) {
-                           otpVerify(etMobileNumber.getText().toString().replaceAll("-",""),etSMSverificationNumber.getText().toString());
-                        } else {
-                           // etSMSverificationNumber.setError(getString(R.string.otp_required));
-                            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.otp_required),getString(R.string.ok),R.drawable.warning);
-                            etSMSverificationNumber.requestFocus();
-                        }
-                    }
-                    else {
-                       // etMobileNumber.setError(getString(R.string.please_enter_valid_mobile_number));
-                        Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_valid_mobile_number),getString(R.string.ok),R.drawable.warning);
-                        etMobileNumber.requestFocus();
+                            if (etSMSverificationNumber.getText().toString().length() > 0) {
+                                otpVerify(etMobileNumber.getText().toString().replaceAll("-", ""), etSMSverificationNumber.getText().toString());
+                            } else {
+                                // etSMSverificationNumber.setError(getString(R.string.otp_required));
+                                Util.showAlert(getActivity(), getString(R.string.warning), getString(R.string.otp_required), getString(R.string.ok), R.drawable.warning);
+                                etSMSverificationNumber.requestFocus();
+                            }
+
                     }
                 }
             });
@@ -182,14 +178,8 @@ public class FragmentOTP extends Fragment {
         btnResend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etMobileNumber.getText().toString()!=null && etMobileNumber.getText().toString().length()>11){
-                    otpRequest(etMobileNumber.getText().toString(),userId);
-
-                }
-                else {
-                   // etMobileNumber.setError(getString(R.string.please_enter_valid_mobile_number));
-                    Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_valid_mobile_number),getString(R.string.ok),R.drawable.warning);
-                    etMobileNumber.requestFocus();
+                if(isAllValid()) {
+                        otpRequest(etMobileNumber.getText().toString().replaceAll("-", ""), userId);
                 }
             }
         });
@@ -198,6 +188,35 @@ public class FragmentOTP extends Fragment {
 
     }
 
+
+
+    public boolean isAllValid() {
+
+
+          if (etMobileNumber.getText().toString().length() == 4||etMobileNumber.getText().toString().length() == 0) {
+            //  etMobile.setError(getActivity().getResources().getString(R.string.mobile_no_is_required));
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.mobile_no_is_required),getString(R.string.ok),R.drawable.warning);
+
+              etMobileNumber.requestFocus();
+            return false;
+        }
+        else if (etMobileNumber.getText().length() < 14) {
+
+            //   etMobile.setError(getActivity().getResources().getString(R.string.please_enter_valid_mobile_number));
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.mobile_no_is_required),getString(R.string.ok),R.drawable.warning);
+
+              etMobileNumber.requestFocus();
+            return false;
+        } else if (!etMobileNumber.getText().toString().split("-")[1].startsWith("5")) {
+            //   etMobile.setError(getActivity().getResources().getString(R.string.number_strts_with_zero));
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.mobile_no_is_required),getString(R.string.ok),R.drawable.warning);
+
+              etMobileNumber.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
 
     private void otpVerify(String mobile,String otp) {
 
@@ -235,7 +254,7 @@ public class FragmentOTP extends Fragment {
                         }
 
                     } else {
-                        Util.showAlert(getActivity(), getString(R.string.alert), responsePost.getMessage(), getString(R.string.ok), R.drawable.warning);
+                        Util.showAlert(getActivity(), getString(R.string.error), responsePost.getMessage(), getString(R.string.ok), R.drawable.error);
 
                     }
 

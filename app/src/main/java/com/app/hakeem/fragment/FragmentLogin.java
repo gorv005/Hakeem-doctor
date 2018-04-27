@@ -176,7 +176,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                             }
                         }
                     } else {
-                        Util.showAlert(getActivity(), getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning);
+                        Util.showAlert(getActivity(), getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.error);
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_LOGIN, false);
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_NOFICATION,false);
                     }
@@ -235,7 +235,9 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                         SharedPreference.getInstance(getActivity()).setBoolean(C.IS_DOCOTR_ONLINE, true);
                         openMainActivity();
                     } else {
-                        Util.showToast(getActivity(), R.string.network_error, true);
+                        //Util.showToast(getActivity(), R.string.network_error, true);
+                        Util.showAlertForToast(getActivity(),getString(R.string.error), getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
+
                     }
 
                 } catch (Exception e) {
@@ -267,13 +269,13 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
         if (!Util.isValidMail(etUserName.getText().toString())) {
         //    etUserName.setError(getActivity().getResources().getString(R.string.enter_valid_mail));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.enter_valid_mail),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.enter_valid_mail),getString(R.string.ok),R.drawable.warning);
 
             etUserName.requestFocus();
             return false;
         } else if (etPassword.getText().toString().length() == 0) {
          //   etPassword.setError(getActivity().getResources().getString(R.string.enter_password));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.enter_password),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.enter_password),getString(R.string.ok),R.drawable.warning);
 
             etPassword.requestFocus();
             return false;

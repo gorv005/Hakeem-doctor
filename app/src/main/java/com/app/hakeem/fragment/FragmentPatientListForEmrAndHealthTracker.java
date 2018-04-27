@@ -91,7 +91,9 @@ public class FragmentPatientListForEmrAndHealthTracker extends Fragment {
         if (Util.isNetworkConnectivity(getActivity())) {
             getDependentList();
         } else {
-            Util.showToast(getActivity(), R.string.please_connect_to_the_internet, true);
+          //  Util.showToast(getActivity(), R.string.please_connect_to_the_internet, true);
+            Util.showAlertForToast(getActivity(),getString(R.string.error), getString(R.string.please_connect_to_the_internet),getString(R.string.ok),R.drawable.error,true);
+
         }
     }
 
@@ -134,7 +136,7 @@ public class FragmentPatientListForEmrAndHealthTracker extends Fragment {
 
                 } else {
                     //   Util.showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(), responseServer.getMessage(), responseServer.getMessage(), getString(R.string.ok), R.drawable.warning, false);
+                    Util.showAlertForToast(getActivity(), getString(R.string.error), responseServer.getMessage(), getString(R.string.ok), R.drawable.error, false);
 
                 }
             }
@@ -143,7 +145,9 @@ public class FragmentPatientListForEmrAndHealthTracker extends Fragment {
             public void notifyError(String requestType, String error) {
                 Log.e("Response", error.toString());
                 progressDialog.dismiss();
-                Util.showToast(getActivity(), R.string.network_error, false);
+             //   Util.showToast(getActivity(), R.string.network_error, false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error), getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
+
             }
         }, "callback", C.API_REGISTER_FETCH_PATIENT, Util.getHeader(getActivity()), obj);
 

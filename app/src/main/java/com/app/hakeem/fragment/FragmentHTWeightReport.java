@@ -443,10 +443,10 @@ public class FragmentHTWeightReport extends Fragment {
                         dialogAddweight.dismiss();
                         getWeightReport();
                     }
-                            Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                            Util.showAlertForToast(getActivity(),getString(R.string.warning),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
                 } else {
                     //Util.showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.error,false);
                 }
             }
 
@@ -455,7 +455,7 @@ public class FragmentHTWeightReport extends Fragment {
                 Log.e("Response", error.toString());
                 progressDialog.dismiss();
                 // Util.showToast(getActivity(), R.string.network_error, false);
-                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
 
             }
         }, "callback", C.API_ADD_WEIGHT_REPORT, Util.getHeader(getActivity()), obj);
@@ -519,7 +519,7 @@ public class FragmentHTWeightReport extends Fragment {
                 HTWeightReportList responseServer = gson.fromJson(response.toString(), HTWeightReportList.class);
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
                     if(responseServer.getData()!=null && responseServer.getData().size()>0) {
-                        ((ActivityContainer)getActivity()).setValues(responseServer.getData().get(responseServer.getData().size()-1).getRestHr() +" "+getActivity().getString(R.string.cm),
+                        ((ActivityContainer)getActivity()).setValues(responseServer.getData().get(responseServer.getData().size()-1).getHeight() +" "+getActivity().getString(R.string.cm),
                                 responseServer.getData().get(responseServer.getData().size()-1).getWeight()+" "+getActivity().getString(R.string.kg));
 
                         initGraph(getMin(responseServer.getData()),getMax(responseServer.getData()),responseServer.getData());
@@ -534,7 +534,7 @@ public class FragmentHTWeightReport extends Fragment {
                   //  ((ActivityContainer)getActivity()).setValues("","");
 
                     //Util.showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.error,false);
 
                 }
             }
@@ -544,7 +544,7 @@ public class FragmentHTWeightReport extends Fragment {
                 Log.e("Response", error.toString());
                 progressDialog.dismiss();
                 // Util.showToast(getActivity(), R.string.network_error, false);
-                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
 
             }
         }, "callback", C.API_GET_WEIGHT_REPORT, Util.getHeader(getActivity()), obj);

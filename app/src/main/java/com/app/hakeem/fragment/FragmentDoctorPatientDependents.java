@@ -73,7 +73,7 @@ public class FragmentDoctorPatientDependents extends Fragment {
             getDependents();
         } else {
             //    Util.showToast(getActivity(), R.string.please_connect_to_the_internet, true);
-            Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.please_connect_to_the_internet),getString(R.string.ok),R.drawable.warning,true);
+            Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.please_connect_to_the_internet),getString(R.string.ok),R.drawable.error,true);
 
         }
 

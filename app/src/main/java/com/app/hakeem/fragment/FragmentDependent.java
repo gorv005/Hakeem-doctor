@@ -89,7 +89,9 @@ public class FragmentDependent extends Fragment implements DependentDelete {
         if (Util.isNetworkConnectivity(getActivity())) {
             getDependentList();
         } else {
-            Util.showToast(getActivity(), R.string.please_connect_to_the_internet, true);
+         //   Util.showToast(getActivity(), R.string.please_connect_to_the_internet, true);
+            Util.showAlertForToast(getActivity(),getString(R.string.warning), getString(R.string.please_connect_to_the_internet),getString(R.string.ok),R.drawable.warning,false);
+
         }
 
     }
@@ -124,6 +126,8 @@ public class FragmentDependent extends Fragment implements DependentDelete {
                         lvDependent.removeHeaderView(header);
                         header = getActivity().getLayoutInflater().inflate(R.layout.item_dependent, null);
                         header.findViewById(R.id.btnDelete).setVisibility(View.GONE);
+                        header.findViewById(R.id.ivForward).setVisibility(View.GONE);
+
                         TextView tvName = (TextView) header.findViewById(R.id.tvName);
                         tvName.setText(getString(R.string.main_profile));
                         lvDependent.addHeaderView(header);
@@ -132,7 +136,8 @@ public class FragmentDependent extends Fragment implements DependentDelete {
 
                     } else {
                         //    Util. showToast(getActivity(), responseServer.getMessage(), false);
-                        Util.showAlertForToast(getActivity(), responseServer.getMessage(), responseServer.getMessage(), getString(R.string.ok), R.drawable.warning, false);
+                     //   Util.showAlertForToast(getActivity(), responseServer.getMessage(), responseServer.getMessage(), getString(R.string.ok), R.drawable.warning, false);
+                        Util.showAlertForToast(getActivity(),getString(R.string.error), responseServer.getMessage(),getString(R.string.ok),R.drawable.error,false);
 
                     }
                 }
@@ -145,7 +150,9 @@ public class FragmentDependent extends Fragment implements DependentDelete {
             public void notifyError(String requestType, String error) {
                 Log.e("Response", error.toString());
                 progressDialog.dismiss();
-                Util.showToast(getActivity(), R.string.network_error, false);
+              //  Util.showToast(getActivity(), R.string.network_error, false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error), getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
+
             }
         }, "callback", C.API_REGISTER_FETCH_PATIENT, Util.getHeader(getActivity()), obj);
 
@@ -279,13 +286,13 @@ public class FragmentDependent extends Fragment implements DependentDelete {
     }
 
     private void openCalender() {
-        Calendar myCalendar = Calendar.getInstance();
+        Calendar myCalendar = Calendar.getInstance(Locale.US);
         myCalendar.setTimeInMillis(System.currentTimeMillis());
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
 
-        myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 17);
-        datePickerDialog.getDatePicker().setMinDate(myCalendar.getTimeInMillis());
+       // myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 17);
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
 
         datePickerDialog.show();
     }
@@ -307,7 +314,7 @@ public class FragmentDependent extends Fragment implements DependentDelete {
 
     private void updateLabel(Calendar myCalendar) {
 
-        String myFormat = "dd/MMM/yyyy";
+        String myFormat = C.DATE_FORMAT;
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
 
         tvDOB.setText(sdf.format(myCalendar.getTime()));
@@ -316,27 +323,43 @@ public class FragmentDependent extends Fragment implements DependentDelete {
 
     public boolean isAllVaildDetailOfDependent() {
         if (etName.getText().toString().length() == 0) {
-            etName.setError(getActivity().getResources().getString(R.string.first_name_required));
+            //   etName.setError(getActivity().getResources().getString(R.string.first_name_required));
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.first_name_required),getString(R.string.ok),R.drawable.warning);
+
             etName.requestFocus();
             return false;
         } else if (etName.getText().toString().trim().length() < 3) {
-            etName.setError(getActivity().getResources().getString(R.string.first_name_should_be_more_then_3_character));
+            //  etName.setError(getActivity().getResources().getString(R.string.first_name_should_be_more_then_3_character));
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.first_name_should_be_more_then_3_character),getString(R.string.ok),R.drawable.warning);
+
             etName.requestFocus();
             return false;
         } else if (etName.getText().toString().trim().startsWith(".")) {
-            etName.setError(getActivity().getResources().getString(R.string.name_could_not_starts_with_dot));
+            //  etName.setError(getActivity().getResources().getString(R.string.name_could_not_starts_with_dot));
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.name_could_not_starts_with_dot),getString(R.string.ok),R.drawable.warning);
+
             etName.requestFocus();
             return false;
         } else if (tvRelationship.getText().toString().length() == 0) {
-            tvRelationship.setError(getActivity().getResources().getString(R.string.please_enter_relationship));
+            //   tvRelationship.setError(getActivity().getResources().getString(R.string.please_enter_relationship));
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.please_enter_relationship),getString(R.string.ok),R.drawable.warning);
+
             tvRelationship.requestFocus();
             return false;
         } else if (tvDOB.getText().toString().length() == 0) {
-            tvDOB.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
+            //  tvDOB.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.please_enter_date_of_birth),getString(R.string.ok),R.drawable.warning);
+
             tvDOB.requestFocus();
             return false;
         }
+        else if (child==null ||  child.getRelationPojo().getKey().equals("0")) {
+            //  tvDOB.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.please_select_relation),getString(R.string.ok),R.drawable.warning);
 
+            tvDOB.requestFocus();
+            return false;
+        }
 
         return true;
     }
@@ -369,13 +392,13 @@ public class FragmentDependent extends Fragment implements DependentDelete {
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
                    // Util.showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(),responseServer.getMessage(),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.success),responseServer.getMessage(),getString(R.string.ok),R.drawable.success,false);
 
                     getDependentList();
 
                 } else {
                   //  Util.showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(),responseServer.getMessage(),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.error,false);
 
                 }
 
@@ -384,7 +407,8 @@ public class FragmentDependent extends Fragment implements DependentDelete {
             @Override
             public void notifyError(String requestType, String error) {
                 progressDialog.dismiss();
-                Util.showToast(getActivity(), R.string.network_error, false);
+              //  Util.showToast(getActivity(), R.string.network_error, false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
 
             }
         }, "callback", C.API_ADD_DPENDENT, Util.getHeader(getActivity()), obj);

@@ -75,7 +75,7 @@
     <string name="bithdate">Birthday</string>
     <string name="done">Done</string>
     <string name="gender">Gender</string>
-    <string name="first_name_required">We need a First Name</string>
+    <string name="first_name_required">We need a Name</string>
     <string name="hospital_name_required">We need a Hospital Name</string>
     <string name="working_since_required">Working since required</string>
 
@@ -84,11 +84,11 @@
     <string name="name_could_not_starts_with_dot">Name cannot start with a dot</string>
     <string name="email_is_required">We need an Email ID</string>
     <string name="please_enter_valid_email">Oops! It seems your email is not match with email format.</string>
-    <string name="mobile_no_is_required">Incorrect Phone Number. The correct phone number may only include 14 digits</string>
+    <string name="mobile_no_is_required">Incorrect Phone Number. The correct phone number may only include 10 digits and should start with 5</string>
     <string name="please_enter_valid_mobile_number">Please enter valid mobile number</string>
     <string name="number_strts_with_zero">Mobile Number should be 10 digits, not starting with \'0\'</string>
     <string name="password_should_be_8_12_characters_with_at_least_1_nummeric">Password must contain at least 8-16 characters, including UPPER/LOWERCASE, special symbols and numbers</string>
-    <string name="password_required">Incorrect Password. The correct password must have a minimum of 8 characters; with at least One Character in upper case and at least One special character or Number</string>
+    <string name="password_required">Password length should be between 8-16 characters</string>
     <string name="select_city">Select city</string>
     <string name="please_enter_relationship">Please enter relationship</string>
     <string name="please_enter_date_of_birth">Please enter Date of Birth</string>
@@ -142,7 +142,7 @@
     <string name="doc_profile">Doctor Profile</string>
     <string name="error">Error</string>
     <string name="ok">Ok</string>
-    <string name="choose_dependent">Choose Dependant</string>
+    <string name="choose_dependent">Choose Dependent</string>
     <string name="main_profile">Main Profile</string>
     <string name="post_should_not_be_empty">Post should not be empty</string>
     <string name="date">Date</string>
@@ -640,7 +640,7 @@
     <string name="Family_and_Community_Clinic">Family and Community Clinic</string>
     <string name="Obgyne_Clinic">Obgyne Clinic</string>
     <string name="Pediatrics_Clinic">Pediatrics Clinic</string>
-    <string name="are_sure_you_want_to_delete">Are you sure you want to delete the dependent?</string>
+    <string name="are_sure_you_want_to_delete">Are you sure you want to delete it?</string>
     <string name="working_till">Resigned Since</string>
     <string name="all">All</string>
     <string name="language">Language</string>
@@ -650,5 +650,7 @@
     <string name="kg">Kg</string>
     <string name="customDigits">\u0022;\u005C;&amp;&lt;&gt;&#92; abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%\'()*+,-./:;=?@[]_`{};|~^"*"</string>
     <string name="resigned_date_should_be_less_than_joining">Resigned date should be greater than work start date</string>
+    <string name="please_select_relation">Please select relationship</string>
+    <string name="warning">Warning</string>
 
 </resources>

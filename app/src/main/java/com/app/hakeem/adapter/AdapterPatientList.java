@@ -84,7 +84,17 @@ public class AdapterPatientList extends BaseAdapter {
         tvName.setTextColor(activity.getResources().getColor(R.color.blue));
 
         Button btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
+        ImageView imgArrow = (ImageView) convertView.findViewById(R.id.ivForward);
+
         btnDelete.setVisibility(isDeleteDisable ? View.GONE : View.VISIBLE);
+        if(!isDeleteDisable && position==0) {
+            imgArrow.setVisibility(View.GONE);
+
+        }
+        else {
+            imgArrow.setVisibility(isDeleteDisable ? View.VISIBLE : View.GONE);
+        }
+
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,8 +146,9 @@ public class AdapterPatientList extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-
+                dialog.dismiss();
                 deleteDependent(pos);
+
 
             }
         });
@@ -188,13 +199,13 @@ public class AdapterPatientList extends BaseAdapter {
                 if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
                     //   Util.showToast(activity, , false);
-                    Util.showAlertForToast(activity, responseServer.getMessage(), responseServer.getMessage(), activity.getString(R.string.ok), R.drawable.warning, false);
+                    Util.showAlertForToast(activity, activity.getString(R.string.success), responseServer.getMessage(), activity.getString(R.string.ok), R.drawable.success, false);
 
                     dependentDelete.notifyDependentDeleted();
 
                 } else {
                     //      Util.showToast(activity, responseServer.getMessage(), false);
-                    Util.showAlertForToast(activity, responseServer.getMessage(), responseServer.getMessage(), activity.getString(R.string.ok), R.drawable.warning, false);
+                    Util.showAlertForToast(activity, activity.getString(R.string.error), responseServer.getMessage(), activity.getString(R.string.ok), R.drawable.error, false);
 
                 }
 
@@ -203,7 +214,8 @@ public class AdapterPatientList extends BaseAdapter {
             @Override
             public void notifyError(String requestType, String error) {
                 progressDialog.dismiss();
-                Util.showToast(activity, R.string.network_error, false);
+               // Util.showToast(activity, R.string.network_error, false);
+                Util.showAlertForToast(activity,activity.getString(R.string.error), activity.getString(R.string.network_error),activity.getString(R.string.ok),R.drawable.error,false);
 
             }
         }, "callback", C.API_DELETE_DPENDENT, Util.getHeader(activity), obj);

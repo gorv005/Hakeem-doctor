@@ -254,31 +254,31 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
     public boolean isAllValid() {
         if (etIban.getText().toString().length() == 0) {
             //   etIban.setError(getActivity().getResources().getString(R.string.Iban_required));
-            Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.Iban_required), getString(R.string.ok), R.drawable.warning);
+            Util.showAlert(getActivity(), getString(R.string.warning), getString(R.string.Iban_required), getString(R.string.ok), R.drawable.warning);
 
             etIban.requestFocus();
             return false;
         } else if (etConfirmIban.getText().toString().length() == 0) {
             //   etConfirmIban.setError(getActivity().getResources().getString(R.string.Iban_required));
-            Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.Iban_required), getString(R.string.ok), R.drawable.warning);
+            Util.showAlert(getActivity(), getString(R.string.warning), getString(R.string.Iban_required), getString(R.string.ok), R.drawable.warning);
 
             etConfirmIban.requestFocus();
             return false;
         } else if (!etConfirmIban.getText().toString().equals(etIban.getText().toString())) {
             //    etConfirmIban.setError(getActivity().getResources().getString(R.string.iban_mismatch));
-            Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.iban_mismatch), getString(R.string.ok), R.drawable.warning);
+            Util.showAlert(getActivity(), getString(R.string.warning), getString(R.string.iban_mismatch), getString(R.string.ok), R.drawable.warning);
 
             etConfirmIban.requestFocus();
             return false;
         } else if (!isImageSelected) {
             //   btnPhotoUpload.setError(getActivity().getResources().getString(R.string.select_image));
-            Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.select_image), getString(R.string.ok), R.drawable.warning);
+            Util.showAlert(getActivity(), getString(R.string.warning), getString(R.string.select_image), getString(R.string.ok), R.drawable.warning);
 
             btnPhotoUpload.requestFocus();
             return false;
         }
         if(!checkBox_terms_and_cond.isChecked()){
-            Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.please_select_terms_and_condition), getString(R.string.ok), R.drawable.warning);
+            Util.showAlert(getActivity(), getString(R.string.warning), getString(R.string.please_select_terms_and_condition), getString(R.string.ok), R.drawable.warning);
             return false;
         }
         return true;
@@ -553,7 +553,7 @@ public class FragmentDoctorRegistrationStep4 extends Fragment {
                         //  Toast.makeText(getActivity(),responseLogin.getMessage(),Toast.LENGTH_LONG).show();
 
                     } else {
-                        Util.showAlert(getActivity(), getString(R.string.alert), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning);
+                        Util.showAlert(getActivity(), getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.error);
                     }
 
                 } catch (Exception e) {

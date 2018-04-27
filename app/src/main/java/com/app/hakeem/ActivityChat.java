@@ -457,7 +457,7 @@ public class ActivityChat extends AppCompatActivity {
 
             {
 
-                Util.showAlertForToast(ActivityChat.this, getString(R.string.alert), getString(R.string.chat_ended), getString(R.string.ok), R.drawable.warning,true);
+                Util.showAlertForToast(ActivityChat.this, getString(R.string.success), getString(R.string.chat_ended), getString(R.string.ok), R.drawable.success,true);
 
             }
         }

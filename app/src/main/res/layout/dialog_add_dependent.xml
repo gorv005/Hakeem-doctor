@@ -135,7 +135,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_button"
             android:minWidth="150dp"
-            android:text="@string/done"
+            android:text="@string/confirm_add"
             android:textAlignment="center"
             android:textColor="@color/color_selector"
             android:textSize="14sp" />

@@ -238,7 +238,6 @@
                 android:text="@string/yes"
                 android:maxLines="1"
                 android:gravity="start"
-                android:textAllCaps="true"
                 android:textColor="@color/blue"
                 android:textSize="12sp" />
         </LinearLayout>

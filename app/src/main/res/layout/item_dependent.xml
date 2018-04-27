@@ -56,13 +56,28 @@
             android:background="@drawable/circle"
             android:backgroundTint="@color/blue"
             android:text="X"
-
+            android:visibility="gone"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             android:tint="@color/blue" />
 
-
+            <ImageView
+            android:id="@+id/ivForward"
+            android:layout_width="20dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="end"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/forward"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:tint="@color/blue" />
 
     </RelativeLayout>
 

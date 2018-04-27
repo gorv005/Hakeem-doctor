@@ -1002,7 +1002,7 @@ public class Util {
         LinkedHashMap<String, String> hashMap;
 
         hashMap = new LinkedHashMap<String, String>();
-        hashMap.put("0", "Select Relation");
+        hashMap.put("0", "Relationship");
         hashMap.put("1", "Father");
         hashMap.put("2", "Mother");
         hashMap.put("3", "Brother");
@@ -1082,7 +1082,7 @@ public class Util {
 
     public static void showAlertForToast(final Activity context, String title, String msg, String btnText, int img, final boolean finishActivity) {
 
-        title=context.getString(R.string.alert);
+
         final LayoutInflater factory = LayoutInflater.from(context);
         final View deleteDialogView = factory.inflate(
                 R.layout.dialog_alert, null);

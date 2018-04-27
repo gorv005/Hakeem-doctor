@@ -86,7 +86,7 @@ public class ActivityContainer extends AppCompatActivity {
         ivQuestionMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Util.showAlertForToast(ActivityContainer.this, getString(R.string.alert), getString(R.string.for_more_info), getString(R.string.ok), R.drawable.warning, false);
+                Util.showAlertForToast(ActivityContainer.this, getString(R.string.alert), getString(R.string.for_more_info), getString(R.string.ok), R.drawable.success, false);
             }
         });
         bundle = getIntent().getBundleExtra(C.BUNDLE);
@@ -319,7 +319,7 @@ public class ActivityContainer extends AppCompatActivity {
 
             case C.FRAGMENT_SELECT_PATIENT_TO_QUEUE:
                 getSupportActionBar().show();
-                tvTitle.setText(R.string.select_patient);
+                tvTitle.setText(R.string.choose_dependent);
                 fragment = new FragmentDependentToAddInQueue();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_ADD_INQUEU);
@@ -390,7 +390,7 @@ public class ActivityContainer extends AppCompatActivity {
                         tvTitle.setText(R.string.patient_profile);
                         break;
                     case C.TAG_FRAGMENT_ADD_INQUEU:
-                        tvTitle.setText(R.string.select_patient);
+                        tvTitle.setText(R.string.choose_dependent);
                         break;
                     /*case C.TAG_FRAGMENT_REGISTER_P_2:
                         finish();

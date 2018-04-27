@@ -170,7 +170,7 @@ public class FragmentConsultantList extends Fragment {
                     ConsultationTypeAndList consultationType = gson.fromJson(response.toString(), ConsultationTypeAndList.class);
                     if (consultationType.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
-                        Util.showAlert(getActivity(), getString(R.string.ok), consultationType.getMessage(), getString(R.string.ok), R.drawable.success);
+                        Util.showAlert(getActivity(), getString(R.string.success), consultationType.getMessage(), getString(R.string.ok), R.drawable.success);
                     } else if (consultationType.getStatusCode().equals(C.STATUS_CHAT_WITH_DOCTOR)) {
 
                         Intent intent = new Intent(getActivity(), ActivityChat.class);
@@ -184,7 +184,7 @@ public class FragmentConsultantList extends Fragment {
                     } else if (consultationType.getStatusCode().equals(C.STATUS_MAKE_PAYMENT)) {
                         doPayment();
                     } else {
-                        Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.warning);
+                        Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.error);
                     }
 
                 } catch (Exception e) {
@@ -242,7 +242,7 @@ public class FragmentConsultantList extends Fragment {
                         intent.putExtra(C.PAYMENT_URL, response1.getApprovalUrl());
                         startActivity(intent);
                     } else {
-                        Util.showAlert(getActivity(), getString(R.string.error), response1.getMessage(), getString(R.string.ok), R.drawable.warning);
+                        Util.showAlert(getActivity(), getString(R.string.error), response1.getMessage(), getString(R.string.ok), R.drawable.error);
                     }
 
                 } catch (Exception e) {
@@ -297,7 +297,7 @@ public class FragmentConsultantList extends Fragment {
                         adapter = new AdapterConsultant(getActivity(), consultationType.getOnlineDoctors());
                         lvConsultant.setAdapter(adapter);
                     } else {
-                        Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.warning);
+                        Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.error);
                     }
 
                 } catch (Exception e) {

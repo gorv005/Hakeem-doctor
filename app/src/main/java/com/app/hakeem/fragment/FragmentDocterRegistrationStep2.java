@@ -86,34 +86,34 @@ public class FragmentDocterRegistrationStep2 extends Fragment {
 
         if (etNationalaty.getText().toString().length() == 0) {
          //   etNationalaty.setError(getActivity().getResources().getString(R.string.nationility_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.nationility_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.nationility_required),getString(R.string.ok),R.drawable.warning);
 
             etNationalaty.requestFocus();
             return false;
         }  else if (etResidance.getText().toString().length() == 0) {
           //  etResidance.setError(getActivity().getResources().getString(R.string.residance_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.residance_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.residance_required),getString(R.string.ok),R.drawable.warning);
 
             etResidance.requestFocus();
             return false;
         }
         else if (etWorkPlace.getText().toString().length() == 0) {
        //     etWorkPlace.setError(getActivity().getResources().getString(R.string.workPlace_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.workPlace_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.workPlace_required),getString(R.string.ok),R.drawable.warning);
 
             etWorkPlace.requestFocus();
             return false;
         }
         else if (etHomeLocation.getText().toString().length() == 0) {
            // etHomeLocation.setError(getActivity().getResources().getString(R.string.homeLocation_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.homeLocation_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.homeLocation_required),getString(R.string.ok),R.drawable.warning);
 
             etHomeLocation.requestFocus();
             return false;
         }
         else if (etIdCard.getText().toString().length() == 0) {
           //  etIdCard.setError(getActivity().getResources().getString(R.string.idcard_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.idcard_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.idcard_required),getString(R.string.ok),R.drawable.warning);
 
             etIdCard.requestFocus();
             return false;

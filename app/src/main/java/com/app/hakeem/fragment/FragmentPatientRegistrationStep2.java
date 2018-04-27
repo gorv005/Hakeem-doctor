@@ -264,7 +264,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
             datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
         }
         else {
-            myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 18);
+         //   myCalendar.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR) - 18);
 
             datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
             //datePickerDialog.getDatePicker().setMaxDate(myCalendar.getTimeInMillis());
@@ -343,7 +343,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
 
                 } else {
                    // Util.showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.error,false);
 
                 }
 
@@ -352,7 +352,9 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
             @Override
             public void notifyError(String requestType, String error) {
                 progressDialog.dismiss();
-                Util.showToast(getActivity(), R.string.network_error, false);
+              //  Util.showToast(getActivity(), R.string.network_error, false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error), getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
+
 
             }
         }, "callback", C.API_REGISTER_PATIENT, Util.getHeader(getActivity()), obj);
@@ -495,13 +497,13 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
     public boolean isAllValid() {
         if (tvBirthDay.getText().toString().length() == 0) {
         //    tvDOB.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_date_of_birth),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.please_enter_date_of_birth),getString(R.string.ok),R.drawable.warning);
 
             tvBirthDay.requestFocus();
             return false;
         } else if (tvCity.getText().toString().length() == 0) {
           //  tvCity.setError(getActivity().getResources().getString(R.string.please_enter_city));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_city),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.please_enter_city),getString(R.string.ok),R.drawable.warning);
 
             tvCity.requestFocus();
             return false;
@@ -512,7 +514,7 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
             return false;
         }*/
         if(!checkBox_terms_and_cond.isChecked()){
-            Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.please_select_terms_and_condition), getString(R.string.ok), R.drawable.warning);
+            Util.showAlert(getActivity(), getString(R.string.warning), getString(R.string.please_select_terms_and_condition), getString(R.string.ok), R.drawable.warning);
             return false;
         }
         return true;
@@ -521,36 +523,42 @@ public class FragmentPatientRegistrationStep2 extends Fragment  {
     public boolean isAllVaildDetailOfDependent() {
         if (etName.getText().toString().length() == 0) {
          //   etName.setError(getActivity().getResources().getString(R.string.first_name_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.first_name_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.first_name_required),getString(R.string.ok),R.drawable.warning);
 
             etName.requestFocus();
             return false;
         } else if (etName.getText().toString().trim().length() < 3) {
           //  etName.setError(getActivity().getResources().getString(R.string.first_name_should_be_more_then_3_character));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.first_name_should_be_more_then_3_character),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.first_name_should_be_more_then_3_character),getString(R.string.ok),R.drawable.warning);
 
             etName.requestFocus();
             return false;
         } else if (etName.getText().toString().trim().startsWith(".")) {
           //  etName.setError(getActivity().getResources().getString(R.string.name_could_not_starts_with_dot));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.name_could_not_starts_with_dot),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.name_could_not_starts_with_dot),getString(R.string.ok),R.drawable.warning);
 
             etName.requestFocus();
             return false;
         } else if (tvRelationship.getText().toString().length() == 0) {
          //   tvRelationship.setError(getActivity().getResources().getString(R.string.please_enter_relationship));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_relationship),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.please_enter_relationship),getString(R.string.ok),R.drawable.warning);
 
             tvRelationship.requestFocus();
             return false;
         } else if (tvDOB.getText().toString().length() == 0) {
           //  tvDOB.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.please_enter_date_of_birth),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.please_enter_date_of_birth),getString(R.string.ok),R.drawable.warning);
 
             tvDOB.requestFocus();
             return false;
         }
+        else if (generalPojoKeyValue==null ||  generalPojoKeyValue.getKey().equals("0")) {
+            //  tvDOB.setError(getActivity().getResources().getString(R.string.please_enter_date_of_birth));
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.please_select_relation),getString(R.string.ok),R.drawable.warning);
 
+            tvDOB.requestFocus();
+            return false;
+        }
 
         return true;
     }

@@ -248,7 +248,8 @@ public class ActivityChatDoctor extends AppCompatActivity {
 
 
         if (!Util.isNetworkConnectivity(this)) {
-            Util.showToast(this, R.string.please_connect_to_the_internet, true);
+           // Util.showToast(this, R.string.please_connect_to_the_internet, true);
+            Util.showAlertForToast(this,getString(R.string.warning), getString(R.string.please_connect_to_the_internet),getString(R.string.ok),R.drawable.warning,true);
 
         } else {
 
@@ -352,7 +353,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
                     if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
                         Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.success), responseLogin.getMessage(), getString(R.string.ok), R.drawable.success, false);
                     } else {
-                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, false);
+                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.error, false);
                     }
 
                 } catch (Exception e) {
@@ -471,7 +472,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
                         cbFollowUp.setChecked(responseLogin.getData().getIsFollow().equals("true") ? true : false);
 
                     } else {
-                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, false);
+                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.error, false);
                     }
 
                 } catch (Exception e) {
@@ -583,7 +584,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
                         getFollowUp();
                         loadChatOnConnect();
                     } else {
-                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, true);
+                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.error, true);
                         btnSend.setEnabled(false);
                         btnAttach.setEnabled(false);
                         btnCamera.setEnabled(false);

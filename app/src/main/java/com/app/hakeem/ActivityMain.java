@@ -523,7 +523,7 @@ public class ActivityMain extends AppCompatActivity
                         getAllPosts();
 
                     } else {
-                        Util.showAlert(ActivityMain.this, getString(R.string.error), responsePost.getMessage(), getString(R.string.ok), R.drawable.warning);
+                        Util.showAlert(ActivityMain.this, getString(R.string.error), responsePost.getMessage(), getString(R.string.ok), R.drawable.error);
 
                     }
 
@@ -604,7 +604,7 @@ public class ActivityMain extends AppCompatActivity
                         }
                         adapterPosts.notifyDataSetChanged();
                     } else {
-                        Util.showAlert(ActivityMain.this, getString(R.string.error), responsePost.getMessage(), getString(R.string.ok), R.drawable.warning);
+                        Util.showAlert(ActivityMain.this, getString(R.string.error), responsePost.getMessage(), getString(R.string.ok), R.drawable.error);
 
 
                     }
@@ -836,7 +836,7 @@ public class ActivityMain extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() >= 500) {
-                    Util.showAlertForToast(ActivityMain.this, getString(R.string.error), getString(R.string.enter_250_char), getString(R.string.ok), R.drawable.warning, false);
+                    Util.showAlertForToast(ActivityMain.this, getString(R.string.warning), getString(R.string.enter_250_char), getString(R.string.ok), R.drawable.warning, false);
                     return;
                 }
                 if (s.toString().length() > 250) {
@@ -898,7 +898,7 @@ public class ActivityMain extends AppCompatActivity
 
                     AddPost(addPost);
                 } else {
-                    Util.showAlert(ActivityMain.this, getString(R.string.error), getString(R.string.post_should_not_be_empty), getString(R.string.ok), R.drawable.warning);
+                    Util.showAlert(ActivityMain.this, getString(R.string.warning), getString(R.string.post_should_not_be_empty), getString(R.string.ok), R.drawable.warning);
 
                 }
 

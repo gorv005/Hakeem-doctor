@@ -323,35 +323,35 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
         }
     };
     public boolean isAllValid() {
-        if (etSpeciality.getText().toString().length() == 0) {
+        if (etSpeciality.getText().toString().equals(speciality[0])) {
          //   etSpeciality.setError(getActivity().getResources().getString(R.string.speciality_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.speciality_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.speciality_required),getString(R.string.ok),R.drawable.warning);
 
             etSpeciality.requestFocus();
             return false;
-        } else if (etCurrentGrade.getText().toString().length() == 0) {
+        } else if (etCurrentGrade.getText().toString().equals(currentGrade[0])) {
           //  etCurrentGrade.setError(getActivity().getResources().getString(R.string.currentGrade_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.currentGrade_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.currentGrade_required),getString(R.string.ok),R.drawable.warning);
 
             etCurrentGrade.requestFocus();
             return false;
         } else if (etSubSpeciality.getText().toString().length() == 0) {
          //   etSubSpeciality.setError(getActivity().getResources().getString(R.string.subSpeciality_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.subSpeciality_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.subSpeciality_required),getString(R.string.ok),R.drawable.warning);
 
             etSubSpeciality.requestFocus();
             return false;
         }
         else if (etClassification.getText().toString().length() == 0) {
           //  etClassification.setError(getActivity().getResources().getString(R.string.classification_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.classification_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.classification_required),getString(R.string.ok),R.drawable.warning);
 
             etClassification.requestFocus();
             return false;
         }
         else if (adapterDoctorExperience==null || adapterDoctorExperience.getAllItem()==null ||adapterDoctorExperience.getAllItem().size()==0) {
             //Toast.makeText(getActivity(),getString(R.string.require_add_experience),Toast.LENGTH_LONG).show();
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.require_add_experience),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.require_add_experience),getString(R.string.ok),R.drawable.warning);
 
             return false;
         }
@@ -469,21 +469,21 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
     public boolean isAllVaildDetailOfExp() {
         if (etHospitalName.getText().toString().length() == 0) {
             //etHospitalName.setError(getActivity().getResources().getString(R.string.first_name_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.hospital_name_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.hospital_name_required),getString(R.string.ok),R.drawable.warning);
 
             etHospitalName.requestFocus();
             return false;
         }
        else if (etWorkingSince.getText().toString().length() == 0) {
            // etWorkingSince.setError(getActivity().getResources().getString(R.string.first_name_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.working_since_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.working_since_required),getString(R.string.ok),R.drawable.warning);
 
             etWorkingSince.requestFocus();
             return false;
         }
         else if (etResignedSince.getText().toString().length() == 0) {
           //  etResignedSince.setError(getActivity().getResources().getString(R.string.first_name_required));
-            Util.showAlert(getActivity(),getString(R.string.error),getString(R.string.resigned_date_required),getString(R.string.ok),R.drawable.warning);
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.resigned_date_required),getString(R.string.ok),R.drawable.warning);
 
             etResignedSince.requestFocus();
             return false;
@@ -492,7 +492,7 @@ public class FragmentDoctorRegistrationStep3 extends Fragment {
             //  etResignedSince.setError(getActivity().getResources().getString(R.string.first_name_required));
             if (!Util.isValidToFromDates(startDate,endDate)) {
                 //  etResignedSince.setError(getActivity().getResources().getString(R.string.first_name_required));
-                Util.showAlert(getActivity(), getString(R.string.error), getString(R.string.resigned_date_should_be_less_than_joining), getString(R.string.ok), R.drawable.warning);
+                Util.showAlert(getActivity(), getString(R.string.warning), getString(R.string.resigned_date_should_be_less_than_joining), getString(R.string.ok), R.drawable.warning);
 
                 etResignedSince.requestFocus();
                 return false;

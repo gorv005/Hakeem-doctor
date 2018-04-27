@@ -97,8 +97,13 @@ public class FragmentComments extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
+        if(post.getSpecialist()==null) {
+            tvDoctorName.setText(post.getPostBy());
+        }
+        else {
+            tvDoctorName.setText(getString(R.string.dr)+post.getPostBy());
 
-        tvDoctorName.setText(post.getPostBy());
+        }
         tvLike.setText(post.getTotalLikes()+"");
         totalLike=post.getTotalLikes();
         if(post.getIsLiked()==1) {
@@ -266,7 +271,7 @@ public class FragmentComments extends Fragment {
                 Log.e("Response", error.toString());
                 progressDialog.dismiss();
                 // Util.showToast(getActivity(), R.string.network_error, false);
-                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
 
             }
         }, "callback", C.ADD_COMMENTS, Util.getHeader(getActivity()), obj);
@@ -307,13 +312,13 @@ public class FragmentComments extends Fragment {
 
                     }
                     else {
-                        Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                        Util.showAlertForToast(getActivity(),getString(R.string.warning),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
                         ivLine.setVisibility(View.GONE);
                     }
 
                 } else {
                     //Util.showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.error,false);
                     ivLine.setVisibility(View.GONE);
 
                 }
@@ -324,7 +329,7 @@ public class FragmentComments extends Fragment {
                 Log.e("Response", error.toString());
                 progressDialog.dismiss();
                 // Util.showToast(getActivity(), R.string.network_error, false);
-                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
 
             }
         }, "callback", C.API_GET_COMMENTS, Util.getHeader(getActivity()), obj);

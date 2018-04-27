@@ -618,10 +618,10 @@ public class FragmentHTBloodSugerReport extends Fragment {
                         dialogAddBloodSuger.dismiss();
                         getBloodPressureReport();
                     }
-                    Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.warning),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
                 } else {
                     //Util.showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.error,false);
                 }
             }
 
@@ -630,7 +630,7 @@ public class FragmentHTBloodSugerReport extends Fragment {
                 Log.e("Response", error.toString());
                 progressDialog.dismiss();
                 // Util.showToast(getActivity(), R.string.network_error, false);
-                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
 
             }
         }, "callback", C.API_ADD_BLOOD_SUGER_REPORT, Util.getHeader(getActivity()), obj);

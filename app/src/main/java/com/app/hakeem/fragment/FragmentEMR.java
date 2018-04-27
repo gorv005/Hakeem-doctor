@@ -118,7 +118,7 @@ public class FragmentEMR extends Fragment {
 
                 } else {
                     //Util.showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.error,false);
 
                 }
             }
@@ -128,7 +128,7 @@ public class FragmentEMR extends Fragment {
                 Log.e("Response", error.toString());
                 progressDialog.dismiss();
                 // Util.showToast(getActivity(), R.string.network_error, false);
-                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.warning,false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
 
             }
         }, "callback", C.API_GET_CHAT_GROUP, Util.getHeader(getActivity()), obj);

@@ -61,10 +61,18 @@ public class FragmentDependentToAddInQueue extends Fragment implements Dependent
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ActivityContainer.tvTitle.setText(R.string.choose_dependent);
+
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        ActivityContainer.tvTitle.setText(R.string.choose_dependent);
 
         lvDependent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -86,7 +94,9 @@ public class FragmentDependentToAddInQueue extends Fragment implements Dependent
         if (Util.isNetworkConnectivity(getActivity())) {
             getDependentList();
         } else {
-            Util.showToast(getActivity(), R.string.please_connect_to_the_internet, true);
+          //  Util.showToast(getActivity(), R.string.please_connect_to_the_internet, true);
+            Util.showAlertForToast(getActivity(),getString(R.string.warning), getString(R.string.please_connect_to_the_internet),getString(R.string.ok),R.drawable.warning,true);
+
         }
 
     }
@@ -128,7 +138,7 @@ public class FragmentDependentToAddInQueue extends Fragment implements Dependent
 
                 } else {
                     //    Util. showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(), responseServer.getMessage(), responseServer.getMessage(), getString(R.string.ok), R.drawable.warning, false);
+                    Util.showAlertForToast(getActivity(), getString(R.string.warning), responseServer.getMessage(), getString(R.string.ok), R.drawable.warning, false);
 
                 }
             }
@@ -137,7 +147,9 @@ public class FragmentDependentToAddInQueue extends Fragment implements Dependent
             public void notifyError(String requestType, String error) {
                 Log.e("Response", error.toString());
                 progressDialog.dismiss();
-                Util.showToast(getActivity(), R.string.network_error, false);
+            //    Util.showToast(getActivity(), R.string.network_error, false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error), getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
+
             }
         }, "callback", C.API_REGISTER_FETCH_PATIENT, Util.getHeader(getActivity()), obj);
 
