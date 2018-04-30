@@ -81,10 +81,14 @@ public class FragmentDependentToAddInQueue extends Fragment implements Dependent
 
 
                 Bundle bundle = new Bundle();
-                if (position == 0)
+                if (position == 0) {
                     bundle.putString(C.DEPENDENT_ID, "");
-                else
+                }
+                else {
                     bundle.putString(C.DEPENDENT_ID, adapterPatientList.getItem(position - 1).getChildId());
+
+                    bundle.putSerializable(C.OBJECT, adapterPatientList.getItem(position - 1));
+                }
                 bundle.putInt(C.SPECIALITY, specilization);
                 ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_CONSULTANT, bundle);
             }

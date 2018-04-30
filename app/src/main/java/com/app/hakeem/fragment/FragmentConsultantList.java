@@ -21,6 +21,7 @@ import com.app.hakeem.ActivityPayment;
 import com.app.hakeem.R;
 import com.app.hakeem.adapter.AdapterConsultant;
 import com.app.hakeem.interfaces.IResult;
+import com.app.hakeem.pojo.Child;
 import com.app.hakeem.pojo.ConsultationTypeAndList;
 import com.app.hakeem.pojo.OnlineDoctor;
 import com.app.hakeem.pojo.Response;
@@ -60,7 +61,7 @@ public class FragmentConsultantList extends Fragment {
     private int specialityId;
     private String dependentId;
     private HashMap<Object, Object> hashMap;
-
+    Child child;
 
     public FragmentConsultantList() {
         // Required empty public constructor
@@ -72,7 +73,7 @@ public class FragmentConsultantList extends Fragment {
         user = SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER);
         specialityId = getArguments().getInt(C.SPECIALITY);
         dependentId = getArguments().getString(C.DEPENDENT_ID);
-
+        child=(Child)getArguments().getSerializable(C.OBJECT);
     }
 
     @Override
@@ -169,8 +170,18 @@ public class FragmentConsultantList extends Fragment {
                     Gson gson = new Gson();
                     ConsultationTypeAndList consultationType = gson.fromJson(response.toString(), ConsultationTypeAndList.class);
                     if (consultationType.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                          String patienName = null;
+                        if(dependentId.equals("")){
+                            patienName=SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getFirstName();
+                        }
+                        else {
+                            if(child!=null) {
+                                patienName = child.getName();
+                            }
+                        }
+                        Util.showAlert(getActivity(), getString(R.string.success), patienName+" "+getString(R.string.Added_Msg_ForDoctor_Name)+onlineDoctor.getFirstName(), getString(R.string.ok), R.drawable.success);
+                       // Util.showAlert(getActivity(), getString(R.string.success), consultationType.getMessage(), getString(R.string.ok), R.drawable.success);
 
-                        Util.showAlert(getActivity(), getString(R.string.success), consultationType.getMessage(), getString(R.string.ok), R.drawable.success);
                     } else if (consultationType.getStatusCode().equals(C.STATUS_CHAT_WITH_DOCTOR)) {
 
                         Intent intent = new Intent(getActivity(), ActivityChat.class);

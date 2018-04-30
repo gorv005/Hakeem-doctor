@@ -210,4 +210,5 @@ public interface C {
     String ARABIC="ar";
     String language="lan";
     String LANGUAGE ="language" ;
+    String OBJECT ="object" ;
 }

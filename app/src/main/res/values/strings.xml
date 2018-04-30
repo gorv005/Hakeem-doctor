@@ -36,7 +36,7 @@
     <string name="create_a_doctor_account">Create a doctor account</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="mobile">Mobile</string>
+    <string name="mobile">966-5XXXXXXXX</string>
     <string name="email">Email</string>
     <string name="continue_tv">continue</string>
     <string name="terms_and_condition">Terms and Conditions</string>
@@ -84,7 +84,7 @@
     <string name="name_could_not_starts_with_dot">Name cannot start with a dot</string>
     <string name="email_is_required">We need an Email ID</string>
     <string name="please_enter_valid_email">Oops! It seems your email is not match with email format.</string>
-    <string name="mobile_no_is_required">Incorrect Phone Number. The correct phone number may only include 10 digits and should start with 5</string>
+    <string name="mobile_no_is_required">Incorrect mobile number. The correct number should be 9665xxxxxxxx </string>
     <string name="please_enter_valid_mobile_number">Please enter valid mobile number</string>
     <string name="number_strts_with_zero">Mobile Number should be 10 digits, not starting with \'0\'</string>
     <string name="password_should_be_8_12_characters_with_at_least_1_nummeric">Password must contain at least 8-16 characters, including UPPER/LOWERCASE, special symbols and numbers</string>
@@ -652,5 +652,6 @@
     <string name="resigned_date_should_be_less_than_joining">Resigned date should be greater than work start date</string>
     <string name="please_select_relation">Please select relationship</string>
     <string name="warning">Warning</string>
+    <string name="Added_Msg_ForDoctor_Name">has been joined to queue for Dr.</string>
 
 </resources>

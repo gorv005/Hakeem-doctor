@@ -203,7 +203,7 @@ public class FragmentPatientRegistrationStep1 extends Fragment {
             etMobile.requestFocus();
             return false;
         }
-        else if (etMobile.getText().length() < 14) {
+        else if (etMobile.getText().length() < 13) {
 
             //   etMobile.setError(getActivity().getResources().getString(R.string.please_enter_valid_mobile_number));
             Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.mobile_no_is_required),getString(R.string.ok),R.drawable.warning);
