@@ -665,6 +665,7 @@ public class ActivityMain extends AppCompatActivity
                         lvPosts.setAdapter(adapterPosts);
 
                     } else {
+                        Util.showAlertForToast(ActivityMain.this,getString(R.string.alert),responsePost.getMessage(),getString(R.string.ok),R.drawable.warning,false);
 
                     }
 
