@@ -653,5 +653,9 @@
     <string name="please_select_relation">Please select relationship</string>
     <string name="warning">Warning</string>
     <string name="Added_Msg_ForDoctor_Name">has been joined to queue for Dr.</string>
+    <string name="tech_support_request">Technical Support Request</string>
+    <string name="problem_type">Problem Type</string>
+    <string name="problem_title">Problem Title</string>
+    <string name="problem_desc">Problem description</string>
 
 </resources>

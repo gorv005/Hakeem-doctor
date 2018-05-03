@@ -1,0 +1,156 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pattern"
+    tools:context="com.app.hakeem.fragment.FragmentSupport">
+
+    <TextView
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_white"
+        android:minWidth="150dp"
+        android:text="@string/tech_support_request"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/green"
+        android:textSize="16sp" />
+    <ScrollView
+        android:layout_below="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_red_blue_corner"
+            android:drawableStart="@drawable/icon_mail"
+            android:drawablePadding="20dp"
+            android:hint="@string/email"
+            android:digits="@string/customDigits"
+            android:inputType="textEmailAddress"
+            android:maxLength="50"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off"
+            android:textSize="14sp" />
+        <EditText
+            android:id="@+id/etMobile"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_red_blue_corner"
+            android:drawableStart="@drawable/mobile_icon"
+            android:drawablePadding="20dp"
+            android:hint="@string/mobile"
+            android:digits="1234567890"
+            android:inputType="number"
+            android:maxLength="13"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off"
+            android:textSize="14sp" />
+        <EditText
+            android:id="@+id/etSpeciality"
+
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_red_blue_corner"
+            android:clickable="true"
+            android:drawablePadding="20dp"
+            android:drawableStart="@drawable/icon_drop_down"
+            android:editable="false"
+            android:focusable="false"
+            android:hint="@string/problem_type"
+            android:inputType="none"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spinnerSpeciality"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:gravity="start"
+            android:paddingStart="40dp"
+            android:visibility="invisible" />
+        <EditText
+            android:id="@+id/etWorkPlace"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:maxLength="100"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_red_blue_corner"
+            android:drawableStart="@drawable/icon_name"
+            android:drawablePadding="20dp"
+            android:hint="@string/problem_title"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off"
+            android:textSize="14sp" />
+        <EditText
+            android:id="@+id/etProbDesc"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="start"
+            android:gravity="start"
+            android:paddingTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_red_blue_corner_desc"
+            android:hint="@string/problem_desc"
+            android:maxLength="500"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_off"
+            android:textSize="14sp" />
+        <Button
+            android:id="@+id/btnSend"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_button"
+            android:minWidth="150dp"
+            android:text="@string/send"
+            android:textAlignment="center"
+            android:textColor="@color/color_selector"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tvTerm_and_condition"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_white"
+            android:minWidth="150dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/terms_and_condition"
+            android:textAlignment="center"
+            android:textColor="@color/color_selector"
+            android:textSize="14sp" />
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
