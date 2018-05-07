@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+       >
+
+        <LinearLayout
+            android:id="@+id/llEducation"
+            android:background="@drawable/edittext_deselect_blue"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:layout_gravity="end"
+                android:src="@drawable/delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/tvUniversityName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@null"
+                android:hint=""
+                android:paddingLeft="5dp"
+                android:textSize="14sp"
+                android:text="fkkj"
+                android:gravity="start"
+                android:textColor="@color/black"
+                android:textColorHint="@color/white_off" />
+
+        <TextView
+            android:id="@+id/tvUniversityDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@null"
+            android:hint=""
+            android:padding="5dp"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:text="fkkj"
+            android:maxLength="500"
+            android:gravity="start"
+            android:textColor="@color/black"
+            android:textColorHint="@color/white_off" />
+
+
+</LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

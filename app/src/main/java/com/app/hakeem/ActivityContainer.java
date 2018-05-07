@@ -30,6 +30,7 @@ import com.app.hakeem.fragment.FragmentDoctorRegistrationStep4;
 import com.app.hakeem.fragment.FragmentDoctorsPatientList;
 import com.app.hakeem.fragment.FragmentEmrAndHealthTracker;
 import com.app.hakeem.fragment.FragmentLogin;
+import com.app.hakeem.fragment.FragmentManageDoctorProfile;
 import com.app.hakeem.fragment.FragmentOTP;
 import com.app.hakeem.fragment.FragmentPatientListForEmrAndHealthTracker;
 import com.app.hakeem.fragment.FragmentPatientProfile;
@@ -170,6 +171,15 @@ public class ActivityContainer extends AppCompatActivity {
                 fragment = new FragmentSupport();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_SUPPORT);
+                break;
+            case C.FRAGMENT_DOCTOR_PROFILE_MANAGE:
+                getSupportActionBar().show();
+                tvTitle.setText(R.string.doc_profile);
+                btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+                fragment = new FragmentManageDoctorProfile();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE_MANAGE);
                 break;
             case C.FRAGMENT_OTP:
                 getSupportActionBar().hide();

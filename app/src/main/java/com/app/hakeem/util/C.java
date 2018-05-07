@@ -41,6 +41,7 @@ public interface C {
     int FRAGMENT_PRESCRIPTION =53 ;
     int FRAGMENT_PATIENT_REGISTRATION_2 = 54;
     int FRAGMENT_SUPPORT =55 ;
+    int FRAGMENT_DOCTOR_PROFILE_MANAGE =56 ;
 
     String TAG_FRAGMENT_LOGIN = "fragment_login";
     String TAG_FRAGMENT_REGISTER_P_1 = "TAG_FRAGMENT_REGISTER_P_1";
@@ -135,6 +136,7 @@ public interface C {
 
     String API_REGISTER_TOKEN = BASE_URL + "/registration_ids";
     String API_MAKE_PAYMENT = BASE_URL + "/make_payment";
+    String API_GET_DOC_DATA = "/getdoctor";
 
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
     String USER = "user";
@@ -214,4 +216,5 @@ public interface C {
     String LANGUAGE ="language" ;
     String OBJECT ="object" ;
     String TAG_FRAGMENT_SUPPORT ="TAG_FRAGMENT_SUPPORT" ;
+    String TAG_FRAGMENT_DOCTOR_PROFILE_MANAGE ="TAG_FRAGMENT_DOCTOR_PROFILE_MANAGE" ;
 }

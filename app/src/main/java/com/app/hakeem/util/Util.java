@@ -718,7 +718,8 @@ public class Util {
             sideMenuItems.add(new SideMenuItem(R.string.emr_and_tracker, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.profile, R.drawable.icon_profile));
             sideMenuItems.add(new SideMenuItem(R.string.setting, R.drawable.icon_settting));
-            sideMenuItems.add(new SideMenuItem(R.string.need_help, R.drawable.icon_settting));
+            sideMenuItems.add(new SideMenuItem(R.string.need_help, R.drawable.question_mark));
+            sideMenuItems.add(new SideMenuItem(R.string.Doctor_Profile, R.drawable.icon_profile));
 
 //            sideMenuItems.add(new SideMenuItem(R.string.awareness, R.drawable.menu_general));
 //            sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));
@@ -728,7 +729,7 @@ public class Util {
             sideMenuItems.add(new SideMenuItem(R.string.emr_and_tracker, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.profile, R.drawable.icon_profile));
             sideMenuItems.add(new SideMenuItem(R.string.setting, R.drawable.icon_settting));
-            sideMenuItems.add(new SideMenuItem(R.string.need_help, R.drawable.icon_settting));
+            sideMenuItems.add(new SideMenuItem(R.string.need_help, R.drawable.question_mark));
 
 //            sideMenuItems.add(new SideMenuItem(R.string.awareness, R.drawable.menu_general));
 //            sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));

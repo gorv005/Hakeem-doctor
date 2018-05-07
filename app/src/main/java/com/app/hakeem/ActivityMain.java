@@ -227,6 +227,11 @@ public class ActivityMain extends AppCompatActivity
                     intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_SUPPORT);
                     startActivity(intent);
                 }
+                else if (sideMenuItem.getNameResourse() == R.string.Doctor_Profile) {
+                    Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_DOCTOR_PROFILE_MANAGE);
+                    startActivity(intent);
+                }
             }
         });
 

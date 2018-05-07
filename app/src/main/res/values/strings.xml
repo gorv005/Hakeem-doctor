@@ -663,5 +663,10 @@
     <string name="Technical_issue">Technical issue</string>
     <string name="Payments_issue">Payments issue</string>
     <string name="Other">Other</string>
+    <string name="About_Me">About me</string>
+    <string name="Education">Education</string>
+    <string name="Location">Location</string>
+    <string name="Years_Of_Experience">Years Of Experiance</string>
+    <string name="Doctor_Profile">Doctor\'s Profile</string>
 
 </resources>
