@@ -136,7 +136,7 @@ public interface C {
 
     String API_REGISTER_TOKEN = BASE_URL + "/registration_ids";
     String API_MAKE_PAYMENT = BASE_URL + "/make_payment";
-    String API_GET_DOC_DATA = "/getdoctor";
+    String API_GET_DOC_DATA = BASE_URL+"/getdoctor";
 
     String TAG_FRAGMENT_REGISTER_TYPE = "RegisterType";
     String USER = "user";

@@ -51,6 +51,8 @@ import java.util.List;
 public class ActivityContainer extends AppCompatActivity {
 
     public static TextView tvTitle;
+    public static TextView tvEdit;
+
     private Fragment fragment;
     private Bundle bundle;
     private int fragmentAction;
@@ -73,6 +75,8 @@ public class ActivityContainer extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvEdit = (TextView) findViewById(R.id.tvEdit);
+
         ivQuestionMark = (ImageView) findViewById(R.id.ivQuestionMark);
         btnAddDependent = (Button) findViewById(R.id.btnAddDependents);
         btnAddDependent.setOnClickListener(new View.OnClickListener() {
@@ -177,6 +181,7 @@ public class ActivityContainer extends AppCompatActivity {
                 tvTitle.setText(R.string.doc_profile);
                 btnAddDependent.setVisibility(View.GONE);
                 ivQuestionMark.setVisibility(View.GONE);
+                tvEdit.setVisibility(View.VISIBLE);
                 fragment = new FragmentManageDoctorProfile();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_DOCTOR_PROFILE_MANAGE);

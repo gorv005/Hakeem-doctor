@@ -10,6 +10,9 @@ import java.io.Serializable;
  */
 
 public class ExperienceDoc implements Serializable {
+    @SerializedName("exp_id")
+    @Expose
+    private String expId;
     @SerializedName("hospital_name")
     @Expose
     private String hospitalName;
@@ -21,7 +24,13 @@ public class ExperienceDoc implements Serializable {
     private String resignedSince;
     @SerializedName("description")
     @Expose
-    private Object description;
+    private String description;
+    @SerializedName("joining_date")
+    @Expose
+    private String joining_date;
+    @SerializedName("resigned_date")
+    @Expose
+    private String resigned_date;
 
     /**
      * No args constructor for use in serialization
@@ -37,7 +46,7 @@ public class ExperienceDoc implements Serializable {
      * @param hospitalName
      * @param resignedSince
      */
-    public ExperienceDoc(String hospitalName, String workedSince, String resignedSince, Object description) {
+    public ExperienceDoc(String hospitalName, String workedSince, String resignedSince, String description) {
         super();
         this.hospitalName = hospitalName;
         this.workedSince = workedSince;
@@ -69,11 +78,35 @@ public class ExperienceDoc implements Serializable {
         this.resignedSince = resignedSince;
     }
 
-    public Object getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Object description) {
+    public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getJoining_date() {
+        return joining_date;
+    }
+
+    public void setJoining_date(String joining_date) {
+        this.joining_date = joining_date;
+    }
+
+    public String getResigned_date() {
+        return resigned_date;
+    }
+
+    public void setResigned_date(String resigned_date) {
+        this.resigned_date = resigned_date;
+    }
+
+    public String getExpId() {
+        return expId;
+    }
+
+    public void setExpId(String expId) {
+        this.expId = expId;
     }
 }

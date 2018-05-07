@@ -7,6 +7,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
+        android:scaleType="centerInside"
         android:id="@+id/ivImageProfile"
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -18,6 +19,7 @@
         android:layout_height="wrap_content">
     <LinearLayout
         android:padding="20dp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -66,11 +68,11 @@
             android:padding="5dp"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
-            android:text="fkkj"
+            android:text=""
             android:maxLength="500"
             android:gravity="start"
             android:inputType="textEmailAddress"
-            android:textColor="@color/blue"
+            android:textColor="@color/black"
             android:textColorHint="@color/white_off" />
 
         <LinearLayout
@@ -91,6 +93,18 @@
                 android:text="@string/Education"
                 android:textColor="@color/blue"
                 android:textSize="16sp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/ivAddEducation"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="end"
+                android:layout_width="30dp"
+                android:tint="@color/blue"
+                android:src="@drawable/plus"
+                android:layout_height="30dp" />
+            </RelativeLayout>
         </LinearLayout>
 
         <ListView
@@ -154,12 +168,23 @@
                 android:text="@string/Years_Of_Experience"
                 android:textColor="@color/blue"
                 android:textSize="16sp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ivAddExperience"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:layout_width="30dp"
+                    android:tint="@color/blue"
+                    android:src="@drawable/plus"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
         </LinearLayout>
 
         <ListView
             android:id="@+id/lvExperiance"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"></ListView>
     </LinearLayout>
     </ScrollView>

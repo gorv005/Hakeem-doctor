@@ -668,5 +668,11 @@
     <string name="Location">Location</string>
     <string name="Years_Of_Experience">Years Of Experiance</string>
     <string name="Doctor_Profile">Doctor\'s Profile</string>
+    <string name="Description">Description</string>
+    <string name="description_required">We need a description</string>
+    <string name="Unversity_Name">University Name</string>
+    <string name="University_required">\"We need a University Name</string>
+    <string name="Edit">Edit</string>
+    <string name="save">Save</string>
 
 </resources>
