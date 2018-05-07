@@ -99,6 +99,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
                 break;
             case R.id.btnNeedHelp:
+                ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_SUPPORT, null);
+
                 break;
             case R.id.btnCreateAccount:
                 ((ActivityContainer) getActivity()).fragmnetLoader(C.FRAGMENT_REGISTRATION_TYPE, null);
@@ -280,6 +282,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
             etPassword.requestFocus();
             return false;
         }
+
 
         return true;
     }

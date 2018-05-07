@@ -657,5 +657,11 @@
     <string name="problem_type">Problem Type</string>
     <string name="problem_title">Problem Title</string>
     <string name="problem_desc">Problem description</string>
+    <string name="Problem_Type_required">We need a problem type</string>
+    <string name="Problem_Title_required">We need a problem title</string>
+    <string name="Problem_Description_required">We need a problem description</string>
+    <string name="Technical_issue">Technical issue</string>
+    <string name="Payments_issue">Payments issue</string>
+    <string name="Other">Other</string>
 
 </resources>

@@ -40,6 +40,7 @@ public interface C {
     int FRAGMENT_DIAGNOSIS = 52;
     int FRAGMENT_PRESCRIPTION =53 ;
     int FRAGMENT_PATIENT_REGISTRATION_2 = 54;
+    int FRAGMENT_SUPPORT =55 ;
 
     String TAG_FRAGMENT_LOGIN = "fragment_login";
     String TAG_FRAGMENT_REGISTER_P_1 = "TAG_FRAGMENT_REGISTER_P_1";
@@ -149,6 +150,7 @@ public interface C {
     String TAG_FRAGMENT_DEPENDENT = "tag_fragment_dependent";
     String TAG_FRAGMENT_ADD_INQUEU ="TAG_FRAGMENT_ADD_INQUEU" ;
     String USER_PATIENT = "3";
+    String API_SUPPORT = BASE_URL + "/support";
 
 
     String USER_DOCTOR = "2";
@@ -211,4 +213,5 @@ public interface C {
     String language="lan";
     String LANGUAGE ="language" ;
     String OBJECT ="object" ;
+    String TAG_FRAGMENT_SUPPORT ="TAG_FRAGMENT_SUPPORT" ;
 }

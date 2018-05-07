@@ -39,6 +39,7 @@ import com.app.hakeem.fragment.FragmentPrescriptionList;
 import com.app.hakeem.fragment.FragmentRegisterType;
 import com.app.hakeem.fragment.FragmentSetting;
 import com.app.hakeem.fragment.FragmentSplash;
+import com.app.hakeem.fragment.FragmentSupport;
 import com.app.hakeem.fragment.FragmentTermsAndCondition;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.SharedPreference;
@@ -160,6 +161,15 @@ public class ActivityContainer extends AppCompatActivity {
                 fragment = new FragmentTermsAndCondition();
                 fragmentTransaction.replace(R.id.container, fragment);
                 fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_TERMS_AND_CONDITION);
+                break;
+            case C.FRAGMENT_SUPPORT:
+                getSupportActionBar().hide();
+                tvTitle.setText(R.string.terms_and_condition);
+                btnAddDependent.setVisibility(View.GONE);
+                ivQuestionMark.setVisibility(View.GONE);
+                fragment = new FragmentSupport();
+                fragmentTransaction.replace(R.id.container, fragment);
+                fragmentTransaction.addToBackStack(C.TAG_FRAGMENT_SUPPORT);
                 break;
             case C.FRAGMENT_OTP:
                 getSupportActionBar().hide();

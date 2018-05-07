@@ -718,6 +718,8 @@ public class Util {
             sideMenuItems.add(new SideMenuItem(R.string.emr_and_tracker, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.profile, R.drawable.icon_profile));
             sideMenuItems.add(new SideMenuItem(R.string.setting, R.drawable.icon_settting));
+            sideMenuItems.add(new SideMenuItem(R.string.need_help, R.drawable.icon_settting));
+
 //            sideMenuItems.add(new SideMenuItem(R.string.awareness, R.drawable.menu_general));
 //            sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));
 
@@ -726,6 +728,8 @@ public class Util {
             sideMenuItems.add(new SideMenuItem(R.string.emr_and_tracker, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.profile, R.drawable.icon_profile));
             sideMenuItems.add(new SideMenuItem(R.string.setting, R.drawable.icon_settting));
+            sideMenuItems.add(new SideMenuItem(R.string.need_help, R.drawable.icon_settting));
+
 //            sideMenuItems.add(new SideMenuItem(R.string.awareness, R.drawable.menu_general));
 //            sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));
 
@@ -1113,6 +1117,49 @@ public class Util {
                 dialog.dismiss();
                 if (finishActivity) {
                     context.finish();
+                }
+
+            }
+        });
+
+
+        dialog.show();
+
+
+    }
+    public static void showAlertBackPress(final Activity context, String title, String msg, String btnText, int img, final boolean finishActivity) {
+
+
+        final LayoutInflater factory = LayoutInflater.from(context);
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_alert, null);
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(deleteDialogView);
+
+        dialog.setCancelable(false);
+
+        TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
+        tvMsg.setText(msg);
+
+        TextView tvTitle = (TextView) deleteDialogView.findViewById(R.id.tvTitle);
+        tvTitle.setText(title);
+        ImageView ivAlertImage = (ImageView) deleteDialogView.findViewById(R.id.ivAlertImage);
+        ivAlertImage.setImageResource(img);
+        Button btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
+        btnDone.setText(btnText);
+
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.dismiss();
+                if (finishActivity) {
+                    context.onBackPressed();
                 }
 
             }

@@ -222,7 +222,11 @@ public class ActivityMain extends AppCompatActivity
                     intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_SETTING);
                     startActivity(intent);
                 }
-
+                else if (sideMenuItem.getNameResourse() == R.string.need_help) {
+                    Intent intent = new Intent(ActivityMain.this, ActivityContainer.class);
+                    intent.putExtra(C.FRAGMENT_ACTION, C.FRAGMENT_SUPPORT);
+                    startActivity(intent);
+                }
             }
         });
 
