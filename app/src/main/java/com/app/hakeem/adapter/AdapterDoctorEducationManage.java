@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.pojo.Education;
 
@@ -65,13 +66,13 @@ public class AdapterDoctorEducationManage extends BaseAdapter {
         TextView tvUniversityName = (TextView)convertView.findViewById(R.id.tvUniversityName);
         TextView tvUniversityDesc = (TextView)convertView.findViewById(R.id.tvUniversityDesc);
         if(isEdit) {
-            llEducation.setBackgroundResource(R.drawable.edittext_deselect_blue);
+            //llEducation.setBackgroundResource(R.drawable.edittext_deselect_blue);
 
             ivDelete.setVisibility(View.VISIBLE);
             llEducation.setClickable(true);
         }
         else {
-            llEducation.setBackgroundResource(0);
+         //   llEducation.setBackgroundResource(R.drawable.card_background_selector);
             ivDelete.setVisibility(View.GONE);
             llEducation.setClickable(false);
         }
@@ -82,6 +83,12 @@ public class AdapterDoctorEducationManage extends BaseAdapter {
             public void onClick(View v) {
                 showAlertForConfirm(activity, activity.getString(R.string.delete), activity.getString(R.string.are_sure_you_want_to_delete), activity.getString(R.string.yes), activity.getString(R.string.no), R.drawable.warning, false,position);
 
+            }
+        });
+        llEducation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ActivityContainer)activity).openPopUpToEditEducation(position);
             }
         });
         return convertView;
@@ -145,10 +152,17 @@ public class AdapterDoctorEducationManage extends BaseAdapter {
     void deleteEducation(int pos){
         children.remove(pos);
         this.notifyDataSetChanged();
+        ((ActivityContainer)activity).setListView();
+
     }
    public void addItem(Education child) {
 
         this.children.add(child);
+        this.notifyDataSetChanged();
+    }
+    public void updateItem(int pos,Education child) {
+
+        this.children.set(pos,child);
         this.notifyDataSetChanged();
     }
 }

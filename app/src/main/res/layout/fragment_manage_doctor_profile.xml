@@ -7,18 +7,21 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
-        android:scaleType="centerInside"
+        android:scaleType="fitXY"
         android:id="@+id/ivImageProfile"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
          />
     <ScrollView
         android:layout_below="@+id/ivImageProfile"
         android:layout_width="match_parent"
-        android:fillViewport="true"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
     <LinearLayout
-        android:padding="20dp"
+        android:paddingTop="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_marginBottom="20dp"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
@@ -33,9 +36,8 @@
             android:hint=""
             android:padding="5dp"
             android:textSize="14sp"
-            android:text="fkkj"
+            android:text="@string/name"
             android:gravity="center"
-            android:inputType="textEmailAddress"
             android:textColor="@color/blue"
             android:textColorHint="@color/white_off" />
 
@@ -110,7 +112,9 @@
         <ListView
             android:id="@+id/lvEducation"
             android:layout_width="match_parent"
-
+            android:divider="@null"
+            android:background="@color/black"
+            android:dividerHeight="10dp"
             android:layout_height="wrap_content"></ListView>
 
         <LinearLayout
@@ -183,8 +187,12 @@
         </LinearLayout>
 
         <ListView
+            android:listSelector="@android:color/transparent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
             android:id="@+id/lvExperiance"
             android:layout_width="match_parent"
+            android:dividerHeight="10dp"
             android:layout_height="wrap_content"></ListView>
     </LinearLayout>
     </ScrollView>

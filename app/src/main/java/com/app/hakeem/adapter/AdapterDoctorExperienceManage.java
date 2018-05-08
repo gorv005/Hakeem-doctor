@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.pojo.ExperienceDoc;
 import com.app.hakeem.util.C;
@@ -72,7 +73,7 @@ public class AdapterDoctorExperienceManage extends BaseAdapter {
         tvHospitalnameName.setText(getItem(position).getHospitalName());
         tvExperienceDate.setText(Util.getDateFromFormats(getItem(position).getWorkedSince(), C.DATE_FORMAT_FOR_REPORT,C.DATE_FORMAT)+" - "+
                 Util.getDateFromFormats(getItem(position).getResignedSince(), C.DATE_FORMAT_FOR_REPORT,C.DATE_FORMAT));
-        tvExperienceDesc.setTextColor(activity.getResources().getColor(R.color.blue));
+        tvExperienceDesc.setText(getItem(position).getDescription());
         if(isEdit) {
             llExperience.setBackgroundResource(R.drawable.edittext_deselect_blue);
 
@@ -80,7 +81,7 @@ public class AdapterDoctorExperienceManage extends BaseAdapter {
             llExperience.setClickable(true);
         }
         else {
-            llExperience.setBackgroundResource(0);
+            llExperience.setBackgroundResource(R.drawable.card_background_selector);
             ivDelete.setVisibility(View.GONE);
             llExperience.setClickable(false);
         }
@@ -89,6 +90,12 @@ public class AdapterDoctorExperienceManage extends BaseAdapter {
             public void onClick(View v) {
                 showAlertForConfirm(activity, activity.getString(R.string.delete), activity.getString(R.string.are_sure_you_want_to_delete), activity.getString(R.string.yes), activity.getString(R.string.no), R.drawable.warning, false,position);
 
+            }
+        });
+        llExperience.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ActivityContainer)activity).openPopUpToUpdateExperience(position);
             }
         });
         return convertView;
@@ -152,10 +159,17 @@ public class AdapterDoctorExperienceManage extends BaseAdapter {
     void deleteExperience(int pos){
         children.remove(pos);
         this.notifyDataSetChanged();
+        ((ActivityContainer)activity).setListView();
+
     }
    public void addItem(ExperienceDoc child) {
 
         this.children.add(child);
+        this.notifyDataSetChanged();
+    }
+    public void updateItem(int pos, ExperienceDoc child) {
+
+        this.children.set(pos,child);
         this.notifyDataSetChanged();
     }
 }

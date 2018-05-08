@@ -8,9 +8,8 @@
     <RelativeLayout
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
 
-        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
        >
 
@@ -25,8 +24,8 @@
                 android:id="@+id/ivDelete"
                 android:layout_gravity="end"
                 android:src="@drawable/delete"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
             <TextView
                 android:id="@+id/tvUniversityName"
                 android:layout_width="match_parent"
@@ -34,6 +33,7 @@
                 android:layout_centerHorizontal="true"
                 android:background="@null"
                 android:hint=""
+                android:maxLines="1"
                 android:paddingLeft="5dp"
                 android:textSize="14sp"
                 android:text="fkkj"
@@ -48,10 +48,12 @@
             android:layout_centerHorizontal="true"
             android:background="@null"
             android:hint=""
+
+            android:maxLines="2"
             android:padding="5dp"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
-            android:text="fkkj"
+            android:text="hjjh"
             android:maxLength="500"
             android:gravity="start"
             android:textColor="@color/black"

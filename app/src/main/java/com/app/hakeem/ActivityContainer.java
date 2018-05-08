@@ -373,7 +373,24 @@ public class ActivityContainer extends AppCompatActivity {
             ((FragmentEmrAndHealthTracker) fragment).fragmnetLoader(frag, bundle);
         }
     }
-
+    public void openPopUpToEditEducation(int pos) {
+        fragment = getVisibleFragment();
+        if (fragment != null && fragment instanceof FragmentManageDoctorProfile) {
+            ((FragmentManageDoctorProfile) fragment).openPopUpToEditEducation(pos);
+        }
+    }
+    public void setListView() {
+        fragment = getVisibleFragment();
+        if (fragment != null && fragment instanceof FragmentManageDoctorProfile) {
+            ((FragmentManageDoctorProfile) fragment).setListView();
+        }
+    }
+    public void openPopUpToUpdateExperience(int pos) {
+        fragment = getVisibleFragment();
+        if (fragment != null && fragment instanceof FragmentManageDoctorProfile) {
+            ((FragmentManageDoctorProfile) fragment).openPopUpToUpdateExperience(pos);
+        }
+    }
     private Fragment getVisibleFragment() {
         FragmentManager fragmentManager = ActivityContainer.this.getSupportFragmentManager();
         @SuppressLint("RestrictedApi") List<Fragment> fragments = fragmentManager.getFragments();
