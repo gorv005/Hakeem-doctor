@@ -43,8 +43,11 @@ import com.app.hakeem.adapter.AdapterDoctorExperienceManage;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.CityList;
 import com.app.hakeem.pojo.DoctorProfile;
+import com.app.hakeem.pojo.DoctorProfileData;
 import com.app.hakeem.pojo.Education;
 import com.app.hakeem.pojo.ExperienceDoc;
+import com.app.hakeem.pojo.Response;
+import com.app.hakeem.pojo.Support;
 import com.app.hakeem.pojo.UploadFileRes;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
@@ -117,9 +120,8 @@ public class FragmentManageDoctorProfile extends Fragment {
     Uri contentURI;
     String filePath;
     private AdapterCityList adapter;
-
+    DoctorProfile doctorProfile;
     private ProgressDialog mProgressDialog;
-
     public FragmentManageDoctorProfile() {
         // Required empty public constructor
     }
@@ -142,7 +144,6 @@ public class FragmentManageDoctorProfile extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         Util.hideSoftKeyboardFromDialog(getActivity(),view);
-
         imageLoader=new ImageLoader(getActivity());
         ivAddEducation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,15 +189,12 @@ public class FragmentManageDoctorProfile extends Fragment {
                     setListView();
                 }
                 else {
-                    ActivityContainer.tvEdit.setText(getString(R.string.Edit));
-                    disableViews();
-
-                    adapterDoctorExperienceManage=new AdapterDoctorExperienceManage(getActivity(),adapterDoctorExperienceManage.getAllItem(),isEdit);
-                    lvExperiance.setAdapter(adapterDoctorExperienceManage);
-                    adapterDoctorEducationManage=new AdapterDoctorEducationManage(getActivity(),adapterDoctorEducationManage.getAllItem(),isEdit);
-                    lvEducation.setAdapter(adapterDoctorEducationManage);
-                    setListView();
-                    new UploadFileFroURL(getActivity()).execute(filePath);
+                    if(isImageSelected) {
+                        new UploadFileFroURL(getActivity()).execute(filePath);
+                    }
+                    else {
+                        getProfileData(doctorProfile.getData().getUrl());
+                    }
 
                 }
             }
@@ -372,20 +370,86 @@ public class FragmentManageDoctorProfile extends Fragment {
             UploadFileRes fileRes = gson.fromJson(result, UploadFileRes.class);
             if (fileRes.getStatusCode().equals(C.STATUS_SUCCESS)) {
                 //doctorRegistration.setPhoto(fileRes.getUrls().getPhoto());
-
+                getProfileData(fileRes.getUrls().getPhoto());
             }
         }
 
-        private String renameFile(String fileName) {
-            Random random = new Random();
-            int num = 1000 + random.nextInt(9999);
-            String newFileName = "LR" + System.currentTimeMillis() + num + "." + fileName;
-            return newFileName;
+
+
+
+
+    }
+    void getProfileData(String url){
+        DoctorProfileData doctorProfileData=new DoctorProfileData();
+
+        doctorProfileData.setFname(etUserName.getText().toString());
+        doctorProfileData.setDoctorIid(SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
+        doctorProfileData.setAboutMe(etAbountMe.getText().toString());
+        doctorProfileData.setEducation(adapterDoctorEducationManage.getAllItem());
+        doctorProfileData.setExperience(adapterDoctorExperienceManage.getAllItem());
+        doctorProfileData.setUrl(url);
+        doctorProfileData.setLocation(tvLocation.getText().toString());
+
+        postProfile(doctorProfileData);
+    }
+    private void postProfile(final DoctorProfileData doctorProfileData) {
+
+        dialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(doctorProfileData);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.e("Response :", response.toString());
+                dialog.dismiss();
+
+                try {
+                    Gson gson = new Gson();
+                    Response responseLogin = gson.fromJson(response.toString(), Response.class);
+                    if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                        disableViews();
+                        //  getDocData();
+                        Util.showAlertBackPress(getActivity(),getString(R.string.success),responseLogin.getMessage(),getString(R.string.ok),R.drawable.success,true);
+
+                    } else {
+                        Util.showAlert(getActivity(), getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.error);
+                    }
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+                dialog.dismiss();
+                Log.e("Response :", error.toString());
+
+            }
+        }, "login", C.API_UPDATE_PROFILE_DOCTOR, Util.getHeader(getActivity()), obj);
 
 
     }
 
+    private String renameFile(String fileName) {
+        Random random = new Random();
+        int num = 1000 + random.nextInt(9999);
+        String newFileName = "LR" + System.currentTimeMillis() + num + "." + fileName;
+        return newFileName;
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -450,6 +514,14 @@ public class FragmentManageDoctorProfile extends Fragment {
         isEdit=false;
         Util.hideSoftKeyboard(getActivity());
         Util.hideSoftKeyboard(getActivity());
+
+        ActivityContainer.tvEdit.setText(getString(R.string.Edit));
+
+        adapterDoctorExperienceManage=new AdapterDoctorExperienceManage(getActivity(),adapterDoctorExperienceManage.getAllItem(),isEdit);
+        lvExperiance.setAdapter(adapterDoctorExperienceManage);
+        adapterDoctorEducationManage=new AdapterDoctorEducationManage(getActivity(),adapterDoctorEducationManage.getAllItem(),isEdit);
+        lvEducation.setAdapter(adapterDoctorEducationManage);
+        setListView();
 
         //viewUploadImage.setClickable(false);
         etUserName.setEnabled(false);
@@ -663,7 +735,7 @@ public class FragmentManageDoctorProfile extends Fragment {
 
                 if (isAllVaildDetailOfEducation()) {
                     Education education=new Education();
-                    education.setEduId("");
+                    education.setEduId("na");
 
                     education.setUniversityName(etUniversityName.getText().toString());
                     education.setDescription(etDescription.getText().toString());
@@ -783,7 +855,7 @@ public class FragmentManageDoctorProfile extends Fragment {
 
                 if (isAllVaildDetailOfExp()) {
                     ExperienceDoc experience=new ExperienceDoc();
-                    experience.setExpId("");
+                    experience.setExpId("na");
                     experience.setHospitalName(etHospitalName.getText().toString());
                     experience.setWorkedSince(Util.getDateFromString(etWorkingSince.getText().toString()));
                     experience.setResignedSince(Util.getDateFromString(etResignedSince.getText().toString()));
@@ -880,7 +952,7 @@ public class FragmentManageDoctorProfile extends Fragment {
 
                 try {
                     Gson gson = new Gson();
-                    DoctorProfile doctorProfile = gson.fromJson(response.toString(), DoctorProfile.class);
+                     doctorProfile = gson.fromJson(response.toString(), DoctorProfile.class);
                     if (doctorProfile.getStatusCode().equals(C.STATUS_SUCCESS)) {
                         imageLoader.DisplayImage(doctorProfile.getData().getUpload(),ivImageProfile);
                         etUserName.setText(getString(R.string.dr)+""+doctorProfile.getData().getName());

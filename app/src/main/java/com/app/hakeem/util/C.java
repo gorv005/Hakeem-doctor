@@ -153,6 +153,7 @@ public interface C {
     String TAG_FRAGMENT_ADD_INQUEU ="TAG_FRAGMENT_ADD_INQUEU" ;
     String USER_PATIENT = "3";
     String API_SUPPORT = BASE_URL + "/support";
+    String API_UPDATE_PROFILE_DOCTOR = BASE_URL + "/updatedoctor";
 
 
     String USER_DOCTOR = "2";
