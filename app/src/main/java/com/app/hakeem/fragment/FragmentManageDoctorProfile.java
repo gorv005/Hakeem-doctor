@@ -33,6 +33,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.hakeem.ActivityContainer;
@@ -94,9 +95,11 @@ public class FragmentManageDoctorProfile extends Fragment {
     @BindView(R.id.ivImageProfile)
     ImageView ivImageProfile;
     @BindView(R.id.ivAddExperience)
-    ImageView ivAddExperience;
+    TextView ivAddExperience;
     @BindView(R.id.ivAddEducation)
-    ImageView ivAddEducation;
+    TextView ivAddEducation;
+    @BindView(R.id.rlProfile)
+    RelativeLayout rlProfile;
     private Dialog dialog;
     AdapterDoctorExperienceManage adapterDoctorExperienceManage;
     AdapterDoctorEducationManage adapterDoctorEducationManage;
@@ -193,7 +196,7 @@ public class FragmentManageDoctorProfile extends Fragment {
                         new UploadFileFroURL(getActivity()).execute(filePath);
                     }
                     else {
-                        getProfileData(doctorProfile.getData().getUrl());
+                        getProfileData(doctorProfile.getData().getUpload());
                     }
 
                 }
@@ -381,11 +384,19 @@ public class FragmentManageDoctorProfile extends Fragment {
     }
     void getProfileData(String url){
         DoctorProfileData doctorProfileData=new DoctorProfileData();
+        if(etUserName.getText().toString().contains(getString(R.string.dr))) {
+          String s=  etUserName.getText().toString().replaceAll(getString(R.string.dr),"");
+            doctorProfileData.setFname(s);
+        }
+        else {
+            doctorProfileData.setFname(etUserName.getText().toString());
 
-        doctorProfileData.setFname(etUserName.getText().toString());
+        }
+        doctorProfileData.setLname(" ");
+
         doctorProfileData.setDoctorIid(SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
         doctorProfileData.setAboutMe(etAbountMe.getText().toString());
-        doctorProfileData.setEducation(adapterDoctorEducationManage.getAllItem());
+            doctorProfileData.setEducation(adapterDoctorEducationManage.getAllItem());
         doctorProfileData.setExperience(adapterDoctorExperienceManage.getAllItem());
         doctorProfileData.setUrl(url);
         doctorProfileData.setLocation(tvLocation.getText().toString());
@@ -403,6 +414,11 @@ public class FragmentManageDoctorProfile extends Fragment {
         JSONObject obj = null;
         try {
             obj = new JSONObject(json);
+            for(int i=0;i<obj.getJSONArray("experience").length();i++){
+                obj.getJSONArray("experience").getJSONObject(i).remove("worked_since");
+                obj.getJSONArray("experience").getJSONObject(i).remove("resigned_since");
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -420,7 +436,7 @@ public class FragmentManageDoctorProfile extends Fragment {
                     if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
                         disableViews();
                         //  getDocData();
-                        Util.showAlertBackPress(getActivity(),getString(R.string.success),responseLogin.getMessage(),getString(R.string.ok),R.drawable.success,true);
+                        Util.showAlertForToast(getActivity(),getString(R.string.success),responseLogin.getMessage(),getString(R.string.ok),R.drawable.success,false);
 
                     } else {
                         Util.showAlert(getActivity(), getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.error);
@@ -954,8 +970,14 @@ public class FragmentManageDoctorProfile extends Fragment {
                     Gson gson = new Gson();
                      doctorProfile = gson.fromJson(response.toString(), DoctorProfile.class);
                     if (doctorProfile.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                        rlProfile.setVisibility(View.VISIBLE);
                         imageLoader.DisplayImage(doctorProfile.getData().getUpload(),ivImageProfile);
-                        etUserName.setText(getString(R.string.dr)+""+doctorProfile.getData().getName());
+                        if(!doctorProfile.getData().getName().contains(getString(R.string.dr))) {
+                            etUserName.setText(getString(R.string.dr) + "" + doctorProfile.getData().getName());
+                        }
+                        else {
+                            etUserName.setText(doctorProfile.getData().getName());
+                        }
                         tvLocation.setText(doctorProfile.getData().getHomeLocation());
                         etAbountMe.setText(doctorProfile.getData().getAboutMe());
                         for (int i=0;i<doctorProfile.getData().getEducation().size();i++) {
@@ -971,6 +993,8 @@ public class FragmentManageDoctorProfile extends Fragment {
                       //  Util.showAlertBackPress(getActivity(),getString(R.string.success),doctorProfile.getMessage(),getString(R.string.ok),R.drawable.success,true);
 
                     } else {
+                        rlProfile.setVisibility(View.GONE);
+
                         Util.showAlert(getActivity(), getString(R.string.error), doctorProfile.getMessage(), getString(R.string.ok), R.drawable.error);
                     }
 

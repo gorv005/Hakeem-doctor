@@ -20,7 +20,7 @@
             android:orientation="vertical"
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/ivDelete"
@@ -41,6 +41,7 @@
                 android:layout_centerHorizontal="true"
                 android:background="@null"
                 android:hint=""
+                android:layout_gravity="start"
                 android:textSize="14sp"
                 android:text="fkkj"
                 android:gravity="start"
@@ -66,16 +67,16 @@
         <TextView
             android:id="@+id/tvExperienceDesc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:background="@null"
             android:hint=""
             android:padding="5dp"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
-            android:text="fkkj kh hkdhj hlfgj lkjfgj hj lf;dtykdyj ;jkrtyjrkyj kljrtyyr;ljty ljkhgfjh f;lfdfsf shhghh;sg"
+            android:text="sdsdg"
             android:maxLength="500"
-            android:gravity="start"
+            android:gravity="bottom"
             android:textColor="@color/black"
             android:textColorHint="@color/white_off" />
 

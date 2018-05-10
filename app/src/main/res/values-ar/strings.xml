@@ -101,9 +101,9 @@
     <string name="network_error">يوجد مشكلة في شبكة الاتصال ... حاول مرة اخرى</string>
     <string name="please_connect_to_the_internet">فضلا اتصل بالشبكة أولا</string>
     <string name="health_tracker">متابعة الحالة الصحية</string>
-    <string name="emr_tracker">السجل الطبي و متابعة الحالة الصحية</string>
+    <string name="emr_tracker">ملفي و متابعة الحالة الصحية</string>
     <string name="Consultation">استشارة</string>
-    <string name="emr">السجل الطبي</string>
+    <string name="emr">ملفي</string>
     <string name="birthdate">تاريخ الميلاد</string>
     <string name="weight">الوزن</string>
     <string name="height">الطول</string>
@@ -210,7 +210,7 @@
     <string name="abodminal">الباطنة</string>
     <string name="pediatric">أطفال</string>
     <string name="search_phrase">بحث</string>
-    <string name="emr_log">سجل الملف الطبي</string>
+    <string name="emr_log">سجل ملفي</string>
     <string name="chat_ended">نهاية المحادثة مع الطبيب</string>
     <string name="for_more_info">لمزيد من التعليمات حول استخدام متابعة الحالة الصحية في TatabApp يرجى زيارة www.tatabapp.com</string>
     <string name="heartRate">معدل ضربات القلب</string>

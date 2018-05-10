@@ -175,7 +175,7 @@ public class FragmentHTWeightReport extends Fragment {
 
       Button  btnSubmit = (Button) deleteDialogView.findViewById(R.id.btnSubmit);
         final List weight = new ArrayList<Integer>();
-        for (int i = 20; i <= 269; i++) {
+        for (int i = 1; i <= 269; i++) {
             weight.add(Integer.toString(i));
         }
         final List<String> weightList = new ArrayList<>(weight);

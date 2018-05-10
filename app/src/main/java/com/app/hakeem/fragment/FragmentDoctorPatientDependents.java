@@ -124,25 +124,31 @@ public class FragmentDoctorPatientDependents extends Fragment {
             @Override
             public void notifySuccess(String requestType, JSONObject response) {
                 progressDialog.dismiss();
-                DependentList responseServer = gson.fromJson(response.toString(), DependentList.class);
-                if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                try {
 
-                    patient=responseServer.getPatient();
-                    childLis=patient.getChildrens();
-                    Child child=new Child();
-                    child.setName(patient.getName());
-                    child.setChildId(patient.getId());
-                    child.setDob(patient.getDob());
-                    child.setGender(patient.getGender());
-                    child.setRelation("Main");
-                    childLis.add(0,child);
-                    AdapterDoctorPatientsDependentList adapterPatientList = new AdapterDoctorPatientsDependentList(getActivity(), childLis);
-                    lvPatient.setAdapter(adapterPatientList);
+                    DependentList responseServer = gson.fromJson(response.toString(), DependentList.class);
+                    if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
 
-                } else {
-                    //Util.showToast(getActivity(), responseServer.getMessage(), false);
-                    Util.showAlertForToast(getActivity(),getString(R.string.error),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+                        patient = responseServer.getPatient();
+                        childLis = patient.getChildrens();
+                        Child child = new Child();
+                        child.setName(patient.getName());
+                        child.setChildId(patient.getId());
+                        child.setDob(patient.getDob());
+                        child.setGender(patient.getGender());
+                        child.setRelation("Main");
+                        childLis.add(0, child);
+                        AdapterDoctorPatientsDependentList adapterPatientList = new AdapterDoctorPatientsDependentList(getActivity(), childLis);
+                        lvPatient.setAdapter(adapterPatientList);
 
+                    } else {
+                        //Util.showToast(getActivity(), responseServer.getMessage(), false);
+                        Util.showAlertForToast(getActivity(), getString(R.string.error), responseServer.getMessage(), getString(R.string.ok), R.drawable.warning, false);
+
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
                 }
             }
 

@@ -1,20 +1,27 @@
 package com.app.hakeem.fragment;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
+import com.app.hakeem.adapter.AdapterCityList;
+import com.app.hakeem.pojo.CityList;
 import com.app.hakeem.pojo.DoctorRegistration;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.Util;
+import com.google.gson.Gson;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,11 +38,13 @@ public class FragmentDocterRegistrationStep2 extends Fragment {
     @BindView(R.id.etWorkPlace)
     EditText etWorkPlace;
     @BindView(R.id.etHomeLocation)
-    EditText etHomeLocation;
+    TextView etHomeLocation;
     @BindView(R.id.etIdCard)
     EditText etIdCard;
     @BindView(R.id.btnContinue)
     Button btnContinue;
+    private AdapterCityList adapter;
+
     DoctorRegistration doctorRegistration;
     public FragmentDocterRegistrationStep2() {
         // Required empty public constructor
@@ -79,9 +88,44 @@ public class FragmentDocterRegistrationStep2 extends Fragment {
                 }
             }
         });
+
+        etHomeLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCitySelector();
+            }
+        });
     }
 
+    private void openCitySelector() {
 
+
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.pop_up_city_list);
+        dialog.setTitle(R.string.select_city);
+
+        if (adapter == null) {
+            String city = Util.loadCityJson(getActivity());
+
+            Gson gson = new Gson();
+
+            CityList cityList = gson.fromJson(city, CityList.class);
+            adapter = new AdapterCityList(getActivity(), cityList.getCities());
+        }
+        ListView lvCities = (ListView) dialog.findViewById(R.id.List);
+        lvCities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                etHomeLocation.setText(adapter.getItem(position).getName());
+                dialog.dismiss();
+            }
+        });
+        lvCities.setAdapter(adapter);
+        dialog.show();
+
+
+    }
     public boolean isAllValid() {
 
         if (etNationalaty.getText().toString().length() == 0) {

@@ -178,7 +178,7 @@ public class ActivityContainer extends AppCompatActivity {
                 break;
             case C.FRAGMENT_DOCTOR_PROFILE_MANAGE:
                 getSupportActionBar().show();
-                tvTitle.setText(R.string.doc_profile);
+                tvTitle.setText(R.string.Doctor_Profile);
                 btnAddDependent.setVisibility(View.GONE);
                 ivQuestionMark.setVisibility(View.GONE);
                 tvEdit.setVisibility(View.VISIBLE);

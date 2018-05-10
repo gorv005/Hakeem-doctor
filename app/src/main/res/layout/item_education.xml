@@ -14,11 +14,12 @@
        >
 
         <LinearLayout
+
             android:id="@+id/llEducation"
             android:background="@drawable/edittext_deselect_blue"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/ivDelete"
@@ -44,16 +45,17 @@
         <TextView
             android:id="@+id/tvUniversityDesc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:background="@null"
             android:hint=""
+
             android:padding="5dp"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
-            android:text="hjjh lkjgf gkjlg ;sdhj; sfgjkdgjsglglgkshghkg lhlgh dsghg hdkfgklg jkldfgjkdgklkdggkjl gh;lshjk;h ;lkhgfhlj fghj fhl;kfghlfgh"
+            android:text="hfj"
             android:maxLength="500"
-            android:gravity="start"
+            android:gravity="bottom"
             android:textColor="@color/black"
             android:textColorHint="@color/white_off" />
 

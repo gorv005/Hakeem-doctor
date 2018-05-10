@@ -195,7 +195,7 @@ public class FragmentConsultantList extends Fragment {
                     } else if (consultationType.getStatusCode().equals(C.STATUS_MAKE_PAYMENT)) {
                         doPayment();
                     } else {
-                        Util.showAlert(getActivity(), getString(R.string.error), consultationType.getMessage(), getString(R.string.ok), R.drawable.error);
+                        Util.showAlert(getActivity(), getString(R.string.alert), consultationType.getMessage(), getString(R.string.ok), R.drawable.warning);
                     }
 
                 } catch (Exception e) {

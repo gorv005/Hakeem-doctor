@@ -71,8 +71,8 @@ public class AdapterDoctorExperienceManage extends BaseAdapter {
 
 
         tvHospitalnameName.setText(getItem(position).getHospitalName());
-        tvExperienceDate.setText(Util.getDateFromFormats(getItem(position).getWorkedSince(), C.DATE_FORMAT_FOR_REPORT,C.DATE_FORMAT)+" - "+
-                Util.getDateFromFormats(getItem(position).getResignedSince(), C.DATE_FORMAT_FOR_REPORT,C.DATE_FORMAT));
+        tvExperienceDate.setText(Util.getDateFromFormats(getItem(position).getWorkedSince(), C.DATE_FORMAT_FOR_REPORT,C.DATE_FORMAT).split("/")[2]+" - "+
+                Util.getDateFromFormats(getItem(position).getResignedSince(), C.DATE_FORMAT_FOR_REPORT,C.DATE_FORMAT).split("/")[2]);
         tvExperienceDesc.setText(getItem(position).getDescription());
         if(isEdit) {
             llExperience.setBackgroundResource(R.drawable.edittext_deselect_blue);
@@ -95,7 +95,9 @@ public class AdapterDoctorExperienceManage extends BaseAdapter {
         llExperience.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ActivityContainer)activity).openPopUpToUpdateExperience(position);
+                if(isEdit) {
+                    ((ActivityContainer) activity).openPopUpToUpdateExperience(position);
+                }
             }
         });
         return convertView;

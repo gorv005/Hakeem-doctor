@@ -94,6 +94,8 @@ public class ActivityMain extends AppCompatActivity
     RelativeLayout rlBottam;
     @BindView(R.id.tvEmail)
     TextView tvEmail;
+    @BindView(R.id.tvName)
+    TextView tvName;
     @BindView(R.id.ivProfileImage)
     ImageView ivProfileImage;
     @BindView(R.id.imgProfile)
@@ -430,6 +432,14 @@ public class ActivityMain extends AppCompatActivity
 
             rlBottam.setVisibility(View.VISIBLE);
             tvEmail.setText(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getEmail());
+            if(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)) {
+                tvName.setText(getString(R.string.dr)+SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getFirstName());
+            }
+            else {
+                tvName.setText(SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getFirstName());
+
+            }
+
             adapterSideMenu = new AdapterSideMenu(this, Util.getSideMenuList(SharedPreference.getInstance(this).getBoolean(C.IS_LOGIN), SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserType()));
         } else {
             rlBottam.setVisibility(View.GONE);

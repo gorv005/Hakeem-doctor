@@ -67,12 +67,13 @@ public class AdapterDoctorEducationManage extends BaseAdapter {
         TextView tvUniversityDesc = (TextView)convertView.findViewById(R.id.tvUniversityDesc);
         if(isEdit) {
             //llEducation.setBackgroundResource(R.drawable.edittext_deselect_blue);
+            llEducation.setBackgroundResource(R.drawable.edittext_deselect_blue);
 
             ivDelete.setVisibility(View.VISIBLE);
             llEducation.setClickable(true);
         }
         else {
-         //   llEducation.setBackgroundResource(R.drawable.card_background_selector);
+            llEducation.setBackgroundResource(R.drawable.card_background_selector);
             ivDelete.setVisibility(View.GONE);
             llEducation.setClickable(false);
         }
@@ -88,7 +89,9 @@ public class AdapterDoctorEducationManage extends BaseAdapter {
         llEducation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ActivityContainer)activity).openPopUpToEditEducation(position);
+                if(isEdit) {
+                    ((ActivityContainer) activity).openPopUpToEditEducation(position);
+                }
             }
         });
         return convertView;
