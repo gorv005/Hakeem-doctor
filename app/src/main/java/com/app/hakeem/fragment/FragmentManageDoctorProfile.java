@@ -20,7 +20,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +47,6 @@ import com.app.hakeem.pojo.DoctorProfileData;
 import com.app.hakeem.pojo.Education;
 import com.app.hakeem.pojo.ExperienceDoc;
 import com.app.hakeem.pojo.Response;
-import com.app.hakeem.pojo.Support;
 import com.app.hakeem.pojo.UploadFileRes;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
@@ -133,6 +131,7 @@ public class FragmentManageDoctorProfile extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -146,6 +145,7 @@ public class FragmentManageDoctorProfile extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+
         Util.hideSoftKeyboardFromDialog(getActivity(),view);
         imageLoader=new ImageLoader(getActivity());
         ivAddEducation.setOnClickListener(new View.OnClickListener() {
@@ -177,7 +177,21 @@ public class FragmentManageDoctorProfile extends Fragment {
             }
         });
         disableViews();
-        getDocData();
+        if(getArguments()!=null) {
+            String docId = getArguments().getString(C.CHAT_DOCTOR_ID);
+            if (docId != null) {
+                getDocData(docId);
+
+
+            } else {
+                getDocData(SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
+
+            }
+        }
+        else {
+            getDocData(SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId());
+
+        }
 
         ActivityContainer.tvEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -943,13 +957,13 @@ public class FragmentManageDoctorProfile extends Fragment {
 
     }
 
-    private void getDocData() {
+    private void getDocData(String docId) {
 
         dialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
         dialog.setCancelable(false);
         dialog.show();
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("doctor_id", SharedPreference.getInstance(getActivity()).getUser(C.LOGIN_USER).getUserId() + "");
+        hashMap.put("doctor_id",  docId);
         final Gson gson = new Gson();
         String json = gson.toJson(hashMap);
         JSONObject obj = null;

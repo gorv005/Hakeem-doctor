@@ -1,6 +1,7 @@
 package com.app.hakeem.adapter;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
 import com.app.hakeem.pojo.OnlineDoctor;
+import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
 
 import java.util.ArrayList;
@@ -48,12 +51,13 @@ public class AdapterConsultant extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             convertView = mInflater.inflate(
                     R.layout.item_consultant, parent, false);
         }
+        ImageView ivDocImage = (ImageView) convertView.findViewById(R.id.ivDoctor);
 
         TextView tvDoctorName = (TextView) convertView.findViewById(R.id.tvDoctorName);
         TextView tvSpeciality = (TextView) convertView.findViewById(R.id.tvDrSpeciality);
@@ -61,7 +65,15 @@ public class AdapterConsultant extends BaseAdapter {
         tvDoctorName.setText(getItem(position).getFirstName()+" ");
         tvSpeciality.setText(getItem(position).getClassification());
         tvSubSpeciality.setText(getItem(position).getSubSpecialist());
-        imageLoader.DisplayImage(getItem(position).getPhoto(),(ImageView) convertView.findViewById(R.id.ivDoctor));
+        imageLoader.DisplayImage(getItem(position).getPhoto(),ivDocImage);
+        ivDocImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle=new Bundle();
+                bundle.putString(C.CHAT_DOCTOR_ID,""+getItem(position).getDoctorId());
+                ((ActivityContainer)activity).fragmnetLoader(C.FRAGMENT_DOCTOR_PROFILE_MANAGE,bundle);
+            }
+        });
         return convertView;
     }
 }
