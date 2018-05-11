@@ -635,7 +635,7 @@
     <string name="working_till">Worked Till</string>
 
 
-    <string name="tech_support_request">Technical Support Request</string>
+    <string name="tech_support_request">طلب دعم فني </string>
     <string name="problem_type">نوع المشكلة</string>
     <string name="problem_title">عنوان المشكلة</string>
     <string name="problem_desc">وصف المشكلة</string>
