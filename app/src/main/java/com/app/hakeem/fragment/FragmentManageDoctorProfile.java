@@ -180,6 +180,7 @@ public class FragmentManageDoctorProfile extends Fragment {
         if(getArguments()!=null) {
             String docId = getArguments().getString(C.CHAT_DOCTOR_ID);
             if (docId != null) {
+                ActivityContainer.tvEdit.setVisibility(View.GONE);
                 getDocData(docId);
 
 
