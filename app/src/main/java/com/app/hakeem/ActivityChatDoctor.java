@@ -353,7 +353,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
                     if (responseLogin.getStatusCode().equals(C.STATUS_SUCCESS)) {
                         Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.success), responseLogin.getMessage(), getString(R.string.ok), R.drawable.success, false);
                     } else {
-                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.error, false);
+                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.alert), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, false);
                     }
 
                 } catch (Exception e) {
@@ -472,7 +472,7 @@ public class ActivityChatDoctor extends AppCompatActivity {
                         cbFollowUp.setChecked(responseLogin.getData().getIsFollow().equals("true") ? true : false);
 
                     } else {
-                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.error, false);
+                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.alert), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, false);
                     }
 
                 } catch (Exception e) {
@@ -584,7 +584,14 @@ public class ActivityChatDoctor extends AppCompatActivity {
                         getFollowUp();
                         loadChatOnConnect();
                     } else {
-                        Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.error), responseLogin.getMessage(), getString(R.string.ok), R.drawable.error, true);
+                        if(responseLogin.getMessage().trim().equalsIgnoreCase("Not found in queue ".trim())){
+                            Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.alert), getString(R.string.Queue_is_empty), getString(R.string.ok), R.drawable.warning, true);
+
+                        }
+                        else {
+                            Util.showAlertForToast(ActivityChatDoctor.this, getString(R.string.alert), responseLogin.getMessage(), getString(R.string.ok), R.drawable.warning, true);
+
+                        }
                         btnSend.setEnabled(false);
                         btnAttach.setEnabled(false);
                         btnCamera.setEnabled(false);

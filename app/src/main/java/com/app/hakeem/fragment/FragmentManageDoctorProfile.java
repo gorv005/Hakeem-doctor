@@ -560,7 +560,7 @@ public class FragmentManageDoctorProfile extends Fragment {
         etAbountMe.setEnabled(false);
         tvLocation.setEnabled(false);
         etUserName.setBackgroundResource(0);
-        etAbountMe.setBackgroundResource(0);
+        etAbountMe.setBackgroundResource(R.drawable.card_background_selector);
         tvLocation.setBackgroundResource(0);
         ivAddExperience.setVisibility(View.GONE);
         ivAddEducation.setVisibility(View.GONE);
@@ -987,10 +987,10 @@ public class FragmentManageDoctorProfile extends Fragment {
                         rlProfile.setVisibility(View.VISIBLE);
                         imageLoader.DisplayImage(doctorProfile.getData().getUpload(),ivImageProfile);
                         if(!doctorProfile.getData().getName().contains(getString(R.string.dr))) {
-                            etUserName.setText(getString(R.string.dr) + "" + doctorProfile.getData().getName());
+                            etUserName.setText(getString(R.string.dr) + "" + doctorProfile.getData().getName().trim());
                         }
                         else {
-                            etUserName.setText(doctorProfile.getData().getName());
+                            etUserName.setText(doctorProfile.getData().getName().trim());
                         }
                         tvLocation.setText(doctorProfile.getData().getHomeLocation());
                         etAbountMe.setText(doctorProfile.getData().getAboutMe());

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rlProfile"
+    android:visibility="visible"
     tools:context="com.app.hakeem.fragment.FragmentManageDoctorProfile">
 
     <!-- TODO: Update blank fragment layout -->
@@ -19,7 +20,6 @@
         android:layout_height="match_parent">
     <LinearLayout
 
-        android:paddingTop="20dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:focusable="true"
@@ -35,15 +35,16 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/edittext_deselect_blue"
             android:hint=""
-            android:padding="5dp"
+            android:padding="2dp"
             android:textSize="14sp"
+            android:textStyle="bold"
             android:text="@string/name"
             android:gravity="center"
             android:textColor="@color/blue"
             android:textColorHint="@color/white_off" />
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
@@ -79,7 +80,7 @@
             android:textColorHint="@color/white_off" />
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
@@ -123,7 +124,7 @@
             android:layout_height="wrap_content"></ListView>
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
@@ -160,7 +161,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_height="wrap_content">

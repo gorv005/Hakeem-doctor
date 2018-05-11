@@ -22,7 +22,7 @@
     <string name="setting">الاعدادات</string>
     <string name="dependent">التابعين</string>
     <string name="queue">الانتظار</string>
-    <string name="emr_and_tracker">السجل الطبي و متابعة الحالة الصحية</string>
+    <string name="emr_and_tracker">ملفي</string>
     <string name="notification">التنبيهات</string>
     <string name="tatab_app">تطبب</string>
     <string name="register">التسجيل</string>
@@ -101,7 +101,7 @@
     <string name="network_error">يوجد مشكلة في شبكة الاتصال ... حاول مرة اخرى</string>
     <string name="please_connect_to_the_internet">فضلا اتصل بالشبكة أولا</string>
     <string name="health_tracker">متابعة الحالة الصحية</string>
-    <string name="emr_tracker">ملفي و متابعة الحالة الصحية</string>
+    <string name="emr_tracker">ملفي</string>
     <string name="Consultation">استشارة</string>
     <string name="emr">ملفي</string>
     <string name="birthdate">تاريخ الميلاد</string>
@@ -216,7 +216,7 @@
     <string name="heartRate">معدل ضربات القلب</string>
     <string name="enter_250_char">المحتوى أكثر من 250 حرفًا. يجب أن لا يتجاوز  المحتوى 250 حرفًا.</string>
     <string name="sa">السعودية</string>
-    <string name="resigned_date_required"></string>
+    <string name="resigned_date_required">الموعد المستقطع مطلوب</string>
     <string name="no_one_found_in_queue">لا يوجد المزيد في قائمة الانتظار</string>
     <string name="please_select_terms_and_condition">فضلا اختر الشروط والأحكام</string>
     <string name="select_patient">اختر مريض</string>
@@ -633,5 +633,30 @@
 
     <string name="are_sure_you_want_to_delete">Are you sure you want to delete the dependent?</string>
     <string name="working_till">Worked Till</string>
+
+
+    <string name="tech_support_request">Technical Support Request</string>
+    <string name="problem_type">نوع المشكلة</string>
+    <string name="problem_title">عنوان المشكلة</string>
+    <string name="problem_desc">وصف المشكلة</string>
+    <string name="Problem_Type_required">نحتاج نوع المشكلة</string>
+    <string name="Problem_Title_required">نحتاج عنوان المشكلة</string>
+    <string name="Problem_Description_required">نحتاج وصف المشكلة</string>
+    <string name="Technical_issue">عطل فني</string>
+    <string name="Payments_issue">خطأ بالمدفوعات</string>
+    <string name="Other">أخرى</string>
+    <string name="About_Me">معلومات عنَي</string>
+    <string name="Education">التعليم</string>
+    <string name="Location">Location</string>
+    <string name="Years_Of_Experience">سنوات الخبرة</string>
+    <string name="Doctor_Profile">معلومات عن الطبيب</string>
+    <string name="Description">الوصف</string>
+    <string name="description_required">نحتاج الوصف</string>
+    <string name="Unversity_Name">إسم الجامعة</string>
+    <string name="University_required">نحتاج إسم الجامعة</string>
+    <string name="Edit">تعديل</string>
+    <string name="save">حفظ</string>
+    <string name="Queue_is_empty">Queue is empty</string>
+    <string name="save_Message">هل ترغب بالحفظ</string>
 
 </resources>

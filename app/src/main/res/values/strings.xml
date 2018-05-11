@@ -25,13 +25,13 @@
     <string name="setting">Settings</string>
     <string name="dependent">Dependent</string>
     <string name="queue">Queue</string>
-    <string name="emr_and_tracker">EHR and Tracker</string>
+    <string name="emr_and_tracker">EHR</string>
     <string name="notification">Notification</string>
     <string name="tatab_app">TatabApp</string>
     <string name="register">Register</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="need_help">Need Help</string>
+    <string name="need_help">Need Help?</string>
     <string name="create_account">Create Account</string>
     <string name="create_a_doctor_account">Create a doctor account</string>
     <string name="male">Male</string>
@@ -106,7 +106,7 @@
     <string name="network_error">Network error. Please try after some time.</string>
     <string name="please_connect_to_the_internet">Please connet to the internet first.</string>
     <string name="health_tracker">Health Tracker</string>
-    <string name="emr_tracker">EHR/Tracker</string>
+    <string name="emr_tracker">EHR</string>
     <string name="Consultation">Consultation</string>
 
     <string name="emr">EHR</string>
@@ -671,8 +671,10 @@
     <string name="Description">Description</string>
     <string name="description_required">We need a description</string>
     <string name="Unversity_Name">University Name</string>
-    <string name="University_required">\"We need a University Name</string>
+    <string name="University_required">We need a University Name</string>
     <string name="Edit">Edit</string>
     <string name="save">Save</string>
+    <string name="Queue_is_empty">Queue is empty</string>
+    <string name="save_Message">Do you want to save the changes?</string>
 
 </resources>
