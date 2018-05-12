@@ -15,11 +15,12 @@
         android:layout_height="200dp"
          />
     <ScrollView
+
         android:layout_below="@+id/ivImageProfile"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <LinearLayout
-
+        android:layout_marginBottom="20dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:focusable="true"
@@ -62,7 +63,7 @@
             android:textColor="@color/blue"
             android:textSize="16sp" />
         </LinearLayout>
-        <EditText
+        <TextView
             android:id="@+id/etAbountMe"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -115,13 +116,13 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <ListView
+        <com.app.hakeem.util.NonScrollListView
             android:id="@+id/lvEducation"
             android:layout_width="match_parent"
             android:divider="@null"
             android:background="@color/white"
             android:dividerHeight="1dp"
-            android:layout_height="wrap_content"></ListView>
+            android:layout_height="wrap_content"></com.app.hakeem.util.NonScrollListView>
 
         <LinearLayout
             android:layout_marginTop="10dp"
@@ -195,8 +196,12 @@
                     android:layout_height="30dp" />
             </RelativeLayout>
         </LinearLayout>
+        <RelativeLayout
+            android:layout_marginBottom="40dp"
 
-        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <com.app.hakeem.util.NonScrollListView
             android:listSelector="@android:color/transparent"
             android:cacheColorHint="@android:color/transparent"
             android:divider="@null"
@@ -204,8 +209,8 @@
             android:id="@+id/lvExperiance"
             android:layout_width="match_parent"
             android:dividerHeight="1dp"
-            android:layout_marginBottom="20dp"
-            android:layout_height="wrap_content"></ListView>
+            android:layout_height="wrap_content"></com.app.hakeem.util.NonScrollListView>
+        </RelativeLayout>
     </LinearLayout>
     </ScrollView>
 </RelativeLayout>

@@ -423,6 +423,26 @@ public class ActivityContainer extends AppCompatActivity {
         if(fragment !=null &&fragment instanceof FragmentTermsAndCondition){
             getSupportActionBar().hide();
         }
+         if(fragment !=null &&fragment instanceof FragmentManageDoctorProfile  && SharedPreference.getInstance(this).getUser(C.LOGIN_USER).getUserType().equals(C.DOCTOR)){
+
+                if(((FragmentManageDoctorProfile)fragment).isEditMode()){
+                    ((FragmentManageDoctorProfile) fragment). showAlertForConfirm(this,
+                            getString(R.string.alert), getString(R.string.save_Message),
+                            getString(R.string.yes), getString(R.string.no), R.drawable.warning, false);
+             }
+             else {
+                    backPress();
+                }
+
+
+        }
+        else {
+             backPress();
+         }
+
+    }
+
+  public   void backPress(){
         btnAddDependent.setVisibility(View.GONE);
         ivQuestionMark.setVisibility(View.GONE);
         getSupportFragmentManager().executePendingTransactions();
@@ -471,7 +491,6 @@ public class ActivityContainer extends AppCompatActivity {
             finish();
         }
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home)

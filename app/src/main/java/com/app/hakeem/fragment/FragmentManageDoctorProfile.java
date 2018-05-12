@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -51,6 +52,7 @@ import com.app.hakeem.pojo.UploadFileRes;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.ImageLoader;
 import com.app.hakeem.util.MultipartUtility;
+import com.app.hakeem.util.NonScrollListView;
 import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
 import com.app.hakeem.webservices.VolleyService;
@@ -83,13 +85,13 @@ public class FragmentManageDoctorProfile extends Fragment {
     @BindView(R.id.etUserName)
     EditText etUserName;
     @BindView(R.id.etAbountMe)
-    EditText etAbountMe;
+    TextView etAbountMe;
     @BindView(R.id.lvEducation)
-    ListView lvEducation;
+    NonScrollListView lvEducation;
     @BindView(R.id.tvLocation)
     TextView tvLocation;
     @BindView(R.id.lvExperiance)
-    ListView lvExperiance;
+    NonScrollListView lvExperiance;
     @BindView(R.id.ivImageProfile)
     ImageView ivImageProfile;
     @BindView(R.id.ivAddExperience)
@@ -105,6 +107,7 @@ public class FragmentManageDoctorProfile extends Fragment {
     boolean isExpAdd=false;
     java.util.Date startDate,endDate;
     EditText etHospitalName;
+    EditText etAbout;
 
     EditText etWorkingSince;
     EditText etUniversityName;
@@ -112,6 +115,8 @@ public class FragmentManageDoctorProfile extends Fragment {
     EditText etDescription;
     EditText etResignedSince;
     Button btnConfirmExperiance;
+    Button btnConfirmAddAbout;
+
     Calendar myCalendar = Calendar.getInstance(Locale.US);
     boolean isWorkingSince=false;
     boolean isEdit=false;
@@ -176,6 +181,14 @@ public class FragmentManageDoctorProfile extends Fragment {
                 openCitySelector();
             }
         });
+        etAbountMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isEdit) {
+                    openAboutDialog();
+                }
+            }
+        });
         disableViews();
         if(getArguments()!=null) {
             String docId = getArguments().getString(C.CHAT_DOCTOR_ID);
@@ -207,16 +220,12 @@ public class FragmentManageDoctorProfile extends Fragment {
                     setListView();
                 }
                 else {
-                    if(isImageSelected) {
-                        new UploadFileFroURL(getActivity()).execute(filePath);
-                    }
-                    else {
-                        getProfileData(doctorProfile.getData().getUpload());
-                    }
 
+                    saveDocProfile();
                 }
             }
         });
+
 
         ivImageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,7 +240,14 @@ public class FragmentManageDoctorProfile extends Fragment {
             }
         });
     }
-
+    void saveDocProfile(){
+        if(isImageSelected) {
+            new UploadFileFroURL(getActivity()).execute(filePath);
+        }
+        else {
+            getProfileData(doctorProfile.getData().getUpload());
+        }
+    }
     private void showPictureDialog() {
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(getActivity());
         pictureDialog.setTitle("Select Action");
@@ -543,8 +559,6 @@ public class FragmentManageDoctorProfile extends Fragment {
 
     void disableViews(){
         isEdit=false;
-        Util.hideSoftKeyboard(getActivity());
-        Util.hideSoftKeyboard(getActivity());
 
         ActivityContainer.tvEdit.setText(getString(R.string.Edit));
 
@@ -637,7 +651,18 @@ public class FragmentManageDoctorProfile extends Fragment {
         }
         return true;
     }
+    public boolean isAllVaildDetailOfAbout() {
+        if (etAbout.getText().toString().length() == 0) {
+            //etHospitalName.setError(getActivity().getResources().getString(R.string.first_name_required));
+            Util.showAlert(getActivity(),getString(R.string.warning),getString(R.string.we_need_about),getString(R.string.ok),R.drawable.warning);
 
+            etAbout.requestFocus();
+            return false;
+        }
+
+
+        return true;
+    }
     public boolean isAllVaildDetailOfExp() {
         if (etHospitalName.getText().toString().length() == 0) {
             //etHospitalName.setError(getActivity().getResources().getString(R.string.first_name_required));
@@ -681,8 +706,8 @@ public class FragmentManageDoctorProfile extends Fragment {
     }
 
     public void setListView(){
-        Util.setListViewHeightBasedOnChildren(lvEducation);
-        Util.setListViewHeightBasedOnChildren(lvExperiance);
+       // Util.setListViewHeightBasedOnChildren(lvEducation);
+       // Util.setListViewHeightBasedOnChildren(lvExperiance);
 
 
     }
@@ -725,7 +750,44 @@ public class FragmentManageDoctorProfile extends Fragment {
                     // experiences.add(experience);
                     adapterDoctorEducationManage.updateItem(pos,education);
 
-                    Util.setListViewHeightBasedOnChildren(lvEducation);
+                   // Util.setListViewHeightBasedOnChildren(lvEducation);
+                    dialog.dismiss();
+                }
+            }
+        });
+
+
+        dialog.show();
+
+
+    }
+    private void openAboutDialog() {
+
+
+        final LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_add_about, null);
+        final AlertDialog dialog = new AlertDialog.Builder(getActivity()).create();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setView(deleteDialogView);
+
+
+
+        etAbout = (EditText) deleteDialogView.findViewById(R.id.etAbout);
+
+
+        btnConfirmAddAbout = (Button) deleteDialogView.findViewById(R.id.btnConfirmAddAbout);
+
+
+        etAbout.setText(etAbountMe.getText().toString());
+        btnConfirmAddAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isAllVaildDetailOfAbout()) {
+                    etAbountMe.setText(etAbout.getText().toString());
                     dialog.dismiss();
                 }
             }
@@ -774,7 +836,7 @@ public class FragmentManageDoctorProfile extends Fragment {
                     // experiences.add(experience);
                     adapterDoctorEducationManage.addItem(education);
 
-                    Util.setListViewHeightBasedOnChildren(lvEducation);
+                  //  Util.setListViewHeightBasedOnChildren(lvEducation);
                     dialog.dismiss();
                 }
             }
@@ -830,7 +892,7 @@ public class FragmentManageDoctorProfile extends Fragment {
                     // experiences.add(experience);
                     adapterDoctorExperienceManage.updateItem(pos,experience);
                     isExpAdd=true;
-                    Util.setListViewHeightBasedOnChildren(lvExperiance);
+                   // Util.setListViewHeightBasedOnChildren(lvExperiance);
                     dialog.dismiss();
                 }
             }
@@ -897,7 +959,7 @@ public class FragmentManageDoctorProfile extends Fragment {
                     // experiences.add(experience);
                     adapterDoctorExperienceManage.addItem(experience);
                     isExpAdd=true;
-                    Util.setListViewHeightBasedOnChildren(lvExperiance);
+                 //   Util.setListViewHeightBasedOnChildren(lvExperiance);
                     dialog.dismiss();
                 }
             }
@@ -998,13 +1060,13 @@ public class FragmentManageDoctorProfile extends Fragment {
                         for (int i=0;i<doctorProfile.getData().getEducation().size();i++) {
                             adapterDoctorEducationManage.addItem(doctorProfile.getData().getEducation().get(i));
                         }
-                        Util.setListViewHeightBasedOnChildren(lvEducation);
+                    //    Util.setListViewHeightBasedOnChildren(lvEducation);
                         for (int i=0;i<doctorProfile.getData().getExperience().size();i++) {
                             doctorProfile.getData().getExperience().get(i).setJoining_date(doctorProfile.getData().getExperience().get(i).getWorkedSince());
                             doctorProfile.getData().getExperience().get(i).setResigned_date(doctorProfile.getData().getExperience().get(i).getResignedSince());
                             adapterDoctorExperienceManage.addItem(doctorProfile.getData().getExperience().get(i));
                         }
-                        Util.setListViewHeightBasedOnChildren(lvExperiance);
+                     //   Util.setListViewHeightBasedOnChildren(lvExperiance);
                       //  Util.showAlertBackPress(getActivity(),getString(R.string.success),doctorProfile.getMessage(),getString(R.string.ok),R.drawable.success,true);
 
                     } else {
@@ -1028,5 +1090,59 @@ public class FragmentManageDoctorProfile extends Fragment {
             }
         }, "login", C.API_GET_DOC_DATA, Util.getHeader(getActivity()), obj);
     }
+    public void showAlertForConfirm(final Activity context, String title, String msg, String btnText1, String btnText2, int img, final boolean finishActivity) {
 
+
+        final LayoutInflater factory = LayoutInflater.from(context);
+        final View deleteDialogView = factory.inflate(
+                R.layout.dialog_alert_with_two_button, null);
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //   dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setContentView(deleteDialogView);
+
+
+        TextView tvMsg = (TextView) deleteDialogView.findViewById(R.id.tvMsg);
+        tvMsg.setText(msg);
+
+        TextView tvTitle = (TextView) deleteDialogView.findViewById(R.id.tvTitle);
+        tvTitle.setText(title);
+        ImageView ivAlertImage = (ImageView) deleteDialogView.findViewById(R.id.ivAlertImage);
+        ivAlertImage.setImageResource(img);
+        Button btnDone = (Button) deleteDialogView.findViewById(R.id.btnDone);
+        btnDone.setText(btnText1);
+        Button btnCancel = (Button) deleteDialogView.findViewById(R.id.btnCancel);
+        btnCancel.setText(btnText2);
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+
+                saveDocProfile();
+
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dialog.dismiss();
+                ((ActivityContainer)getActivity()).backPress();
+
+            }
+        });
+
+        dialog.show();
+
+
+    }
+
+    public boolean isEditMode(){
+        return isEdit;
+    }
 }

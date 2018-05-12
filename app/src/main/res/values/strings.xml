@@ -679,5 +679,6 @@
     <string name="no_pdf_viewer">No Application Available to View PDF</string>
     <string name="downloading_report">Downloading report...</string>
     <string name="download_success_report">Report downloaded successfully</string>
+    <string name="we_need_about">We need a About</string>
 
 </resources>
