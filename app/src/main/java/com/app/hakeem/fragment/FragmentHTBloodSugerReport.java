@@ -225,7 +225,7 @@ public class FragmentHTBloodSugerReport extends Fragment {
         hashMap.put("patient_id", patientId);
 
         hashMap.put("dependent_id", dependentId);
-        hashMap.put("report", "1");
+        hashMap.put("report", "4");
 
 
         hashMap.put("from", mFrom);
@@ -250,7 +250,7 @@ public class FragmentHTBloodSugerReport extends Fragment {
                 progressDialog.dismiss();
                 ResponsePDF responsePDF = gson.fromJson(response.toString(), ResponsePDF.class);
                 if (responsePDF.getStatusCode().equals(C.STATUS_SUCCESS)) {
-                    new DownloadPdf(getActivity(),responsePDF.getDownloadUrl(),"Blood_Suger_report_"+Util.getCurrentTimeStamp()+".pdf");
+                    new DownloadPdf(getActivity(),responsePDF.getDownloadUrl(),"Blood_Sugar_report_"+Util.getCurrentTimeStamp()+".pdf");
 
                 } else {
                     //Util.showToast(getActivity(), responseServer.getMessage(), false);
@@ -614,7 +614,7 @@ public class FragmentHTBloodSugerReport extends Fragment {
             @Override
             public void onClick(View v) {
                 if(etComment.getText().toString().trim().length()==0){
-                    addBloodSugereport("weight");
+                    addBloodSugereport("Blood Sugar");
                 }
                 else {
                     addBloodSugereport(etComment.getText().toString());

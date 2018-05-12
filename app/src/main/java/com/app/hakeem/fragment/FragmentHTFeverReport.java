@@ -263,7 +263,7 @@ public class FragmentHTFeverReport extends Fragment implements ITempValue{
             @Override
             public void onClick(View v) {
                 if(etComment.getText().toString().trim().length()==0){
-                    addFeverReport("weight");
+                    addFeverReport("Fever");
                 }
                 else {
                     addFeverReport(etComment.getText().toString());

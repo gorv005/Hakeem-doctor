@@ -163,7 +163,7 @@ public class FragmentHTWeightReport extends Fragment {
         hashMap.put("patient_id", patientId);
 
         hashMap.put("dependent_id", dependentId);
-        hashMap.put("report", "1");
+        hashMap.put("report", "2");
 
 
         hashMap.put("from", mFrom);
@@ -397,7 +397,7 @@ public class FragmentHTWeightReport extends Fragment {
             @Override
             public void onClick(View v) {
                 if(etComment.getText().toString().trim().length()==0){
-                addWeightReport("weight");
+                addWeightReport("Weight");
             }
             else {
                 addWeightReport(etComment.getText().toString());

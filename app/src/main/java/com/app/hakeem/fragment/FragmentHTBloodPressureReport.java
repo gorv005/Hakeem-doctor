@@ -176,7 +176,7 @@ public class FragmentHTBloodPressureReport extends Fragment implements ITempValu
         hashMap.put("patient_id", patientId);
 
         hashMap.put("dependent_id", dependentId);
-        hashMap.put("report", "1");
+        hashMap.put("report", "3");
 
 
         hashMap.put("from", mFrom);
