@@ -3,13 +3,14 @@ package com.app.hakeem.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by aditya.singh on 2/2/2018.
  */
 
-public class Response {
+public class Response implements Serializable{
 
     @SerializedName("status_code")
     @Expose

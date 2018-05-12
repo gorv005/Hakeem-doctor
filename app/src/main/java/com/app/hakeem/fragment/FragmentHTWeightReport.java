@@ -29,7 +29,9 @@ import com.app.hakeem.R;
 import com.app.hakeem.interfaces.IResult;
 import com.app.hakeem.pojo.HTWeightReportData;
 import com.app.hakeem.pojo.HTWeightReportList;
+import com.app.hakeem.pojo.ResponsePDF;
 import com.app.hakeem.util.C;
+import com.app.hakeem.util.DownloadPdf;
 import com.app.hakeem.util.SharedPreference;
 import com.app.hakeem.util.Util;
 import com.app.hakeem.webservices.VolleyService;
@@ -73,7 +75,8 @@ public class FragmentHTWeightReport extends Fragment {
     Button btnRefresh;
     @BindView(R.id.ivAddWight)
     ImageView ivAddWight;
-
+    @BindView(R.id.ivDownloadPdf)
+    ImageView ivDownloadPdf;
     ImageView ivObesityWeight;
     ImageView ivOverWeight;
     ImageView ivNormalWeight;
@@ -144,6 +147,67 @@ public class FragmentHTWeightReport extends Fragment {
                 openPopUpAddWeight();
             }
         });
+        ivDownloadPdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getReportPDF();
+            }
+        });
+    }
+    private void getReportPDF() {
+
+        progressDialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        progressDialog.show();
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("patient_id", patientId);
+
+        hashMap.put("dependent_id", dependentId);
+        hashMap.put("report", "1");
+
+
+        hashMap.put("from", mFrom);
+        hashMap.put("to", mTo);
+        hashMap.put("weight",  ((ActivityContainer)getActivity()).getWeight());
+        hashMap.put("height", ((ActivityContainer)getActivity()).getHeight());
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                progressDialog.dismiss();
+                ResponsePDF responsePDF = gson.fromJson(response.toString(), ResponsePDF.class);
+                if (responsePDF.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                    new DownloadPdf(getActivity(),responsePDF.getDownloadUrl(),"Weight_report_"+Util.getCurrentTimeStamp()+".pdf");
+
+                } else {
+                    //Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.alert),responsePDF.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+
+                }
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+                Log.e("Response", error.toString());
+                progressDialog.dismiss();
+                // Util.showToast(getActivity(), R.string.network_error, false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
+
+            }
+        }, "callback", C.API_GET_REPORT_PDF, Util.getHeader(getActivity()), obj);
+
+
     }
 
     private void openPopUpAddWeight() {

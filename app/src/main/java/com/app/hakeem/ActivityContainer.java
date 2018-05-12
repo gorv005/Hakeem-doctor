@@ -359,7 +359,23 @@ public class ActivityContainer extends AppCompatActivity {
 
 
     }
+    public String getWeight(){
+        Fragment fragment = getVisibleFragment();
 
+        if(fragment!=null && fragment instanceof FragmentEmrAndHealthTracker){
+           return  ((FragmentEmrAndHealthTracker)fragment).getWeight();
+        }
+        return "";
+    }
+
+    public String getHeight(){
+        Fragment fragment = getVisibleFragment();
+
+        if(fragment!=null && fragment instanceof FragmentEmrAndHealthTracker){
+            return  ((FragmentEmrAndHealthTracker)fragment).getHeight();
+        }
+        return "";
+    }
     public void setValues(String hr, String weight){
        Fragment fragment = getVisibleFragment();
 

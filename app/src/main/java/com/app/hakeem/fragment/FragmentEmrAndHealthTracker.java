@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,18 @@ import android.widget.TextView;
 
 import com.app.hakeem.ActivityContainer;
 import com.app.hakeem.R;
+import com.app.hakeem.interfaces.IResult;
+import com.app.hakeem.pojo.HTWeightReportList;
 import com.app.hakeem.util.C;
 import com.app.hakeem.util.SharedPreference;
+import com.app.hakeem.util.Util;
+import com.app.hakeem.webservices.VolleyService;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +55,7 @@ public class FragmentEmrAndHealthTracker extends Fragment {
     RadioButton rbHeathTracker;
     private Fragment fragment;
     private int fragmentAction;
-    String dependentId;
+    String dependentId,patientId ;
     public FragmentEmrAndHealthTracker() {
         // Required empty public constructor
     }
@@ -52,15 +63,13 @@ public class FragmentEmrAndHealthTracker extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* Bundle bundle = getArguments();
+        Bundle bundle = getArguments();
         if (bundle != null) {
-            name =  bundle.getString(C.NAME);
-            dob =  bundle.getString(C.DOB);
-            gender =  bundle.getString(C.GENDER);
-            dependentId =  bundle.getString(C.DEPENDENT_ID);
-            patientId =  bundle.getInt(C.PATIENT_ID);
 
-        }*/
+            dependentId =  bundle.getString(C.DEPENDENT_ID);
+            patientId =  bundle.getString(C.PATIENT_ID);
+
+        }
     }
 
    public void setValues(String hr, String weight){
@@ -68,6 +77,18 @@ public class FragmentEmrAndHealthTracker extends Fragment {
         tvWeight.setText(weight);
 
    }
+
+
+    public String getWeight(){
+       return tvWeight.getText().toString();
+
+    }
+    public String getHeight(){
+        return tvHeight.getText().toString();
+
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -86,7 +107,7 @@ public class FragmentEmrAndHealthTracker extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
+        getWeightReport();
         rbEmr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -179,6 +200,70 @@ public class FragmentEmrAndHealthTracker extends Fragment {
         }
         tvGender.setText(bundle.getString(C.GENDER));
         tvDOB.setText(bundle.getString(C.DOB));
+
+    }
+
+
+    private void getWeightReport() {
+
+ /*       progressDialog = Util.getProgressDialog(getActivity(), R.string.please_wait);
+        progressDialog.show();*/
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("dependent_id", dependentId);
+
+
+        hashMap.put("patient_id", patientId);
+        hashMap.put("from", Util.get2MonthNextDate(Util.getCurrentDate()));
+        hashMap.put("to", Util.getCurrentDate());
+
+        final Gson gson = new Gson();
+        String json = gson.toJson(hashMap);
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        VolleyService volleyService = new VolleyService(getActivity());
+        volleyService.postDataVolley(new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                HTWeightReportList responseServer = gson.fromJson(response.toString(), HTWeightReportList.class);
+                if (responseServer.getStatusCode().equals(C.STATUS_SUCCESS)) {
+                    if(responseServer.getData()!=null && responseServer.getData().size()>0) {
+                        setValues(responseServer.getData().get(responseServer.getData().size()-1).getHeight() +" "+getActivity().getString(R.string.cm),
+                                responseServer.getData().get(responseServer.getData().size()-1).getWeight()+" "+getActivity().getString(R.string.kg));
+
+                    }
+                    else {
+                        //   ((ActivityContainer)getActivity()).setValues("","");
+                        Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+
+                    }
+
+                } else {
+                    //  ((ActivityContainer)getActivity()).setValues("","");
+
+                    //Util.showToast(getActivity(), responseServer.getMessage(), false);
+                    Util.showAlertForToast(getActivity(),getString(R.string.alert),responseServer.getMessage(),getString(R.string.ok),R.drawable.warning,false);
+
+                }
+            }
+
+            @Override
+            public void notifyError(String requestType, String error) {
+                Log.e( "Response", error.toString());
+               // progressDialog.dismiss();
+                // Util.showToast(getActivity(), R.string.network_error, false);
+                Util.showAlertForToast(getActivity(),getString(R.string.error),getString(R.string.network_error),getString(R.string.ok),R.drawable.error,false);
+
+            }
+        }, "callback", C.API_GET_WEIGHT_REPORT, Util.getHeader(getActivity()), obj);
+
 
     }
 

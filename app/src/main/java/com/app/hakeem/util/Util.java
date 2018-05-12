@@ -5,9 +5,11 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -47,6 +49,7 @@ import com.app.hakeem.R;
 import com.app.hakeem.pojo.GeneralPojoKeyValue;
 import com.app.hakeem.pojo.SideMenuItem;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
@@ -274,7 +277,14 @@ public class Util {
         return s;
     }
 
-
+    public static String getCurrentTimeStamp(){
+       /* SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
+        Date date=new Date();
+        String timeStamp = formatter.format(date);
+        return timeStamp;*/
+        return String.valueOf(Calendar.getInstance()
+                .getTimeInMillis());
+    }
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -1224,5 +1234,31 @@ public class Util {
             }
         }
         return mob;
+    }
+    public static void showPdf(Activity context,File file)
+    {
+        try {
+
+
+            PackageManager packageManager = context.getPackageManager();
+            Intent testIntent = new Intent(Intent.ACTION_VIEW);
+            testIntent.setType("application/pdf");
+            List list = packageManager.queryIntentActivities(testIntent, PackageManager.MATCH_DEFAULT_ONLY);
+            //if(list!=null && list.size()>0) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                Uri uri = Uri.fromFile(file);
+                intent.setDataAndType(uri, "application/pdf");
+                context.startActivity(intent);
+            /*}
+            else {
+                Util.showAlertForToast(context,context.getString(R.string.alert),context.getString(R.string.no_pdf_viewer),context.getString(R.string.ok),R.drawable.warning,false);
+
+            }*/
+        }
+        catch (ActivityNotFoundException e) {
+            Util.showAlertForToast(context,context.getString(R.string.alert),context.getString(R.string.no_pdf_viewer),context.getString(R.string.ok),R.drawable.warning,false);
+
+        }
     }
 }

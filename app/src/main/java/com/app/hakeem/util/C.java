@@ -106,7 +106,7 @@ public interface C {
     String API_REGISTER_FETCH_DOCTOR_PATIENTS = BASE_URL + "/patients";
     String API_GET_CHAT_GROUP = BASE_URL + "/getchatgroup";
     String API_GET_PRESCRIPTION = BASE_URL + "/getprescription";
-
+    String API_GET_REPORT_PDF = BASE_URL + "/pdfreport";
     String API_GET_FEVER_REPORT = BASE_URL + "/getreportfever";
     String API_GET_WEIGHT_REPORT = BASE_URL + "/getreportweight";
     String API_GET_BLOOD_PRESSURE_REPORT = BASE_URL + "/getbloodpressure";
