@@ -121,8 +121,8 @@
             android:layout_width="match_parent"
             android:divider="@null"
             android:background="@color/white"
-            android:dividerHeight="1dp"
-            android:layout_height="wrap_content"></com.app.hakeem.util.NonScrollListView>
+
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:layout_marginTop="10dp"
@@ -202,14 +202,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <com.app.hakeem.util.NonScrollListView
-            android:listSelector="@android:color/transparent"
-            android:cacheColorHint="@android:color/transparent"
             android:divider="@null"
             android:background="@color/white"
             android:id="@+id/lvExperiance"
             android:layout_width="match_parent"
-            android:dividerHeight="1dp"
-            android:layout_height="wrap_content"></com.app.hakeem.util.NonScrollListView>
+            android:layout_height="wrap_content"/>
         </RelativeLayout>
     </LinearLayout>
     </ScrollView>

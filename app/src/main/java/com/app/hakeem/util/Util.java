@@ -375,7 +375,26 @@ public class Util {
     }
 
 
+    public static void setListViewHeightBasedOnChildrenView(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
 
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+    }
 
     public static void hideKeyBoard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity
@@ -756,7 +775,7 @@ public class Util {
             sideMenuItems.add(new SideMenuItem(R.string.emr_and_tracker, R.drawable.menu_general));
             sideMenuItems.add(new SideMenuItem(R.string.profile, R.drawable.icon_profile));
             sideMenuItems.add(new SideMenuItem(R.string.setting, R.drawable.icon_settting));
-            sideMenuItems.add(new SideMenuItem(R.string.need_help, R.drawable.question_mark));
+            sideMenuItems.add(new SideMenuItem(R.string.need_help, R.drawable.icon_settting));
 
 //            sideMenuItems.add(new SideMenuItem(R.string.awareness, R.drawable.menu_general));
 //            sideMenuItems.add(new SideMenuItem(R.string.notification, R.drawable.icon_settting));

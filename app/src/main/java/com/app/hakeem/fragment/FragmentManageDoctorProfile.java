@@ -150,7 +150,7 @@ public class FragmentManageDoctorProfile extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
+        rlProfile.setVisibility(View.GONE);
         Util.hideSoftKeyboardFromDialog(getActivity(),view);
         imageLoader=new ImageLoader(getActivity());
         ivAddEducation.setOnClickListener(new View.OnClickListener() {

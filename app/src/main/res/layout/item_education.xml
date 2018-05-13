@@ -9,6 +9,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
 
         android:layout_centerVertical="true"
        >
@@ -16,7 +17,7 @@
         <LinearLayout
 
             android:id="@+id/llEducation"
-            android:background="@drawable/edittext_deselect_blue"
+            android:background="@drawable/card_background_selector"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
