@@ -1261,6 +1261,7 @@ public class Util {
 
             PackageManager packageManager = context.getPackageManager();
             Intent testIntent = new Intent(Intent.ACTION_VIEW);
+
             testIntent.setType("application/pdf");
             List list = packageManager.queryIntentActivities(testIntent, PackageManager.MATCH_DEFAULT_ONLY);
             //if(list!=null && list.size()>0) {
